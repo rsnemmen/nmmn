@@ -1,30 +1,36 @@
-Miscellaneous tools
+Miscellaneous tools: nemmen
 ===================
 
-Restructuring my python code to make it public.
+Miscellaneous methods for:
 
-# Public
+* astronomy
+* signal processing
+* misc. operations on arrays, lists, dictionaries and sets
+* statistical methods
+* custom plots
 
-parts of the nemmen code
-
-cpsubdirs
 
 
+# Installation
 
-# Not public
+The command line script can be installed via
 
-* agngrb
-* fermi
-* nembay
-* peakdetect
-* perfil
-* plothist
-* sed
-* sedplot
+    python setup.py install
+
+You may need to run the last command with `sudo`.
+
+
+
+
 
 # TODO
 
-* [ x ] repackage into public and private modules
-* [ ] install instructions
-* [ ] license
-* 
+* [x] repackage into public and private modules
+* [x] install instructions
+* [x] license
+* [ ] requirements
+* [ ] fix init with default methods
+
+# License
+
+See LICENSE file.

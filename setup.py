@@ -13,7 +13,7 @@ setup(
     long_description=readme,
     author='Rodrigo Nemmen',
     author_email='rodrigo.nemmen@iag.usp.br',
-    url='https://github.com/kennethreitz/samplemod',
+    url='https://github.com/rsnemmen/nemmen',
     license=license,
     packages=find_packages(exclude=('tests', 'docs'))
 )
