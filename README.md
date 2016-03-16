@@ -9,7 +9,7 @@ Miscellaneous methods for:
 * statistical methods
 * custom plots
 
-
+These are methods I wrote which I find useful -- for whatever reason -- in my research.
 
 # Installation
 

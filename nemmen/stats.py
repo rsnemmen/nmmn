@@ -10,6 +10,10 @@ Miscellaneous statistical methods
 - p-values and significance
 """
 
+import numpy,scipy
+import scipy.stats
+
+
 
 
 # Residuals of a fit

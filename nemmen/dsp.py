@@ -4,6 +4,9 @@ Signal processing
 """
 
 
+import numpy
+
+
 
 
 def peaks(y,x=None,what=0,**args):

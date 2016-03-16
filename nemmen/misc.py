@@ -1,8 +1,8 @@
-
-
-	
 # Miscelaneous methods
 # ======================
+
+import numpy
+
 
 
 def pol2cart(r, phi):

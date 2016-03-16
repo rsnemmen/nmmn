@@ -3,6 +3,9 @@ LSD operations = lists, sets, dictionaries (and arrays)
 =========================================================
 """
 
+import numpy
+import scipy
+
 
 def cmset_and(x,y):
 	"""
@@ -194,6 +197,8 @@ Usage is the same as uncertainties.unumpy.uarray.
 :type x,errx: arrays created with astropy.io.ascii.
 :returns: uncertainties array.
 	"""
+	import uncertainties.unumpy as unumpy
+
 	x=numpy.array(x)
 	errx=numpy.array(errx)
 

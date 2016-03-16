@@ -1,5 +1,12 @@
-# Fancy plots
-# ==============
+"""
+Fancy plots
+==============
+"""
+
+import numpy
+import pylab
+
+
 
 def onehist(x,xlabel='',fontsize=12):
 	""" Script that plots the histogram of x with the corresponding xlabel. """
