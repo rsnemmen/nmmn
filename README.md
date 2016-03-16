@@ -19,7 +19,9 @@ The command line script can be installed via
 
 You may need to run the last command with `sudo`.
 
+Install the package with a symlink, so that changes to the source files will be immediately available:
 
+    python setup.py develop
 
 
 
@@ -30,6 +32,7 @@ You may need to run the last command with `sudo`.
 * [x] license
 * [ ] requirements
 * [ ] fix init with default methods
+* [ ] possibly broken intra-package references? let's see
 
 # License
 
