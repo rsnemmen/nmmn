@@ -8,6 +8,7 @@ Miscellaneous methods for:
 * misc. operations on arrays, lists, dictionaries and sets
 * statistical methods
 * custom plots
+* Fermi LAT analysis methods
 
 These are methods I wrote which I find useful -- for whatever reason -- in my research.
 
