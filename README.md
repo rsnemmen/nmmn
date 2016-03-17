@@ -1,16 +1,17 @@
 Miscellaneous tools: nemmen
 ===================
 
-Miscellaneous methods for:
+Miscellaneous modules for:
 
-* astronomy
-* signal processing
-* misc. operations on arrays, lists, dictionaries and sets
-* statistical methods
-* custom plots
-* Fermi LAT analysis methods
+* `astro`: astronomy
+* `dsp`: signal processing
+* `lsd`: misc. operations on arrays, lists, dictionaries and sets
+* `stats`: statistical methods
+* `plots`: custom plots
+* `fermi`: Fermi LAT analysis methods
+* `bayes`: Bayesian tools for dealing with posterior distributions
 
-These are methods I wrote which I find useful -- for whatever reason -- in my research.
+These are modules I wrote which I find useful -- for whatever reason -- in my research.
 
 # Installation
 
@@ -38,3 +39,9 @@ Install the package with a symlink, so that changes to the source files will be 
 # License
 
 See LICENSE file.
+
+If you have suggestions of improvements, by all means please contribute with a pull request!  :)
+
+The MIT License (MIT). Copyright (c) 2016 [Rodrigo Nemmen](http://rodrigonemmen.com)
+
+[Visit the author's web page](http://rodrigonemmen.com/) and/or follow him on twitter ([@nemmen](https://twitter.com/nemmen)).
