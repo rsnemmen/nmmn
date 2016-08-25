@@ -7,7 +7,7 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='nemmen',
+    name='nmmn',
     version='0.1',
     description='Miscellaneous methods for astronomy, dealing with arrays, statistical distributions and computing goodness-of-fit',
     long_description=readme,

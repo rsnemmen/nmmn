@@ -200,3 +200,44 @@ def PixelFile(i,j):
     From enrico/tsmap.py.
     """
     return 'Pixel_'+str(i)+'_'+str(j)
+
+
+
+
+
+def converttime(y):
+    """
+Converts from MET Fermi time to a python datetime tuple.
+
+>>> convertyear(386817828)
+
+returns datetime.datetime(2013, 4, 5, 1, 23, 48).
+
+:param y: a float or array of floats
+:returns: a datetime structure (or list) with the date corresponding to the input float or array
+
+y is the amount of seconds since 2001.0 UTC. Beware that my method
+may assume that all years have 365 days.
+
+References: 
+
+- http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python
+- http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl
+    """
+    import datetime
+
+    t0=2001
+
+    if numpy.size(y)==1:    # if input is float
+        day_one = datetime.datetime(t0,1,1) # initial time MET
+        d = datetime.timedelta(seconds=y) # dt since t0
+        date = d + day_one
+    else:   # if input is list/array
+        date=[]
+
+        for i, yi in enumerate(y): 
+            day_one = datetime.datetime(t0,1,1)
+            d = datetime.timedelta(seconds=yi)
+            date.append(d + day_one)
+
+    return date

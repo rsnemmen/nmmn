@@ -1217,6 +1217,8 @@ def random(a,b,n=None):
 	"""
 Generates an array of random uniformly distributed floats in the 
 interval *[x0,x1)*.
+
+>>> random(0.3,0.4,1000)
 	"""
 	return (b - a) * scipy.random.random_sample(n) + a
 

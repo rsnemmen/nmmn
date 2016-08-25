@@ -249,6 +249,41 @@ Reference: https://docs.python.org/2/library/datetime.html#strftime-strptime-beh
 
 
 
+def date2dec(date):
+	"""
+Convert a python datetime tuple to decimal year.
+
+Inspired on http://stackoverflow.com/a/6451892/793218.
+	"""
+	import datetime
+	import time
+
+	def sinceEpoch(date): # returns seconds since epoch
+		return time.mktime(date.timetuple())
+
+	def getyear(date): # returns decimal year for a datetime tuple
+		year = date.year
+		startOfThisYear = datetime.datetime(year=year, month=1, day=1)
+		startOfNextYear = datetime.datetime(year=year+1, month=1, day=1)
+		yearElapsed = sinceEpoch(date) - sinceEpoch(startOfThisYear)
+		yearDuration = sinceEpoch(startOfNextYear) - sinceEpoch(startOfThisYear)
+		fraction = yearElapsed/yearDuration
+		return date.year + fraction
+	
+	if numpy.size(date)==1:
+		year=getyear(date)
+	else:
+		year=[]
+		for datei in date:
+			year.append(getyear(datei))
+
+	return numpy.array(year)
+
+
+
+
+
+
 def runsave(cmd,log):
 	"""
 Executes command cmd and saves its standard output as log

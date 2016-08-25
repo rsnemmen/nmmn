@@ -1,4 +1,4 @@
-Miscellaneous tools: nemmen
+Miscellaneous tools: nmmn
 ===================
 
 Miscellaneous modules for:
@@ -32,8 +32,7 @@ Install the package with a symlink, so that changes to the source files will be 
 * [x] repackage into public and private modules
 * [x] install instructions
 * [x] license
-* [ ] requirements
-* [ ] fix init with default methods
+* [x] requirements
 * [ ] possibly broken intra-package references? let's see
 
 # License
