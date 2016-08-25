@@ -48,10 +48,13 @@ Reads data from a VTK file:
 	data as numpy arrays.
 		"""
 		f = open(vtkfile,"r")
-		#newf=open("tmp.dat","w")
+		newf=open("tmp.dat","w")	# file that will hold coordinates
 
-		boold,boolp,boolbx,boolby=False,False,False,False
-		strd,strbx,strby='','','' # string that holds values 
+		# booleans that will tell the code when to stop reading
+		# data for a given variable:
+		# boold for density, boolp for pressure etc
+		boold,boolp,boolvx,boolvy,boolvz,boolb2,boolbx,boolby,boolbz=False,False,False,False,False,False,False,False,False
+		strd,strp,strvx,strvy,strvz,strb2,strbx,strby,strbz='','','','','','','','','' # string that holds values 
 
 		for line in f:
 		    # gets dimensions
@@ -59,8 +62,8 @@ Reads data from a VTK file:
 		        s=re.findall(r'\s*\d+\s*',line.rstrip('\n'))
 		        nx=int(s[0])
 		        ny=int(s[1])
+		        nz=int(s[2])
 		        
-		    
 		    # gets mesh: number number 
 		    if re.search(r'-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+',line):
 		        newf.write(line)
@@ -69,23 +72,59 @@ Reads data from a VTK file:
 		    # these lines are important to tell python when to stop reading shit
 		    # it must be sequential
 		    if 'density' in line: boold=True
-		    if 'pressure' in line: boold=False
+		    if 'pressure' in line: 
+		    	boold=False
+		    	boolp=True
+		    if 'LorentzW1' in line:
+		    	boolp=False
+		    if 'util^x' in line:
+		        boolvx=True
+		    if 'util^y' in line:
+		        boolvx=False
+		        boolvy=True    
+		    if 'util^z' in line:
+		        boolvy=False
+		        boolvz=True  
+		    if 'b^2' in line:
+		        boolvz=False
+		        boolb2=True    		          
 		    if 'bx' in line:
+		    	boolb2=False
 		        boolbx=True
 		    if 'by' in line:
 		        boolbx=False
 		        boolby=True    
-		    if 'bz' in line: boolby=False    
+		    if 'bz' in line: 
+		    	boolby=False    
+		    	boolbz=True
 		    
 		    if boold==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
 		        strd=strd+line
+		    if boolp==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
+		        strp=strp+line
+		    if boolvx==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
+		        strvx=strvx+line
+		    if boolvy==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
+		        strvy=strvy+line
+		    if boolvz==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
+		        strvz=strvz+line
+		    if boolb2==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
+		        strb2=strb2+line
 		    if boolbx==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
-		        strbx=strbx+line
+		        strbx=strbx+line		        
 		    if boolby==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
 		        strby=strby+line
+		    if boolbz==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
+		        strbz=strbz+line
 
+		# gets numpy arrays finally
 
 		        
 		f.close()
 		newf.close()
+
+
+
+
+
 
