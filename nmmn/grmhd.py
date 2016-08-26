@@ -48,13 +48,13 @@ Reads data from a VTK file:
 		import re
 
 		f = open(vtkfile,"r")
-		newf=open("tmp.dat","w")	# file that will hold coordinates
+		#newf=open("tmp.dat","w")	# file that will hold coordinates
 
 		# booleans that will tell the code when to stop reading
 		# data for a given variable:
 		# boold for density, boolp for pressure etc
-		boold,boolp,boolvx,boolvy,boolvz,boolb2,boolbx,boolby,boolbz=False,False,False,False,False,False,False,False,False
-		strd,strp,strvx,strvy,strvz,strb2,strbx,strby,strbz='','','','','','','','','' # string that holds values 
+		boolxyz,boold,boolp,boolvx,boolvy,boolvz,boolb2,boolbx,boolby,boolbz=False,False,False,False,False,False,False,False,False,False
+		strx,stry,strz,strd,strp,strvx,strvy,strvz,strb2,strbx,strby,strbz='','','','','','','','','','','','' # string that holds values 
 
 		for line in f:
 			# gets dimensions
@@ -63,15 +63,14 @@ Reads data from a VTK file:
 				nx=int(s[0])
 				ny=int(s[1])
 				nz=int(s[2])
-		        
-		    # gets mesh: number number 
-			if re.search(r'-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+',line):
-				newf.write(line)
-		            
+				boolxyz=True
+		    
 			# gets arrays
 			# these lines are important to tell python when to stop reading shit
 			# it must be sequential
-			if 'density' in line: boold=True
+			if 'density' in line: 
+				boolxyz=False
+				boold=True
 			if 'pressure' in line: 
 				boold=False
 				boolp=True
@@ -98,6 +97,11 @@ Reads data from a VTK file:
 				boolby=False    
 				boolbz=True
 		    
+			if boolxyz==True and re.search(r'-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+',line):
+				s=re.findall(r'\s*-?\d+\.\d+E?[-+]?\d+\s*',line.rstrip('\n'))
+				strx=strx+s[0]
+				stry=stry+s[1]
+				strz=strz+s[2]
 			if boold==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
 				strd=strd+line
 			if boolp==True and re.search(r'-?\d+\.\d+E?[-+]?\d+',line):
@@ -118,6 +122,9 @@ Reads data from a VTK file:
 				strbz=strbz+line
 
 		# gets numpy arrays finally
+		self.x=numpy.fromstring(strx, sep='\n')
+		self.y=numpy.fromstring(stry, sep='\n')
+		self.z=numpy.fromstring(strz, sep='\n')
 		self.rho=numpy.fromstring(strd, sep='\n')
 		self.p=numpy.fromstring(strp, sep='\n')
 		self.vx=numpy.fromstring(strvx, sep='\n')
@@ -129,11 +136,11 @@ Reads data from a VTK file:
 		self.bz=numpy.fromstring(strbz, sep='\n')
 
 		# reads mesh positions 
-		self.x,self.y,self.z= numpy.loadtxt('tmp.dat',unpack=True,usecols=(0,1,2))
+		#self.x,self.y,self.z= numpy.loadtxt('tmp.dat',unpack=True,usecols=(0,1,2))
 
 		# close files        
 		f.close()
-		newf.close()
+		#newf.close()
 
 
 
