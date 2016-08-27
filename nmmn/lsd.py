@@ -90,6 +90,23 @@ http://cow.physics.wisc.edu/~craigm/idl/idl.html.
 
 
 	
+def nanzero(x):
+	"""
+Set nan elements to zero in the array.
+	"""
+	# Index of nan elements
+	i=numpy.where(numpy.isnan(x)==True)
+
+	y=x.copy()
+	y[i]=0.
+	#y[i]=1e-20
+	
+	# Removes the nan elements
+	return y
+
+
+
+
 def delnan(x):
 	"""
 Remove nan elements from the array.
@@ -99,6 +116,7 @@ Remove nan elements from the array.
 	
 	# Removes the nan elements
 	return numpy.delete(x,i)
+
 	
 
 

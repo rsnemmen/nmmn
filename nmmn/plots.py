@@ -722,3 +722,17 @@ def make_cmap(colors, position=None, bit=False):
     return cmap
 
 
+def image(Z,xnew,ynew,my_cmap=None,aspect='equal'):
+	"""
+Creates pretty image. You need to specify:
+
+- 
+	"""
+	imshow(log10(Z),extent=[xnew[0],xnew[-1],ynew[0],ynew[-1]], cmap=my_cmap)
+	pylab.axes().set_aspect('equal')
+	colorbar()
+	circle2=Circle((0,0),1,color='k')
+	gca().add_artist(circle2)
+	savefig('tmp.png',transparent=True,dpi=150)
+
+
