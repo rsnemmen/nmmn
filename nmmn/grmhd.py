@@ -7,8 +7,8 @@ Misc. modules useful for dealing with (GR)(M)HD simulations
 - HARM (soon)
 """
 
-import numpy
-import scipy
+import numpy, scipy
+import tqdm
 
 
 
@@ -30,9 +30,13 @@ Define an empty object:
 
 >>> o=nmmn.grmhd.Raishin()
 
-Reads data from a VTK file:
+Reads data from a VTK file, new attributes rho, p, vx, bx etc:
 
 >>> o.vtk("ok200.vtk")
+
+Saves data as an ASCII file with columns corresponding to variables:
+
+>>> o.savetxt("ok200.dat")
 	"""
 
 	#def __init__(self):
@@ -60,9 +64,9 @@ Reads data from a VTK file:
 			# gets dimensions
 			if re.search(r'DIMENSIONS\s+\d+\s+\d+',line):
 				s=re.findall(r'\s*\d+\s*',line.rstrip('\n'))
-				nx=int(s[0])
-				ny=int(s[1])
-				nz=int(s[2])
+				self.nx=int(s[0])
+				self.ny=int(s[1])
+				self.nz=int(s[2])
 				boolxyz=True
 		    
 			# gets arrays
@@ -145,6 +149,24 @@ Reads data from a VTK file:
 
 
 
+	def savetxt(self,outfile):
+		numpy.savetxt(outfile,numpy.transpose((self.x,self.y,self.z,self.rho,self.p,self.vx,self.vy,self.vz,self.b2,self.bx,self.by,self.bz)))
 
+
+
+
+def wolframplot(infile,outfile,script="/Users/nemmen/work/software/mathematica/raishin.wl"):
+	"""
+Makes a pretty plot of density field and B vector field of RAISHIN
+data using the Wolfram Language.
+
+Make sure you point to the appropriate Wolfram script.
+
+- infile: input RAISHIN ASCII file generated with Raishin.vtk above, e.g. ok200.dat
+- outfile: format that will produced, e.g. ok200.png
+	"""
+	import subprocess
+	cmd="wolframscript -script "+script+" "+infile+" "+outfile
+	subprocess.call(cmd.split())
 
 
