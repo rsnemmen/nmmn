@@ -132,6 +132,18 @@ Remove nan or inf elements from the array.
 
 
 	
+def replacevals(x,minval):
+	"""
+Replace all values in array x for which abs(x)<=minval with x=sign(x)*minval.
+	"""
+	i=numpy.where(numpy.abs(x)<=minval)
+	y=x.copy()
+	y[i]=numpy.sign(y[i])*minval
+
+	return y
+
+
+
 	
 def search(xref, x):
 	"""
@@ -258,6 +270,45 @@ Rodrigo Nemmen, http://goo.gl/8S1Oo
 	
 
 
+
+def regrid(x,y,z,xnew,ynew):
+	"""
+Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids
+xnew,ynew (1D arrays with new grid).
+
+>>> rho=regrid(d.x,d.y,d.rho,xnew,ynew)
+	"""
+	import scipy.interpolate
+
+	# regrid the data to a nice cartesian grid
+	Z = scipy.interpolate.griddata((x, y), z, (xnew[None,:], ynew[:,None]), method='cubic')
+
+	# get rid of NaNs
+	return nanzero(Z)
+
+
+
+
+def crop(cube, x,y, xmin, xmax, ymin, ymax):
+	"""
+Crops the image or 2D array, leaving only pixels inside the region
+you define.
+
+>>> Znew,Xnew,Ynew = crop(Z, X, Y, 0,10,-20,20)
+
+where X,Y,Z are 2D arrays.
+	"""
+	# Index tuples with elements that will be selected along each dimension
+	i=numpy.where((x>=xmin) & (x<=xmax))	# x
+	j=numpy.where((y>=ymin) & (y<=ymax))	# y
+	
+	# Defines new x and y arrays
+	xnew,ynew=x[i],y[j]
+	
+	i,j=i[0],j[0]	# tuples -> arrays (for matrix slicing below)
+	znew=cube[j[0]:j[-1],i[0]:i[-1]]	# CAREFUL with the ordering of the indexes!
+	
+	return znew,xnew,ynew	
 
 
 

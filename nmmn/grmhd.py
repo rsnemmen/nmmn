@@ -155,6 +155,12 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 
 
+
+				
+
+
+
+
 def wolframplot(infile,outfile,script="/Users/nemmen/work/software/mathematica/raishin.wl"):
 	"""
 Makes a pretty plot of density field and B vector field of RAISHIN
