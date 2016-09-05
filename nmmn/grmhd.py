@@ -1,10 +1,13 @@
 """
-Misc. modules useful for dealing with (GR)(M)HD simulations
+Misc. modules useful for dealing with (GR)(R)(M)HD simulations
 =========================================================
 
 - RAISHIN
 - Pluto
 - HARM (soon)
+
+See jupyter notebooks "grmhd*" for examples on how to use this
+module.
 """
 
 import numpy, scipy
