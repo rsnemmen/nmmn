@@ -153,10 +153,38 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 
 	def savetxt(self,outfile):
-		numpy.savetxt(outfile,numpy.transpose((self.x,self.y,self.z,self.rho,self.p,self.vx,self.vy,self.vz,self.b2,self.bx,self.by,self.bz)))
+		"""Saves data as ASCII file """
+		numpy.savetxt(outfile,numpy.transpose((self.x,self.y,self.z,self.rho,self.p,self.vx,self.vy,self.vz,self.bx,self.by,self.bz)))
 
 
+	def savehdf5(self,outfile):
+		"""
+	Exports data as compressed HDF5. 7x less space tham ASCII.
+		"""
+		import h5py
 
+		with h5py.File(outfile, 'w') as hf:
+			grid=hf.create_group('grid')
+		    grid.create_dataset('x', data=self.x, compression="gzip", compression_opts=9)
+		    grid.create_dataset('y', data=self.y, compression="gzip", compression_opts=9)
+		    grid.create_dataset('z', data=self.z, compression="gzip", compression_opts=9)    
+
+   			fields=hf.create_group('fields')
+		    fields.create_dataset('density', data=self.rho, compression="gzip", compression_opts=9)
+		    fields.create_dataset('pressure', data=self.p, compression="gzip", compression_opts=9)
+		    fields.create_dataset('vx', data=self.vx, compression="gzip", compression_opts=9)
+		    fields.create_dataset('vy', data=self.vy, compression="gzip", compression_opts=9)
+		    fields.create_dataset('vz', data=self.vz, compression="gzip", compression_opts=9)
+		    fields.create_dataset('bx', data=self.bx, compression="gzip", compression_opts=9)
+		    fields.create_dataset('by', data=self.by, compression="gzip", compression_opts=9)
+		    fields.create_dataset('bz', data=self.bz, compression="gzip", compression_opts=9)
+
+
+	def savenumpy(self,outfile):
+		"""
+	Save data as binary Numpy file .npz. 3x less space than ASCII.
+		"""
+		numpy.savez(outfile,x=self.x,y=self.y,z=self.z,rho=self.rho,p=self.p,vx=self.vx,vy=self.vy,vz=self.vz,bx=self.bx,by=self.by,bz=self.bz)
 
 
 				
