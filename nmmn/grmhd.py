@@ -165,19 +165,19 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 		with h5py.File(outfile, 'w') as hf:
 			grid=hf.create_group('grid')
-		    grid.create_dataset('x', data=self.x, compression="gzip", compression_opts=9)
-		    grid.create_dataset('y', data=self.y, compression="gzip", compression_opts=9)
-		    grid.create_dataset('z', data=self.z, compression="gzip", compression_opts=9)    
+			grid.create_dataset('x', data=self.x, compression="gzip", compression_opts=9)
+			grid.create_dataset('y', data=self.y, compression="gzip", compression_opts=9)
+			grid.create_dataset('z', data=self.z, compression="gzip", compression_opts=9)    
 
    			fields=hf.create_group('fields')
-		    fields.create_dataset('density', data=self.rho, compression="gzip", compression_opts=9)
-		    fields.create_dataset('pressure', data=self.p, compression="gzip", compression_opts=9)
-		    fields.create_dataset('vx', data=self.vx, compression="gzip", compression_opts=9)
-		    fields.create_dataset('vy', data=self.vy, compression="gzip", compression_opts=9)
-		    fields.create_dataset('vz', data=self.vz, compression="gzip", compression_opts=9)
-		    fields.create_dataset('bx', data=self.bx, compression="gzip", compression_opts=9)
-		    fields.create_dataset('by', data=self.by, compression="gzip", compression_opts=9)
-		    fields.create_dataset('bz', data=self.bz, compression="gzip", compression_opts=9)
+   			fields.create_dataset('density', data=self.rho, compression="gzip", compression_opts=9)
+   			fields.create_dataset('pressure', data=self.p, compression="gzip", compression_opts=9)
+   			fields.create_dataset('vx', data=self.vx, compression="gzip", compression_opts=9)
+   			fields.create_dataset('vy', data=self.vy, compression="gzip", compression_opts=9)
+   			fields.create_dataset('vz', data=self.vz, compression="gzip", compression_opts=9)
+   			fields.create_dataset('bx', data=self.bx, compression="gzip", compression_opts=9)
+   			fields.create_dataset('by', data=self.by, compression="gzip", compression_opts=9)
+   			fields.create_dataset('bz', data=self.bz, compression="gzip", compression_opts=9)
 
 
 	def savenumpy(self,outfile):
@@ -186,6 +186,41 @@ Saves data as an ASCII file with columns corresponding to variables:
 		"""
 		numpy.savez(outfile,x=self.x,y=self.y,z=self.z,rho=self.rho,p=self.p,vx=self.vx,vy=self.vy,vz=self.vz,bx=self.bx,by=self.by,bz=self.bz)
 
+
+
+	def regrid(self,nboost=10):
+		"""
+	Regrid the RAISHIN data to a nice cartesian grid for plotting with
+	python.
+
+	- nboost: factor of increase of number of grid points compared to 
+		previous grid
+
+	TODO:
+	- 3D version
+	- parallel version
+		"""
+		import lsd
+
+		# create two new arrays with spatial grid, with more points than the 
+		# original grid
+		nxnew=self.nx*nboost
+		nynew=self.ny*nboost
+		xnew=numpy.linspace(self.x.min(),round(self.x.max()),nxnew)
+		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
+
+		# 'c' is added to 2D array values
+		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xc1d,self.yc1d=xnew,ynew # 1D
+
+		# bottleneck,
+		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
+		self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
+		self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
+		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+
+		self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
+	
 
 				
 
