@@ -188,7 +188,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 
 
-	def regrid(self,nboost=10):
+	def regrid(self,nboost=5):
 		"""
 	Regrid the RAISHIN data to a nice cartesian grid for plotting with
 	python.
@@ -210,16 +210,20 @@ Saves data as an ASCII file with columns corresponding to variables:
 		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
 
 		# 'c' is added to 2D array values
-		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
-		self.xc1d,self.yc1d=xnew,ynew # 1D
+		self.xr,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xr1d,self.yc1d=xnew,ynew # 1D
 
 		# bottleneck,
-		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
-		self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
-		self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
-		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+		self.rhor=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
+		self.pr=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
+		self.vxr=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
+		self.vyr=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
+		self.vzr=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
+		self.bxr=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
+		self.byr=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+		self.bzr=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
 
-		self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
+		self.br=numpy.sqrt(self.bxr**2+self.byr**2)
 	
 
 				
