@@ -34,8 +34,8 @@ Install the package with a symlink, so that changes to the source files will be 
 * [x] install instructions
 * [x] license
 * [x] requirements
-* [ ] possibly broken intra-package references? let's see
-* [ ] pretty documentation with Sphinx
+* [x] ~~possibly broken intra-package references? let's see~~
+* [ ] documentation with Sphinx and github pages
 
 # License
 

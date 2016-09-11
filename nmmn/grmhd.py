@@ -153,11 +153,78 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 
 	def savetxt(self,outfile):
-		numpy.savetxt(outfile,numpy.transpose((self.x,self.y,self.z,self.rho,self.p,self.vx,self.vy,self.vz,self.b2,self.bx,self.by,self.bz)))
+		"""Saves data as ASCII file """
+		numpy.savetxt(outfile,numpy.transpose((self.x,self.y,self.z,self.rho,self.p,self.vx,self.vy,self.vz,self.bx,self.by,self.bz)))
+
+
+	def savehdf5(self,outfile):
+		"""
+	Exports data as compressed HDF5. 7x less space tham ASCII.
+		"""
+		import h5py
+
+		with h5py.File(outfile, 'w') as hf:
+			grid=hf.create_group('grid')
+			grid.create_dataset('x', data=self.x, compression="gzip", compression_opts=9)
+			grid.create_dataset('y', data=self.y, compression="gzip", compression_opts=9)
+			grid.create_dataset('z', data=self.z, compression="gzip", compression_opts=9)    
+
+   			fields=hf.create_group('fields')
+   			fields.create_dataset('density', data=self.rho, compression="gzip", compression_opts=9)
+   			fields.create_dataset('pressure', data=self.p, compression="gzip", compression_opts=9)
+   			fields.create_dataset('vx', data=self.vx, compression="gzip", compression_opts=9)
+   			fields.create_dataset('vy', data=self.vy, compression="gzip", compression_opts=9)
+   			fields.create_dataset('vz', data=self.vz, compression="gzip", compression_opts=9)
+   			fields.create_dataset('bx', data=self.bx, compression="gzip", compression_opts=9)
+   			fields.create_dataset('by', data=self.by, compression="gzip", compression_opts=9)
+   			fields.create_dataset('bz', data=self.bz, compression="gzip", compression_opts=9)
+
+
+	def savenumpy(self,outfile):
+		"""
+	Save data as binary Numpy file .npz. 3x less space than ASCII.
+		"""
+		numpy.savez(outfile,x=self.x,y=self.y,z=self.z,rho=self.rho,p=self.p,vx=self.vx,vy=self.vy,vz=self.vz,bx=self.bx,by=self.by,bz=self.bz)
 
 
 
+	def regrid(self,nboost=5):
+		"""
+	Regrid the RAISHIN data to a nice cartesian grid for plotting with
+	python.
 
+	- nboost: factor of increase of number of grid points compared to 
+		previous grid
+
+	TODO:
+	- 3D version
+	- parallel version
+		"""
+		import lsd
+
+		# create two new arrays with spatial grid, with more points than the 
+		# original grid
+		nxnew=self.nx*nboost
+		nynew=self.ny*nboost
+		xnew=numpy.linspace(self.x.min(),round(self.x.max()),nxnew)
+		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
+
+		# 'c' is added to 2D array values
+		self.xr,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xr1d,self.yc1d=xnew,ynew # 1D
+
+		# bottleneck,
+		self.rhor=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
+		self.pr=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
+		self.vxr=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
+		self.vyr=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
+		self.vzr=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
+		self.bxr=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
+		self.byr=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+		self.bzr=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
+
+		self.br=numpy.sqrt(self.bxr**2+self.byr**2)
+	
 
 				
 
