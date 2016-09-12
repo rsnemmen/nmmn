@@ -14,6 +14,9 @@ Miscellaneous modules for:
 
 These are modules I wrote which I find useful -- for whatever reason -- in my research.
 
+Very basic [documentation](http://rsnemmen.github.io/nmmn/) for the modules.
+
+
 # Installation
 
 The command line script can be installed via
@@ -26,11 +29,6 @@ Install the package with a symlink, so that changes to the source files will be 
 
     python setup.py develop
 
-# Documentation
-
-~~[Documentation for the module](http://nmmn.readthedocs.io/en/latest/#) is kept updated on Read the Docs.~~
-
-I am trying to render the documentation nicely with [Read the Docs](http://nmmn.readthedocs.io/en/latest/#) but so far did not manage to get it working properly. In the meantime, you will have to browse the docstrings of the modules and methods for the documentation.
 
 # TODO
 
@@ -40,7 +38,7 @@ I am trying to render the documentation nicely with [Read the Docs](http://nmmn.
 * [x] requirements
 * [x] ~~possibly broken intra-package references? let's see~~
 * [x] documentation with Sphinx
-* [ ] fix documentation with Read the Docs
+* [x] ~~fix documentation with Read the Docs~~
 
 # License
 
