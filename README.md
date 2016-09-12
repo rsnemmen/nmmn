@@ -28,8 +28,9 @@ Install the package with a symlink, so that changes to the source files will be 
 
 # Documentation
 
-[Documentation for the module](http://nmmn.readthedocs.io/en/latest/#) is kept updated on Read the Docs.
+~~[Documentation for the module](http://nmmn.readthedocs.io/en/latest/#) is kept updated on Read the Docs.~~
 
+I am trying to render the documentation nicely with [Read the Docs](http://nmmn.readthedocs.io/en/latest/#) but so far did not manage to get it working properly. In the meantime, you will have to browse the docstrings of the modules and methods for the documentation.
 
 # TODO
 
