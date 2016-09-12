@@ -1,7 +1,0 @@
-numpy
-scipy
-pylab
-uncertainties
-aplpy
-astropy
-pymc
