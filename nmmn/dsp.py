@@ -57,7 +57,7 @@ def smooth(x,window_len=11,window='hanning'):
 	
 	.. note:: length(output) != length(input), to correct this: return y[(window_len/2-1):-(window_len/2)] instead of just y.
 
-	TODO: the window parameter could be the window itself if an array instead of a string
+	.. todo:: the window parameter could be the window itself if an array instead of a string
 	""" 
 	 
 	if x.ndim != 1:
@@ -93,4 +93,39 @@ def smoothxy(x,y,*arg,**args):
 	"""
 	return smooth(x,*arg,**args), smooth(y,*arg,**args)
 
+
+
+
+def varsig(f,df):
+	"""
+Quantifies significance of variability of time series, taking into 
+account the uncertainties.
+
+Given the time series signal *y* and the corresponding uncertainties
+:math:`\sigma y`, the test statistics *T* is defined as 
+
+.. math:: T \equiv \\frac{y_{i+1}-y_i}{\sigma y_i}.
+
+*T* will give the significance of variability at each point in time,
+in standard deviations of the preceding noise point.
+
+**Usage:**
+
+Computes TS and plots time series, highlighting the 1sigma variability
+interval in gray:
+
+>>> ts=varsig(flux,errflux)
+>>> step(t,q,'o-')
+>>> fill_between(t, -2*ones_like(tdec), 2*ones_like(tdec), alpha=0.3, facecolor='gray')
+
+.. todo:: generalize to arbitrary windows of time
+.. todo:: propagate uncertainty 
+	"""
+	q=numpy.zeros_like(f)
+	for i,fi in enumerate(f):
+		if i>0:
+			dy=fi-f[i-1]
+			q[i]=dy/df[i-1]
+
+	return q
 
