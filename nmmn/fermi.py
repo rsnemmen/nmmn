@@ -1,5 +1,8 @@
 """
-Collection of methods to handle Fermi LAT analysis results.
+Collection of methods to handle Fermi LAT data
+========
+
+Handle output of Fermi analysis.
 """
 
 import os, sys

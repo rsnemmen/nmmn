@@ -4,3 +4,4 @@ pylab
 uncertainties
 aplpy
 astropy
+pymc
