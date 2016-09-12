@@ -49,7 +49,9 @@
 
 
 <div class="viewcode-block" id="onehist"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.onehist">[docs]</a><span class="k">def</span> <span class="nf">onehist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot; Script that plots the histogram of x with the corresponding xlabel. &quot;&quot;&quot;</span>
+	<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Script that plots the histogram of x with the corresponding xlabel. </span>
+<span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
@@ -80,13 +82,7 @@
 <span class="sd">:param range: in the form (xmin,xmax), same as range argument for hist and applied to both</span>
 <span class="sd">	histograms.</span>
 
-<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
-
-<span class="sd">v1 Dec. 2011</span>
-<span class="sd">v1.1 Feb. 2012: Added sharey argument.</span>
-<span class="sd">v1.2 Feb. 2012: added fontsize argument.</span>
-<span class="sd">v1.3 Apr. 2012: added fig argument.</span>
-<span class="sd">v1.4 Apr. 2013: added range argument.</span>
+<span class="sd">Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
@@ -135,14 +131,10 @@
 
 <span class="sd">Example:</span>
 <span class="sd">x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</span>
+
 <span class="sd">&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#39;AD&#39;,&#39;JD&#39;,&#39;EHF10&#39;,&#39;$\log L_{\\rm bol}$ (erg s$^{-1}$)&#39;,sharey=True)</span>
 
-<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
-
-<span class="sd">v1 Dec. 2011</span>
-<span class="sd">v1.1 Feb. 2012:	Added sharey keyword.</span>
-<span class="sd">v1.2 Feb. 2012: added fontsize argument.</span>
-<span class="sd">v1.3 Apr. 2012: added fig argument.</span>
+<span class="sd">Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
 	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
@@ -188,9 +180,10 @@
 <span class="sd">sharing the same X-axis.</span>
 
 <span class="sd">Arguments:</span>
+
 <span class="sd">- x1,x2,x3,x4: arrays with data to be plotted</span>
 <span class="sd">- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
-<span class="sd">	for both histograms.</span>
+<span class="sd">or both histograms.</span>
 <span class="sd">- x1leg, x2leg, x3leg, x4leg: legends for each histogram	</span>
 <span class="sd">- xlabel: self-explanatory.</span>
 <span class="sd">- sharey: sharing the Y-axis among the histograms?</span>
@@ -199,13 +192,7 @@
 <span class="sd">- line?: draws vertical solid lines at the positions indicated in each panel</span>
 <span class="sd">- line?b: draws vertical dashed lines at the positions indicated in each panel</span>
 
-<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
-
-<span class="sd">v1 Apr. 2012: inherited from threehists.</span>
-<span class="sd">v1.5 Jun 2012: added option for drawing vertical lines in each histogram (line?)</span>
-<span class="sd">v1.6 Jul 2012: added option for line?b</span>
-<span class="sd">v1.7 Oct 2012: added option &#39;loc&#39;</span>
-<span class="sd">v1.8 Mar 2013: added &#39;histtype&#39; option in histogram plots</span>
+<span class="sd">Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
 	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
@@ -270,16 +257,17 @@
 <span class="sd">with values above X.</span>
 
 <span class="sd">Arguments:</span>
+
 <span class="sd">- x1,x2,x3,x4: arrays with data to be plotted</span>
 <span class="sd">- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
-<span class="sd">	for both histograms.</span>
+<span class="sd">for both histograms.</span>
 <span class="sd">- x1leg, x2leg, x3leg, x4leg: legends for each histogram	</span>
 <span class="sd">- xlabel: self-explanatory.</span>
 <span class="sd">- sharey: sharing the Y-axis among the histograms?</span>
 <span class="sd">- bins1,bins2,...: number of bins in each histogram</span>
 <span class="sd">- fig: which plot window should I use?</span>
 
-<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
+<span class="sd">Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
 
 <span class="sd">v1 Jun. 2012: inherited from fourhists.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
@@ -342,12 +330,6 @@
 <span class="sd">&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#39;AD&#39;,&#39;JD&#39;,&#39;EHF10&#39;,&#39;$\log L_{\\rm bol}$ (erg s$^{-1}$)&#39;)</span>
 
 <span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
-
-<span class="sd">v1 Dec. 2011</span>
-<span class="sd">v1.1 Feb. 2012:	Added sharey keyword.</span>
-<span class="sd">v1.2 Feb. 2012: added fontsize argument.</span>
-<span class="sd">v1.3 Apr. 2012: added fig argument.</span>
-<span class="sd">v1.4 Jun. 2012: no sharing of X-axis, removed some arguments</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
@@ -384,13 +366,15 @@
 <span class="sd">	Assumes you initialized the plot window before calling this method.</span>
 <span class="sd">	</span>
 <span class="sd">	Usage:</span>
+
 <span class="sd">	&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
 <span class="sd">	</span>
 <span class="sd">	Explanation of some arguments:</span>
+
 <span class="sd">	- xplot: if provided, will compute the confidence band in the X-values provided</span>
-<span class="sd">	  with xplot</span>
+<span class="sd">	with xplot</span>
 <span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
-<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	points; otherwise, will plot it behind the points</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
 	<span class="c1"># Selects the desired BCES method</span>
 	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
@@ -435,13 +419,14 @@
 <span class="sd">	instabilities when computing the gradient.</span>
 <span class="sd">	</span>
 <span class="sd">	Usage:</span>
+
 <span class="sd">	&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
 <span class="sd">	</span>
 <span class="sd">	Explanation of some arguments:</span>
 <span class="sd">	- xplot: if provided, will compute the confidence band in the X-values provided</span>
-<span class="sd">	  with xplot</span>
+<span class="sd">	with xplot</span>
 <span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
-<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	points; otherwise, will plot it behind the points</span>
 <span class="sd">	- conf: size of confidence band to be plotted in standard deviations</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
 	<span class="c1"># Selects the desired BCES method</span>
@@ -490,13 +475,14 @@
 <span class="sd">	Assumes you initialized the plot window before calling this method.</span>
 <span class="sd">	</span>
 <span class="sd">	Usage:</span>
+
 <span class="sd">	&gt;&gt;&gt; nemmen.plotlinfit(x,y,a,b,erra,errb,covab,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
 <span class="sd">	</span>
 <span class="sd">	Explanation of some arguments:</span>
 <span class="sd">	- xplot: if provided, will compute the confidence band in the X-values provided</span>
-<span class="sd">	  with xplot</span>
+<span class="sd">	with xplot</span>
 <span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
-<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	points; otherwise, will plot it behind the points</span>
 <span class="sd">	&quot;&quot;&quot;</span>			
 	<span class="c1"># Plots best-fit</span>
 	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
@@ -681,8 +667,8 @@
 
 <span class="sd">&gt;&gt;&gt; uerrorbar(x,y,fmt=&#39;o&#39;)</span>
 
-<span class="sd">  will plot the points and error bars associated with the &#39;unumpy&#39;</span>
-<span class="sd">  arrays x and y</span>
+<span class="sd">will plot the points and error bars associated with the &#39;unumpy&#39;</span>
+<span class="sd">arrays x and y</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
 	<span class="n">x</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">ux</span><span class="p">)</span>
 	<span class="n">y</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">uy</span><span class="p">)</span>
@@ -714,7 +700,7 @@
 <span class="sd">Makes sure we have exactly the same matplotlib settings as in the IPython terminal </span>
 <span class="sd">version. Call this from IPython notebook.</span>
 
-<span class="sd">Source: http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te).</span>
+<span class="sd">`Source &lt;http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te)&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">6.0</span><span class="p">)</span>    <span class="c1">#(6.0,4.0)</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">12</span>                <span class="c1">#10 </span>
@@ -765,8 +751,6 @@
 <div class="viewcode-block" id="image"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.image">[docs]</a><span class="k">def</span> <span class="nf">image</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">my_cmap</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Creates pretty image. You need to specify:</span>
-
-<span class="sd">- </span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">imshow</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="n">Z</span><span class="p">),</span><span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">xnew</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">xnew</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ynew</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ynew</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">my_cmap</span><span class="p">)</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>

@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="nmmn  documentation" href="index.html" />
-    <link rel="prev" title="Welcome to nmmn’s documentation!" href="index.html" />
+    <link rel="prev" title="nmmn tools" href="index.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -79,11 +79,9 @@ the corresponding linear size in pc.</p>
 <dl class="function">
 <dt id="nmmn.astro.mjy">
 <code class="descclassname">nmmn.astro.</code><code class="descname">mjy</code><span class="sig-paren">(</span><em>lognu</em>, <em>ll</em>, <em>dist</em>, <em>llerr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/astro.html#mjy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.astro.mjy" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Converts log(nu/Hz), log(nu Lnu [erg/s]), error in log(nuLnu) to</dt>
-<dd>log(lambda/micron), log(Fnu/mJy), error in log(Fnu).</dd>
-</dl>
-<p>The input units are CGS.</p>
+<dd><p>Converts log(nu/Hz), log(nu Lnu [erg/s]), error in log(nuLnu) to
+log(lambda/micron), log(Fnu/mJy), error in log(Fnu).
+The input units are CGS.</p>
 <p>Usage:
 If you have errors in the flux:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="p">,</span><span class="n">ferr</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">yerr</span><span class="p">)</span>
@@ -107,13 +105,15 @@ If you have errors in the flux:</p>
 </div>
 <div class="section" id="module-nmmn.bayes">
 <span id="nmmn-bayes-module"></span><h2>nmmn.bayes module<a class="headerlink" href="#module-nmmn.bayes" title="Permalink to this headline">¶</a></h2>
-<p>Methods for dealing with Bayesian statistics, priors, posteriors</p>
+<div class="section" id="methods-for-dealing-with-bayesian-statistics">
+<h3>Methods for dealing with Bayesian statistics<a class="headerlink" href="#methods-for-dealing-with-bayesian-statistics" title="Permalink to this headline">¶</a></h3>
+<p>e.g. priors, posteriors, joint density plots.</p>
+<p>Right now the module is focused around PyMC, but I am migrating
+to emcee.</p>
 <div class="admonition-todo admonition" id="index-0">
-<p class="first last admonition-title">Todo</p>
+<p class="first admonition-title">Todo</p>
+<p class="last">plot confidence/credibility interval of a model</p>
 </div>
-<ul class="simple">
-<li>plot confidence/credibility interval of a model</li>
-</ul>
 <dl class="function">
 <dt id="nmmn.bayes.allplot">
 <code class="descclassname">nmmn.bayes.</code><code class="descname">allplot</code><span class="sig-paren">(</span><em>xb</em>, <em>yb</em>, <em>bins=30</em>, <em>fig=1</em>, <em>xlabel='x'</em>, <em>ylabel='y'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#allplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.allplot" title="Permalink to this definition">¶</a></dt>
@@ -158,11 +158,12 @@ the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-nmmn.dsp">
 <span id="nmmn-dsp-module"></span><h2>nmmn.dsp module<a class="headerlink" href="#module-nmmn.dsp" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="signal-processing">
 <h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h3>
-<p>Time series</p>
+<p>Mostly time series.</p>
 <dl class="function">
 <dt id="nmmn.dsp.peaks">
 <code class="descclassname">nmmn.dsp.</code><code class="descname">peaks</code><span class="sig-paren">(</span><em>y</em>, <em>x=None</em>, <em>what=0</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#peaks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.peaks" title="Permalink to this definition">¶</a></dt>
@@ -250,8 +251,8 @@ in the begining and end part of the output signal.</p>
 </div>
 <div class="section" id="module-nmmn.fermi">
 <span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="collection-of-methods-to-handle-fermi-lat-data">
-<h3>Collection of methods to handle Fermi LAT data<a class="headerlink" href="#collection-of-methods-to-handle-fermi-lat-data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="methods-to-handle-fermi-lat-data">
+<h3>Methods to handle Fermi LAT data<a class="headerlink" href="#methods-to-handle-fermi-lat-data" title="Permalink to this headline">¶</a></h3>
 <p>Handle output of Fermi analysis.</p>
 <dl class="function">
 <dt id="nmmn.fermi.PixelFile">
@@ -350,8 +351,8 @@ each pixel and fill a fits file</p>
 </div>
 <div class="section" id="module-nmmn.grmhd">
 <span id="nmmn-grmhd-module"></span><h2>nmmn.grmhd module<a class="headerlink" href="#module-nmmn.grmhd" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="misc-modules-useful-for-dealing-with-gr-r-m-hd-simulations">
-<h3>Misc. modules useful for dealing with (GR)(R)(M)HD simulations<a class="headerlink" href="#misc-modules-useful-for-dealing-with-gr-r-m-hd-simulations" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="dealing-with-gr-r-m-hd-simulations">
+<h3>Dealing with (GR)(R)(M)HD simulations<a class="headerlink" href="#dealing-with-gr-r-m-hd-simulations" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>RAISHIN</li>
 <li>Pluto</li>
@@ -476,8 +477,7 @@ array y.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">botha</span><span class="o">=</span><span class="n">cmset_op</span><span class="p">(</span><span class="n">namea</span><span class="p">,</span> <span class="s1">&#39;AND&#39;</span><span class="p">,</span> <span class="n">nameb</span><span class="p">,</span> <span class="o">/</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>i.e. performs the same thing as the IDL routine cmset_op from
-<a class="reference external" href="http://cow.physics.wisc.edu/~craigm/idl/idl.html">http://cow.physics.wisc.edu/~craigm/idl/idl.html</a>.</p>
+<p>i.e. performs the same thing as the IDL routine <a class="reference external" href="http://cow.physics.wisc.edu/~craigm/idl/idl.html">cmset_op</a>.</p>
 </dd></dl>
 
 <dl class="function">
@@ -658,6 +658,8 @@ the tables created with astropy.io.ascii.</p>
 </div>
 <div class="section" id="module-nmmn.misc">
 <span id="nmmn-misc-module"></span><h2>nmmn.misc module<a class="headerlink" href="#module-nmmn.misc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="miscelaneous-methods">
+<h3>Miscelaneous methods<a class="headerlink" href="#miscelaneous-methods" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="nmmn.misc.cart2pol">
 <code class="descclassname">nmmn.misc.</code><code class="descname">cart2pol</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#cart2pol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.cart2pol" title="Permalink to this definition">¶</a></dt>
@@ -820,6 +822,7 @@ the bces* methods.</p>
 </dd></dl>
 
 </div>
+</div>
 <div class="section" id="module-nmmn.plots">
 <span id="nmmn-plots-module"></span><h2>nmmn.plots module<a class="headerlink" href="#module-nmmn.plots" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="fancy-plots">
@@ -832,16 +835,17 @@ fit, get the orthogonal parameters and plot the best-fit line and
 confidence band (generated using analytical methods). I decided to put together 
 these commands in a method because I have been using them very frequently.</p>
 <p>Assumes you initialized the plot window before calling this method.</p>
-<p>Usage:
-&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#8217;k&#8217;,confcolor=&#8217;LightGrey&#8217;)</p>
-<p>Explanation of some arguments:
-- xplot: if provided, will compute the confidence band in the X-values provided</p>
-<blockquote>
-<div>with xplot</div></blockquote>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Explanation of some arguments:</p>
 <ul class="simple">
-<li>front: if True, then will plot the confidence band in front of the data
-points; otherwise, will plot it behind the points</li>
+<li>xplot: if provided, will compute the confidence band in the X-values provided</li>
 </ul>
+<p>with xplot
+- front: if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points</p>
 </dd></dl>
 
 <dl class="function">
@@ -854,17 +858,16 @@ commands in a method because I have been using them very frequently.</p>
 <p>Assumes you initialized the plot window before calling this method.
 This method is more stable than fitconf, which is plagued with numerical 
 instabilities when computing the gradient.</p>
-<p>Usage:
-&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#8217;k&#8217;,confcolor=&#8217;LightGrey&#8217;)</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Explanation of some arguments:
-- xplot: if provided, will compute the confidence band in the X-values provided</p>
-<blockquote>
-<div>with xplot</div></blockquote>
-<ul class="simple">
-<li>front: if True, then will plot the confidence band in front of the data
-points; otherwise, will plot it behind the points</li>
-<li>conf: size of confidence band to be plotted in standard deviations</li>
-</ul>
+- xplot: if provided, will compute the confidence band in the X-values provided
+with xplot
+- front: if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points
+- conf: size of confidence band to be plotted in standard deviations</p>
 </dd></dl>
 
 <dl class="function">
@@ -903,19 +906,18 @@ using them very frequently.</p>
 <dd><p>Script that plots the cumulative histograms of four variables x1, x2, x3 and x4
 sharing the same X-axis. For each bin, Y is the fraction of the sample 
 with values above X.</p>
-<p>Arguments:
-- x1,x2,x3,x4: arrays with data to be plotted
-- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</p>
-<blockquote>
-<div>for both histograms.</div></blockquote>
+<p>Arguments:</p>
 <ul class="simple">
-<li>x1leg, x2leg, x3leg, x4leg: legends for each histogram</li>
-<li>xlabel: self-explanatory.</li>
-<li>sharey: sharing the Y-axis among the histograms?</li>
-<li>bins1,bins2,...: number of bins in each histogram</li>
-<li>fig: which plot window should I use?</li>
+<li>x1,x2,x3,x4: arrays with data to be plotted</li>
+<li>xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</li>
 </ul>
-<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
+<p>for both histograms.
+- x1leg, x2leg, x3leg, x4leg: legends for each histogram        
+- xlabel: self-explanatory.
+- sharey: sharing the Y-axis among the histograms?
+- bins1,bins2,...: number of bins in each histogram
+- fig: which plot window should I use?</p>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">Scipy</a>.</p>
 <p>v1 Jun. 2012: inherited from fourhists.</p>
 </dd></dl>
 
@@ -924,35 +926,26 @@ with values above X.</p>
 <code class="descclassname">nmmn.plots.</code><code class="descname">fourhists</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>x3</em>, <em>x4</em>, <em>xmin</em>, <em>xmax</em>, <em>x1leg='$x_1$'</em>, <em>x2leg='$x_2$'</em>, <em>x3leg='$x_3$'</em>, <em>x4leg='$x_3$'</em>, <em>xlabel=''</em>, <em>fig=1</em>, <em>sharey=False</em>, <em>fontsize=12</em>, <em>bins1=10</em>, <em>bins2=10</em>, <em>bins3=10</em>, <em>bins4=10</em>, <em>line1=None</em>, <em>line2=None</em>, <em>line3=None</em>, <em>line4=None</em>, <em>line1b=None</em>, <em>line2b=None</em>, <em>line3b=None</em>, <em>line4b=None</em>, <em>loc='best'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fourhists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fourhists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Script that plots four histograms of quantities x1, x2, x3 and x4
 sharing the same X-axis.</p>
-<p>Arguments:
-- x1,x2,x3,x4: arrays with data to be plotted
-- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</p>
-<blockquote>
-<div>for both histograms.</div></blockquote>
+<p>Arguments:</p>
 <ul class="simple">
-<li>x1leg, x2leg, x3leg, x4leg: legends for each histogram</li>
-<li>xlabel: self-explanatory.</li>
-<li>sharey: sharing the Y-axis among the histograms?</li>
-<li>bins1,bins2,...: number of bins in each histogram</li>
-<li>fig: which plot window should I use?</li>
-<li>line?: draws vertical solid lines at the positions indicated in each panel</li>
-<li>line?b: draws vertical dashed lines at the positions indicated in each panel</li>
+<li>x1,x2,x3,x4: arrays with data to be plotted</li>
+<li>xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</li>
 </ul>
-<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
-<p>v1 Apr. 2012: inherited from threehists.
-v1.5 Jun 2012: added option for drawing vertical lines in each histogram (line?)
-v1.6 Jul 2012: added option for line?b
-v1.7 Oct 2012: added option &#8216;loc&#8217;
-v1.8 Mar 2013: added &#8216;histtype&#8217; option in histogram plots</p>
+<p>or both histograms.
+- x1leg, x2leg, x3leg, x4leg: legends for each histogram        
+- xlabel: self-explanatory.
+- sharey: sharing the Y-axis among the histograms?
+- bins1,bins2,...: number of bins in each histogram
+- fig: which plot window should I use?
+- line?: draws vertical solid lines at the positions indicated in each panel
+- line?b: draws vertical dashed lines at the positions indicated in each panel</p>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">Scipy</a>.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="nmmn.plots.image">
 <code class="descclassname">nmmn.plots.</code><code class="descname">image</code><span class="sig-paren">(</span><em>Z</em>, <em>xnew</em>, <em>ynew</em>, <em>my_cmap=None</em>, <em>aspect='equal'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates pretty image. You need to specify:</p>
-<ul class="simple">
-<li></li>
-</ul>
 </dd></dl>
 
 <dl class="function">
@@ -960,7 +953,7 @@ v1.8 Mar 2013: added &#8216;histtype&#8217; option in histogram plots</p>
 <code class="descclassname">nmmn.plots.</code><code class="descname">ipyplots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#ipyplots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.ipyplots" title="Permalink to this definition">¶</a></dt>
 <dd><p>Makes sure we have exactly the same matplotlib settings as in the IPython terminal 
 version. Call this from IPython notebook.</p>
-<p>Source: <a class="reference external" href="http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te">http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te</a>).</p>
+<p><a class="reference external" href="http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te)">Source</a>.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1023,16 +1016,15 @@ of Kelly (2007)), it plots the fits and the confidence bands.
 The input is:
 X, Y, slope (A), errA, intercept (B), errB and cov(A,B)</p>
 <p>Assumes you initialized the plot window before calling this method.</p>
-<p>Usage:
-&gt;&gt;&gt; nemmen.plotlinfit(x,y,a,b,erra,errb,covab,linestyle=&#8217;k&#8217;,confcolor=&#8217;LightGrey&#8217;)</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nemmen</span><span class="o">.</span><span class="n">plotlinfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">covab</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>Explanation of some arguments:
-- xplot: if provided, will compute the confidence band in the X-values provided</p>
-<blockquote>
-<div>with xplot</div></blockquote>
-<ul class="simple">
-<li>front: if True, then will plot the confidence band in front of the data
-points; otherwise, will plot it behind the points</li>
-</ul>
+- xplot: if provided, will compute the confidence band in the X-values provided
+with xplot
+- front: if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points</p>
 </dd></dl>
 
 <dl class="function">
@@ -1064,13 +1056,11 @@ sharing the same X-axis.</p>
 <li>fig: which plot window should I use?</li>
 </ul>
 <p>Example:
-x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)
-&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#8217;AD&#8217;,&#8217;JD&#8217;,&#8217;EHF10&#8217;,&#8217;$log L_{rm bol}$ (erg s$^{-1}$)&#8217;,sharey=True)</p>
-<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
-<p>v1 Dec. 2011
-v1.1 Feb. 2012: Added sharey keyword.
-v1.2 Feb. 2012: added fontsize argument.
-v1.3 Apr. 2012: added fig argument.</p>
+x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="s1">&#39;AD&#39;</span><span class="p">,</span><span class="s1">&#39;JD&#39;</span><span class="p">,</span><span class="s1">&#39;EHF10&#39;</span><span class="p">,</span><span class="s1">&#39;$\log L_{</span><span class="se">\r</span><span class="s1">m bol}$ (erg s$^{-1}$)&#39;</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">Scipy</a>.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1087,11 +1077,6 @@ x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</p>
 </pre></div>
 </div>
 <p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
-<p>v1 Dec. 2011
-v1.1 Feb. 2012: Added sharey keyword.
-v1.2 Feb. 2012: added fontsize argument.
-v1.3 Apr. 2012: added fig argument.
-v1.4 Jun. 2012: no sharing of X-axis, removed some arguments</p>
 </dd></dl>
 
 <dl class="function">
@@ -1118,12 +1103,7 @@ histograms.</li>
 </tr>
 </tbody>
 </table>
-<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
-<p>v1 Dec. 2011
-v1.1 Feb. 2012: Added sharey argument.
-v1.2 Feb. 2012: added fontsize argument.
-v1.3 Apr. 2012: added fig argument.
-v1.4 Apr. 2013: added range argument.</p>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">Scipy</a>.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1135,17 +1115,16 @@ uncertainties package, which include the errorbars built-in.</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uerrorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<blockquote>
-<div>will plot the points and error bars associated with the &#8216;unumpy&#8217;
-arrays x and y</div></blockquote>
+<p>will plot the points and error bars associated with the &#8216;unumpy&#8217;
+arrays x and y</p>
 </dd></dl>
 
 </div>
 </div>
 <div class="section" id="module-nmmn.stats">
 <span id="nmmn-stats-module"></span><h2>nmmn.stats module<a class="headerlink" href="#module-nmmn.stats" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="miscellaneous-statistical-methods">
-<h3>Miscellaneous statistical methods<a class="headerlink" href="#miscellaneous-statistical-methods" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="statistical-methods">
+<h3>Statistical methods<a class="headerlink" href="#statistical-methods" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>fit residuals</li>
 <li>Computing prediction and confidence bands</li>
@@ -2025,30 +2004,36 @@ intensive minimization involved when fitting a function.</p>
 <li><a class="reference internal" href="#astrophysical-routines">Astrophysical routines</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-nmmn.bayes">nmmn.bayes module</a></li>
+<li><a class="reference internal" href="#module-nmmn.bayes">nmmn.bayes module</a><ul>
+<li><a class="reference internal" href="#methods-for-dealing-with-bayesian-statistics">Methods for dealing with Bayesian statistics</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-nmmn.dsp">nmmn.dsp module</a><ul>
 <li><a class="reference internal" href="#signal-processing">Signal processing</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nmmn.fermi">nmmn.fermi module</a><ul>
-<li><a class="reference internal" href="#collection-of-methods-to-handle-fermi-lat-data">Collection of methods to handle Fermi LAT data</a></li>
+<li><a class="reference internal" href="#methods-to-handle-fermi-lat-data">Methods to handle Fermi LAT data</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nmmn.grmhd">nmmn.grmhd module</a><ul>
-<li><a class="reference internal" href="#misc-modules-useful-for-dealing-with-gr-r-m-hd-simulations">Misc. modules useful for dealing with (GR)(R)(M)HD simulations</a></li>
+<li><a class="reference internal" href="#dealing-with-gr-r-m-hd-simulations">Dealing with (GR)(R)(M)HD simulations</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nmmn.lsd">nmmn.lsd module</a><ul>
 <li><a class="reference internal" href="#lsd-operations-lists-sets-dictionaries-and-arrays">LSD operations = lists, sets, dictionaries (and arrays)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-nmmn.misc">nmmn.misc module</a></li>
+<li><a class="reference internal" href="#module-nmmn.misc">nmmn.misc module</a><ul>
+<li><a class="reference internal" href="#miscelaneous-methods">Miscelaneous methods</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-nmmn.plots">nmmn.plots module</a><ul>
 <li><a class="reference internal" href="#fancy-plots">Fancy plots</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nmmn.stats">nmmn.stats module</a><ul>
-<li><a class="reference internal" href="#miscellaneous-statistical-methods">Miscellaneous statistical methods</a></li>
+<li><a class="reference internal" href="#statistical-methods">Statistical methods</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nmmn">Module contents</a></li>
@@ -2059,7 +2044,7 @@ intensive minimization involved when fitting a function.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to nmmn&#8217;s documentation!</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">nmmn tools</a></li>
   </ul></li>
 </ul>
 </div>
