@@ -23,11 +23,12 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="nmmn  documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">  
@@ -38,7 +39,7 @@
           <div class="body" role="main">
             
   <h1>Source code for nmmn.astro</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Astrophysical routines</span>
 <span class="sd">=========================</span>
 
@@ -60,7 +61,7 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">cosmolopy</span> 
 
-	<span class="c1"># x here is the unknown redshift</span>
+	<span class="c"># x here is the unknown redshift</span>
 	<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">d</span><span class="o">-</span><span class="n">cosmolopy</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">luminosity_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">cosmolopy</span><span class="o">.</span><span class="n">fidcosmo</span><span class="p">)</span>
  
 	<span class="n">z</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>  
@@ -88,17 +89,17 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="kn">as</span> <span class="nn">unumpy</span>
 
-    <span class="n">c</span><span class="o">=</span><span class="mf">29979245800.</span>	<span class="c1"># speed of light in CGS</span>
-    <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.085677581e24</span>	<span class="c1"># Mpc -&gt; cm</span>
+    <span class="n">c</span><span class="o">=</span><span class="mf">29979245800.</span>	<span class="c"># speed of light in CGS</span>
+    <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.085677581e24</span>	<span class="c"># Mpc -&gt; cm</span>
 
     <span class="n">nu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lognu</span>
-    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mf">1e4</span> <span class="c1"># cm -&gt; micron</span>
+    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mf">1e4</span> <span class="c"># cm -&gt; micron</span>
     <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
     	<span class="n">lllerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span><span class="n">llerr</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
     	<span class="n">lllerr</span><span class="o">=</span><span class="n">ll</span>
     <span class="n">lnuerr</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lllerr</span><span class="o">/</span><span class="n">nu</span>  
-    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
+    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
     <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
     	<span class="n">fluxerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
     	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lamb</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">std_devs</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
@@ -120,26 +121,12 @@
 <span class="sd">:returns: linear size in pc</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-	<span class="c1"># convert arcsec to radians</span>
+	<span class="c"># convert arcsec to radians</span>
 	<span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="mf">4.848e-6</span>	
-	<span class="c1"># convert distance to pc instead of Mpc</span>
+	<span class="c"># convert distance to pc instead of Mpc</span>
 	<span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="mf">1e6</span>
 
 	<span class="k">return</span> <span class="n">d</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </pre></div>
 
           </div>
@@ -176,8 +163,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
     </div>
 
