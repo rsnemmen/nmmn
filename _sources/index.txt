@@ -3,8 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to nmmn's documentation!
-================================
+nmmn tools
+==========
+
+Miscellaneous modules for:
+
+* `astro`: astronomy
+* `dsp`: signal processing
+* `lsd`: misc. operations on arrays, lists, dictionaries and sets
+* `stats`: statistical methods
+* `plots`: custom plots
+* `fermi`: Fermi LAT analysis methods
+* `bayes`: Bayesian tools for dealing with posterior distributions
+* `grmhd`: tools for dealing with GRMHD numerical simulations
+
+These are modules I wrote which I find useful -- for whatever reason -- in my research.
 
 Contents:
 
