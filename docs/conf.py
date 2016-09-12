@@ -15,12 +15,25 @@
 import sys
 import os
 
-# try to render read the docs online
-# http://blog.rtwilson.com/how-to-make-your-sphinx-documentation-compile-with-readthedocs-when-youre-using-numpy-and-scipy/
-import mock
+
+
+
+
+# http://read-the-docs.readthedocs.io/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
+from unittest.mock import MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+            return Mock()
+
 MOCK_MODULES = ['pymc']
-for mod_name in MOCK_MODULES:
-    sys.modules[mod_name] = mock.Mock()
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
+
+
+
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
