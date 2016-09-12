@@ -12,6 +12,18 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+# try to render read the docs online
+# http://blog.rtwilson.com/how-to-make-your-sphinx-documentation-compile-with-readthedocs-when-youre-using-numpy-and-scipy/
+import mock
+ 
+MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'pylab', 'pymc']
+for mod_name in MOCK_MODULES:
+sys.modules[mod_name] = mock.Mock()
+
+
+
+
+
 import sys
 import os
 
