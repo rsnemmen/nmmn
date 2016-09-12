@@ -1,6 +1,6 @@
 """
-Collection of methods to handle Fermi LAT data
-========
+Methods to handle Fermi LAT data
+=====================================
 
 Handle output of Fermi analysis.
 """

@@ -2,7 +2,7 @@
 Signal processing
 ===================
 
-Time series
+Mostly time series.
 """
 
 

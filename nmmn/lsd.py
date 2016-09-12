@@ -20,8 +20,7 @@ This is equivalent to using the IDL command
 
 >>> botha=cmset_op(namea, 'AND', nameb, /index)
 
-i.e. performs the same thing as the IDL routine cmset_op from
-http://cow.physics.wisc.edu/~craigm/idl/idl.html.
+i.e. performs the same thing as the IDL routine `cmset_op <http://cow.physics.wisc.edu/~craigm/idl/idl.html>`_.
 	"""
 	
 	idel=[]	# list of indexes of x elements which are also in y

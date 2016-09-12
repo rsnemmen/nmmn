@@ -1,6 +1,6 @@
 """
-Miscellaneous statistical methods
-===================================
+Statistical methods
+=====================
 
 - fit residuals
 - Computing prediction and confidence bands
@@ -1263,7 +1263,7 @@ CDF and PPF methods below in order to speedup calls to this class
 :param mu: mode
 
 Examples
-=========
+----------
 
 Defines distribution with sig1=1, sig2=3, mu=0:
 

@@ -1,9 +1,13 @@
 """
-Methods for dealing with Bayesian statistics, priors, posteriors
+Methods for dealing with Bayesian statistics
+==============================================
 
-.. todo::                
+e.g. priors, posteriors, joint density plots.
 
-- plot confidence/credibility interval of a model
+Right now the module is focused around PyMC, but I am migrating
+to emcee.
+
+.. todo:: plot confidence/credibility interval of a model
 """
 
 # Import necessary modules

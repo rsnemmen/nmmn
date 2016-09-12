@@ -1,6 +1,6 @@
 """
-Misc. modules useful for dealing with (GR)(R)(M)HD simulations
-=========================================================
+Dealing with (GR)(R)(M)HD simulations
+========================================
 
 - RAISHIN
 - Pluto

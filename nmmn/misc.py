@@ -1,5 +1,7 @@
-# Miscelaneous methods
-# ======================
+"""
+Miscelaneous methods
+======================
+"""
 
 import numpy
 

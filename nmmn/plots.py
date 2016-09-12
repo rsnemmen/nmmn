@@ -9,7 +9,9 @@ import pylab
 
 
 def onehist(x,xlabel='',fontsize=12):
-	""" Script that plots the histogram of x with the corresponding xlabel. """
+	""" 
+Script that plots the histogram of x with the corresponding xlabel. 
+	"""
 
 	pylab.clf()
 	pylab.rcParams.update({'font.size': fontsize})
@@ -40,13 +42,7 @@ sharing the same X-axis.
 :param range: in the form (xmin,xmax), same as range argument for hist and applied to both
 	histograms.
 
-Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.
-
-v1 Dec. 2011
-v1.1 Feb. 2012: Added sharey argument.
-v1.2 Feb. 2012: added fontsize argument.
-v1.3 Apr. 2012: added fig argument.
-v1.4 Apr. 2013: added range argument.
+Inspired by `Scipy <http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label>`_.
 	"""
 
 	pylab.rcParams.update({'font.size': fontsize})
@@ -95,14 +91,10 @@ Arguments:
 
 Example:
 x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)
+
 >>> threehists(x1,x2,x3,38,44,'AD','JD','EHF10','$\log L_{\\rm bol}$ (erg s$^{-1}$)',sharey=True)
 
-Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.
-
-v1 Dec. 2011
-v1.1 Feb. 2012:	Added sharey keyword.
-v1.2 Feb. 2012: added fontsize argument.
-v1.3 Apr. 2012: added fig argument.
+Inspired by `Scipy <http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label>`_.
 	"""
 	pylab.rcParams.update({'font.size': fontsize})
 	fig=pylab.figure(fig)
@@ -148,9 +140,10 @@ Script that plots four histograms of quantities x1, x2, x3 and x4
 sharing the same X-axis.
 
 Arguments:
+
 - x1,x2,x3,x4: arrays with data to be plotted
 - xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range
-	for both histograms.
+or both histograms.
 - x1leg, x2leg, x3leg, x4leg: legends for each histogram	
 - xlabel: self-explanatory.
 - sharey: sharing the Y-axis among the histograms?
@@ -159,13 +152,7 @@ Arguments:
 - line?: draws vertical solid lines at the positions indicated in each panel
 - line?b: draws vertical dashed lines at the positions indicated in each panel
 
-Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.
-
-v1 Apr. 2012: inherited from threehists.
-v1.5 Jun 2012: added option for drawing vertical lines in each histogram (line?)
-v1.6 Jul 2012: added option for line?b
-v1.7 Oct 2012: added option 'loc'
-v1.8 Mar 2013: added 'histtype' option in histogram plots
+Inspired by `Scipy <http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label>`_.
 	"""
 	pylab.rcParams.update({'font.size': fontsize})
 	fig=pylab.figure(fig)
@@ -230,16 +217,17 @@ sharing the same X-axis. For each bin, Y is the fraction of the sample
 with values above X.
 
 Arguments:
+
 - x1,x2,x3,x4: arrays with data to be plotted
 - xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range
-	for both histograms.
+for both histograms.
 - x1leg, x2leg, x3leg, x4leg: legends for each histogram	
 - xlabel: self-explanatory.
 - sharey: sharing the Y-axis among the histograms?
 - bins1,bins2,...: number of bins in each histogram
 - fig: which plot window should I use?
 
-Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.
+Inspired by `Scipy <http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label>`_.
 
 v1 Jun. 2012: inherited from fourhists.
 	"""
@@ -302,12 +290,6 @@ x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)
 >>> threehists(x1,x2,x3,38,44,'AD','JD','EHF10','$\log L_{\\rm bol}$ (erg s$^{-1}$)')
 
 Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.
-
-v1 Dec. 2011
-v1.1 Feb. 2012:	Added sharey keyword.
-v1.2 Feb. 2012: added fontsize argument.
-v1.3 Apr. 2012: added fig argument.
-v1.4 Jun. 2012: no sharing of X-axis, removed some arguments
 	"""
 	pylab.rcParams.update({'font.size': fontsize})
 	pylab.figure(fig)
@@ -344,13 +326,15 @@ def fitconf(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',conf=
 	Assumes you initialized the plot window before calling this method.
 	
 	Usage:
+
 	>>> a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle='k',confcolor='LightGrey')
 	
 	Explanation of some arguments:
+
 	- xplot: if provided, will compute the confidence band in the X-values provided
-	  with xplot
+	with xplot
 	- front: if True, then will plot the confidence band in front of the data
-	  points; otherwise, will plot it behind the points
+	points; otherwise, will plot it behind the points
 	"""	
 	# Selects the desired BCES method
 	i=whichbces(bces)
@@ -395,13 +379,14 @@ def fitconfmc(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',con
 	instabilities when computing the gradient.
 	
 	Usage:
+
 	>>> a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle='k',confcolor='LightGrey')
 	
 	Explanation of some arguments:
 	- xplot: if provided, will compute the confidence band in the X-values provided
-	  with xplot
+	with xplot
 	- front: if True, then will plot the confidence band in front of the data
-	  points; otherwise, will plot it behind the points
+	points; otherwise, will plot it behind the points
 	- conf: size of confidence band to be plotted in standard deviations
 	"""	
 	# Selects the desired BCES method
@@ -450,13 +435,14 @@ def plotlinfit(xdata,ydata,a,b,erra,errb,cov,linestyle='',conf=0.683,confcolor='
 	Assumes you initialized the plot window before calling this method.
 	
 	Usage:
+
 	>>> nemmen.plotlinfit(x,y,a,b,erra,errb,covab,linestyle='k',confcolor='LightGrey')
 	
 	Explanation of some arguments:
 	- xplot: if provided, will compute the confidence band in the X-values provided
-	  with xplot
+	with xplot
 	- front: if True, then will plot the confidence band in front of the data
-	  points; otherwise, will plot it behind the points
+	points; otherwise, will plot it behind the points
 	"""			
 	# Plots best-fit
 	if xplot==None:
@@ -641,8 +627,8 @@ Usage:
 
 >>> uerrorbar(x,y,fmt='o')
 
-  will plot the points and error bars associated with the 'unumpy'
-  arrays x and y
+will plot the points and error bars associated with the 'unumpy'
+arrays x and y
 	"""	
 	x=unumpy.nominal_values(ux)
 	y=unumpy.nominal_values(uy)
@@ -674,7 +660,7 @@ def ipyplots():
 Makes sure we have exactly the same matplotlib settings as in the IPython terminal 
 version. Call this from IPython notebook.
 
-Source: http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te).
+`Source <http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te)>`_.
 	"""
 	pylab.rcParams['figure.figsize']=(8.0,6.0)    #(6.0,4.0)
 	pylab.rcParams['font.size']=12                #10 
@@ -725,8 +711,6 @@ def make_cmap(colors, position=None, bit=False):
 def image(Z,xnew,ynew,my_cmap=None,aspect='equal'):
 	"""
 Creates pretty image. You need to specify:
-
-- 
 	"""
 	imshow(log10(Z),extent=[xnew[0],xnew[-1],ynew[0],ynew[-1]], cmap=my_cmap)
 	pylab.axes().set_aspect('equal')

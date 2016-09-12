@@ -32,7 +32,7 @@ Input is assumed float.
 def mjy(lognu,ll,dist,llerr=None):
     """
 Converts log(nu/Hz), log(nu Lnu [erg/s]), error in log(nuLnu) to
-         log(lambda/micron), log(Fnu/mJy), error in log(Fnu).
+log(lambda/micron), log(Fnu/mJy), error in log(Fnu).
 The input units are CGS.
 
 Usage:
