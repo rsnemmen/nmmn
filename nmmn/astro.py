@@ -46,7 +46,7 @@ If you do not have errors in the flux:
 
 :param dist: distance in Mpc
     """
-   	import uncertainties.unumpy as unumpy
+    import uncertainties.unumpy as unumpy
 
     c=29979245800.	# speed of light in CGS
     dist=dist*3.085677581e24	# Mpc -> cm

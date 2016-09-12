@@ -9,7 +9,6 @@ Methods for dealing with Bayesian statistics, priors, posteriors
 # Import necessary modules
 import numpy, pylab, scipy, scipy.stats
 import pymc
-import nemmen
 
 
 

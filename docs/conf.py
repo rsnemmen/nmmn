@@ -12,20 +12,15 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import sys
+import os
+
 # try to render read the docs online
 # http://blog.rtwilson.com/how-to-make-your-sphinx-documentation-compile-with-readthedocs-when-youre-using-numpy-and-scipy/
 import mock
- 
-MOCK_MODULES = ['numpy', 'scipy', 'matplotlib', 'pylab', 'pymc']
+MOCK_MODULES = ['pymc']
 for mod_name in MOCK_MODULES:
-sys.modules[mod_name] = mock.Mock()
-
-
-
-
-
-import sys
-import os
+    sys.modules[mod_name] = mock.Mock()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
