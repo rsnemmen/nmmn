@@ -1,6 +1,8 @@
 """
 Signal processing
 ===================
+
+Time series
 """
 
 

@@ -1,5 +1,8 @@
-# Astrophysical routines
-# =========================
+"""
+Astrophysical routines
+=========================
+
+"""
 
 
 import numpy

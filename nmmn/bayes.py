@@ -1,10 +1,10 @@
-'''
- Testing several Bayesian tools.
+"""
+Methods for dealing with Bayesian statistics, priors, posteriors
 
-Todo:                
+.. todo::                
 
 - plot confidence/credibility interval of a model
-'''
+"""
 
 # Import necessary modules
 import numpy, pylab, scipy, scipy.stats
