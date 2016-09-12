@@ -1,0 +1,824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nmmn.plots &mdash; nmmn  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="nmmn  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for nmmn.plots</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Fancy plots</span>
+<span class="sd">==============</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">pylab</span>
+
+
+
+<div class="viewcode-block" id="onehist"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.onehist">[docs]</a><span class="k">def</span> <span class="nf">onehist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot; Script that plots the histogram of x with the corresponding xlabel. &quot;&quot;&quot;</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+	<span class="c1">#### Change the X-axis appropriately ####</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="twohists"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.twohists">[docs]</a><span class="k">def</span> <span class="nf">twohists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">x1leg</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">x2leg</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bins1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">bins2</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Script that plots two histograms of quantities x1 and x2</span>
+<span class="sd">sharing the same X-axis.</span>
+
+<span class="sd">:param x1,x2: arrays with data to be plotted</span>
+<span class="sd">:param xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
+<span class="sd">	for both histograms.</span>
+<span class="sd">:param x1leg, x2leg: legends for each histogram	</span>
+<span class="sd">:param xlabel: self-explanatory.</span>
+<span class="sd">:param bins1,bins2: number of bins in each histogram</span>
+<span class="sd">:param fig: which plot window should I use?</span>
+<span class="sd">:param range: in the form (xmin,xmax), same as range argument for hist and applied to both</span>
+<span class="sd">	histograms.</span>
+
+<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
+
+<span class="sd">v1 Dec. 2011</span>
+<span class="sd">v1.1 Feb. 2012: Added sharey argument.</span>
+<span class="sd">v1.2 Feb. 2012: added fontsize argument.</span>
+<span class="sd">v1.3 Apr. 2012: added fig argument.</span>
+<span class="sd">v1.4 Apr. 2013: added range argument.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
+	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+	<span class="n">a</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">sharey</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	
+	<span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bins1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x1leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="nb">range</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
+	
+	<span class="n">b</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bins2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x2leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span><span class="nb">range</span><span class="o">=</span><span class="nb">range</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">b</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number&#39;</span><span class="p">,</span><span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="threehists"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.threehists">[docs]</a><span class="k">def</span> <span class="nf">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="n">x1leg</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">x2leg</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">x3leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Script that plots three histograms of quantities x1, x2 and x3 </span>
+<span class="sd">sharing the same X-axis.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">- x1,x2,x3: arrays with data to be plotted</span>
+<span class="sd">- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
+<span class="sd">	for both histograms.</span>
+<span class="sd">- x1leg, x2leg, x3leg: legends for each histogram	</span>
+<span class="sd">- xlabel: self-explanatory.</span>
+<span class="sd">- sharey: sharing the Y-axis among the histograms?</span>
+<span class="sd">- fig: which plot window should I use?</span>
+
+<span class="sd">Example:</span>
+<span class="sd">x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</span>
+<span class="sd">&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#39;AD&#39;,&#39;JD&#39;,&#39;EHF10&#39;,&#39;$\log L_{\\rm bol}$ (erg s$^{-1}$)&#39;,sharey=True)</span>
+
+<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
+
+<span class="sd">v1 Dec. 2011</span>
+<span class="sd">v1.1 Feb. 2012:	Added sharey keyword.</span>
+<span class="sd">v1.2 Feb. 2012: added fontsize argument.</span>
+<span class="sd">v1.3 Apr. 2012: added fig argument.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
+	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+	<span class="n">a</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">sharey</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>		
+	
+	<span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x1leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
+	
+	<span class="n">b</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x2leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">c</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x3leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">c</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">c</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+	
+	
+	
+
+
+
+
+<div class="viewcode-block" id="fourhists"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fourhists">[docs]</a><span class="k">def</span> <span class="nf">fourhists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="n">x4</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="n">x1leg</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">x2leg</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">x3leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">x4leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bins1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">bins2</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">bins3</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">bins4</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">line1</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line2</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line3</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line4</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line1b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line2b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line3b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">line4b</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Script that plots four histograms of quantities x1, x2, x3 and x4</span>
+<span class="sd">sharing the same X-axis.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">- x1,x2,x3,x4: arrays with data to be plotted</span>
+<span class="sd">- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
+<span class="sd">	for both histograms.</span>
+<span class="sd">- x1leg, x2leg, x3leg, x4leg: legends for each histogram	</span>
+<span class="sd">- xlabel: self-explanatory.</span>
+<span class="sd">- sharey: sharing the Y-axis among the histograms?</span>
+<span class="sd">- bins1,bins2,...: number of bins in each histogram</span>
+<span class="sd">- fig: which plot window should I use?</span>
+<span class="sd">- line?: draws vertical solid lines at the positions indicated in each panel</span>
+<span class="sd">- line?b: draws vertical dashed lines at the positions indicated in each panel</span>
+
+<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
+
+<span class="sd">v1 Apr. 2012: inherited from threehists.</span>
+<span class="sd">v1.5 Jun 2012: added option for drawing vertical lines in each histogram (line?)</span>
+<span class="sd">v1.6 Jul 2012: added option for line?b</span>
+<span class="sd">v1.7 Oct 2012: added option &#39;loc&#39;</span>
+<span class="sd">v1.8 Mar 2013: added &#39;histtype&#39; option in histogram plots</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
+	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+	<span class="n">a</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">sharey</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">d</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>		
+		<span class="n">d</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	
+	<span class="k">def</span> <span class="nf">vline</span><span class="p">(</span><span class="n">hist</span><span class="p">,</span><span class="n">value</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Draw vertical line&quot;&quot;&quot;</span>
+		<span class="n">yax</span><span class="o">=</span><span class="n">hist</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">()</span>
+		<span class="n">hist</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">value</span><span class="p">,</span><span class="n">value</span><span class="p">],[</span><span class="n">yax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yax</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="n">linestyle</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+	<span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bins1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x1leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line1</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">line1</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line1b</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">line1b</span><span class="p">,</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+	
+	<span class="n">b</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bins2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x2leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line2</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">line2</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line2b</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">line2b</span><span class="p">,</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+
+	<span class="n">c</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">bins3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x3leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">c</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line3</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">line3</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line3b</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">line3b</span><span class="p">,</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+
+	<span class="n">d</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x4</span><span class="p">,</span><span class="n">bins4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x4leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">d</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line4</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">line4</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">line4b</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">vline</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">line4b</span><span class="p">,</span><span class="s1">&#39;k--&#39;</span><span class="p">)</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">d</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="n">c</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="fourcumplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fourcumplot">[docs]</a><span class="k">def</span> <span class="nf">fourcumplot</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="n">x4</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="n">x1leg</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">x2leg</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">x3leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">x4leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$N(x&gt;x</span><span class="se">\&#39;</span><span class="s1">)$&#39;</span><span class="p">,</span><span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bins1</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">bins2</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">bins3</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">bins4</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Script that plots the cumulative histograms of four variables x1, x2, x3 and x4</span>
+<span class="sd">sharing the same X-axis. For each bin, Y is the fraction of the sample </span>
+<span class="sd">with values above X.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">- x1,x2,x3,x4: arrays with data to be plotted</span>
+<span class="sd">- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
+<span class="sd">	for both histograms.</span>
+<span class="sd">- x1leg, x2leg, x3leg, x4leg: legends for each histogram	</span>
+<span class="sd">- xlabel: self-explanatory.</span>
+<span class="sd">- sharey: sharing the Y-axis among the histograms?</span>
+<span class="sd">- bins1,bins2,...: number of bins in each histogram</span>
+<span class="sd">- fig: which plot window should I use?</span>
+
+<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
+
+<span class="sd">v1 Jun. 2012: inherited from fourhists.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
+	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+	<span class="n">a</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">sharey</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">d</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">b</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>		
+		<span class="n">d</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+	
+	<span class="n">a</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">bins1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x1leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=-</span><span class="bp">True</span><span class="p">,</span><span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">a</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
+	
+	<span class="n">b</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">bins2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x2leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=-</span><span class="bp">True</span><span class="p">,</span><span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">b</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">c</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">bins3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x3leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=-</span><span class="bp">True</span><span class="p">,</span><span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">c</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">d</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x4</span><span class="p">,</span><span class="n">bins4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x4leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="n">cumulative</span><span class="o">=-</span><span class="bp">True</span><span class="p">,</span><span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
+	<span class="n">d</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">d</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="n">c</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+
+
+
+
+
+<div class="viewcode-block" id="threehistsx"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.threehistsx">[docs]</a><span class="k">def</span> <span class="nf">threehistsx</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="n">x1leg</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">x2leg</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">x3leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">bins1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">bins2</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">bins3</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Script that pretty-plots three histograms of quantities x1, x2 and x3.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">:param x1,x2,x3: arrays with data to be plotted</span>
+<span class="sd">:param x1leg, x2leg, x3leg: legends for each histogram	</span>
+<span class="sd">:param fig: which plot window should I use?</span>
+
+<span class="sd">Example:</span>
+<span class="sd">x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</span>
+
+<span class="sd">&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#39;AD&#39;,&#39;JD&#39;,&#39;EHF10&#39;,&#39;$\log L_{\\rm bol}$ (erg s$^{-1}$)&#39;)</span>
+
+<span class="sd">Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label.</span>
+
+<span class="sd">v1 Dec. 2011</span>
+<span class="sd">v1.1 Feb. 2012:	Added sharey keyword.</span>
+<span class="sd">v1.2 Feb. 2012: added fontsize argument.</span>
+<span class="sd">v1.3 Apr. 2012: added fig argument.</span>
+<span class="sd">v1.4 Jun. 2012: no sharing of X-axis, removed some arguments</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x1leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">bins1</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x2leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">bins2</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x3</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">x3leg</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="n">bins</span><span class="o">=</span><span class="n">bins3</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span><span class="n">frameon</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.15</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+	
+	
+
+	
+<div class="viewcode-block" id="fitconf"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fitconf">[docs]</a><span class="k">def</span> <span class="nf">fitconf</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bces</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.683</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is a wrapper that given the input data performs the BCES</span>
+<span class="sd">	fit, get the orthogonal parameters and plot the best-fit line and</span>
+<span class="sd">	confidence band (generated using analytical methods). I decided to put together </span>
+<span class="sd">	these commands in a method because I have been using them very frequently.</span>
+<span class="sd">	</span>
+<span class="sd">	Assumes you initialized the plot window before calling this method.</span>
+<span class="sd">	</span>
+<span class="sd">	Usage:</span>
+<span class="sd">	&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
+<span class="sd">	</span>
+<span class="sd">	Explanation of some arguments:</span>
+<span class="sd">	- xplot: if provided, will compute the confidence band in the X-values provided</span>
+<span class="sd">	  with xplot</span>
+<span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
+<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="c1"># Selects the desired BCES method</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
+		
+	<span class="c1"># Performs the BCES fit</span>
+	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
+	
+	<span class="c1"># Plots best-fit</span>
+	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">xplot</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">linestyle</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+	<span class="n">fitm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">])</span>	<span class="c1"># array with best-fit parameters</span>
+	<span class="n">covm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">erra</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span>	<span class="c1"># covariance matrix</span>
+	<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+	<span class="c1"># Plots confidence band</span>
+	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">xcb</span><span class="o">=</span><span class="n">confbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">front</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="mi">10</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="bp">None</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xcb</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">confcolor</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="fitconfmc"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fitconfmc">[docs]</a><span class="k">def</span> <span class="nf">fitconfmc</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bces</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is a wrapper that given the input data performs the BCES</span>
+<span class="sd">	fit, get the orthogonal parameters and plot the best-fit line and</span>
+<span class="sd">	confidence band (generated using MC). I decided to put together these </span>
+<span class="sd">	commands in a method because I have been using them very frequently.</span>
+<span class="sd">	</span>
+<span class="sd">	Assumes you initialized the plot window before calling this method.</span>
+<span class="sd">	This method is more stable than fitconf, which is plagued with numerical </span>
+<span class="sd">	instabilities when computing the gradient.</span>
+<span class="sd">	</span>
+<span class="sd">	Usage:</span>
+<span class="sd">	&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
+<span class="sd">	</span>
+<span class="sd">	Explanation of some arguments:</span>
+<span class="sd">	- xplot: if provided, will compute the confidence band in the X-values provided</span>
+<span class="sd">	  with xplot</span>
+<span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
+<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	- conf: size of confidence band to be plotted in standard deviations</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="c1"># Selects the desired BCES method</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
+		
+	<span class="c1"># Performs the BCES fit</span>
+	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
+	
+	<span class="c1"># Plots best-fit</span>
+	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">xplot</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">linestyle</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+	<span class="n">fitm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">])</span>	<span class="c1"># array with best-fit parameters</span>
+	<span class="n">covm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">erra</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span>	<span class="c1"># covariance matrix</span>
+
+	<span class="c1"># Plots confidence band</span>
+	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">confbandmc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">10000</span><span class="p">,</span><span class="n">conf</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">front</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="mi">10</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="bp">None</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">confcolor</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span></div>
+
+
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="plotlinfit"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.plotlinfit">[docs]</a><span class="k">def</span> <span class="nf">plotlinfit</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.683</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is a wrapper that given the output data from a linear regression</span>
+<span class="sd">	method (for example, bayeslin.pro, the Bayesian linear regression method </span>
+<span class="sd">	of Kelly (2007)), it plots the fits and the confidence bands.</span>
+<span class="sd">	The input is:</span>
+<span class="sd">	X, Y, slope (A), errA, intercept (B), errB and cov(A,B)</span>
+<span class="sd">	</span>
+<span class="sd">	Assumes you initialized the plot window before calling this method.</span>
+<span class="sd">	</span>
+<span class="sd">	Usage:</span>
+<span class="sd">	&gt;&gt;&gt; nemmen.plotlinfit(x,y,a,b,erra,errb,covab,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
+<span class="sd">	</span>
+<span class="sd">	Explanation of some arguments:</span>
+<span class="sd">	- xplot: if provided, will compute the confidence band in the X-values provided</span>
+<span class="sd">	  with xplot</span>
+<span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
+<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	&quot;&quot;&quot;</span>			
+	<span class="c1"># Plots best-fit</span>
+	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">xplot</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span><span class="p">,</span><span class="n">linestyle</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+	<span class="n">fitm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="p">])</span>	<span class="c1"># array with best-fit parameters</span>
+	<span class="n">covm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">erra</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">cov</span><span class="p">),</span> <span class="p">(</span><span class="n">cov</span><span class="p">,</span><span class="n">errb</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span>	<span class="c1"># covariance matrix</span>
+	<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+	<span class="c1"># Plots confidence band</span>
+	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">xcb</span><span class="o">=</span><span class="n">confbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">front</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="mi">10</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="bp">None</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xcb</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">confcolor</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span></div>
+	
+
+
+
+
+<div class="viewcode-block" id="jh"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.jh">[docs]</a><span class="k">def</span> <span class="nf">jh</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bces</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.683</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is a wrapper that given the input data performs the BCES</span>
+<span class="sd">	fit, get the orthogonal parameters, best-fit line and</span>
+<span class="sd">	confidence band. Then returns the points corresponding to the line and</span>
+<span class="sd">	confidence band. </span>
+
+<span class="sd">	I wrote this for the John Hunter plotting contest, in order to simplify</span>
+<span class="sd">	my AGN-GRB plot. Inherited from method fitconf.</span>
+<span class="sd">	</span>
+<span class="sd">	Usage:</span>
+
+<span class="sd">	&gt;&gt;&gt; x,y,lcb,ucb=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
+
+<span class="sd">	where y are the line points, lcb and ucb are the lower and upper confidence band</span>
+<span class="sd">	points.</span>
+
+<span class="sd">	:param xplot: if provided, will compute the confidence band in the X-values provided</span>
+<span class="sd">	  with xplot</span>
+<span class="sd">	:param front: if True, then will plot the confidence band in front of the data</span>
+<span class="sd">	  points; otherwise, will plot it behind the points</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="c1"># Selects the desired BCES method</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
+		
+	<span class="c1"># Performs the BCES fit</span>
+	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
+	
+	<span class="c1"># Plots best-fit</span>
+	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">xplot</span>
+	<span class="n">y</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="n">fitm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">])</span>	<span class="c1"># array with best-fit parameters</span>
+	<span class="n">covm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">erra</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span>	<span class="c1"># covariance matrix</span>
+	<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+	<span class="c1"># Plots confidence band</span>
+	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">xcb</span><span class="o">=</span><span class="n">confbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span></div>
+
+
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="fitconfpred"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fitconfpred">[docs]</a><span class="k">def</span> <span class="nf">fitconfpred</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bces</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.68</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">,</span><span class="n">predcolor</span><span class="o">=</span><span class="s1">&#39;Khaki&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is a wrapper that given the input data performs the BCES</span>
+<span class="sd">	fit, get the orthogonal parameters and plot (i) the best-fit line,</span>
+<span class="sd">	(ii) confidence band and (iii) prediction band. </span>
+<span class="sd">	</span>
+<span class="sd">	I decided to put together these commands in a method because I have been </span>
+<span class="sd">	using them very frequently.</span>
+<span class="sd">	</span>
+<span class="sd">	Assumes you initialized the plot window before calling this method.</span>
+<span class="sd">	</span>
+<span class="sd">	Usage:</span>
+
+<span class="sd">	&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconfpred(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,confcolor=&#39;LightGrey&#39;)</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="c1"># Selects the desired BCES method</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
+		
+	<span class="c1"># Performs the BCES fit</span>
+	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
+	
+	<span class="c1"># Plots best-fit</span>
+	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">xplot</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">linestyle</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+	<span class="n">fitm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">])</span>	<span class="c1"># array with best-fit parameters</span>
+	<span class="n">covm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">erra</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span>	<span class="c1"># covariance matrix</span>
+	<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+	
+	<span class="k">if</span> <span class="n">front</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="mi">10</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="bp">None</span>
+	
+	<span class="c1"># Plots prediction band</span>
+	<span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">xpb</span><span class="o">=</span><span class="n">predbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xpb</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">predcolor</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>
+	
+	<span class="c1"># Plots confidence band</span>
+	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">xcb</span><span class="o">=</span><span class="n">confbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xcb</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">confcolor</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span></div>
+
+
+
+
+<div class="viewcode-block" id="fitpred"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fitpred">[docs]</a><span class="k">def</span> <span class="nf">fitpred</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bces</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.68</span><span class="p">,</span><span class="n">predcolor</span><span class="o">=</span><span class="s1">&#39;Khaki&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is a wrapper that given the input data performs the BCES</span>
+<span class="sd">	fit, get the orthogonal parameters and plot (i) the best-fit line and</span>
+<span class="sd">	(ii) prediction band. </span>
+<span class="sd">	</span>
+<span class="sd">	I decided to put together these commands in a method because I have been </span>
+<span class="sd">	using them very frequently.</span>
+<span class="sd">	</span>
+<span class="sd">	Assumes you initialized the plot window before calling this method.</span>
+<span class="sd">	</span>
+<span class="sd">	Usage:</span>
+
+<span class="sd">	&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitpred(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#39;k&#39;,predcolor=&#39;LightGrey&#39;)</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="c1"># Selects the desired BCES method</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
+		
+	<span class="c1"># Performs the BCES fit</span>
+	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
+	
+	<span class="c1"># Plots best-fit</span>
+	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xdata</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xdata</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">xplot</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">linestyle</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+	<span class="n">fitm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">])</span>	<span class="c1"># array with best-fit parameters</span>
+	<span class="n">covm</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">(</span><span class="n">erra</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">])</span>	<span class="c1"># covariance matrix</span>
+	<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+	
+	<span class="k">if</span> <span class="n">front</span><span class="o">==</span><span class="bp">True</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="mi">10</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">zorder</span><span class="o">=</span><span class="bp">None</span>
+	
+	<span class="c1"># Plots prediction band</span>
+	<span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">xpb</span><span class="o">=</span><span class="n">predbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xpb</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">predcolor</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="n">zorder</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="uerrorbar"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.uerrorbar">[docs]</a><span class="k">def</span> <span class="nf">uerrorbar</span><span class="p">(</span><span class="n">ux</span><span class="p">,</span><span class="n">uy</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Adaptation of pylab.errorbar to work with arrays defined using the</span>
+<span class="sd">uncertainties package, which include the errorbars built-in.</span>
+
+<span class="sd">Usage:</span>
+
+<span class="sd">&gt;&gt;&gt; uerrorbar(x,y,fmt=&#39;o&#39;)</span>
+
+<span class="sd">  will plot the points and error bars associated with the &#39;unumpy&#39;</span>
+<span class="sd">  arrays x and y</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="n">x</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">ux</span><span class="p">)</span>
+	<span class="n">y</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">uy</span><span class="p">)</span>
+	<span class="n">errx</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">std_devs</span><span class="p">(</span><span class="n">ux</span><span class="p">)</span>
+	<span class="n">erry</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">std_devs</span><span class="p">(</span><span class="n">uy</span><span class="p">)</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">xerr</span><span class="o">=</span><span class="n">errx</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">erry</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="text"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.text">[docs]</a><span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Version of pylab.text that can be applied to arrays.</span>
+
+<span class="sd">Usage:</span>
+
+<span class="sd">&gt;&gt;&gt; text(x,y,s, fontsize=10)</span>
+
+<span class="sd">will plot the strings in array &#39;s&#39; at coordinates given by arrays</span>
+<span class="sd">&#39;x&#39; and &#39;y&#39;.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ipyplots"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.ipyplots">[docs]</a><span class="k">def</span> <span class="nf">ipyplots</span><span class="p">():</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Makes sure we have exactly the same matplotlib settings as in the IPython terminal </span>
+<span class="sd">version. Call this from IPython notebook.</span>
+
+<span class="sd">Source: http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te).</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span><span class="mf">6.0</span><span class="p">)</span>    <span class="c1">#(6.0,4.0)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">12</span>                <span class="c1">#10 </span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;savefig.dpi&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">100</span>             <span class="c1">#72 </span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.subplot.bottom&#39;</span><span class="p">]</span><span class="o">=.</span><span class="mi">1</span>    <span class="c1">#.125</span></div>
+
+
+
+
+<div class="viewcode-block" id="make_cmap"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.make_cmap">[docs]</a><span class="k">def</span> <span class="nf">make_cmap</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">position</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">bit</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    make_cmap takes a list of tuples which contain RGB values. The RGB</span>
+<span class="sd">    values may either be in 8-bit [0 to 255] (in which bit must be set to</span>
+<span class="sd">    True when called) or arithmetic [0 to 1] (default). make_cmap returns</span>
+<span class="sd">    a cmap with equally spaced colors.</span>
+<span class="sd">    Arrange your tuples so that the first color is the lowest value for the</span>
+<span class="sd">    colorbar and the last is the highest.</span>
+<span class="sd">    position contains values from 0 to 1 to dictate the location of each color.</span>
+
+<span class="sd">    source: http://schubert.atmos.colostate.edu/~cslocum/custom_cmap.html</span>
+<span class="sd">    Chris Slocum, Colorado State University</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">matplotlib</span> <span class="kn">as</span> <span class="nn">mpl</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+    <span class="n">bit_rgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">position</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">position</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;position length must be the same as colors&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">position</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">position</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;position must start with 0 and end with 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">bit</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)):</span>
+            <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bit_rgb</span><span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span>
+                         <span class="n">bit_rgb</span><span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span>
+                         <span class="n">bit_rgb</span><span class="p">[</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]])</span>
+    <span class="n">cdict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;red&#39;</span><span class="p">:[],</span> <span class="s1">&#39;green&#39;</span><span class="p">:[],</span> <span class="s1">&#39;blue&#39;</span><span class="p">:[]}</span>
+    <span class="k">for</span> <span class="n">pos</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">position</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
+        <span class="n">cdict</span><span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pos</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">cdict</span><span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pos</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">cdict</span><span class="p">[</span><span class="s1">&#39;blue&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pos</span><span class="p">,</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">LinearSegmentedColormap</span><span class="p">(</span><span class="s1">&#39;my_colormap&#39;</span><span class="p">,</span><span class="n">cdict</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cmap</span></div>
+
+
+<div class="viewcode-block" id="image"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.image">[docs]</a><span class="k">def</span> <span class="nf">image</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">my_cmap</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Creates pretty image. You need to specify:</span>
+
+<span class="sd">- </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">imshow</span><span class="p">(</span><span class="n">log10</span><span class="p">(</span><span class="n">Z</span><span class="p">),</span><span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">xnew</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">xnew</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">ynew</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">ynew</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">my_cmap</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+	<span class="n">colorbar</span><span class="p">()</span>
+	<span class="n">circle2</span><span class="o">=</span><span class="n">Circle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+	<span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_artist</span><span class="p">(</span><span class="n">circle2</span><span class="p">)</span>
+	<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;tmp.png&#39;</span><span class="p">,</span><span class="n">transparent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span></div>
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

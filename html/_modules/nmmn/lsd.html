@@ -1,0 +1,402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nmmn.lsd &mdash; nmmn  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="nmmn  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for nmmn.lsd</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">LSD operations = lists, sets, dictionaries (and arrays)</span>
+<span class="sd">=========================================================</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+
+<div class="viewcode-block" id="cmset_and"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.cmset_and">[docs]</a><span class="k">def</span> <span class="nf">cmset_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Usage:</span>
+
+<span class="sd">&gt;&gt;&gt; cmset_and(x,y)</span>
+
+<span class="sd">returns the index of the elements of array x which are also present in the</span>
+<span class="sd">array y. </span>
+
+<span class="sd">This is equivalent to using the IDL command</span>
+
+<span class="sd">&gt;&gt;&gt; botha=cmset_op(namea, &#39;AND&#39;, nameb, /index)</span>
+
+<span class="sd">i.e. performs the same thing as the IDL routine cmset_op from</span>
+<span class="sd">http://cow.physics.wisc.edu/~craigm/idl/idl.html.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of indexes of x elements which are also in y</span>
+	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+	<span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span> <span class="n">idel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+		
+	<span class="k">return</span> <span class="n">idel</span></div>
+
+
+
+
+<div class="viewcode-block" id="cmsetsort_and"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.cmsetsort_and">[docs]</a><span class="k">def</span> <span class="nf">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Usage:</span>
+
+<span class="sd">&gt;&gt;&gt; cmsetsort_and(x,y)</span>
+
+<span class="sd">returning the index of the elements of array x which are also present in the</span>
+<span class="sd">array y. </span>
+
+<span class="sd">The resulting elements have the same order as the ones in y. For </span>
+<span class="sd">instance, if you run</span>
+
+<span class="sd">&gt;&gt;&gt; i=cmsetsort_and(x,y)</span>
+<span class="sd">&gt;&gt;&gt; x[i]==y</span>
+
+<span class="sd">will return an array of True, whereas if you used instead cmset_and it is</span>
+<span class="sd">not guaranteed that all elements would match in x[i] and y.</span>
+
+<span class="sd">Inherited from :func:`nemmen.cmset_and`.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of indexes of x elements which are also in y</span>
+	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+	<span class="k">for</span> <span class="n">yy</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="n">yy</span><span class="p">)</span>
+		<span class="n">idel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="p">)</span>
+		
+	<span class="k">return</span> <span class="n">idel</span></div>
+	
+
+
+
+<div class="viewcode-block" id="cmset_not"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.cmset_not">[docs]</a><span class="k">def</span> <span class="nf">cmset_not</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Usage:</span>
+<span class="sd">&gt;&gt;&gt; cmset_not(x,y)</span>
+<span class="sd">returning the index of the elements of array x which are not present in the</span>
+<span class="sd">array y. </span>
+
+<span class="sd">This is equivalent to using the IDL command</span>
+<span class="sd">SET = CMSET_OP(A, &#39;AND&#39;, /NOT2, B, /INDEX)   ; A but not B</span>
+<span class="sd">i.e. performs the same thing as the IDL routine cmset_op from</span>
+<span class="sd">http://cow.physics.wisc.edu/~craigm/idl/idl.html.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of indexes of x elements which NOT in y</span>
+	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+	<span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">xx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span> <span class="n">idel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+		
+	<span class="k">return</span> <span class="n">idel</span></div>
+
+
+	
+<div class="viewcode-block" id="nanzero"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.nanzero">[docs]</a><span class="k">def</span> <span class="nf">nanzero</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Set nan elements to zero in the array.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Index of nan elements</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span>
+
+	<span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+	<span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mf">0.</span>
+	<span class="c1">#y[i]=1e-20</span>
+	
+	<span class="c1"># Removes the nan elements</span>
+	<span class="k">return</span> <span class="n">y</span></div>
+
+
+
+
+<div class="viewcode-block" id="delnan"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.delnan">[docs]</a><span class="k">def</span> <span class="nf">delnan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Remove nan elements from the array.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Index of nan elements</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span>
+	
+	<span class="c1"># Removes the nan elements</span>
+	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
+
+	
+
+
+<div class="viewcode-block" id="delweird"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.delweird">[docs]</a><span class="k">def</span> <span class="nf">delweird</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Remove nan or inf elements from the array.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Index of nan elements</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span> <span class="p">)</span>
+	
+	<span class="c1"># Removes the nan elements</span>
+	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
+
+
+	
+<div class="viewcode-block" id="replacevals"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.replacevals">[docs]</a><span class="k">def</span> <span class="nf">replacevals</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">minval</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Replace all values in array x for which abs(x)&lt;=minval with x=sign(x)*minval.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&lt;=</span><span class="n">minval</span><span class="p">)</span>
+	<span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+	<span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">minval</span>
+
+	<span class="k">return</span> <span class="n">y</span></div>
+
+
+
+	
+<div class="viewcode-block" id="search"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.search">[docs]</a><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">xref</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Search for the element in an array x with the value nearest xref.</span>
+<span class="sd">Piece of code based on http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array</span>
+
+<span class="sd">&gt;&gt;&gt; i=search(xref, x)</span>
+
+<span class="sd">:param xref: input number, array or list of reference values</span>
+<span class="sd">:param x: input array</span>
+<span class="sd">:returns: index of the x-elements with values nearest to xref:</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">xref</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+		<span class="n">i</span><span class="o">=</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">xref</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">i</span><span class="o">=</span><span class="p">[]</span>
+
+		<span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">xref</span><span class="p">:</span>
+			<span class="n">i</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span> <span class="p">)</span>
+	        
+	<span class="k">return</span> <span class="n">i</span></div>
+	
+
+
+<div class="viewcode-block" id="sortindex"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.sortindex">[docs]</a><span class="k">def</span> <span class="nf">sortindex</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Returns the list of indexes, ordered according to the numerical value of each </span>
+<span class="sd">element of x.</span>
+
+<span class="sd">:param x: input array or list.</span>
+<span class="sd">:returns: list of element indexes.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span> <span class="nb">range</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">f</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+	
+
+
+
+<div class="viewcode-block" id="norm"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.norm">[docs]</a><span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Normalizes x1. If also given as input x2, then normalizes x1 to x2.</span>
+
+<span class="sd">:param x1: input array</span>
+<span class="sd">:param x2: optional</span>
+<span class="sd">:returns: normalized x1</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">x2</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">x1</span><span class="o">/</span><span class="n">x1</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">x1</span><span class="o">*</span><span class="n">x2</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">x1</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="uarray"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.uarray">[docs]</a><span class="k">def</span> <span class="nf">uarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">errx</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">With the new releases of the uncertainties and astropy.io.ascii (0.2.3, the</span>
+<span class="sd">replacement of asciitable), if I try to create an uncertainties array with</span>
+<span class="sd">the column of a table imported with ascii I run into trouble. For instance, </span>
+<span class="sd">if I use the sequence of commands below:</span>
+
+<span class="sd">&gt;&gt;&gt; import astropy.io.ascii as asciitable</span>
+<span class="sd">&gt;&gt;&gt; raff= asciitable.read(&#39;data/rafferty06.dat&#39;)</span>
+<span class="sd">&gt;&gt;&gt; m,errm=raff[&#39;mass&#39;],raff[&#39;errm&#39;]</span>
+<span class="sd">&gt;&gt;&gt; mass=unumpy.uarray(m,errm)</span>
+<span class="sd">&gt;&gt;&gt; x=0.2*mass</span>
+
+<span class="sd">I get the error message: </span>
+
+<span class="sd">&gt;&gt;&gt; TypeError: unsupported operand type(s) for *: &#39;float&#39; and &#39;Column&#39;</span>
+
+<span class="sd">which I can only assume is due to the new way ascii handles tables.</span>
+
+<span class="sd">I created this method to use as a replacement for unumpy.uarray that handles</span>
+<span class="sd">the tables created with astropy.io.ascii.</span>
+
+<span class="sd">Usage is the same as uncertainties.unumpy.uarray.</span>
+
+<span class="sd">:type x,errx: arrays created with astropy.io.ascii.</span>
+<span class="sd">:returns: uncertainties array.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="kn">as</span> <span class="nn">unumpy</span>
+
+	<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">errx</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">errx</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">errx</span><span class="p">)</span></div>
+
+
+
+
+
+
+	
+<div class="viewcode-block" id="bootstrap"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.bootstrap">[docs]</a><span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Constructs Monte Carlo simulated data set using the</span>
+<span class="sd">Bootstrap algorithm.                                                                                   </span>
+
+<span class="sd">Usage:</span>
+
+<span class="sd">&gt;&gt;&gt; bootstrap(x)</span>
+
+<span class="sd">where x is either an array or a list of arrays. If it is a</span>
+<span class="sd">list, the code returns the corresponding list of bootstrapped </span>
+<span class="sd">arrays assuming that the same position in these arrays map the </span>
+<span class="sd">same &quot;physical&quot; object.</span>
+
+<span class="sd">Rodrigo Nemmen, http://goo.gl/8S1Oo</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span>
+		<span class="n">vboot</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of boostrapped arrays</span>
+		<span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
+		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes</span>
+		<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>	<span class="n">vboot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">iran</span><span class="p">])</span>
+	<span class="k">else</span><span class="p">:</span>	<span class="c1"># if v is an array, not a list of arrays</span>
+		<span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">size</span>
+		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes</span>
+		<span class="n">vboot</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="n">iran</span><span class="p">]</span>
+	
+	<span class="k">return</span> <span class="n">vboot</span></div>
+	
+
+
+
+<div class="viewcode-block" id="regrid"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.regrid">[docs]</a><span class="k">def</span> <span class="nf">regrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids</span>
+<span class="sd">xnew,ynew (1D arrays with new grid).</span>
+
+<span class="sd">For the interpolation method, choose nearest, linear or cubic.</span>
+
+<span class="sd">&gt;&gt;&gt; rho=regrid(d.x,d.y,d.rho,xnew,ynew)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">scipy.interpolate</span>
+
+	<span class="c1"># regrid the data to a nice cartesian grid</span>
+	<span class="n">Z</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">griddata</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">xnew</span><span class="p">[</span><span class="bp">None</span><span class="p">,:],</span> <span class="n">ynew</span><span class="p">[:,</span><span class="bp">None</span><span class="p">]),</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+
+	<span class="c1"># get rid of NaNs</span>
+	<span class="k">return</span> <span class="n">nanzero</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="crop"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.crop">[docs]</a><span class="k">def</span> <span class="nf">crop</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Crops the image or 2D array, leaving only pixels inside the region</span>
+<span class="sd">you define.</span>
+
+<span class="sd">&gt;&gt;&gt; Znew,Xnew,Ynew = crop(Z, X, Y, 0,10,-20,20)</span>
+
+<span class="sd">where X,Y,Z are 2D arrays.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Index tuples with elements that will be selected along each dimension</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">xmin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;=</span><span class="n">xmax</span><span class="p">))</span>	<span class="c1"># x</span>
+	<span class="n">j</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y</span><span class="o">&gt;=</span><span class="n">ymin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">))</span>	<span class="c1"># y</span>
+	
+	<span class="c1"># Defines new x and y arrays</span>
+	<span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+	
+	<span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>	<span class="c1"># tuples -&gt; arrays (for matrix slicing below)</span>
+	<span class="n">znew</span><span class="o">=</span><span class="n">cube</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>	<span class="c1"># CAREFUL with the ordering of the indexes!</span>
+	
+	<span class="k">return</span> <span class="n">znew</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span>	</div>
+
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

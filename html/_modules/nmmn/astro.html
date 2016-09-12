@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nmmn.astro &mdash; nmmn  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="nmmn  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for nmmn.astro</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Astrophysical routines</span>
+<span class="sd">=========================</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+
+
+
+<div class="viewcode-block" id="dist2z"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.dist2z">[docs]</a><span class="k">def</span> <span class="nf">dist2z</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Converts luminosity distance to redshift by solving the equation</span>
+<span class="sd">&#39;d-z=0&#39;.</span>
+
+<span class="sd">Input is assumed float.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">cosmolopy</span> 
+
+	<span class="c1"># x here is the unknown redshift</span>
+	<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">d</span><span class="o">-</span><span class="n">cosmolopy</span><span class="o">.</span><span class="n">distance</span><span class="o">.</span><span class="n">luminosity_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">cosmolopy</span><span class="o">.</span><span class="n">fidcosmo</span><span class="p">)</span>
+ 
+	<span class="n">z</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>  
+	<span class="k">return</span> <span class="n">z</span></div>
+
+ 
+
+
+<div class="viewcode-block" id="mjy"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.mjy">[docs]</a><span class="k">def</span> <span class="nf">mjy</span><span class="p">(</span><span class="n">lognu</span><span class="p">,</span><span class="n">ll</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">llerr</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Converts log(nu/Hz), log(nu Lnu [erg/s]), error in log(nuLnu) to</span>
+<span class="sd">         log(lambda/micron), log(Fnu/mJy), error in log(Fnu).</span>
+<span class="sd">The input units are CGS.</span>
+
+<span class="sd">Usage:</span>
+<span class="sd">If you have errors in the flux:</span>
+
+<span class="sd">&gt;&gt;&gt; lamb,fnu,ferr=mjy(xdata,ydata,dist,yerr)</span>
+
+<span class="sd">If you do not have errors in the flux:</span>
+
+<span class="sd">&gt;&gt;&gt; lamb,fnu=mjy(xdata,ydata,dist)</span>
+
+<span class="sd">:param dist: distance in Mpc</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="kn">as</span> <span class="nn">unumpy</span>
+
+    <span class="n">c</span><span class="o">=</span><span class="mf">29979245800.</span>	<span class="c1"># speed of light in CGS</span>
+    <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.085677581e24</span>	<span class="c1"># Mpc -&gt; cm</span>
+
+    <span class="n">nu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lognu</span>
+    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mf">1e4</span> <span class="c1"># cm -&gt; micron</span>
+    <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
+    	<span class="n">lllerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span><span class="n">llerr</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+    	<span class="n">lllerr</span><span class="o">=</span><span class="n">ll</span>
+    <span class="n">lnuerr</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lllerr</span><span class="o">/</span><span class="n">nu</span>  
+    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
+    <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
+    	<span class="n">fluxerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
+    	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lamb</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">std_devs</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+    	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lamb</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="arcsec2pc"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.arcsec2pc">[docs]</a><span class="k">def</span> <span class="nf">arcsec2pc</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="mf">15.</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mf">1.</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given the input angular size and distance to the object, computes</span>
+<span class="sd">the corresponding linear size in pc. </span>
+
+<span class="sd">:param d: distance in Mpc</span>
+<span class="sd">:param a: angular size in arcsec</span>
+<span class="sd">:returns: linear size in pc</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="c1"># convert arcsec to radians</span>
+	<span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="mf">4.848e-6</span>	
+	<span class="c1"># convert distance to pc instead of Mpc</span>
+	<span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="mf">1e6</span>
+
+	<span class="k">return</span> <span class="n">d</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,2106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nmmn package &mdash; nmmn  documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="nmmn  documentation" href="index.html" />
+    <link rel="prev" title="Welcome to nmmn’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="nmmn-package">
+<h1>nmmn package<a class="headerlink" href="#nmmn-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-nmmn.astro">
+<span id="nmmn-astro-module"></span><h2>nmmn.astro module<a class="headerlink" href="#module-nmmn.astro" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="astrophysical-routines">
+<h3>Astrophysical routines<a class="headerlink" href="#astrophysical-routines" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nmmn.astro.arcsec2pc">
+<code class="descclassname">nmmn.astro.</code><code class="descname">arcsec2pc</code><span class="sig-paren">(</span><em>d=15.0</em>, <em>a=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/astro.html#arcsec2pc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.astro.arcsec2pc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the input angular size and distance to the object, computes
+the corresponding linear size in pc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>d</strong> &#8211; distance in Mpc</li>
+<li><strong>a</strong> &#8211; angular size in arcsec</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">linear size in pc</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.astro.dist2z">
+<code class="descclassname">nmmn.astro.</code><code class="descname">dist2z</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/astro.html#dist2z"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.astro.dist2z" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts luminosity distance to redshift by solving the equation
+&#8216;d-z=0&#8217;.</p>
+<p>Input is assumed float.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.astro.mjy">
+<code class="descclassname">nmmn.astro.</code><code class="descname">mjy</code><span class="sig-paren">(</span><em>lognu</em>, <em>ll</em>, <em>dist</em>, <em>llerr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/astro.html#mjy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.astro.mjy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Converts log(nu/Hz), log(nu Lnu [erg/s]), error in log(nuLnu) to</dt>
+<dd>log(lambda/micron), log(Fnu/mJy), error in log(Fnu).</dd>
+</dl>
+<p>The input units are CGS.</p>
+<p>Usage:
+If you have errors in the flux:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="p">,</span><span class="n">ferr</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">yerr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you do not have errors in the flux:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dist</strong> &#8211; distance in Mpc</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.bayes">
+<span id="nmmn-bayes-module"></span><h2>nmmn.bayes module<a class="headerlink" href="#module-nmmn.bayes" title="Permalink to this headline">¶</a></h2>
+<p>Methods for dealing with Bayesian statistics, priors, posteriors</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first last admonition-title">Todo</p>
+</div>
+<ul class="simple">
+<li>plot confidence/credibility interval of a model</li>
+</ul>
+<dl class="function">
+<dt id="nmmn.bayes.allplot">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">allplot</code><span class="sig-paren">(</span><em>xb</em>, <em>yb</em>, <em>bins=30</em>, <em>fig=1</em>, <em>xlabel='x'</em>, <em>ylabel='y'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#allplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.allplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input:
+X,Y : objects referring to the variables produced by PyMC that you want
+to analyze. Example: X=M.theta, Y=M.slope.</p>
+<p>Inherited from Tommy LE BLANC&#8217;s code at astroplotlib|STSCI.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.bayes.joint_density">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">joint_density</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>bounds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#joint_density"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.joint_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots joint distribution of variables.
+Inherited from method in src/graphics.py module in project 
+git://github.com/aflaxman/pymc-example-tfr-hdi.git</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.bayes.jointplot">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplot</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
+histograms showing the median and standard deviations.</p>
+<p>The work that went in creating this nice method is shown, step by step, in 
+the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
+- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a>
+- <a class="reference external" href="http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals">http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals</a></p>
+<p>Usage:
+&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.bayes.jointplotx">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplotx</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em>, <em>binscon=15</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplotx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplotx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
+histograms showing the median and standard deviations. Uses simple method
+for drawing the confidence contours compared to jointplot (which is wrong).</p>
+<p>The work that went in creating this method is shown, step by step, in 
+the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
+- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a></p>
+<p>Usage:
+&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nmmn.dsp">
+<span id="nmmn-dsp-module"></span><h2>nmmn.dsp module<a class="headerlink" href="#module-nmmn.dsp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="signal-processing">
+<h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h3>
+<p>Time series</p>
+<dl class="function">
+<dt id="nmmn.dsp.peaks">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">peaks</code><span class="sig-paren">(</span><em>y</em>, <em>x=None</em>, <em>what=0</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#peaks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects the peaks in the time series given by Y (and X if provided).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x,y</strong> &#8211; time series input arrays</li>
+<li><strong>what</strong> &#8211; select what you want &#8211; max/0 or min/1 peaks returned</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">xmax,ymax &#8211; arrays with max peaks in the data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.smooth">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">smooth</code><span class="sig-paren">(</span><em>x</em>, <em>window_len=11</em>, <em>window='hanning'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth the data using a window with requested size.
+Copied from <a class="reference external" href="http://wiki.scipy.org/Cookbook/SignalSmooth">http://wiki.scipy.org/Cookbook/SignalSmooth</a></p>
+<p>This method is based on the convolution of a scaled window with the signal.
+The signal is prepared by introducing reflected copies of the signal 
+(with the window size) in both ends so that transient parts are minimized
+in the begining and end part of the output signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; the input signal</li>
+<li><strong>window_len</strong> &#8211; the dimension of the smoothing window; should be an odd integer</li>
+<li><strong>window</strong> &#8211; the type of window from &#8216;flat&#8217;, &#8216;hanning&#8217;, &#8216;hamming&#8217;, &#8216;bartlett&#8217;, &#8216;blackman&#8217;     flat window will produce a moving average smoothing.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the smoothed signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="n">smooth</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman, numpy.convolve, scipy.signal.lfilter</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">length(output) != length(input), to correct this: return y[(window_len/2-1):-(window_len/2)] instead of just y.</p>
+</div>
+<p>TODO: the window parameter could be the window itself if an array instead of a string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.smoothxy">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">smoothxy</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>*arg</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smoothxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.smoothxy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; &#8220;time&#8221; in the time series</li>
+<li><strong>y</strong> &#8211; y variable</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">smoothed y and corresponding x arrays</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.fermi">
+<span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="collection-of-methods-to-handle-fermi-lat-data">
+<h3>Collection of methods to handle Fermi LAT data<a class="headerlink" href="#collection-of-methods-to-handle-fermi-lat-data" title="Permalink to this headline">¶</a></h3>
+<p>Handle output of Fermi analysis.</p>
+<dl class="function">
+<dt id="nmmn.fermi.PixelFile">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">PixelFile</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#PixelFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.PixelFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the name of a file where the result of 1 pixel 
+evaluation will be stored</p>
+<p>From enrico/tsmap.py.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.converttime">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">converttime</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#converttime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.converttime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts from MET Fermi time to a python datetime tuple.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mi">386817828</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns datetime.datetime(2013, 4, 5, 1, 23, 48).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> &#8211; a float or array of floats</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a datetime structure (or list) with the date corresponding to the input float or array</td>
+</tr>
+</tbody>
+</table>
+<p>y is the amount of seconds since 2001.0 UTC. Beware that my method
+may assume that all years have 365 days.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python">http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python</a></li>
+<li><a class="reference external" href="http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl</a></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.getconfig">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">getconfig</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#getconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.getconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads config file and gets parameters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.plotMap">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">plotMap</code><span class="sig-paren">(</span><em>counts</em>, <em>out='tmp.png'</em>, <em>cmap=None</em>, <em>roi=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method plots some count map. Inherited from the method plotMaps
+above.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>counts</strong> &#8211; FITS file with counts to be plotted</li>
+<li><strong>cmap</strong> &#8211; desired colormap for image</li>
+<li><strong>roi</strong> &#8211; DS9 region file if present, otherwise leave None</li>
+<li><strong>out</strong> &#8211; output filename and format</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">image file &#8216;tmp.png&#8217; in the source folder.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.plotMaps">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">plotMaps</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotMaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotMaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the directory where the results of an Enrico analysis are 
+located (enrico_sed), this method plots the different count maps
+(observed, model and residuals).</p>
+<p>This is the fixed version of the script plotMaps.py from the Enrico
+distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configdir</strong> &#8211; directory with &#8220;/&#8221; at the end that points to the place</td>
+</tr>
+</tbody>
+</table>
+<p>where Enrico output files are located.
+:returns: image file SOURCE_Maps.png in the source folder.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.plotTSmap">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">plotTSmap</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotTSmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotTSmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>From Enrico/tsmap.py.</p>
+<p>Gather the results of the evaluation of 
+each pixel and fill a fits file</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.grmhd">
+<span id="nmmn-grmhd-module"></span><h2>nmmn.grmhd module<a class="headerlink" href="#module-nmmn.grmhd" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="misc-modules-useful-for-dealing-with-gr-r-m-hd-simulations">
+<h3>Misc. modules useful for dealing with (GR)(R)(M)HD simulations<a class="headerlink" href="#misc-modules-useful-for-dealing-with-gr-r-m-hd-simulations" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>RAISHIN</li>
+<li>Pluto</li>
+<li>HARM (soon)</li>
+</ul>
+<p>See jupyter notebooks &#8220;grmhd*&#8221; for examples on how to use this
+module.</p>
+<dl class="class">
+<dt id="nmmn.grmhd.Raishin">
+<em class="property">class </em><code class="descclassname">nmmn.grmhd.</code><code class="descname">Raishin</code><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class that reads a RAISHIN VTK datafile and converts to numpy format.</p>
+<p>Attributes of the object:</p>
+<ul class="simple">
+<li>x,y,z: 1D position arrays for the mesh</li>
+<li>rho: 1D density array</li>
+<li>vx,vy,vz: 1D velocity arrays</li>
+<li>p: 1D pressure</li>
+<li>bx,by,bz: 1D magnetic field arrays</li>
+<li>b2: 1D B^2</li>
+</ul>
+<p>Define an empty object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Raishin</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Reads data from a VTK file, new attributes rho, p, vx, bx etc:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">vtk</span><span class="p">(</span><span class="s2">&quot;ok200.vtk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Saves data as an ASCII file with columns corresponding to variables:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;ok200.dat&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.regrid">
+<code class="descname">regrid</code><span class="sig-paren">(</span><em>nboost=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.regrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.regrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regrid the RAISHIN data to a nice cartesian grid for plotting with
+python.</p>
+<ul>
+<li><dl class="first docutils">
+<dt>nboost: factor of increase of number of grid points compared to </dt>
+<dd><p class="first last">previous grid</p>
+</dd>
+</dl>
+</li>
+</ul>
+<p>TODO:
+- 3D version
+- parallel version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.savehdf5">
+<code class="descname">savehdf5</code><span class="sig-paren">(</span><em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.savehdf5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.savehdf5" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports data as compressed HDF5. 7x less space tham ASCII.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.savenumpy">
+<code class="descname">savenumpy</code><span class="sig-paren">(</span><em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.savenumpy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.savenumpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data as binary Numpy file .npz. 3x less space than ASCII.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.savetxt">
+<code class="descname">savetxt</code><span class="sig-paren">(</span><em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.savetxt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.savetxt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves data as ASCII file</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.vtk">
+<code class="descname">vtk</code><span class="sig-paren">(</span><em>vtkfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.vtk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.vtk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a VTK file created with the RAISHIN GRMHD code, this reads the
+data as numpy arrays.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.grmhd.wolframplot">
+<code class="descclassname">nmmn.grmhd.</code><code class="descname">wolframplot</code><span class="sig-paren">(</span><em>infile</em>, <em>outfile</em>, <em>script='/Users/nemmen/work/software/mathematica/raishin.wl'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#wolframplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.wolframplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a pretty plot of density field and B vector field of RAISHIN
+data using the Wolfram Language.</p>
+<p>Make sure you point to the appropriate Wolfram script.</p>
+<ul class="simple">
+<li>infile: input RAISHIN ASCII file generated with Raishin.vtk above, e.g. ok200.dat</li>
+<li>outfile: format that will produced, e.g. ok200.png</li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.lsd">
+<span id="nmmn-lsd-module"></span><h2>nmmn.lsd module<a class="headerlink" href="#module-nmmn.lsd" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lsd-operations-lists-sets-dictionaries-and-arrays">
+<h3>LSD operations = lists, sets, dictionaries (and arrays)<a class="headerlink" href="#lsd-operations-lists-sets-dictionaries-and-arrays" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nmmn.lsd.bootstrap">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">bootstrap</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#bootstrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.bootstrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs Monte Carlo simulated data set using the
+Bootstrap algorithm.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bootstrap</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where x is either an array or a list of arrays. If it is a
+list, the code returns the corresponding list of bootstrapped 
+arrays assuming that the same position in these arrays map the 
+same &#8220;physical&#8221; object.</p>
+<p>Rodrigo Nemmen, <a class="reference external" href="http://goo.gl/8S1Oo">http://goo.gl/8S1Oo</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.cmset_and">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">cmset_and</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#cmset_and"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.cmset_and" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cmset_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns the index of the elements of array x which are also present in the
+array y.</p>
+<p>This is equivalent to using the IDL command</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">botha</span><span class="o">=</span><span class="n">cmset_op</span><span class="p">(</span><span class="n">namea</span><span class="p">,</span> <span class="s1">&#39;AND&#39;</span><span class="p">,</span> <span class="n">nameb</span><span class="p">,</span> <span class="o">/</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>i.e. performs the same thing as the IDL routine cmset_op from
+<a class="reference external" href="http://cow.physics.wisc.edu/~craigm/idl/idl.html">http://cow.physics.wisc.edu/~craigm/idl/idl.html</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.cmset_not">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">cmset_not</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#cmset_not"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.cmset_not" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usage:
+&gt;&gt;&gt; cmset_not(x,y)
+returning the index of the elements of array x which are not present in the
+array y.</p>
+<p>This is equivalent to using the IDL command
+SET = CMSET_OP(A, &#8216;AND&#8217;, /NOT2, B, /INDEX)   ; A but not B
+i.e. performs the same thing as the IDL routine cmset_op from
+<a class="reference external" href="http://cow.physics.wisc.edu/~craigm/idl/idl.html">http://cow.physics.wisc.edu/~craigm/idl/idl.html</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.cmsetsort_and">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">cmsetsort_and</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#cmsetsort_and"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.cmsetsort_and" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returning the index of the elements of array x which are also present in the
+array y.</p>
+<p>The resulting elements have the same order as the ones in y. For 
+instance, if you run</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">=</span><span class="n">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y</span>
+</pre></div>
+</div>
+<p>will return an array of True, whereas if you used instead cmset_and it is
+not guaranteed that all elements would match in x[i] and y.</p>
+<p>Inherited from <code class="xref py py-func docutils literal"><span class="pre">nemmen.cmset_and()</span></code>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.crop">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">crop</code><span class="sig-paren">(</span><em>cube</em>, <em>x</em>, <em>y</em>, <em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.crop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crops the image or 2D array, leaving only pixels inside the region
+you define.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Znew</span><span class="p">,</span><span class="n">Xnew</span><span class="p">,</span><span class="n">Ynew</span> <span class="o">=</span> <span class="n">crop</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where X,Y,Z are 2D arrays.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.delnan">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">delnan</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#delnan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.delnan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove nan elements from the array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.delweird">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">delweird</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#delweird"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.delweird" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove nan or inf elements from the array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.nanzero">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">nanzero</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#nanzero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.nanzero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set nan elements to zero in the array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.norm">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">norm</code><span class="sig-paren">(</span><em>x1</em>, <em>x2=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes x1. If also given as input x2, then normalizes x1 to x2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x1</strong> &#8211; input array</li>
+<li><strong>x2</strong> &#8211; optional</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">normalized x1</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.regrid">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">regrid</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>xnew</em>, <em>ynew</em>, <em>method='cubic'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#regrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.regrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids
+xnew,ynew (1D arrays with new grid).</p>
+<p>For the interpolation method, choose nearest, linear or cubic.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.replacevals">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">replacevals</code><span class="sig-paren">(</span><em>x</em>, <em>minval</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#replacevals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.replacevals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace all values in array x for which abs(x)&lt;=minval with x=sign(x)*minval.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.search">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">search</code><span class="sig-paren">(</span><em>xref</em>, <em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for the element in an array x with the value nearest xref.
+Piece of code based on <a class="reference external" href="http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array">http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">=</span><span class="n">search</span><span class="p">(</span><span class="n">xref</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>xref</strong> &#8211; input number, array or list of reference values</li>
+<li><strong>x</strong> &#8211; input array</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">index of the x-elements with values nearest to xref:</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.sortindex">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">sortindex</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#sortindex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.sortindex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the list of indexes, ordered according to the numerical value of each 
+element of x.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; input array or list.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of element indexes.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.lsd.uarray">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">uarray</code><span class="sig-paren">(</span><em>x</em>, <em>errx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#uarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.uarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>With the new releases of the uncertainties and astropy.io.ascii (0.2.3, the
+replacement of asciitable), if I try to create an uncertainties array with
+the column of a table imported with ascii I run into trouble. For instance, 
+if I use the sequence of commands below:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="kn">as</span> <span class="nn">asciitable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raff</span><span class="o">=</span> <span class="n">asciitable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data/rafferty06.dat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="p">,</span><span class="n">errm</span><span class="o">=</span><span class="n">raff</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span><span class="n">raff</span><span class="p">[</span><span class="s1">&#39;errm&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mass</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">errm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="mf">0.2</span><span class="o">*</span><span class="n">mass</span>
+</pre></div>
+</div>
+<p>I get the error message:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">*</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span> <span class="ow">and</span> <span class="s1">&#39;Column&#39;</span>
+</pre></div>
+</div>
+<p>which I can only assume is due to the new way ascii handles tables.</p>
+<p>I created this method to use as a replacement for unumpy.uarray that handles
+the tables created with astropy.io.ascii.</p>
+<p>Usage is the same as uncertainties.unumpy.uarray.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">uncertainties array.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.misc">
+<span id="nmmn-misc-module"></span><h2>nmmn.misc module<a class="headerlink" href="#module-nmmn.misc" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nmmn.misc.cart2pol">
+<code class="descclassname">nmmn.misc.</code><code class="descname">cart2pol</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#cart2pol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.cart2pol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts from cartesian to polar coordinates.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">cart2pol</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.convertyear">
+<code class="descclassname">nmmn.misc.</code><code class="descname">convertyear</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#convertyear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.convertyear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts from decimal year to a python datetime tuple.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mf">2012.9</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns datetime.datetime(2012, 11, 24, 12, 0, 0, 3).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> &#8211; a float or array of floats</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a datetime structure (or list) with the date corresponding to the input float or array</td>
+</tr>
+</tbody>
+</table>
+<p>Reference: <a class="reference external" href="http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python">http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.date2dec">
+<code class="descclassname">nmmn.misc.</code><code class="descname">date2dec</code><span class="sig-paren">(</span><em>date</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#date2dec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.date2dec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a python datetime tuple to decimal year.</p>
+<p>Inspired on <a class="reference external" href="http://stackoverflow.com/a/6451892/793218">http://stackoverflow.com/a/6451892/793218</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.evalfun">
+<code class="descclassname">nmmn.misc.</code><code class="descname">evalfun</code><span class="sig-paren">(</span><em>fun</em>, <em>x</em>, <em>par</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#evalfun"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.evalfun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the function fun at each element of the array x, for the parameters
+provided in the array/list par. fun is assumed to return a scalar. Returns an
+array with fun evaluated at x. See example below.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<blockquote>
+<div>x=1, par0=2, par1=3</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fun</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div>returns a scalar</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">x</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<blockquote>
+<div>evaluates fun at the array x and returns an array.</div></blockquote>
+<p>v1 Dec. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.lin2log">
+<code class="descclassname">nmmn.misc.</code><code class="descname">lin2log</code><span class="sig-paren">(</span><em>dyl</em>, <em>dyu</em>, <em>logy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#lin2log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.lin2log" title="Permalink to this definition">¶</a></dt>
+<dd><p>From a given uncertainty in linear space and the value of y, calculates the
+error in log space.</p>
+<p>Returns a sequence with the lower and upper arrays with errors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.log2lin">
+<code class="descclassname">nmmn.misc.</code><code class="descname">log2lin</code><span class="sig-paren">(</span><em>dlogyl</em>, <em>dlogyu</em>, <em>logy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#log2lin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.log2lin" title="Permalink to this definition">¶</a></dt>
+<dd><p>From a given uncertainty in log-space (dex) and the value of y, calculates the
+error in linear space.</p>
+<p>Returns a sequence with the lower and upper arrays with errors.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.mathcontour">
+<code class="descclassname">nmmn.misc.</code><code class="descname">mathcontour</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>errx</em>, <em>erry</em>, <em>cov</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#mathcontour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.mathcontour" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suppose I want to draw the error ellipses for two parameters &#8216;x&#8217; and &#8216;y&#8217; 
+with 1 s.d. uncertainties and the covariance between these uncertainties. 
+I have a mathematica notebook that does that: &#8216;chisq contour plot.nb&#8217;.</p>
+<p>This method takes the values &#8216;x,y,errx,erry,cov&#8217; and outputs Mathematica
+code that I can just copy and paste in the appropriate notebook in order 
+to draw the ellipses.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.pol2cart">
+<code class="descclassname">nmmn.misc.</code><code class="descname">pol2cart</code><span class="sig-paren">(</span><em>r</em>, <em>phi</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#pol2cart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.pol2cart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts from polar to cartesian coordinates.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pol2cart</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.runsave">
+<code class="descclassname">nmmn.misc.</code><code class="descname">runsave</code><span class="sig-paren">(</span><em>cmd</em>, <em>log</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#runsave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.runsave" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes command cmd and saves its standard output as log</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.savepartial">
+<code class="descclassname">nmmn.misc.</code><code class="descname">savepartial</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>obsx</em>, <em>obsy</em>, <em>obsz</em>, <em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#savepartial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.savepartial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports data file for partial correlation analysis with cens_tau.f.
+cens_tau.f quantifies the correlation between X and Y eliminating the
+effect of a third variable Z. I patched the Fortran code available from
+<a class="reference external" href="http://astrostatistics.psu.edu/statcodes/sc_regression.html">http://astrostatistics.psu.edu/statcodes/sc_regression.html</a>.</p>
+<p>Method arguments:
+x,y,z = arrays with data for partial correlation
+obs? = arrays of integers. 1 if there is a genuine measurement
+available and 0 if there is only an upper limit i.e. censored data.</p>
+<p>In the case of this study, X=Pjet, Y=Lgamma, Z=distance.</p>
+<dl class="docutils">
+<dt>The structure of the resulting datafile is:</dt>
+<dd>logPjet detected? logLgamma detected? logDist detected?</dd>
+</dl>
+<p>where the distance is in Mpc.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">agngrb</span><span class="o">.</span><span class="n">exportpartial</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">log10</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">d</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="s1">&#39;par</span>
+<span class="go">tialdata.dat&#39;)</span>
+</pre></div>
+</div>
+<p>v1 Sep. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.string2year">
+<code class="descclassname">nmmn.misc.</code><code class="descname">string2year</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#string2year"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.string2year" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts from a string in the format DDMMYYYY to a python datetime tuple.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">string2year</span><span class="p">(</span><span class="s1">&#39;28122014&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns datetime.datetime(2014, 12, 22, 0, 0).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> &#8211; a string or list of strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a datetime structure (or list) with the date corresponding to the input float or array</td>
+</tr>
+</tbody>
+</table>
+<p>Reference: <a class="reference external" href="https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.whichbces">
+<code class="descclassname">nmmn.misc.</code><code class="descname">whichbces</code><span class="sig-paren">(</span><em>bces</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#whichbces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.whichbces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the &#8216;bces&#8217; string selector, returns an integer which tells the 
+location of the BCES fitting results in the arrays returned by
+the bces* methods.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nmmn.plots">
+<span id="nmmn-plots-module"></span><h2>nmmn.plots module<a class="headerlink" href="#module-nmmn.plots" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fancy-plots">
+<h3>Fancy plots<a class="headerlink" href="#fancy-plots" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nmmn.plots.fitconf">
+<code class="descclassname">nmmn.plots.</code><code class="descname">fitconf</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>errx</em>, <em>erry</em>, <em>covxy</em>, <em>nboot=1000</em>, <em>bces='ort'</em>, <em>linestyle=''</em>, <em>conf=0.683</em>, <em>confcolor='gray'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fitconf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fitconf" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper that given the input data performs the BCES
+fit, get the orthogonal parameters and plot the best-fit line and
+confidence band (generated using analytical methods). I decided to put together 
+these commands in a method because I have been using them very frequently.</p>
+<p>Assumes you initialized the plot window before calling this method.</p>
+<p>Usage:
+&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#8217;k&#8217;,confcolor=&#8217;LightGrey&#8217;)</p>
+<p>Explanation of some arguments:
+- xplot: if provided, will compute the confidence band in the X-values provided</p>
+<blockquote>
+<div>with xplot</div></blockquote>
+<ul class="simple">
+<li>front: if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.fitconfmc">
+<code class="descclassname">nmmn.plots.</code><code class="descname">fitconfmc</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>errx</em>, <em>erry</em>, <em>covxy</em>, <em>nboot=1000</em>, <em>bces='ort'</em>, <em>linestyle=''</em>, <em>conf=1.0</em>, <em>confcolor='gray'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fitconfmc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fitconfmc" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper that given the input data performs the BCES
+fit, get the orthogonal parameters and plot the best-fit line and
+confidence band (generated using MC). I decided to put together these 
+commands in a method because I have been using them very frequently.</p>
+<p>Assumes you initialized the plot window before calling this method.
+This method is more stable than fitconf, which is plagued with numerical 
+instabilities when computing the gradient.</p>
+<p>Usage:
+&gt;&gt;&gt; a1,b1,erra1,errb1,cov1=nemmen.fitconf(x[i],y[i],errx[i],erry[i],covxy[i],nboot,bces,linestyle=&#8217;k&#8217;,confcolor=&#8217;LightGrey&#8217;)</p>
+<p>Explanation of some arguments:
+- xplot: if provided, will compute the confidence band in the X-values provided</p>
+<blockquote>
+<div>with xplot</div></blockquote>
+<ul class="simple">
+<li>front: if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points</li>
+<li>conf: size of confidence band to be plotted in standard deviations</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.fitconfpred">
+<code class="descclassname">nmmn.plots.</code><code class="descname">fitconfpred</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>errx</em>, <em>erry</em>, <em>covxy</em>, <em>nboot=1000</em>, <em>bces='ort'</em>, <em>linestyle=''</em>, <em>conf=0.68</em>, <em>confcolor='LightGrey'</em>, <em>predcolor='Khaki'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fitconfpred"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fitconfpred" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper that given the input data performs the BCES
+fit, get the orthogonal parameters and plot (i) the best-fit line,
+(ii) confidence band and (iii) prediction band.</p>
+<p>I decided to put together these commands in a method because I have been 
+using them very frequently.</p>
+<p>Assumes you initialized the plot window before calling this method.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconfpred</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.fitpred">
+<code class="descclassname">nmmn.plots.</code><code class="descname">fitpred</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>errx</em>, <em>erry</em>, <em>covxy</em>, <em>nboot=1000</em>, <em>bces='ort'</em>, <em>linestyle=''</em>, <em>conf=0.68</em>, <em>predcolor='Khaki'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fitpred"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fitpred" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper that given the input data performs the BCES
+fit, get the orthogonal parameters and plot (i) the best-fit line and
+(ii) prediction band.</p>
+<p>I decided to put together these commands in a method because I have been 
+using them very frequently.</p>
+<p>Assumes you initialized the plot window before calling this method.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitpred</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">predcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.fourcumplot">
+<code class="descclassname">nmmn.plots.</code><code class="descname">fourcumplot</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>x3</em>, <em>x4</em>, <em>xmin</em>, <em>xmax</em>, <em>x1leg='$x_1$'</em>, <em>x2leg='$x_2$'</em>, <em>x3leg='$x_3$'</em>, <em>x4leg='$x_3$'</em>, <em>xlabel=''</em>, <em>ylabel=&quot;$N(x&gt;x')$&quot;</em>, <em>fig=1</em>, <em>sharey=False</em>, <em>fontsize=12</em>, <em>bins1=50</em>, <em>bins2=50</em>, <em>bins3=50</em>, <em>bins4=50</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fourcumplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fourcumplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script that plots the cumulative histograms of four variables x1, x2, x3 and x4
+sharing the same X-axis. For each bin, Y is the fraction of the sample 
+with values above X.</p>
+<p>Arguments:
+- x1,x2,x3,x4: arrays with data to be plotted
+- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</p>
+<blockquote>
+<div>for both histograms.</div></blockquote>
+<ul class="simple">
+<li>x1leg, x2leg, x3leg, x4leg: legends for each histogram</li>
+<li>xlabel: self-explanatory.</li>
+<li>sharey: sharing the Y-axis among the histograms?</li>
+<li>bins1,bins2,...: number of bins in each histogram</li>
+<li>fig: which plot window should I use?</li>
+</ul>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
+<p>v1 Jun. 2012: inherited from fourhists.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.fourhists">
+<code class="descclassname">nmmn.plots.</code><code class="descname">fourhists</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>x3</em>, <em>x4</em>, <em>xmin</em>, <em>xmax</em>, <em>x1leg='$x_1$'</em>, <em>x2leg='$x_2$'</em>, <em>x3leg='$x_3$'</em>, <em>x4leg='$x_3$'</em>, <em>xlabel=''</em>, <em>fig=1</em>, <em>sharey=False</em>, <em>fontsize=12</em>, <em>bins1=10</em>, <em>bins2=10</em>, <em>bins3=10</em>, <em>bins4=10</em>, <em>line1=None</em>, <em>line2=None</em>, <em>line3=None</em>, <em>line4=None</em>, <em>line1b=None</em>, <em>line2b=None</em>, <em>line3b=None</em>, <em>line4b=None</em>, <em>loc='best'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fourhists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.fourhists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script that plots four histograms of quantities x1, x2, x3 and x4
+sharing the same X-axis.</p>
+<p>Arguments:
+- x1,x2,x3,x4: arrays with data to be plotted
+- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</p>
+<blockquote>
+<div>for both histograms.</div></blockquote>
+<ul class="simple">
+<li>x1leg, x2leg, x3leg, x4leg: legends for each histogram</li>
+<li>xlabel: self-explanatory.</li>
+<li>sharey: sharing the Y-axis among the histograms?</li>
+<li>bins1,bins2,...: number of bins in each histogram</li>
+<li>fig: which plot window should I use?</li>
+<li>line?: draws vertical solid lines at the positions indicated in each panel</li>
+<li>line?b: draws vertical dashed lines at the positions indicated in each panel</li>
+</ul>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
+<p>v1 Apr. 2012: inherited from threehists.
+v1.5 Jun 2012: added option for drawing vertical lines in each histogram (line?)
+v1.6 Jul 2012: added option for line?b
+v1.7 Oct 2012: added option &#8216;loc&#8217;
+v1.8 Mar 2013: added &#8216;histtype&#8217; option in histogram plots</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.image">
+<code class="descclassname">nmmn.plots.</code><code class="descname">image</code><span class="sig-paren">(</span><em>Z</em>, <em>xnew</em>, <em>ynew</em>, <em>my_cmap=None</em>, <em>aspect='equal'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates pretty image. You need to specify:</p>
+<ul class="simple">
+<li></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.ipyplots">
+<code class="descclassname">nmmn.plots.</code><code class="descname">ipyplots</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#ipyplots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.ipyplots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes sure we have exactly the same matplotlib settings as in the IPython terminal 
+version. Call this from IPython notebook.</p>
+<p>Source: <a class="reference external" href="http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te">http://stackoverflow.com/questions/16905028/why-is-matplotlib-plot-produced-from-ipython-notebook-slightly-different-from-te</a>).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.jh">
+<code class="descclassname">nmmn.plots.</code><code class="descname">jh</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>errx</em>, <em>erry</em>, <em>covxy</em>, <em>nboot=1000</em>, <em>bces='ort'</em>, <em>linestyle=''</em>, <em>conf=0.683</em>, <em>confcolor='gray'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#jh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.jh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper that given the input data performs the BCES
+fit, get the orthogonal parameters, best-fit line and
+confidence band. Then returns the points corresponding to the line and
+confidence band.</p>
+<p>I wrote this for the John Hunter plotting contest, in order to simplify
+my AGN-GRB plot. Inherited from method fitconf.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where y are the line points, lcb and ucb are the lower and upper confidence band
+points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>xplot</strong> &#8211; if provided, will compute the confidence band in the X-values provided
+with xplot</li>
+<li><strong>front</strong> &#8211; if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.make_cmap">
+<code class="descclassname">nmmn.plots.</code><code class="descname">make_cmap</code><span class="sig-paren">(</span><em>colors</em>, <em>position=None</em>, <em>bit=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#make_cmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.make_cmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>make_cmap takes a list of tuples which contain RGB values. The RGB
+values may either be in 8-bit [0 to 255] (in which bit must be set to
+True when called) or arithmetic [0 to 1] (default). make_cmap returns
+a cmap with equally spaced colors.
+Arrange your tuples so that the first color is the lowest value for the
+colorbar and the last is the highest.
+position contains values from 0 to 1 to dictate the location of each color.</p>
+<p>source: <a class="reference external" href="http://schubert.atmos.colostate.edu/~cslocum/custom_cmap.html">http://schubert.atmos.colostate.edu/~cslocum/custom_cmap.html</a>
+Chris Slocum, Colorado State University</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.onehist">
+<code class="descclassname">nmmn.plots.</code><code class="descname">onehist</code><span class="sig-paren">(</span><em>x</em>, <em>xlabel=''</em>, <em>fontsize=12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#onehist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.onehist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script that plots the histogram of x with the corresponding xlabel.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.plotlinfit">
+<code class="descclassname">nmmn.plots.</code><code class="descname">plotlinfit</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>a</em>, <em>b</em>, <em>erra</em>, <em>errb</em>, <em>cov</em>, <em>linestyle=''</em>, <em>conf=0.683</em>, <em>confcolor='gray'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#plotlinfit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.plotlinfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a wrapper that given the output data from a linear regression
+method (for example, bayeslin.pro, the Bayesian linear regression method 
+of Kelly (2007)), it plots the fits and the confidence bands.
+The input is:
+X, Y, slope (A), errA, intercept (B), errB and cov(A,B)</p>
+<p>Assumes you initialized the plot window before calling this method.</p>
+<p>Usage:
+&gt;&gt;&gt; nemmen.plotlinfit(x,y,a,b,erra,errb,covab,linestyle=&#8217;k&#8217;,confcolor=&#8217;LightGrey&#8217;)</p>
+<p>Explanation of some arguments:
+- xplot: if provided, will compute the confidence band in the X-values provided</p>
+<blockquote>
+<div>with xplot</div></blockquote>
+<ul class="simple">
+<li>front: if True, then will plot the confidence band in front of the data
+points; otherwise, will plot it behind the points</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.text">
+<code class="descclassname">nmmn.plots.</code><code class="descname">text</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>s</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version of pylab.text that can be applied to arrays.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will plot the strings in array &#8216;s&#8217; at coordinates given by arrays
+&#8216;x&#8217; and &#8216;y&#8217;.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.threehists">
+<code class="descclassname">nmmn.plots.</code><code class="descname">threehists</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>x3</em>, <em>xmin</em>, <em>xmax</em>, <em>x1leg='$x_1$'</em>, <em>x2leg='$x_2$'</em>, <em>x3leg='$x_3$'</em>, <em>xlabel=''</em>, <em>fig=1</em>, <em>sharey=False</em>, <em>fontsize=12</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#threehists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.threehists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script that plots three histograms of quantities x1, x2 and x3 
+sharing the same X-axis.</p>
+<p>Arguments:
+- x1,x2,x3: arrays with data to be plotted
+- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</p>
+<blockquote>
+<div>for both histograms.</div></blockquote>
+<ul class="simple">
+<li>x1leg, x2leg, x3leg: legends for each histogram</li>
+<li>xlabel: self-explanatory.</li>
+<li>sharey: sharing the Y-axis among the histograms?</li>
+<li>fig: which plot window should I use?</li>
+</ul>
+<p>Example:
+x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)
+&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#8217;AD&#8217;,&#8217;JD&#8217;,&#8217;EHF10&#8217;,&#8217;$log L_{rm bol}$ (erg s$^{-1}$)&#8217;,sharey=True)</p>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
+<p>v1 Dec. 2011
+v1.1 Feb. 2012: Added sharey keyword.
+v1.2 Feb. 2012: added fontsize argument.
+v1.3 Apr. 2012: added fig argument.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.threehistsx">
+<code class="descclassname">nmmn.plots.</code><code class="descname">threehistsx</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>x3</em>, <em>x1leg='$x_1$'</em>, <em>x2leg='$x_2$'</em>, <em>x3leg='$x_3$'</em>, <em>fig=1</em>, <em>fontsize=12</em>, <em>bins1=10</em>, <em>bins2=10</em>, <em>bins3=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#threehistsx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.threehistsx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script that pretty-plots three histograms of quantities x1, x2 and x3.</p>
+<p>Arguments:
+:param x1,x2,x3: arrays with data to be plotted
+:param x1leg, x2leg, x3leg: legends for each histogram  
+:param fig: which plot window should I use?</p>
+<p>Example:
+x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="s1">&#39;AD&#39;</span><span class="p">,</span><span class="s1">&#39;JD&#39;</span><span class="p">,</span><span class="s1">&#39;EHF10&#39;</span><span class="p">,</span><span class="s1">&#39;$\log L_{</span><span class="se">\r</span><span class="s1">m bol}$ (erg s$^{-1}$)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
+<p>v1 Dec. 2011
+v1.1 Feb. 2012: Added sharey keyword.
+v1.2 Feb. 2012: added fontsize argument.
+v1.3 Apr. 2012: added fig argument.
+v1.4 Jun. 2012: no sharing of X-axis, removed some arguments</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.twohists">
+<code class="descclassname">nmmn.plots.</code><code class="descname">twohists</code><span class="sig-paren">(</span><em>x1</em>, <em>x2</em>, <em>xmin</em>, <em>xmax</em>, <em>range=None</em>, <em>x1leg='$x_1$'</em>, <em>x2leg='$x_2$'</em>, <em>xlabel=''</em>, <em>fig=1</em>, <em>sharey=False</em>, <em>fontsize=12</em>, <em>bins1=10</em>, <em>bins2=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#twohists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.twohists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Script that plots two histograms of quantities x1 and x2
+sharing the same X-axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x1,x2</strong> &#8211; arrays with data to be plotted</li>
+<li><strong>xmin,xmax</strong> &#8211; lower and upper range of plotted values, will be used to set a consistent x-range
+for both histograms.</li>
+<li><strong>x2leg</strong> (<em>x1leg,</em>) &#8211; legends for each histogram</li>
+<li><strong>xlabel</strong> &#8211; self-explanatory.</li>
+<li><strong>bins1,bins2</strong> &#8211; number of bins in each histogram</li>
+<li><strong>fig</strong> &#8211; which plot window should I use?</li>
+<li><strong>range</strong> &#8211; in the form (xmin,xmax), same as range argument for hist and applied to both
+histograms.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
+<p>v1 Dec. 2011
+v1.1 Feb. 2012: Added sharey argument.
+v1.2 Feb. 2012: added fontsize argument.
+v1.3 Apr. 2012: added fig argument.
+v1.4 Apr. 2013: added range argument.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.uerrorbar">
+<code class="descclassname">nmmn.plots.</code><code class="descname">uerrorbar</code><span class="sig-paren">(</span><em>ux</em>, <em>uy</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#uerrorbar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.uerrorbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adaptation of pylab.errorbar to work with arrays defined using the
+uncertainties package, which include the errorbars built-in.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uerrorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div>will plot the points and error bars associated with the &#8216;unumpy&#8217;
+arrays x and y</div></blockquote>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.stats">
+<span id="nmmn-stats-module"></span><h2>nmmn.stats module<a class="headerlink" href="#module-nmmn.stats" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="miscellaneous-statistical-methods">
+<h3>Miscellaneous statistical methods<a class="headerlink" href="#miscellaneous-statistical-methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>fit residuals</li>
+<li>Computing prediction and confidence bands</li>
+<li>Comparing goodness-of-fit of different models</li>
+<li>operations on statistical distributions</li>
+<li>custom statistical distributions</li>
+<li>p-values and significance</li>
+</ul>
+<dl class="function">
+<dt id="nmmn.stats.aic">
+<code class="descclassname">nmmn.stats.</code><code class="descname">aic</code><span class="sig-paren">(</span><em>k</em>, <em>n</em>, <em>rss</em>, <em>errors=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#aic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.aic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Akaike information criterion which is &#8220;a measure of the relative goodness of
+fit of a statistical model&#8221;. Unlike the F-test, it does not assume that one model is 
+a particular case of the more complex one. If errors==False then assume the
+errors are the same for every data point. Otherwise, assumes you are providing
+the chi-squared values instead of RSS.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aic</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">rss</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>rss</strong> &#8211; residual sum of squares for the model in case errors=False, otherwise assumes you are giving the chi-square values</li>
+<li><strong>n</strong> &#8211; sample size, i.e. number of data points</li>
+<li><strong>k</strong> &#8211; number of free parameters in the model</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">AIC statistic</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>References:</p>
+<ol class="arabic simple">
+<li>Documentation for Origin software on fit comparison: <a class="reference external" href="http://www.originlab.com/index.aspx?go=Products/Origin/DataAnalysis/CurveFitting/NonlinearFitting&amp;pid=1195">http://www.originlab.com/index.aspx?go=Products/Origin/DataAnalysis/CurveFitting/NonlinearFitting&amp;pid=1195</a> (first heard about this test there)</li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Akaike_information_criterion">http://en.wikipedia.org/wiki/Akaike_information_criterion</a></li>
+</ol>
+<p>v1 Dec 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.bic">
+<code class="descclassname">nmmn.stats.</code><code class="descname">bic</code><span class="sig-paren">(</span><em>k</em>, <em>n</em>, <em>rss</em>, <em>errors=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#bic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Bayesian information criterion which is &#8220;a criterion for model selection
+among a finite set of models&#8221;. From wikipedia: &#8220;The BIC [...] introduces a 
+penalty term for the number of parameters in the model. The penalty term is larger 
+in BIC than in AIC.&#8221;</p>
+<p>In order to use BIC to quantify the evidence against a specific model, check out
+the section &#8220;use of BIC&#8221; in the presentation &#8220;171:290 Model Selection, Lecture VI: 
+The Bayesian Information Criterion&#8221; by Joseph Cavanaugh 
+(<a class="reference external" href="http://myweb.uiowa.edu/cavaaugh/ms_lec_6_ho.pdf">http://myweb.uiowa.edu/cavaaugh/ms_lec_6_ho.pdf</a>).</p>
+<p>If errors==False then assume the errors are the same for every data point. 
+Otherwise, assumes you are providing the chi-squared values instead of RSS.</p>
+<p>Usage:
+&gt;&gt;&gt; bic = bic(k,n,rss)</p>
+<p>Arguments:
+- rss : residual sum of squares for the model in case errors=False, otherwise</p>
+<blockquote>
+<div>assumes you are giving the chi-square values</div></blockquote>
+<ul class="simple">
+<li>n : sample size, i.e. number of data points</li>
+<li>k : number of free parameters in the model</li>
+</ul>
+<p>Returns: BIC statistic</p>
+<p>References:
+1. <a class="reference external" href="http://en.wikipedia.org/wiki/Bayesian_information_criterion">http://en.wikipedia.org/wiki/Bayesian_information_criterion</a>
+2. Model Selection, Lecture VI: The Bayesian Information Criterion&#8221; by Joseph</p>
+<blockquote>
+<div>Cavanaugh (<a class="reference external" href="http://myweb.uiowa.edu/cavaaugh/ms_lec_6_ho.pdf">http://myweb.uiowa.edu/cavaaugh/ms_lec_6_ho.pdf</a>)</div></blockquote>
+<p>v1 Apr 2012</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.bootcorr">
+<code class="descclassname">nmmn.stats.</code><code class="descname">bootcorr</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>nboot</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#bootcorr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.bootcorr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given (X,Y) data points with intrinsic scatter, computes the 
+bootstrapped Pearson and Spearman correlation coefficients. This
+will give you an idea of how much outliers affect your correlation.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="o">=</span><span class="n">bootcorr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">100000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>performs 100000 bootstrapping realizations on the arrays x and y.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><em>r</em> - array with bootstrapped Pearson statistics</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><em>rho</em> - bootstrapped array with Spearman statistics</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.chisq">
+<code class="descclassname">nmmn.stats.</code><code class="descname">chisq</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>a=None</em>, <em>b=None</em>, <em>sd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#chisq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.chisq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the chi-square error statistic as the sum of squared errors between
+Y(i) and AX(i) + B. If individual standard deviations (array sd) are supplied, 
+then the chi-square error statistic is computed as the sum of squared errors
+divided by the standard deviations.     Inspired on the IDL procedure linfit.pro.
+See <a class="reference external" href="http://en.wikipedia.org/wiki/Goodness_of_fit">http://en.wikipedia.org/wiki/Goodness_of_fit</a> for reference.</p>
+<p>If a linear model is not provided via A,B (y=ax+b) then the method computes
+the chi-square using the best-fit line.</p>
+<p>x,y,sd assumed to be Numpy arrays. a,b scalars.
+Returns the float chisq with the chi-square statistic.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.chisqg">
+<code class="descclassname">nmmn.stats.</code><code class="descname">chisqg</code><span class="sig-paren">(</span><em>ydata</em>, <em>ymod</em>, <em>sd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#chisqg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.chisqg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the chi-square error statistic as the sum of squared errors between
+Ydata(i) and Ymodel(i). If individual standard deviations (array sd) are supplied, 
+then the chi-square error statistic is computed as the sum of squared errors
+divided by the standard deviations.     Inspired on the IDL procedure linfit.pro.
+See <a class="reference external" href="http://en.wikipedia.org/wiki/Goodness_of_fit">http://en.wikipedia.org/wiki/Goodness_of_fit</a> for reference.</p>
+<p>x,y,sd assumed to be Numpy arrays. a,b scalars.
+Returns the float chisq with the chi-square statistic.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.chisqxy">
+<code class="descclassname">nmmn.stats.</code><code class="descname">chisqxy</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>errx</em>, <em>erry</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#chisqxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.chisqxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the chi-square error statistic for a linear fit, 
+computed taking into account the errors in both X and Y (i.e. the
+effective variance). See equation 3 in Ascenso et al. 2012, A&amp;A or
+Yee &amp; Ellingson 2003 ApJ.</p>
+<p>Usage:
+&gt;&gt;&gt; chisq=chisqxy(xdata,ydata,errx,erry,a,b)
+where</p>
+<blockquote>
+<div>xdata,ydata : data
+errx,erry : measurement uncertainties in the data
+a,b : slope and intercept of the best-fit linear regression model</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.conf2sig">
+<code class="descclassname">nmmn.stats.</code><code class="descname">conf2sig</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#conf2sig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.conf2sig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a confidence p-value, translates it into standard deviations.
+E.g., p=0.683 -&gt; 1sigma, p=0.954 -&gt; 2sigma, etc.</p>
+<p>Inspired on p2sig method.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">conf2sig</span><span class="p">(</span><span class="mf">0.683</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.confband">
+<code class="descclassname">nmmn.stats.</code><code class="descname">confband</code><span class="sig-paren">(</span><em>xd</em>, <em>yd</em>, <em>a</em>, <em>b</em>, <em>conf=0.95</em>, <em>x=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#confband"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.confband" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the confidence band of the linear regression model at the desired confidence
+level, using analytical methods. The 2sigma confidence interval is 95% sure to contain 
+the best-fit regression line. This is not the same as saying it will contain 95% of 
+the data points.</p>
+<p>Arguments:
+- conf: desired confidence level, by default 0.95 (2 sigma)
+- xd,yd: data arrays
+- a,b: linear fit parameters as in y=ax+b
+- x: (optional) array with x values to calculate the confidence band. If none is provided, will</p>
+<blockquote>
+<div>by default generate 100 points in the original x-range of the data.</div></blockquote>
+<p>Returns:
+Sequence (lcb,ucb,x) with the arrays holding the lower and upper confidence bands 
+corresponding to the [input] x array.</p>
+<p>Usage:
+&gt;&gt;&gt; lcb,ucb,x=nemmen.confband(all.kp,all.lg,a,b,conf=0.95)
+calculates the confidence bands for the given input arrays</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="go">plots a shaded area containing the confidence band</span>
+</pre></div>
+</div>
+<p>References:
+1. <a class="reference external" href="http://en.wikipedia.org/wiki/Simple_linear_regression">http://en.wikipedia.org/wiki/Simple_linear_regression</a>, see Section Confidence intervals
+2. <a class="reference external" href="http://www.weibull.com/DOEWeb/confidence_intervals_in_simple_linear_regression.htm">http://www.weibull.com/DOEWeb/confidence_intervals_in_simple_linear_regression.htm</a></p>
+<p>v1 Dec. 2011
+v2 Jun. 2012: corrected bug in computing dy</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.confbandmc">
+<code class="descclassname">nmmn.stats.</code><code class="descname">confbandmc</code><span class="sig-paren">(</span><em>x</em>, <em>par</em>, <em>varcov</em>, <em>n=100000</em>, <em>sigmas=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#confbandmc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.confbandmc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the 1sigma confidence band of a linear model without needing
+to specify the data points, by doing a Monte Carlo simulation using the
+Multivariate normal distribution. Assumes the parameters follow a 2D
+normal distribution.</p>
+<p>Arguments:
+- x: array with x values to calculate the confidence band. 
+- par : array or list with structure [par0, par1, par2, ...] with the best-fit</p>
+<blockquote>
+<div>parameters</div></blockquote>
+<ul class="simple">
+<li>varcov : variance-covariance matrix of the parameters</li>
+<li>n : number of (a,b) points generated from the multivariate gaussian</li>
+<li>sigmas : number of standard deviations contained within the prediction
+band</li>
+</ul>
+<p>Output:
+- lcb, ucb : lower and upper prediction bands
+- y : values of the model tabulated at x</p>
+<p>Usage:
+&gt;&gt;&gt; lcb,ucb,y=nemmen.confbandmc(x,bfit,bcov)
+calculates the prediction bands for the given input arrays</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="go">plots a shaded area containing the prediction band</span>
+</pre></div>
+</div>
+<p>v1 Mar. 2012</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.confbandnl">
+<code class="descclassname">nmmn.stats.</code><code class="descname">confbandnl</code><span class="sig-paren">(</span><em>xd</em>, <em>yd</em>, <em>fun</em>, <em>par</em>, <em>varcov</em>, <em>deg</em>, <em>conf=0.95</em>, <em>x=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#confbandnl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.confbandnl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the confidence band of a nonlinear model at the desired confidence
+level, using analytical methods.</p>
+<p>Arguments:
+- xd,yd: data arrays
+- fun : function f(v) - the model - which returns a scalar. v is an array</p>
+<blockquote>
+<div>such that v[0]=x (scalar), v[i&gt;0] = parameters of the model</div></blockquote>
+<ul class="simple">
+<li>par : array or list with structure [par0, par1, par2, ...] with the best-fit
+parameters that will be fed into fun</li>
+<li>varcov : variance-covariance matrix obtained from the nonlinear fit</li>
+<li>deg : number of free parameters in the model</li>
+<li>conf: desired confidence level, by default 0.95 (2 sigma)</li>
+<li>x: (optional) array with x values to calculate the confidence band. If none is provided, will
+by default generate 100 points in the original x-range of the data.</li>
+</ul>
+<p>Usage:
+&gt;&gt;&gt; lcb,ucb,x=nemmen.confbandnl(all.kp,all.lg,broken,bfit,bcov,4,conf=0.95)
+calculates the confidence bands for the given input arrays</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="go">plots a shaded area containing the prediction band  </span>
+</pre></div>
+</div>
+<p>Returns:
+Sequence (lcb,ucb,x) with the arrays holding the lower and upper confidence bands 
+corresponding to the [input] x array.</p>
+<p>References:
+1. <a class="reference external" href="http://www.graphpad.com/faq/viewfaq.cfm?faq=1099">http://www.graphpad.com/faq/viewfaq.cfm?faq=1099</a>, &#8220;How does Prism compute confidence</p>
+<blockquote>
+<div>and prediction bands for nonlinear regression?&#8221;</div></blockquote>
+<p>2. <a class="reference external" href="http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression">http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression</a>
+(see also my notebook)</p>
+<p>v1 Dec. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.credbandmc">
+<code class="descclassname">nmmn.stats.</code><code class="descname">credbandmc</code><span class="sig-paren">(</span><em>x</em>, <em>slope</em>, <em>inter</em>, <em>sigmas=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#credbandmc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.credbandmc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the confidence (or credibility in case of Bayesian analysis) 
+band of a linear regression model, given the posterior probability distributions
+of the slope and intercept (presumably computed via Bayesian regression,
+see bayeslin.pro). These distributions do not need to be normal.</p>
+<p>Arguments:
+- x: array with x values to calculate the confidence band. 
+- slope, inter: posterior distributions of slope and intercept for linear</p>
+<blockquote>
+<div>regression</div></blockquote>
+<ul class="simple">
+<li>sigmas : number of standard deviations contained within the confidence
+band</li>
+</ul>
+<p>Output:
+- lcb, ucb : lower and upper confidence bands
+- y : best-fit values of the model tabulated at x</p>
+<p>Usage:
+&gt;&gt;&gt; lcb,ucb,y=nemmen.predbandmc(x,a,b)
+calculates the prediction bands for the given input arrays</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="go">plots a shaded area containing the prediction band</span>
+</pre></div>
+</div>
+<p>v1 Jun. 2012: inspired by private communication with B. Kelly.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.fitstats">
+<code class="descclassname">nmmn.stats.</code><code class="descname">fitstats</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>errx</em>, <em>erry</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#fitstats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.fitstats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes different useful statistics for the given (X +- errX, Y +- errY)
+arrays of data. Also quantifies the goodness-of-fit of the provided
+linear fit with slope &#8216;a&#8217; and intercept &#8216;b&#8217;.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">rchisq</span><span class="p">,</span><span class="n">scat</span><span class="p">,</span><span class="n">iscat</span><span class="p">,</span><span class="n">r2</span><span class="o">=</span><span class="n">fitstats</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">param xdata,ydata:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">data</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">param errx,erry:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">measurement uncertainties in the data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param a,b:</th><td class="field-body">slope and intercept of the best-fit linear regression model</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Pearson &#8216;r&#8217;</li>
+<li>Spearman &#8216;rho&#8217;</li>
+<li>Reduced chi-squared &#8216;chi^2_nu&#8217;</li>
+<li>raw scatter about the best-fit</li>
+<li>intrinsic scatter</li>
+<li>Coefficient of determination &#8216;R^2&#8217;</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.ftest">
+<code class="descclassname">nmmn.stats.</code><code class="descname">ftest</code><span class="sig-paren">(</span><em>rss1</em>, <em>rss2</em>, <em>n</em>, <em>p1</em>, <em>p2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#ftest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.ftest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Carries out the F-test to decide which model fits the data better.
+Computes the F statistic, associated p-value and the significance
+in sigmas with which we can reject the null hypothesis. You can also
+give the chisq^2 values instead of RSS if you have y-errors.</p>
+<p>Note that p2&gt;p1 must be obeyed, i.e. model 2 is &#8220;nested&#8221; within model
+1.</p>
+<p>Usage:
+&gt;&gt;&gt; fstat,pvalue,conf = ftest(rss1,rss2,n,p1,p2)</p>
+<p>Arguments:
+- rss1, rss2 : residual sum of squares for models 1 and 2
+- n : sample size, i.e. number of data points
+- p1, p2 : number of free parameters in the models</p>
+<p>Returns:
+- fstat : the F statistic
+- pvalue : p-value associated with the F statistic
+- conf : significance in sigmas with which we can reject the null hypothesis</p>
+<p>References:
+1. <a class="reference external" href="http://en.wikipedia.org/wiki/F-test">http://en.wikipedia.org/wiki/F-test</a>
+2. <a class="reference external" href="http://graphpad.com/curvefit/2_models__1_dataset.htm">http://graphpad.com/curvefit/2_models__1_dataset.htm</a>, Graphpad.com,</p>
+<blockquote>
+<div>Comparing the fits of two models (CurveFit.com)</div></blockquote>
+<p>v1 Dec. 2011
+v2 Jan 16 2012: added comment regarding y-errors</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.gauss2d">
+<code class="descclassname">nmmn.stats.</code><code class="descname">gauss2d</code><span class="sig-paren">(</span><em>par</em>, <em>varcov</em>, <em>n=10000</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#gauss2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.gauss2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates random numbers drawn from the multinormal distribution in
+two dimensions. Computes also the probability associated with each
+number that can be used to computed confidence levels.</p>
+<p>Arguments:
+- par : array or list with structure [par0, par1, par2, ...] with the best-fit</p>
+<blockquote>
+<div>parameters</div></blockquote>
+<ul class="simple">
+<li>varcov : variance-covariance matrix of the parameters</li>
+<li>n : number of (a,b) points generated from the multivariate gaussian</li>
+</ul>
+<p>Output:
+- x,y : arrays of random values generated from the multinormal distribution
+- prob : probability associated with each value</p>
+<p>Usage:
+&gt;&gt;&gt; x,y,prob=gauss2d(par,varcov,100000)</p>
+<p>v1 Apr. 2012</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.intscat">
+<code class="descclassname">nmmn.stats.</code><code class="descname">intscat</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>errx</em>, <em>erry</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#intscat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.intscat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates the intrinsic scatter about the best-fit, taking into account
+the errors in X and Y and the &#8220;raw&#8221; scatter. Inspired by Pratt et al. 2009,
+A&amp;A, 498, 361.</p>
+<p>Usage:
+&gt;&gt;&gt; sd=intscat(x,y,errx,erry,a,b)
+where</p>
+<blockquote>
+<div>x,y : X and Y data arrays
+errx, erry : standard deviations in X and Y
+a,b : slope and intercept of best-fit linear relation</div></blockquote>
+<p>Returns the float sd with the scatter about the best-fit.</p>
+<p>v1 Apr 9th 2012</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.linregress_error">
+<code class="descclassname">nmmn.stats.</code><code class="descname">linregress_error</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#linregress_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.linregress_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the uncertainties in the parameters A,B of the least-squares
+linear regression fit y=ax+b to the data (scipy.stats.linregress).</p>
+<p>x,y assumed to be Numpy arrays.
+Returns the sequence sigma_a, sigma_b with the standard deviations in A and B.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.mode">
+<code class="descclassname">nmmn.stats.</code><code class="descname">mode</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the mode of a distribution, i.e. the value where the PDF peaks.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; input list/array with the distribution</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.p2sig">
+<code class="descclassname">nmmn.stats.</code><code class="descname">p2sig</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#p2sig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.p2sig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the p-value Pnull (i.e. probability of the null hypothesis) below, 
+evaluates the confidence level with which we can reject the hypothesis in standard 
+deviations.</p>
+<p>Inspired on prob2sig.nb.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">p2sig</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.predband">
+<code class="descclassname">nmmn.stats.</code><code class="descname">predband</code><span class="sig-paren">(</span><em>xd</em>, <em>yd</em>, <em>a</em>, <em>b</em>, <em>conf=0.95</em>, <em>x=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#predband"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.predband" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the prediction band of the linear regression model at the desired confidence
+level, using analytical methods.</p>
+<p>Clarification of the difference between confidence and prediction bands:
+&#8220;The 2sigma confidence interval is 95% sure to contain the best-fit regression line. 
+This is not the same as saying it will contain 95% of the data points. The prediction bands are
+further from the best-fit line than the confidence bands, a lot further if you have many data 
+points. The 95% prediction interval is the area in which you expect 95% of all data points to fall.&#8221;
+(from <a class="reference external" href="http://graphpad.com/curvefit/linear_regression.htm">http://graphpad.com/curvefit/linear_regression.htm</a>)</p>
+<p>Arguments:
+- conf: desired confidence level, by default 0.95 (2 sigma)
+- xd,yd: data arrays
+- a,b: linear fit parameters as in y=ax+b
+- x: (optional) array with x values to calculate the confidence band. If none is provided, will</p>
+<blockquote>
+<div>by default generate 100 points in the original x-range of the data.</div></blockquote>
+<p>Usage:
+&gt;&gt;&gt; lpb,upb,x=nemmen.predband(all.kp,all.lg,a,b,conf=0.95)
+calculates the prediction bands for the given input arrays</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="go">plots a shaded area containing the prediction band  </span>
+</pre></div>
+</div>
+<p>Returns:
+Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands 
+corresponding to the [input] x array.</p>
+<p>References:
+1. <a class="reference external" href="http://www.JerryDallal.com/LHSP/slr.htm">http://www.JerryDallal.com/LHSP/slr.htm</a>, Introduction to Simple Linear Regression, Gerard 
+E. Dallal, Ph.D.</p>
+<p>v1 Dec. 2011
+v2 Jun. 2012: corrected bug in dy.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.predbandnl">
+<code class="descclassname">nmmn.stats.</code><code class="descname">predbandnl</code><span class="sig-paren">(</span><em>xd</em>, <em>yd</em>, <em>fun</em>, <em>par</em>, <em>varcov</em>, <em>deg</em>, <em>conf=0.95</em>, <em>x=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#predbandnl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.predbandnl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the prediction band of a nonlinear model at the desired confidence
+level, using analytical methods.</p>
+<p>Arguments:
+- xd,yd: data arrays
+- fun : function f(v) - the model - which returns a scalar. v is an array</p>
+<blockquote>
+<div>such that v[0]=x, v[i&gt;0] = parameters of the model</div></blockquote>
+<ul class="simple">
+<li>par : array or list with structure [par0, par1, par2, ...] with the best-fit
+parameters that will be fed into fun</li>
+<li>varcov : variance-covariance matrix obtained from the nonlinear fit</li>
+<li>deg : number of free parameters in the model</li>
+<li>conf: desired confidence level, by default 0.95 (2 sigma)</li>
+<li>x: (optional) array with x values to calculate the confidence band. If none is provided, will
+by default generate 100 points in the original x-range of the data.</li>
+</ul>
+<p>Usage:
+&gt;&gt;&gt; lpb,upb,x=nemmen.predbandnl(all.kp,all.lg,broken,bfit,bcov,4,conf=0.95)
+calculates the prediction bands for the given input arrays</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+<span class="go">plots a shaded area containing the prediction band  </span>
+</pre></div>
+</div>
+<p>Returns:
+Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands 
+corresponding to the [input] x array.</p>
+<p>References:
+1. <a class="reference external" href="http://www.graphpad.com/faq/viewfaq.cfm?faq=1099">http://www.graphpad.com/faq/viewfaq.cfm?faq=1099</a>, &#8220;How does Prism compute confidence</p>
+<blockquote>
+<div>and prediction bands for nonlinear regression?&#8221;</div></blockquote>
+<p>2. <a class="reference external" href="http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression">http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression</a>
+(see also my notebook)</p>
+<p>v1 Dec. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.r2">
+<code class="descclassname">nmmn.stats.</code><code class="descname">r2</code><span class="sig-paren">(</span><em>ydata</em>, <em>ymod</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#r2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.r2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the &#8220;coefficient of determination&#8221; R^2. According to wikipedia,
+&#8220;It is the proportion of variability in a data set that is accounted for 
+by the statistical model. It provides a measure of how well future outcomes 
+are likely to be predicted by the model.&#8221;</p>
+<p>This method was inspired by <a class="reference external" href="http://stackoverflow.com/questions/3460357/calculating-the-coefficient-of-determination-in-python">http://stackoverflow.com/questions/3460357/calculating-the-coefficient-of-determination-in-python</a></p>
+<p>References:
+1. <a class="reference external" href="http://en.wikipedia.org/wiki/Coefficient_of_determination">http://en.wikipedia.org/wiki/Coefficient_of_determination</a>
+2. <a class="reference external" href="http://stackoverflow.com/questions/3460357/calculating-the-coefficient-of-determination-in-python">http://stackoverflow.com/questions/3460357/calculating-the-coefficient-of-determination-in-python</a></p>
+<p>v1 Apr 18th 2012</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.r2p">
+<code class="descclassname">nmmn.stats.</code><code class="descname">r2p</code><span class="sig-paren">(</span><em>r</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#r2p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.r2p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a value of the Pearson r coefficient, this method gives the
+corresponding p-value of the null hypothesis (i.e. no correlation).</p>
+<p>Code copied from scipy.stats.pearsonr source.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">r2p</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where &#8216;r&#8217; is the Pearson coefficient and n is the number of data
+points.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">p-value of the null hypothesis.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.random">
+<code class="descclassname">nmmn.stats.</code><code class="descname">random</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>n=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#random"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.random" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates an array of random uniformly distributed floats in the 
+interval <em>[x0,x1)</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.random_normal">
+<code class="descclassname">nmmn.stats.</code><code class="descname">random_normal</code><span class="sig-paren">(</span><em>mean</em>, <em>std</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#random_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.random_normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an array of n elements of random variables, following a normal 
+distribution with the supplied mean and standard deviation.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.randomvariate">
+<code class="descclassname">nmmn.stats.</code><code class="descname">randomvariate</code><span class="sig-paren">(</span><em>pdf</em>, <em>n=1000</em>, <em>xmin=0</em>, <em>xmax=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#randomvariate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.randomvariate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rejection method for random number generation:
+Uses the rejection method for generating random numbers derived from an arbitrary 
+probability distribution. For reference, see Bevington&#8217;s book, page 84. Based on
+rejection*.py.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">randomvariate</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div>where</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>P</strong> &#8211; probability distribution function from which you want to generate random numbers</li>
+<li><strong>N</strong> &#8211; desired number of random values</li>
+<li><strong>xmin,xmax</strong> &#8211; range of random numbers desired</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the sequence (ran,ntrials) where
+ran : array of shape N with the random variates that follow the input P
+ntrials : number of trials the code needed to achieve N</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here is the algorithm:</p>
+<ul class="simple">
+<li>generate x&#8217; in the desired range</li>
+<li>generate y&#8217; between Pmin and Pmax (Pmax is the maximal value of your pdf)</li>
+<li>if y&#8217;&lt;P(x&#8217;) accept x&#8217;, otherwise reject</li>
+<li>repeat until desired number is achieved</li>
+</ul>
+<p>v1 Nov. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.redchisq">
+<code class="descclassname">nmmn.stats.</code><code class="descname">redchisq</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>a=None</em>, <em>b=None</em>, <em>sd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#redchisq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.redchisq" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the reduced chi-square error statistic for a linear fit:</dt>
+<dd>chisq/nu</dd>
+</dl>
+<p>where nu is the number of degrees of freedom. If individual standard deviations 
+(array sd) are supplied, then the chi-square error statistic is computed as the 
+sum of squared errors divided by the standard deviations. 
+See <a class="reference external" href="http://en.wikipedia.org/wiki/Goodness_of_fit">http://en.wikipedia.org/wiki/Goodness_of_fit</a> for reference.</p>
+<p>If a linear model is not provided via A,B (y=ax+b) then the method computes
+the chi-square using the best-fit line.</p>
+<p>x,y,sd assumed to be Numpy arrays. a,b scalars. deg integer.
+Returns the float chisq/nu with the reduced chi-square statistic.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.redchisqg">
+<code class="descclassname">nmmn.stats.</code><code class="descname">redchisqg</code><span class="sig-paren">(</span><em>ydata</em>, <em>ymod</em>, <em>deg=2</em>, <em>sd=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#redchisqg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.redchisqg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the reduced chi-square error statistic for an arbitrary model, 
+chisq/nu, where nu is the number of degrees of freedom. If individual 
+standard deviations (array sd) are supplied, then the chi-square error 
+statistic is computed as the sum of squared errors divided by the standard 
+deviations. See <a class="reference external" href="http://en.wikipedia.org/wiki/Goodness_of_fit">http://en.wikipedia.org/wiki/Goodness_of_fit</a> for reference.</p>
+<p>ydata,ymod,sd assumed to be Numpy arrays. deg integer.</p>
+<p>Usage:
+&gt;&gt;&gt; chisq=redchisqg(ydata,ymod,n,sd)
+where</p>
+<blockquote>
+<div>ydata : data
+ymod : model evaluated at the same x points as ydata
+n : number of free parameters in the model
+sd : uncertainties in ydata</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.redchisqxy">
+<code class="descclassname">nmmn.stats.</code><code class="descname">redchisqxy</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>errx</em>, <em>erry</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#redchisqxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.redchisqxy" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns the reduced chi-square error statistic for a linear fit:</dt>
+<dd>chisq/nu</dd>
+</dl>
+<p>where nu is the number of degrees of freedom. The chi-square statistic is
+computed taking into account the errors in both X and Y (i.e. the
+effective variance). See equation 3 in Ascenso et al. 2012, A&amp;A or
+Yee &amp; Ellingson 2003 ApJ.</p>
+<p>Usage:
+&gt;&gt;&gt; chisq=redchisqxy(xdata,ydata,errx,erry,a,b)
+where</p>
+<blockquote>
+<div>xdata,ydata : data
+errx,erry : measurement uncertainties in the data
+a,b : slope and intercept of the best-fit linear regression model</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.residual">
+<code class="descclassname">nmmn.stats.</code><code class="descname">residual</code><span class="sig-paren">(</span><em>ydata</em>, <em>ymod</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#residual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.residual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the residual sum of squares (RSS) also known as the sum of 
+squared residuals (see <a class="reference external" href="http://en.wikipedia.org/wiki/Residual_sum_of_squares">http://en.wikipedia.org/wiki/Residual_sum_of_squares</a>).</p>
+<p>Usage:
+&gt;&gt;&gt; rss=residual(ydata,ymod)
+where</p>
+<blockquote>
+<div>ydata : data
+ymod : model evaluated at xdata</div></blockquote>
+<p>ydata,ymod assumed to be Numpy arrays. 
+Returns the float rss with the mean deviation.</p>
+<p>Dec. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.scatpratt">
+<code class="descclassname">nmmn.stats.</code><code class="descname">scatpratt</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>errx</em>, <em>erry</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#scatpratt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.scatpratt" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is an alternative way of computing the &#8220;raw&#8221; scatter about the best-fit 
+linear relation in the presence of measurement errors, proposed by 
+Pratt et al. 2009, A&amp;A, 498, 361.</p>
+<p>In the words of Cavagnolo et al. (2010): 
+<em>We have quantified the total scatter about the best-fit relation using a 
+weighted estimate of the orthogonal distances to the best-fit line (see 
+Pratt et al. 2009).</em></p>
+<p>Usage:</p>
+<dl class="function">
+<dt>
+<code class="descname">sd=scatpratt(x,y,errx,erry,a,b)</code></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x,y</strong> &#8211; X and Y data arrays</li>
+<li><strong>erry</strong> (<em>errx,</em>) &#8211; standard deviations in X and Y</li>
+<li><strong>a,b</strong> &#8211; slope and intercept of best-fit linear relation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float sd with the scatter about the best-fit.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>v1 Mar 20 2012</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.scatterfit">
+<code class="descclassname">nmmn.stats.</code><code class="descname">scatterfit</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>a=None</em>, <em>b=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#scatterfit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.scatterfit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the mean deviation of the data about the linear model given if A,B
+(<em>y=ax+b</em>) provided as arguments. Otherwise, compute the mean deviation about 
+the best-fit line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x,y</strong> &#8211; assumed to be Numpy arrays.</li>
+<li><strong>a,b</strong> &#8211; scalars.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float sd with the mean deviation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.scatterfitg">
+<code class="descclassname">nmmn.stats.</code><code class="descname">scatterfitg</code><span class="sig-paren">(</span><em>ydata</em>, <em>ymod</em>, <em>deg</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#scatterfitg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.scatterfitg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the mean deviation of the data about the model given in
+the array ymod, tabulated exactly like ydata.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span><span class="o">=</span><span class="n">scatterfitg</span><span class="p">(</span><span class="n">ydata</span><span class="p">,</span><span class="n">ymod</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div>:param ydata : data
+:param ymod: model evaluated at xdata
+:param n: number of free parameters in the model</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float sd with the mean deviation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.splitnorm">
+<code class="descclassname">nmmn.stats.</code><code class="descname">splitnorm</code><span class="sig-paren">(</span><em>x</em>, <em>sig1=1.0</em>, <em>sig2=1.0</em>, <em>mu=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#splitnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.splitnorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split normal distribution (or asymmetric gaussian) PDF. Useful when dealing
+with asymmetric error bars.</p>
+<p>See <a class="reference external" href="http://en.wikipedia.org/wiki/Split_normal_distribution">http://en.wikipedia.org/wiki/Split_normal_distribution</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; input array where the PDF will be computed</li>
+<li><strong>sig1</strong> &#8211; left standard deviation</li>
+<li><strong>sig2</strong> &#8211; right std. dev.</li>
+<li><strong>mu</strong> &#8211; mode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">probability distribution function for the array x</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="nmmn.stats.splitnorm_gen">
+<em class="property">class </em><code class="descclassname">nmmn.stats.</code><code class="descname">splitnorm_gen</code><span class="sig-paren">(</span><em>momtype=1</em>, <em>a=None</em>, <em>b=None</em>, <em>xtol=1e-14</em>, <em>badvalue=None</em>, <em>name=None</em>, <em>longname=None</em>, <em>shapes=None</em>, <em>extradoc=None</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#splitnorm_gen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.splitnorm_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">scipy.stats._distn_infrastructure.rv_continuous</span></code></p>
+<p>Split normal distribution defined using scipy.stats. Can be called as 
+any scipy.stats distribution. I took the effort of defining the extra
+CDF and PPF methods below in order to speedup calls to this class 
+(I have particularly in mind the package <em>mcerp</em>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; input array where the PDF will be computed</li>
+<li><strong>sig1</strong> &#8211; left standard deviation</li>
+<li><strong>sig2</strong> &#8211; right std. dev.</li>
+<li><strong>mu</strong> &#8211; mode</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Defines distribution with sig1=1, sig2=3, mu=0:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split</span> <span class="o">=</span> <span class="n">splitnorm_gen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;splitnorm&#39;</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="s1">&#39;sig1, sig2, mu&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">split</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Computes PDF:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Computes CDF:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generates 100 random numbers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">for some reason, this fails if mu=0.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.stats.splitstd">
+<code class="descclassname">nmmn.stats.</code><code class="descname">splitstd</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#splitstd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.splitstd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the input distribution, this method computes two standard deviations:
+the left and right side spreads. This is especially useful if you are dealing
+with a split normal distribution from your data and you want to quantify the
+lower and upper error bars without having to fit a split normal distribution.</p>
+<p>This is a quick nonparametric method, as opposed to the more computationally
+intensive minimization involved when fitting a function.</p>
+<p>Algorithm:</p>
+<ul class="simple">
+<li>divide the original distribution in two distributions at the mode</li>
+<li>create two new distributions, which are the symmetrical versions of the left and right side of the original one</li>
+<li>compute the standard deviations for the new mirror distributions</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>x</strong> &#8211; array or list containing the distribution</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">left.stddev, right.stddev</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">do not forget to inspect <em>x</em>.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nmmn" title="Permalink to this headline">¶</a></h2>
+<p>Miscellaneous modules for:</p>
+<ul class="simple">
+<li><cite>astro</cite>: astronomy</li>
+<li><cite>dsp</cite>: signal processing</li>
+<li><cite>lsd</cite>: misc. operations on arrays, lists, dictionaries and sets</li>
+<li><cite>stats</cite>: statistical methods</li>
+<li><cite>plots</cite>: custom plots</li>
+<li><cite>fermi</cite>: Fermi LAT analysis methods</li>
+<li><cite>bayes</cite>: Bayesian tools for dealing with posterior distributions</li>
+<li><cite>grmhd</cite>: tools for dealing with GRMHD numerical simulations</li>
+</ul>
+<p>These are modules I wrote which I find useful &#8211; for whatever reason &#8211; in my research.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">nmmn package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-nmmn.astro">nmmn.astro module</a><ul>
+<li><a class="reference internal" href="#astrophysical-routines">Astrophysical routines</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.bayes">nmmn.bayes module</a></li>
+<li><a class="reference internal" href="#module-nmmn.dsp">nmmn.dsp module</a><ul>
+<li><a class="reference internal" href="#signal-processing">Signal processing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.fermi">nmmn.fermi module</a><ul>
+<li><a class="reference internal" href="#collection-of-methods-to-handle-fermi-lat-data">Collection of methods to handle Fermi LAT data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.grmhd">nmmn.grmhd module</a><ul>
+<li><a class="reference internal" href="#misc-modules-useful-for-dealing-with-gr-r-m-hd-simulations">Misc. modules useful for dealing with (GR)(R)(M)HD simulations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.lsd">nmmn.lsd module</a><ul>
+<li><a class="reference internal" href="#lsd-operations-lists-sets-dictionaries-and-arrays">LSD operations = lists, sets, dictionaries (and arrays)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.misc">nmmn.misc module</a></li>
+<li><a class="reference internal" href="#module-nmmn.plots">nmmn.plots module</a><ul>
+<li><a class="reference internal" href="#fancy-plots">Fancy plots</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.stats">nmmn.stats module</a><ul>
+<li><a class="reference internal" href="#miscellaneous-statistical-methods">Miscellaneous statistical methods</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to nmmn&#8217;s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/nmmn.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/nmmn.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
