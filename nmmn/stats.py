@@ -354,6 +354,7 @@ points. The 95% prediction interval is the area in which you expect 95% of all d
 (from http://graphpad.com/curvefit/linear_regression.htm)
 
 Arguments:
+
 - conf: desired confidence level, by default 0.95 (2 sigma)
 - xd,yd: data arrays
 - a,b: linear fit parameters as in y=ax+b
@@ -361,22 +362,20 @@ Arguments:
   by default generate 100 points in the original x-range of the data.
   
 Usage:
+
 >>> lpb,upb,x=nemmen.predband(all.kp,all.lg,a,b,conf=0.95)
 calculates the prediction bands for the given input arrays
 
 >>> pylab.fill_between(x, lpb, upb, alpha=0.3, facecolor='gray')
 plots a shaded area containing the prediction band  
 
-Returns:
-Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands 
+:returns: Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands 
 corresponding to the [input] x array.
 
 References:
-1. http://www.JerryDallal.com/LHSP/slr.htm, Introduction to Simple Linear Regression, Gerard 
-E. Dallal, Ph.D.
 
-v1 Dec. 2011
-v2 Jun. 2012: corrected bug in dy.
+1. `Introduction to Simple Linear Regression, Gerard 
+E. Dallal, Ph.D. <http://www.JerryDallal.com/LHSP/slr.htm>`_
 	"""
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
@@ -410,6 +409,7 @@ Calculates the confidence band of a nonlinear model at the desired confidence
 level, using analytical methods. 
 
 Arguments:
+
 - xd,yd: data arrays
 - fun : function f(v) - the model - which returns a scalar. v is an array
   such that v[0]=x (scalar), v[i>0] = parameters of the model
@@ -422,23 +422,21 @@ Arguments:
   by default generate 100 points in the original x-range of the data.
   
 Usage:
+
 >>> lcb,ucb,x=nemmen.confbandnl(all.kp,all.lg,broken,bfit,bcov,4,conf=0.95)
 calculates the confidence bands for the given input arrays
 
 >>> pylab.fill_between(x, lcb, ucb, alpha=0.3, facecolor='gray')
 plots a shaded area containing the prediction band  
 
-Returns:
-Sequence (lcb,ucb,x) with the arrays holding the lower and upper confidence bands 
+:returns: Sequence (lcb,ucb,x) with the arrays holding the lower and upper confidence bands 
 corresponding to the [input] x array.
 
 References:
-1. http://www.graphpad.com/faq/viewfaq.cfm?faq=1099, "How does Prism compute confidence 
-  and prediction bands for nonlinear regression?"
-2. http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression
-(see also my notebook)
 
-v1 Dec. 2011
+1. `How does Prism compute confidence and prediction bands for nonlinear regression? <http://www.graphpad.com/faq/viewfaq.cfm?faq=1099>`_
+2. http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression
+3. see also my notebook
 	"""
 	import numdifftools
 	
@@ -489,6 +487,7 @@ Calculates the prediction band of a nonlinear model at the desired confidence
 level, using analytical methods. 
 
 Arguments:
+
 - xd,yd: data arrays
 - fun : function f(v) - the model - which returns a scalar. v is an array
   such that v[0]=x, v[i>0] = parameters of the model
@@ -501,23 +500,20 @@ Arguments:
   by default generate 100 points in the original x-range of the data.
   
 Usage:
+
 >>> lpb,upb,x=nemmen.predbandnl(all.kp,all.lg,broken,bfit,bcov,4,conf=0.95)
 calculates the prediction bands for the given input arrays
 
 >>> pylab.fill_between(x, lpb, upb, alpha=0.3, facecolor='gray')
 plots a shaded area containing the prediction band  
 
-Returns:
-Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands 
+:returns: Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands 
 corresponding to the [input] x array.
 
 References:
-1. http://www.graphpad.com/faq/viewfaq.cfm?faq=1099, "How does Prism compute confidence 
-  and prediction bands for nonlinear regression?"
+1. http://www.graphpad.com/faq/viewfaq.cfm?faq=1099, "How does Prism compute confidence and prediction bands for nonlinear regression?"
 2. http://stats.stackexchange.com/questions/15423/how-to-compute-prediction-bands-for-non-linear-regression
-(see also my notebook)
-
-v1 Dec. 2011
+3. see also my notebook)
 	"""
 	import numdifftools
 	
@@ -569,6 +565,7 @@ Multivariate normal distribution. Assumes the parameters follow a 2D
 normal distribution.
 
 Arguments:
+
 - x: array with x values to calculate the confidence band. 
 - par : array or list with structure [par0, par1, par2, ...] with the best-fit
   parameters
@@ -578,17 +575,17 @@ Arguments:
   band
 
 Output:
+
 - lcb, ucb : lower and upper prediction bands
 - y : values of the model tabulated at x
 
 Usage:
+
 >>> lcb,ucb,y=nemmen.confbandmc(x,bfit,bcov)
 calculates the prediction bands for the given input arrays
 
 >>> pylab.fill_between(x, lcb, ucb, alpha=0.3, facecolor='gray')
 plots a shaded area containing the prediction band
-
-v1 Mar. 2012
 	"""
 	# Generates many realizations of a and b from the multinormal distribution
 	ar,br = numpy.random.multivariate_normal(par,varcov,n).T
@@ -620,6 +617,7 @@ of the slope and intercept (presumably computed via Bayesian regression,
 see bayeslin.pro). These distributions do not need to be normal.
 
 Arguments:
+
 - x: array with x values to calculate the confidence band. 
 - slope, inter: posterior distributions of slope and intercept for linear
   regression
@@ -627,10 +625,12 @@ Arguments:
   band
 
 Output:
+
 - lcb, ucb : lower and upper confidence bands
 - y : best-fit values of the model tabulated at x
 
 Usage:
+
 >>> lcb,ucb,y=nemmen.predbandmc(x,a,b)
 calculates the prediction bands for the given input arrays
 
@@ -672,12 +672,14 @@ two dimensions. Computes also the probability associated with each
 number that can be used to computed confidence levels.
 
 Arguments:
+
 - par : array or list with structure [par0, par1, par2, ...] with the best-fit
   parameters
 - varcov : variance-covariance matrix of the parameters
 - n : number of (a,b) points generated from the multivariate gaussian
 
 Output:
+
 - x,y : arrays of random values generated from the multinormal distribution
 - prob : probability associated with each value
 
