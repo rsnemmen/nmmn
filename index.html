@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nmmn tools &mdash; nmmn  documentation</title>
+    <title>nmmn &mdash; nmmn  documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -39,8 +39,9 @@
           <div class="body" role="main">
             
   <div class="section" id="id1">
-<h1><a class="reference external" href="https://github.com/rsnemmen/nmmn">nmmn tools</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<p>Miscellaneous modules for:</p>
+<h1><a class="reference external" href="https://github.com/rsnemmen/nmmn">nmmn</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Tools for astronomy, data analysis, time series, numerical simulations and more! These are modules I wrote which I find useful &#8211; for whatever reason &#8211; in my research.</p>
+<p>List of submodules available:</p>
 <ul class="simple">
 <li><cite>astro</cite>: astronomy</li>
 <li><cite>dsp</cite>: signal processing</li>
@@ -51,8 +52,18 @@
 <li><cite>bayes</cite>: Bayesian tools for dealing with posterior distributions</li>
 <li><cite>grmhd</cite>: tools for dealing with GRMHD numerical simulations</li>
 </ul>
-<p>These are modules I wrote which I find useful &#8211; for whatever reason &#8211; in my research.</p>
-<p>Contents:</p>
+<p><a class="reference external" href="https://github.com/rsnemmen/nmmn">Code available on Github</a>.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Example 1: Remove all <cite>nan</cite> and <cite>inf</cite> (<span class="math">\(\infty\)</span>) elements from a numpy array.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">nmmn.lsd</span><span class="o">,</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">inf</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xok</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">lsd</span><span class="o">.</span><span class="n">delweird</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="nmmn.html">nmmn package</a><ul>
@@ -99,13 +110,20 @@
 </ul>
 </div>
 </div>
+<div class="section" id="todo">
+<h2>Todo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>[ ] need more examples</li>
+</ul>
+</div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
 <li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
 <li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
 </ul>
+</div>
 </div>
 
 
@@ -116,8 +134,13 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">nmmn tools</a></li>
+<li><a class="reference internal" href="#">nmmn</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#todo">Todo</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</li>
 </ul>
 <div class="relations">
 <h3>Related Topics</h3>

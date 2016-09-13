@@ -3,10 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-`nmmn tools <https://github.com/rsnemmen/nmmn>`_
+`nmmn <https://github.com/rsnemmen/nmmn>`_
 ==================================================
 
-Miscellaneous modules for:
+Tools for astronomy, data analysis, time series, numerical simulations and more! These are modules I wrote which I find useful -- for whatever reason -- in my research.
+
+List of submodules available:
 
 * `astro`: astronomy 
 * `dsp`: signal processing
@@ -17,9 +19,20 @@ Miscellaneous modules for:
 * `bayes`: Bayesian tools for dealing with posterior distributions
 * `grmhd`: tools for dealing with GRMHD numerical simulations
 
-These are modules I wrote which I find useful -- for whatever reason -- in my research.
+`Code available on Github <https://github.com/rsnemmen/nmmn>`_.
 
-Contents:
+Usage
+-------
+
+Example 1: Remove all `nan` and `inf` (:math:`\infty`) elements from a numpy array.
+
+>>> import nmmn.lsd, numpy
+>>> x=numpy.array([1,2,numpy.nan,numpy.inf])
+>>> xok=nmmn.lsd.delweird(x)
+
+
+Contents
+---------
 
 .. toctree::
    :maxdepth: 4
@@ -27,8 +40,14 @@ Contents:
    nmmn
 
 
+Todo
+-----
+
+- [ ] need more examples
+
+
 Indices and tables
-==================
+--------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
