@@ -1,7 +1,9 @@
-Miscellaneous tools: nmmn
-===================
+nmmn
+======
 
-Miscellaneous modules for:
+Tools for astronomy, data analysis, time series, numerical simulations, gamma-ray astronomy and more! These are modules I wrote which I find useful -- for whatever reason -- in my research.
+
+List of submodules available ([more info here](http://rsnemmen.github.io/nmmn/)):
 
 * `astro`: astronomy
 * `dsp`: signal processing
@@ -12,10 +14,19 @@ Miscellaneous modules for:
 * `bayes`: Bayesian tools for dealing with posterior distributions
 * `grmhd`: tools for dealing with GRMHD numerical simulations
 
-These are modules I wrote which I find useful -- for whatever reason -- in my research.
-
 Very basic [documentation](http://rsnemmen.github.io/nmmn/) for the modules.
 
+# Usage
+
+Example 1: Remove all `nan` and `inf` elements from a `numpy` array.
+
+```python
+import nmmn.lsd, numpy
+x=numpy.array([1,2,numpy.nan,numpy.inf])
+xok=nmmn.lsd.delweird(x)
+```
+
+More examples coming...
 
 # Installation
 
@@ -39,6 +50,7 @@ Install the package with a symlink, so that changes to the source files will be 
 * [x] ~~possibly broken intra-package references? let's see~~
 * [x] documentation with Sphinx
 * [x] ~~fix documentation with Read the Docs~~
+* [ ] need more examples of how to use the modules
 
 # License
 
