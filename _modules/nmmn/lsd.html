@@ -28,7 +28,7 @@
     <link rel="up" title="Module code" href="../index.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -39,7 +39,7 @@
           <div class="body" role="main">
             
   <h1>Source code for nmmn.lsd</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">LSD operations = lists, sets, dictionaries (and arrays)</span>
 <span class="sd">=========================================================</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -64,7 +64,7 @@
 <span class="sd">i.e. performs the same thing as the IDL routine `cmset_op &lt;http://cow.physics.wisc.edu/~craigm/idl/idl.html&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	
-	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># list of indexes of x elements which are also in y</span>
+	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of indexes of x elements which are also in y</span>
 	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
 	<span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
 		<span class="k">if</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span> <span class="n">idel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -96,7 +96,7 @@
 <span class="sd">Inherited from :func:`nemmen.cmset_and`.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	
-	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># list of indexes of x elements which are also in y</span>
+	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of indexes of x elements which are also in y</span>
 	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
 	<span class="k">for</span> <span class="n">yy</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
 		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="n">yy</span><span class="p">)</span>
@@ -120,7 +120,7 @@
 <span class="sd">http://cow.physics.wisc.edu/~craigm/idl/idl.html.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	
-	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># list of indexes of x elements which NOT in y</span>
+	<span class="n">idel</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of indexes of x elements which NOT in y</span>
 	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
 	<span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
 		<span class="k">if</span> <span class="n">xx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span> <span class="n">idel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -134,14 +134,14 @@
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Set nan elements to zero in the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Index of nan elements</span>
+	<span class="c1"># Index of nan elements</span>
 	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span>
 
 	<span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 	<span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mf">0.</span>
-	<span class="c">#y[i]=1e-20</span>
+	<span class="c1">#y[i]=1e-20</span>
 	
-	<span class="c"># Removes the nan elements</span>
+	<span class="c1"># Removes the nan elements</span>
 	<span class="k">return</span> <span class="n">y</span></div>
 
 
@@ -151,10 +151,10 @@
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Remove nan elements from the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Index of nan elements</span>
+	<span class="c1"># Index of nan elements</span>
 	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span>
 	
-	<span class="c"># Removes the nan elements</span>
+	<span class="c1"># Removes the nan elements</span>
 	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
 
 	
@@ -164,10 +164,10 @@
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Remove nan or inf elements from the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Index of nan elements</span>
+	<span class="c1"># Index of nan elements</span>
 	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span> <span class="p">)</span>
 	
-	<span class="c"># Removes the nan elements</span>
+	<span class="c1"># Removes the nan elements</span>
 	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
 
 
@@ -297,13 +297,13 @@
 <span class="sd">Rodrigo Nemmen, http://goo.gl/8S1Oo</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span>
-		<span class="n">vboot</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># list of boostrapped arrays</span>
+		<span class="n">vboot</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of boostrapped arrays</span>
 		<span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
-		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c"># Array of random indexes</span>
+		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes</span>
 		<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>	<span class="n">vboot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">iran</span><span class="p">])</span>
-	<span class="k">else</span><span class="p">:</span>	<span class="c"># if v is an array, not a list of arrays</span>
+	<span class="k">else</span><span class="p">:</span>	<span class="c1"># if v is an array, not a list of arrays</span>
 		<span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">size</span>
-		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c"># Array of random indexes</span>
+		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes</span>
 		<span class="n">vboot</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="n">iran</span><span class="p">]</span>
 	
 	<span class="k">return</span> <span class="n">vboot</span></div>
@@ -311,7 +311,7 @@
 
 
 
-<div class="viewcode-block" id="regrid"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.regrid">[docs]</a><span class="k">def</span> <span class="nf">regrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s">&#39;cubic&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="regrid"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.regrid">[docs]</a><span class="k">def</span> <span class="nf">regrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids</span>
 <span class="sd">xnew,ynew (1D arrays with new grid).</span>
@@ -322,10 +322,10 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">scipy.interpolate</span>
 
-	<span class="c"># regrid the data to a nice cartesian grid</span>
+	<span class="c1"># regrid the data to a nice cartesian grid</span>
 	<span class="n">Z</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">griddata</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">xnew</span><span class="p">[</span><span class="bp">None</span><span class="p">,:],</span> <span class="n">ynew</span><span class="p">[:,</span><span class="bp">None</span><span class="p">]),</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
-	<span class="c"># get rid of NaNs</span>
+	<span class="c1"># get rid of NaNs</span>
 	<span class="k">return</span> <span class="n">nanzero</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span></div>
 
 
@@ -340,17 +340,20 @@
 
 <span class="sd">where X,Y,Z are 2D arrays.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Index tuples with elements that will be selected along each dimension</span>
-	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">xmin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;=</span><span class="n">xmax</span><span class="p">))</span>	<span class="c"># x</span>
-	<span class="n">j</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y</span><span class="o">&gt;=</span><span class="n">ymin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">))</span>	<span class="c"># y</span>
+	<span class="c1"># Index tuples with elements that will be selected along each dimension</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">xmin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;=</span><span class="n">xmax</span><span class="p">))</span>	<span class="c1"># x</span>
+	<span class="n">j</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y</span><span class="o">&gt;=</span><span class="n">ymin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">))</span>	<span class="c1"># y</span>
 	
-	<span class="c"># Defines new x and y arrays</span>
+	<span class="c1"># Defines new x and y arrays</span>
 	<span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
 	
-	<span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>	<span class="c"># tuples -&gt; arrays (for matrix slicing below)</span>
-	<span class="n">znew</span><span class="o">=</span><span class="n">cube</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>	<span class="c"># CAREFUL with the ordering of the indexes!</span>
+	<span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>	<span class="c1"># tuples -&gt; arrays (for matrix slicing below)</span>
+	<span class="n">znew</span><span class="o">=</span><span class="n">cube</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>	<span class="c1"># CAREFUL with the ordering of the indexes!</span>
 	
 	<span class="k">return</span> <span class="n">znew</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span>	</div>
+
+
+
 </pre></div>
 
           </div>
@@ -387,8 +390,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>
 

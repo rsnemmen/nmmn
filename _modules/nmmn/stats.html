@@ -28,7 +28,7 @@
     <link rel="up" title="Module code" href="../index.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -39,7 +39,7 @@
           <div class="body" role="main">
             
   <h1>Source code for nmmn.stats</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Statistical methods</span>
 <span class="sd">=====================</span>
 
@@ -57,10 +57,10 @@
 
 
 
-<span class="c"># Residuals of a fit</span>
-<span class="c"># ===================</span>
-<span class="c"># Residual sum of squares, raw scatter about best-fit and </span>
-<span class="c"># intrinsic scatter.</span>
+<span class="c1"># Residuals of a fit</span>
+<span class="c1"># ===================</span>
+<span class="c1"># Residual sum of squares, raw scatter about best-fit and </span>
+<span class="c1"># intrinsic scatter.</span>
 
 <div class="viewcode-block" id="scatterfit"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.scatterfit">[docs]</a><span class="k">def</span> <span class="nf">scatterfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
@@ -74,10 +74,10 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>	
-		<span class="c"># Performs linear regression</span>
+		<span class="c1"># Performs linear regression</span>
 		<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 	
-	<span class="c"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
+	<span class="c1"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
 	<span class="n">N</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 	<span class="n">sd</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
@@ -101,7 +101,7 @@
 <span class="sd">:type ydata,ymod: Numpy arrays</span>
 <span class="sd">:rtype: float sd with the mean deviation.</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
-	<span class="c"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
+	<span class="c1"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
 	<span class="n">N</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
 	<span class="n">sd</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="n">deg</span><span class="p">)</span><span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
@@ -134,12 +134,12 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">N</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 	
-	<span class="c"># Equation 4 from Pratt et al. 2009</span>
+	<span class="c1"># Equation 4 from Pratt et al. 2009</span>
 	<span class="n">sdsq</span><span class="o">=</span><span class="n">erry</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">errx</span><span class="o">**</span><span class="mi">2</span>
-	<span class="n">wden</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">sdsq</span><span class="p">)</span>	<span class="c"># Denominator of w</span>
+	<span class="n">wden</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">sdsq</span><span class="p">)</span>	<span class="c1"># Denominator of w</span>
 	<span class="n">w</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">sdsq</span><span class="o">/</span><span class="n">wden</span>
 	
-	<span class="c"># Equation 3 from Pratt et al. 2009</span>
+	<span class="c1"># Equation 3 from Pratt et al. 2009</span>
 	<span class="n">sdrawsq</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="n">sdraw</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sdrawsq</span><span class="p">)</span>
 	
@@ -163,7 +163,7 @@
 
 <span class="sd">Dec. 2011</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
-	<span class="c"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
+	<span class="c1"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
 	<span class="n">N</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
 	<span class="n">rss</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	
@@ -187,10 +187,10 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>	
-		<span class="c"># Performs linear regression</span>
+		<span class="c1"># Performs linear regression</span>
 		<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 	
-	<span class="c"># Chi-square statistic (Bevington, eq. 6.9)</span>
+	<span class="c1"># Chi-square statistic (Bevington, eq. 6.9)</span>
 	<span class="k">if</span> <span class="n">sd</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
@@ -212,7 +212,7 @@
 <span class="sd">x,y,sd assumed to be Numpy arrays. a,b scalars.</span>
 <span class="sd">Returns the float chisq with the chi-square statistic.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Chi-square statistic (Bevington, eq. 6.9)</span>
+	<span class="c1"># Chi-square statistic (Bevington, eq. 6.9)</span>
 	<span class="k">if</span> <span class="n">sd</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
@@ -265,14 +265,14 @@
 
 <span class="sd">v1 Apr 9th 2012</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Raw scatter</span>
+	<span class="c1"># Raw scatter</span>
 	<span class="n">sdraw</span><span class="o">=</span><span class="n">scatpratt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
 	<span class="n">sdrawsq</span><span class="o">=</span><span class="n">sdraw</span><span class="o">**</span><span class="mi">2</span>
 	
-	<span class="c"># Statistical variance, eq. 4 from Pratt et al. 2009</span>
+	<span class="c1"># Statistical variance, eq. 4 from Pratt et al. 2009</span>
 	<span class="n">sdsq</span><span class="o">=</span><span class="n">erry</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">errx</span><span class="o">**</span><span class="mi">2</span>
 	
-	<span class="c"># Intrinsic scatter for each data point</span>
+	<span class="c1"># Intrinsic scatter for each data point</span>
 	<span class="n">intscati</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sdsq</span><span class="o">-</span><span class="n">sdrawsq</span><span class="p">)</span> <span class="p">)</span>
 	
 	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">intscati</span><span class="p">)</span>
@@ -289,16 +289,16 @@
 <span class="sd">Returns the sequence sigma_a, sigma_b with the standard deviations in A and B.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	
-	<span class="c"># Performs linear regression</span>
+	<span class="c1"># Performs linear regression</span>
 	<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 	
-	<span class="c"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
+	<span class="c1"># Std. deviation of an individual measurement (Bevington, eq. 6.15)</span>
 	<span class="n">N</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 	<span class="n">sd</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">);</span>	<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
 	
-	<span class="c"># Std. deviation in parameters</span>
-	<span class="n">Delta</span><span class="o">=</span><span class="n">N</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>	<span class="c"># Bevington, eq. 6.13</span>
-	<span class="n">sdb</span><span class="o">=</span><span class="n">sd</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">Delta</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">);</span>	<span class="n">sdb</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sdb</span><span class="p">)</span>	<span class="c"># Bevington, eq. 6.23</span>
+	<span class="c1"># Std. deviation in parameters</span>
+	<span class="n">Delta</span><span class="o">=</span><span class="n">N</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>	<span class="c1"># Bevington, eq. 6.13</span>
+	<span class="n">sdb</span><span class="o">=</span><span class="n">sd</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">Delta</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">);</span>	<span class="n">sdb</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sdb</span><span class="p">)</span>	<span class="c1"># Bevington, eq. 6.23</span>
 	<span class="n">sda</span><span class="o">=</span><span class="n">N</span><span class="o">*</span><span class="n">sd</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">Delta</span><span class="p">;</span>	<span class="n">sda</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sda</span><span class="p">)</span>
 	
 	<span class="k">return</span> <span class="n">sda</span><span class="p">,</span><span class="n">sdb</span>
@@ -317,10 +317,10 @@
 	
 
 
-<span class="c"># Computing prediction and confidence bands</span>
-<span class="c"># ===========================================</span>
-<span class="c">#</span>
-<span class="c">#</span>
+<span class="c1"># Computing prediction and confidence bands</span>
+<span class="c1"># ===========================================</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
 
 </div>
 <div class="viewcode-block" id="confband"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.confband">[docs]</a><span class="k">def</span> <span class="nf">confband</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span><span class="n">yd</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
@@ -355,26 +355,26 @@
 <span class="sd">v1 Dec. 2011</span>
 <span class="sd">v2 Jun. 2012: corrected bug in computing dy</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c"># significance</span>
-	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c"># data sample size</span>
+	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
+	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
 	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
-	<span class="c"># Predicted values (best-fit model)</span>
+	<span class="c1"># Predicted values (best-fit model)</span>
 	<span class="n">y</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span>
 
-	<span class="c"># Auxiliary definitions</span>
-	<span class="n">sd</span><span class="o">=</span><span class="n">scatterfit</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span><span class="n">yd</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>	<span class="c"># Scatter of data about the model</span>
+	<span class="c1"># Auxiliary definitions</span>
+	<span class="n">sd</span><span class="o">=</span><span class="n">scatterfit</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span><span class="n">yd</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>	<span class="c1"># Scatter of data about the model</span>
 	<span class="n">sxd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">xd</span><span class="o">-</span><span class="n">xd</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-	<span class="n">sx</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">xd</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span>	<span class="c"># array</span>
+	<span class="n">sx</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">xd</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span>	<span class="c1"># array</span>
 
-	<span class="c"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
+	<span class="c1"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
 	<span class="n">q</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-	<span class="c"># Confidence band</span>
+	<span class="c1"># Confidence band</span>
 	<span class="n">dy</span><span class="o">=</span><span class="n">q</span><span class="o">*</span><span class="n">sd</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="mf">1.</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="n">sx</span><span class="o">/</span><span class="n">sxd</span> <span class="p">)</span>
-	<span class="n">ucb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c"># Upper confidence band</span>
-	<span class="n">lcb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c"># Lower confidence band</span>
+	<span class="n">ucb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c1"># Upper confidence band</span>
+	<span class="n">lcb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c1"># Lower confidence band</span>
 
 	<span class="k">return</span> <span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">x</span>
 	
@@ -418,26 +418,26 @@
 <span class="sd">1. `Introduction to Simple Linear Regression, Gerard </span>
 <span class="sd">E. Dallal, Ph.D. &lt;http://www.JerryDallal.com/LHSP/slr.htm&gt;`_</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c"># significance</span>
-	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c"># data sample size</span>
+	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
+	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
 	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
-	<span class="c"># Predicted values (best-fit model)</span>
+	<span class="c1"># Predicted values (best-fit model)</span>
 	<span class="n">y</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span>
 
-	<span class="c"># Auxiliary definitions</span>
-	<span class="n">sd</span><span class="o">=</span><span class="n">scatterfit</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span><span class="n">yd</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>	<span class="c"># Scatter of data about the model</span>
+	<span class="c1"># Auxiliary definitions</span>
+	<span class="n">sd</span><span class="o">=</span><span class="n">scatterfit</span><span class="p">(</span><span class="n">xd</span><span class="p">,</span><span class="n">yd</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>	<span class="c1"># Scatter of data about the model</span>
 	<span class="n">sxd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">xd</span><span class="o">-</span><span class="n">xd</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-	<span class="n">sx</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">xd</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span>	<span class="c"># array</span>
+	<span class="n">sx</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">xd</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span>	<span class="c1"># array</span>
 
-	<span class="c"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
+	<span class="c1"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
 	<span class="n">q</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-	<span class="c"># Prediction band</span>
+	<span class="c1"># Prediction band</span>
 	<span class="n">dy</span><span class="o">=</span><span class="n">q</span><span class="o">*</span><span class="n">sd</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="mf">1.</span><span class="o">+</span><span class="mf">1.</span><span class="o">/</span><span class="n">n</span> <span class="o">+</span> <span class="n">sx</span><span class="o">/</span><span class="n">sxd</span> <span class="p">)</span>
-	<span class="n">upb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c"># Upper prediction band</span>
-	<span class="n">lpb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c"># Lower prediction band</span>
+	<span class="n">upb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c1"># Upper prediction band</span>
+	<span class="n">lpb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c1"># Lower prediction band</span>
 
 	<span class="k">return</span> <span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">x</span>
 	
@@ -481,18 +481,18 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">numdifftools</span>
 	
-	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c"># significance</span>
-	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c"># data sample size</span>
+	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
+	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
 	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
-	<span class="c"># Gradient (needs to be evaluated)</span>
+	<span class="c1"># Gradient (needs to be evaluated)</span>
 	<span class="n">dfun</span><span class="o">=</span><span class="n">numdifftools</span><span class="o">.</span><span class="n">Gradient</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span>
 	
-	<span class="c"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
+	<span class="c1"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
 	<span class="n">q</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-	<span class="c"># Residual sum of squares		</span>
+	<span class="c1"># Residual sum of squares		</span>
 	<span class="n">rss</span><span class="o">=</span><span class="n">residual</span><span class="p">(</span><span class="n">yd</span><span class="p">,</span> <span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">xd</span><span class="p">,</span><span class="n">par</span><span class="p">)</span> <span class="p">)</span>
 	
 	<span class="n">grad</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="p">[],[]</span>
@@ -501,20 +501,20 @@
 	<span class="n">v</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 		
 	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-		<span class="c"># List: arrays consisting of [x[i], par1, par2, ...]</span>
+		<span class="c1"># List: arrays consisting of [x[i], par1, par2, ...]</span>
 		<span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">par</span><span class="p">))</span> <span class="p">)</span>
 	
-		<span class="c"># List: each element -&gt; gradient evaluated at each xi</span>
+		<span class="c1"># List: each element -&gt; gradient evaluated at each xi</span>
 		<span class="n">grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dfun</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 				
-		<span class="c"># Before processing the grad array, eliminates the first element</span>
+		<span class="c1"># Before processing the grad array, eliminates the first element</span>
 		<span class="n">temp</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">varcov</span><span class="p">)</span>
 		<span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
 		
-	<span class="c"># Confidence band</span>
+	<span class="c1"># Confidence band</span>
 	<span class="n">dy</span><span class="o">=</span><span class="n">q</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">v</span><span class="o">*</span><span class="n">rss</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">deg</span><span class="p">)</span> <span class="p">)</span>
-	<span class="n">ucb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c"># Upper confidence band</span>
-	<span class="n">lcb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c"># Lower confidence band</span>
+	<span class="n">ucb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c1"># Upper confidence band</span>
+	<span class="n">lcb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c1"># Lower confidence band</span>
 
 	<span class="k">return</span> <span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">x</span>
 
@@ -558,18 +558,18 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">numdifftools</span>
 	
-	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c"># significance</span>
-	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c"># data sample size</span>
+	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
+	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
 	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
-	<span class="c"># Gradient (needs to be evaluated)</span>
+	<span class="c1"># Gradient (needs to be evaluated)</span>
 	<span class="n">dfun</span><span class="o">=</span><span class="n">numdifftools</span><span class="o">.</span><span class="n">Gradient</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span>
 	
-	<span class="c"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
+	<span class="c1"># Quantile of Student&#39;s t distribution for p=1-alpha/2</span>
 	<span class="n">q</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
-	<span class="c"># Residual sum of squares		</span>
+	<span class="c1"># Residual sum of squares		</span>
 	<span class="n">rss</span><span class="o">=</span><span class="n">residual</span><span class="p">(</span><span class="n">yd</span><span class="p">,</span> <span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">xd</span><span class="p">,</span><span class="n">par</span><span class="p">)</span> <span class="p">)</span>
 	
 	<span class="n">grad</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="p">[],[]</span>
@@ -578,20 +578,20 @@
 	<span class="n">v</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 		
 	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-		<span class="c"># List: arrays consisting of [x[i], par1, par2, ...]</span>
+		<span class="c1"># List: arrays consisting of [x[i], par1, par2, ...]</span>
 		<span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="n">par</span><span class="p">))</span> <span class="p">)</span>
 	
-		<span class="c"># List: each element -&gt; gradient evaluated at each xi</span>
+		<span class="c1"># List: each element -&gt; gradient evaluated at each xi</span>
 		<span class="n">grad</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dfun</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
 				
-		<span class="c"># Before processing the grad array, eliminates the first element</span>
+		<span class="c1"># Before processing the grad array, eliminates the first element</span>
 		<span class="n">temp</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">varcov</span><span class="p">)</span>
 		<span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">grad</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:])</span>
 		
-	<span class="c"># Confidence band</span>
+	<span class="c1"># Confidence band</span>
 	<span class="n">dy</span><span class="o">=</span><span class="n">q</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="p">(</span><span class="mf">1.</span><span class="o">+</span><span class="n">v</span><span class="p">)</span><span class="o">*</span><span class="n">rss</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">deg</span><span class="p">)</span> <span class="p">)</span>
-	<span class="n">upb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c"># Upper prediction band</span>
-	<span class="n">lpb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c"># Lower prediction band</span>
+	<span class="n">upb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span>	<span class="c1"># Upper prediction band</span>
+	<span class="n">lpb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">dy</span>	<span class="c1"># Lower prediction band</span>
 
 	<span class="k">return</span> <span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">x</span>
 		
@@ -628,11 +628,11 @@
 <span class="sd">&gt;&gt;&gt; pylab.fill_between(x, lcb, ucb, alpha=0.3, facecolor=&#39;gray&#39;)</span>
 <span class="sd">plots a shaded area containing the prediction band</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Generates many realizations of a and b from the multinormal distribution</span>
+	<span class="c1"># Generates many realizations of a and b from the multinormal distribution</span>
 	<span class="n">ar</span><span class="p">,</span><span class="n">br</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">par</span><span class="p">,</span><span class="n">varcov</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 	
-	<span class="n">erry</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># will contain the std deviation in y</span>
-	<span class="n">y</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># values of y for each x</span>
+	<span class="n">erry</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># will contain the std deviation in y</span>
+	<span class="n">y</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># values of y for each x</span>
 	
 	<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
 		<span class="n">yr</span><span class="o">=</span><span class="n">ar</span><span class="o">*</span><span class="n">xi</span><span class="o">+</span><span class="n">br</span>
@@ -642,8 +642,8 @@
 	<span class="n">erry</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">erry</span><span class="p">)</span>
 	<span class="n">y</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
-	<span class="n">ucb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">sigmas</span><span class="o">*</span><span class="n">erry</span>	<span class="c"># Upper confidence band</span>
-	<span class="n">lcb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">sigmas</span><span class="o">*</span><span class="n">erry</span>	<span class="c"># Lower confidence band</span>
+	<span class="n">ucb</span><span class="o">=</span><span class="n">y</span><span class="o">+</span><span class="n">sigmas</span><span class="o">*</span><span class="n">erry</span>	<span class="c1"># Upper confidence band</span>
+	<span class="n">lcb</span><span class="o">=</span><span class="n">y</span><span class="o">-</span><span class="n">sigmas</span><span class="o">*</span><span class="n">erry</span>	<span class="c1"># Lower confidence band</span>
 
 	<span class="k">return</span> <span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">y</span>
 	
@@ -682,18 +682,18 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">slope</span><span class="p">,</span><span class="n">inter</span>
 	
-	<span class="c"># Define the confidence/credibility interval</span>
+	<span class="c1"># Define the confidence/credibility interval</span>
 	<span class="n">conf</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="n">erf</span><span class="p">(</span><span class="n">sigmas</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span><span class="p">))</span>
 	
 	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">ym</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 	
 	<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> 
-		<span class="c"># Distribution of y for each x</span>
-		<span class="n">yp</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">xi</span><span class="o">+</span><span class="n">b</span>	<span class="c"># &#39;p&#39; as in posterior</span>
+		<span class="c1"># Distribution of y for each x</span>
+		<span class="n">yp</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">xi</span><span class="o">+</span><span class="n">b</span>	<span class="c1"># &#39;p&#39; as in posterior</span>
 		
-		<span class="c"># Lower confidence band</span>
+		<span class="c1"># Lower confidence band</span>
 		<span class="n">lcb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">scoreatpercentile</span><span class="p">(</span><span class="n">yp</span><span class="p">,</span><span class="n">conf</span><span class="o">*</span><span class="mf">100.</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
-		<span class="c"># Upper confidence band</span>
+		<span class="c1"># Upper confidence band</span>
 		<span class="n">ucb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">scoreatpercentile</span><span class="p">(</span><span class="n">yp</span><span class="p">,</span><span class="mf">100.</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">conf</span><span class="o">/</span><span class="mf">2.</span><span class="p">))</span>
 		
 		<span class="n">ym</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">yp</span><span class="p">)</span>	
@@ -729,10 +729,10 @@
 
 <span class="sd">v1 Apr. 2012</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Generates many realizations of a and b from the multinormal distribution</span>
+	<span class="c1"># Generates many realizations of a and b from the multinormal distribution</span>
 	<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">par</span><span class="p">,</span><span class="n">varcov</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 	
-	<span class="c"># Best-fit values</span>
+	<span class="c1"># Best-fit values</span>
 	<span class="n">x0</span><span class="p">,</span><span class="n">y0</span> <span class="o">=</span> <span class="n">par</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">par</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 	
 	<span class="n">dx</span><span class="p">,</span><span class="n">dy</span> <span class="o">=</span> <span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">,</span><span class="n">y</span><span class="o">-</span><span class="n">y0</span>
@@ -769,25 +769,25 @@
 	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nboot</span><span class="p">):</span>
 		<span class="p">[</span><span class="n">xsim</span><span class="p">,</span><span class="n">ysim</span><span class="p">]</span><span class="o">=</span><span class="n">bootstrap</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
 		
-		<span class="c"># Pearson r</span>
+		<span class="c1"># Pearson r</span>
 		<span class="n">rsim</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">xsim</span><span class="p">,</span><span class="n">ysim</span><span class="p">)</span>	
 		<span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rsim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 		
-		<span class="c"># Spearman rho</span>
+		<span class="c1"># Spearman rho</span>
 		<span class="n">rhosim</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">xsim</span><span class="p">,</span><span class="n">ysim</span><span class="p">)</span>
 		<span class="n">rho</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rhosim</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 	<span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
 
 	<span class="n">results</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">r</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">rho</span><span class="p">),</span> <span class="n">rho</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="p">])</span>
-	<span class="k">print</span> <span class="s">&quot;&lt;r&gt;    err_r &lt;rho&gt; errrho&quot;</span>
+	<span class="k">print</span> <span class="s2">&quot;&lt;r&gt;    err_r &lt;rho&gt; errrho&quot;</span>
 	<span class="k">print</span> <span class="n">numpy</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 	<span class="n">results</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="n">r2p</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">std</span><span class="p">()),</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">r2p</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">r</span><span class="p">),</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">r2p</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">std</span><span class="p">()),</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="p">])</span>
-	<span class="k">print</span> <span class="s">&quot;Prob. &lt;- &lt;r&gt;-std,  &lt;r&gt;,    &lt;r&gt;+std&quot;</span>
+	<span class="k">print</span> <span class="s2">&quot;Prob. &lt;- &lt;r&gt;-std,  &lt;r&gt;,    &lt;r&gt;+std&quot;</span>
 	<span class="k">print</span> <span class="n">results</span>
 
-	<span class="k">print</span> <span class="s">&quot;Rejection of H0 respectively at&quot;</span>
+	<span class="k">print</span> <span class="s2">&quot;Rejection of H0 respectively at&quot;</span>
 	<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
 		<span class="k">print</span> <span class="nb">round</span><span class="p">(</span><span class="n">p2sig</span><span class="p">(</span><span class="n">p</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>	
 		
@@ -813,9 +813,9 @@
 	
 	
 	
-<span class="c"># Comparing goodness-of-fit of different models</span>
-<span class="c"># ================================================</span>
-<span class="c"># F-test, Akaike information criterion and reduced chi-squared	</span>
+<span class="c1"># Comparing goodness-of-fit of different models</span>
+<span class="c1"># ================================================</span>
+<span class="c1"># F-test, Akaike information criterion and reduced chi-squared	</span>
 </div>
 <div class="viewcode-block" id="ftest"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.ftest">[docs]</a><span class="k">def</span> <span class="nf">ftest</span><span class="p">(</span><span class="n">rss1</span><span class="p">,</span><span class="n">rss2</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">p1</span><span class="p">,</span><span class="n">p2</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
@@ -883,14 +883,14 @@
 <span class="sd">v1 Dec 2011</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">if</span> <span class="n">errors</span><span class="o">==</span><span class="bp">False</span><span class="p">:</span>
-		<span class="c"># AIC assuming the errors are identical and given the residual sum of squares,</span>
-		<span class="c"># see http://en.wikipedia.org/wiki/Akaike_information_criterion#Relevance_to_chi-squared_fitting</span>
+		<span class="c1"># AIC assuming the errors are identical and given the residual sum of squares,</span>
+		<span class="c1"># see http://en.wikipedia.org/wiki/Akaike_information_criterion#Relevance_to_chi-squared_fitting</span>
 		<span class="n">aicstat</span><span class="o">=</span><span class="n">n</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rss</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="mf">2.</span><span class="o">*</span><span class="n">k</span>
 	<span class="k">else</span><span class="p">:</span>
-		<span class="c"># If you have different errors for the data points, it will assume rss=chisq</span>
+		<span class="c1"># If you have different errors for the data points, it will assume rss=chisq</span>
 		<span class="n">aicstat</span><span class="o">=</span><span class="n">rss</span><span class="o">+</span><span class="mf">2.</span><span class="o">*</span><span class="n">k</span>
 			
-	<span class="c"># AICc = AIC with a correction for finite sample size</span>
+	<span class="c1"># AICc = AIC with a correction for finite sample size</span>
 	<span class="n">aicc</span><span class="o">=</span><span class="n">aicstat</span><span class="o">+</span><span class="mf">2.</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mf">1.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span>
 	
 	<span class="k">return</span> <span class="n">aicc</span>
@@ -932,11 +932,11 @@
 <span class="sd">v1 Apr 2012</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">if</span> <span class="n">errors</span><span class="o">==</span><span class="bp">False</span><span class="p">:</span>
-		<span class="c"># BIC assuming the errors are identical and given the residual sum of squares,</span>
-		<span class="c"># using the unbiased variance</span>
+		<span class="c1"># BIC assuming the errors are identical and given the residual sum of squares,</span>
+		<span class="c1"># using the unbiased variance</span>
 		<span class="n">bicstat</span><span class="o">=</span><span class="n">n</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rss</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">1.</span><span class="p">))</span><span class="o">+</span><span class="n">k</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
-		<span class="c"># If you have different errors for the data points, it will assume rss=chisq</span>
+		<span class="c1"># If you have different errors for the data points, it will assume rss=chisq</span>
 		<span class="n">bicstat</span><span class="o">=</span><span class="n">rss</span><span class="o">+</span><span class="n">k</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 	
 	<span class="k">return</span> <span class="n">bicstat</span>
@@ -962,16 +962,16 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>	
-		<span class="c"># Performs linear regression</span>
+		<span class="c1"># Performs linear regression</span>
 		<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 	
-	<span class="c"># Chi-square statistic</span>
+	<span class="c1"># Chi-square statistic</span>
 	<span class="k">if</span> <span class="n">sd</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">sd</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
 		
-	<span class="c"># Number of degrees of freedom assuming 2 free parameters</span>
+	<span class="c1"># Number of degrees of freedom assuming 2 free parameters</span>
 	<span class="n">nu</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">3</span>
 	
 	<span class="k">return</span> <span class="n">chisq</span><span class="o">/</span><span class="n">nu</span>
@@ -998,7 +998,7 @@
 	<span class="n">sdsq</span><span class="o">=</span><span class="n">erry</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">errx</span><span class="o">**</span><span class="mi">2</span>
 	<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">sdsq</span> <span class="p">)</span>
 		
-	<span class="c"># Number of degrees of freedom assuming 2 free parameters</span>
+	<span class="c1"># Number of degrees of freedom assuming 2 free parameters</span>
 	<span class="n">nu</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">3</span>
 	
 	<span class="k">return</span> <span class="n">chisq</span><span class="o">/</span><span class="n">nu</span>
@@ -1025,13 +1025,13 @@
 <span class="sd">  n : number of free parameters in the model</span>
 <span class="sd">  sd : uncertainties in ydata</span>
 <span class="sd">  	&quot;&quot;&quot;</span>
-	<span class="c"># Chi-square statistic</span>
+	<span class="c1"># Chi-square statistic</span>
 	<span class="k">if</span> <span class="n">sd</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">/</span><span class="n">sd</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
 		
-	<span class="c"># Number of degrees of freedom assuming 2 free parameters</span>
+	<span class="c1"># Number of degrees of freedom assuming 2 free parameters</span>
 	<span class="n">nu</span><span class="o">=</span><span class="n">ydata</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">deg</span>
 	
 	<span class="k">return</span> <span class="n">chisq</span><span class="o">/</span><span class="n">nu</span>	
@@ -1082,17 +1082,17 @@
 <span class="sd">	- intrinsic scatter</span>
 <span class="sd">	- Coefficient of determination &#39;R^2&#39;</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Pearson r</span>
+	<span class="c1"># Pearson r</span>
 	<span class="n">r</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">pearsonr</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">)</span>	
-	<span class="c"># Spearman rho</span>
+	<span class="c1"># Spearman rho</span>
 	<span class="n">rho</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">spearmanr</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">)</span>	
-	<span class="c"># Reduced chi-squared</span>
+	<span class="c1"># Reduced chi-squared</span>
 	<span class="n">rchisq</span><span class="o">=</span><span class="n">redchisqxy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
-	<span class="c"># raw scatter</span>
+	<span class="c1"># raw scatter</span>
 	<span class="n">scat</span><span class="o">=</span><span class="n">scatpratt</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
-	<span class="c"># intrinsic scatter	</span>
+	<span class="c1"># intrinsic scatter	</span>
 	<span class="n">iscat</span><span class="o">=</span><span class="n">intscat</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>	
-	<span class="c"># Coefficient of determination R^2</span>
+	<span class="c1"># Coefficient of determination R^2</span>
 	<span class="n">rtwo</span><span class="o">=</span><span class="n">r2</span><span class="p">(</span><span class="n">ydata</span><span class="p">,</span><span class="n">a</span><span class="o">*</span><span class="n">xdata</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
 	
 	<span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">rchisq</span><span class="p">,</span><span class="n">scat</span><span class="p">,</span><span class="n">iscat</span><span class="p">,</span><span class="n">rtwo</span>
@@ -1114,9 +1114,9 @@
 
 
 
-<span class="c"># Operations on statistical distributions</span>
-<span class="c"># =======================================</span>
-<span class="c">#</span>
+<span class="c1"># Operations on statistical distributions</span>
+<span class="c1"># =======================================</span>
+<span class="c1">#</span>
 </div>
 <div class="viewcode-block" id="splitstd"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.splitstd">[docs]</a><span class="k">def</span> <span class="nf">splitstd</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
@@ -1139,15 +1139,15 @@
 
 <span class="sd">.. note:: do not forget to inspect *x*.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c">#med=median(x)</span>
+	<span class="c1">#med=median(x)</span>
 	<span class="n">med</span><span class="o">=</span><span class="n">mode</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-	<span class="n">x1</span><span class="o">=</span><span class="n">x</span><span class="p">[</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="n">med</span><span class="p">)</span> <span class="p">]</span> <span class="c"># left side</span>
-	<span class="n">x1mirror</span><span class="o">=</span><span class="n">x1</span><span class="o">+</span><span class="mf">2.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">med</span><span class="p">)</span> <span class="c"># mirror side</span>
+	<span class="n">x1</span><span class="o">=</span><span class="n">x</span><span class="p">[</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="n">med</span><span class="p">)</span> <span class="p">]</span> <span class="c1"># left side</span>
+	<span class="n">x1mirror</span><span class="o">=</span><span class="n">x1</span><span class="o">+</span><span class="mf">2.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="n">med</span><span class="p">)</span> <span class="c1"># mirror side</span>
 	<span class="n">x1new</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x1</span><span class="p">,</span><span class="n">x1mirror</span><span class="p">))</span>
 
-	<span class="n">x2</span><span class="o">=</span><span class="n">x</span><span class="p">[</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">med</span><span class="p">)</span> <span class="p">]</span> <span class="c"># right side</span>
-	<span class="n">x2mirror</span><span class="o">=</span><span class="n">x2</span><span class="o">-</span><span class="mf">2.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">med</span><span class="p">)</span> <span class="c"># mirror side</span>
+	<span class="n">x2</span><span class="o">=</span><span class="n">x</span><span class="p">[</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">med</span><span class="p">)</span> <span class="p">]</span> <span class="c1"># right side</span>
+	<span class="n">x2mirror</span><span class="o">=</span><span class="n">x2</span><span class="o">-</span><span class="mf">2.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x2</span><span class="o">-</span><span class="n">med</span><span class="p">)</span> <span class="c1"># mirror side</span>
 	<span class="n">x2new</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x2</span><span class="p">,</span><span class="n">x2mirror</span><span class="p">))</span>
 
 	<span class="k">return</span> <span class="n">x1new</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">x2new</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -1181,9 +1181,9 @@
 
 
 
-<span class="c"># Custom statistical distributions</span>
-<span class="c"># ==================================</span>
-<span class="c">#</span>
+<span class="c1"># Custom statistical distributions</span>
+<span class="c1"># ==================================</span>
+<span class="c1">#</span>
 
 	</div>
 <div class="viewcode-block" id="random_normal"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.random_normal">[docs]</a><span class="k">def</span> <span class="nf">random_normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span><span class="n">std</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
@@ -1227,23 +1227,23 @@
 
 <span class="sd">v1 Nov. 2011</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c"># Calculates the minimal and maximum values of the PDF in the desired</span>
-	<span class="c"># interval. The rejection method needs these values in order to work</span>
-	<span class="c"># properly.</span>
+	<span class="c1"># Calculates the minimal and maximum values of the PDF in the desired</span>
+	<span class="c1"># interval. The rejection method needs these values in order to work</span>
+	<span class="c1"># properly.</span>
 	<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
 	<span class="n">y</span><span class="o">=</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 	<span class="n">pmin</span><span class="o">=</span><span class="mf">0.</span>
 	<span class="n">pmax</span><span class="o">=</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
-	<span class="c"># Counters</span>
+	<span class="c1"># Counters</span>
 	<span class="n">naccept</span><span class="o">=</span><span class="mi">0</span>
 	<span class="n">ntrial</span><span class="o">=</span><span class="mi">0</span>
 
-	<span class="c"># Keeps generating numbers until we achieve the desired n</span>
-	<span class="n">ran</span><span class="o">=</span><span class="p">[]</span>	<span class="c"># output list of random numbers</span>
+	<span class="c1"># Keeps generating numbers until we achieve the desired n</span>
+	<span class="n">ran</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># output list of random numbers</span>
 	<span class="k">while</span> <span class="n">naccept</span><span class="o">&lt;</span><span class="n">n</span><span class="p">:</span>
-		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>	<span class="c"># x&#39;</span>
-		<span class="n">y</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">pmin</span><span class="p">,</span><span class="n">pmax</span><span class="p">)</span>	<span class="c"># y&#39;</span>
+		<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>	<span class="c1"># x&#39;</span>
+		<span class="n">y</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">pmin</span><span class="p">,</span><span class="n">pmax</span><span class="p">)</span>	<span class="c1"># y&#39;</span>
 
 		<span class="k">if</span> <span class="n">y</span><span class="o">&lt;</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 			<span class="n">ran</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -1386,9 +1386,9 @@
 
 
 
-<span class="c"># p-values and significance</span>
-<span class="c"># ===========================</span>
-<span class="c">#</span>
+<span class="c1"># p-values and significance</span>
+<span class="c1"># ===========================</span>
+<span class="c1">#</span>
 
 </div>
 <div class="viewcode-block" id="r2p"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.r2p">[docs]</a><span class="k">def</span> <span class="nf">r2p</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
@@ -1491,8 +1491,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
     </div>
 

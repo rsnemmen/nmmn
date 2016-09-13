@@ -3,12 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-nmmn tools
-==========
+`nmmn tools <https://github.com/rsnemmen/nmmn>`_
+==================================================
 
 Miscellaneous modules for:
 
-* `astro`: astronomy
+* `astro`: astronomy 
 * `dsp`: signal processing
 * `lsd`: misc. operations on arrays, lists, dictionaries and sets
 * `stats`: statistical methods
