@@ -51,6 +51,7 @@ Install the package with a symlink, so that changes to the source files will be 
 * [x] documentation with Sphinx
 * [x] ~~fix documentation with Read the Docs~~
 * [ ] need more examples of how to use the modules
+* [ ] add IFU data cubes method
 
 # License
 

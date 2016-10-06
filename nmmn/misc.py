@@ -180,11 +180,11 @@ This method takes the values 'x,y,errx,erry,cov' and outputs Mathematica
 code that I can just copy and paste in the appropriate notebook in order 
 to draw the ellipses.
 	"""
-	print "x0=",x,";"
-	print "y0=",y,";"
-	print "\[Sigma]x=",errx,";"
-	print "\[Sigma]y=",erry,";"
-	print "\[Sigma]xy=",cov,";"
+	print("x0=",x,";")
+	print("y0=",y,";")
+	print("\[Sigma]x=",errx,";")
+	print("\[Sigma]y=",erry,";")
+	print("\[Sigma]xy=",cov,";")
 
 
 
