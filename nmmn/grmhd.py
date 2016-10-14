@@ -159,7 +159,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 	def savehdf5(self,outfile):
 		"""
-	Exports data as compressed HDF5. 7x less space tham ASCII.
+	Exports data as compressed HDF5. 7x less space than ASCII.
 		"""
 		import h5py
 
@@ -169,15 +169,15 @@ Saves data as an ASCII file with columns corresponding to variables:
 			grid.create_dataset('y', data=self.y, compression="gzip", compression_opts=9)
 			grid.create_dataset('z', data=self.z, compression="gzip", compression_opts=9)    
 
-   			fields=hf.create_group('fields')
-   			fields.create_dataset('density', data=self.rho, compression="gzip", compression_opts=9)
-   			fields.create_dataset('pressure', data=self.p, compression="gzip", compression_opts=9)
-   			fields.create_dataset('vx', data=self.vx, compression="gzip", compression_opts=9)
-   			fields.create_dataset('vy', data=self.vy, compression="gzip", compression_opts=9)
-   			fields.create_dataset('vz', data=self.vz, compression="gzip", compression_opts=9)
-   			fields.create_dataset('bx', data=self.bx, compression="gzip", compression_opts=9)
-   			fields.create_dataset('by', data=self.by, compression="gzip", compression_opts=9)
-   			fields.create_dataset('bz', data=self.bz, compression="gzip", compression_opts=9)
+			fields=hf.create_group('fields')
+			fields.create_dataset('density', data=self.rho, compression="gzip", compression_opts=9)
+			fields.create_dataset('pressure', data=self.p, compression="gzip", compression_opts=9)
+			fields.create_dataset('vx', data=self.vx, compression="gzip", compression_opts=9)
+			fields.create_dataset('vy', data=self.vy, compression="gzip", compression_opts=9)
+			fields.create_dataset('vz', data=self.vz, compression="gzip", compression_opts=9)
+			fields.create_dataset('bx', data=self.bx, compression="gzip", compression_opts=9)
+			fields.create_dataset('by', data=self.by, compression="gzip", compression_opts=9)
+			fields.create_dataset('bz', data=self.bz, compression="gzip", compression_opts=9)
 
 
 	def savenumpy(self,outfile):
@@ -188,9 +188,9 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 
 
-	def regrid(self,nboost=5):
+	def regridAll(self,nboost=5):
 		"""
-	Regrid the RAISHIN data to a nice cartesian grid for plotting with
+	Regrid all RAISHIN data to a nice cartesian grid for plotting with
 	python.
 
 	- nboost: factor of increase of number of grid points compared to 
@@ -200,7 +200,8 @@ Saves data as an ASCII file with columns corresponding to variables:
 	- 3D version
 	- parallel version
 		"""
-		import lsd
+		#import lsd
+		from . import lsd # py3
 
 		# create two new arrays with spatial grid, with more points than the 
 		# original grid
@@ -210,23 +211,69 @@ Saves data as an ASCII file with columns corresponding to variables:
 		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
 
 		# 'c' is added to 2D array values
-		self.xr,self.yc=numpy.meshgrid(xnew,ynew) # 2D
-		self.xr1d,self.yc1d=xnew,ynew # 1D
+		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xc1d,self.yc1d=xnew,ynew # 1D
 
 		# bottleneck,
-		self.rhor=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
-		self.pr=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
-		self.vxr=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
-		self.vyr=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
-		self.vzr=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
-		self.bxr=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
-		self.byr=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
-		self.bzr=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
+		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
+		self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
+		self.vxc=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
+		self.vyc=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
+		self.vzc=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
+		self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
+		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+		self.bzc=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
 
-		self.br=numpy.sqrt(self.bxr**2+self.byr**2)
+		self.bc=numpy.sqrt(self.bxr**2+self.byr**2)
 	
 
+
+	def regrid(self,var,nboost=5):
+		"""
+	Regrid one specific RAISHIN array to a nice cartesian grid for 
+	plotting with python.
+
+	- var: array to be regridded e.g. d.rho
+	- nboost: factor of increase of number of grid points compared to 
+		previous grid
+
+	TODO:
+	- 3D version
+	- parallel version
+		"""
+		#import lsd
+		from . import lsd
+
+		# create two new arrays with spatial grid, with more points than the 
+		# original grid
+		nxnew=self.nx*nboost
+		nynew=self.ny*nboost
+		xnew=numpy.linspace(self.x.min(),round(self.x.max()),nxnew)
+		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
+
+		# 'c' is added to 2D array values
+		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xc1d,self.yc1d=xnew,ynew # 1D
+
+		# bottleneck,
+		return lsd.regrid(self.x,self.y,var,xnew,ynew)
+		
+
+
+
+
 				
+def fixminus(x):
+	"""
+	Replace nonphysical, negative values in array *x* with the corresponding
+	positiva numerical values. Returns modified array. Does not 
+	touch original array.
+	"""
+	i=numpy.where(x<0)
+	z=x.copy()
+	z[i]=numpy.abs(x[i])
+
+	return z
 
 
 

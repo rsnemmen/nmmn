@@ -720,3 +720,24 @@ Creates pretty image. You need to specify:
 	savefig('tmp.png',transparent=True,dpi=150)
 
 
+
+
+def wolframcmap():
+	"""
+	Returns colormap that matches closely the one used by default
+	for images in Wolfram Mathematica 11 (dark blue to orange).
+
+	I spent one hour playing around to reproduce it.
+
+	Usage:
+
+	>>> mycmap=nmmn.plots.wolframcmap()
+	>>> imshow(rho, cmap=mycmap)
+	"""
+	# Create a list of RGB tuples, recreates Mathematica colormap
+	colors3=[(51,91,150),(111,116,143),(167,136,110),(233,167,85),(251,212,141),(255,247,190)]
+
+	# Call the function make_cmap which returns your colormap
+	return make_cmap(colors3, bit=True)
+
+
