@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nmmn.fermi &mdash; nmmn  documentation</title>
+    <title>nmmn.fermi &#8212; nmmn  documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -27,11 +27,14 @@
     <link rel="top" title="nmmn  documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -81,7 +84,7 @@
 
 
 
-<div class="viewcode-block" id="plotMaps"><a class="viewcode-back" href="../../nmmn.html#nmmn.fermi.plotMaps">[docs]</a><span class="k">def</span> <span class="nf">plotMaps</span><span class="p">(</span><span class="n">configfile</span><span class="o">=</span><span class="s2">&quot;analysis.conf&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="plotMaps"><a class="viewcode-back" href="../../nmmn.html#nmmn.fermi.plotMaps">[docs]</a><span class="k">def</span> <span class="nf">plotMaps</span><span class="p">(</span><span class="n">configfile</span><span class="o">=</span><span class="s2">&quot;analysis.conf&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Given the directory where the results of an Enrico analysis are </span>
 <span class="sd">located (enrico_sed), this method plots the different count maps</span>
@@ -144,11 +147,11 @@
         <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">show_markers</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">400.</span><span class="p">)</span>
 
     <span class="n">plotfile</span> <span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;folder&#39;</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;/&quot;</span><span class="o">+</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;_Maps.png&quot;</span>
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Writing {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plotfile</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plotfile</span><span class="p">))</span>
     <span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">plotfile</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="plotMap"><a class="viewcode-back" href="../../nmmn.html#nmmn.fermi.plotMap">[docs]</a><span class="k">def</span> <span class="nf">plotMap</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span><span class="n">out</span><span class="o">=</span><span class="s1">&#39;tmp.png&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">roi</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="plotMap"><a class="viewcode-back" href="../../nmmn.html#nmmn.fermi.plotMap">[docs]</a><span class="k">def</span> <span class="nf">plotMap</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span><span class="n">out</span><span class="o">=</span><span class="s1">&#39;tmp.png&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">roi</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This method plots some count map. Inherited from the method plotMaps</span>
 <span class="sd">above.  </span>
@@ -187,9 +190,9 @@
     <span class="n">f</span><span class="o">.</span><span class="n">show_colorscale</span><span class="p">(</span><span class="n">stretch</span><span class="o">=</span><span class="s1">&#39;power&#39;</span><span class="p">,</span> <span class="n">exponent</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
     <span class="n">f</span><span class="o">.</span><span class="n">show_colorbar</span><span class="p">()</span>
     <span class="n">f</span><span class="o">.</span><span class="n">show_markers</span><span class="p">(</span><span class="n">x_center</span><span class="p">,</span> <span class="n">y_center</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">400.</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">roi</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">show_regions</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">roi</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">show_regions</span><span class="p">(</span><span class="n">roi</span><span class="p">)</span>
    
-    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Writing {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Writing </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
     <span class="n">pylab</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">out</span><span class="p">)</span></div>
     
     
@@ -221,7 +224,7 @@
                 <span class="n">raval</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>    <span class="c1"># RA</span>
                 <span class="n">decval</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">1</span><span class="p">])</span>   <span class="c1"># dec</span>
             <span class="k">except</span> <span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cannot find, open or read &quot;</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;tsdir&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">PixelFile</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cannot find, open or read &quot;</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;tsdir&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">PixelFile</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">))</span>
                 <span class="n">Value</span> <span class="o">=</span> <span class="mf">0.</span>
             <span class="n">ts</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tsval</span>
             <span class="n">ra</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">raval</span>
@@ -230,7 +233,7 @@
 
     <span class="c1"># save file</span>
     <span class="n">numpy</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;tsfits&#39;</span><span class="p">],</span> <span class="n">TS</span><span class="o">=</span><span class="n">ts</span><span class="p">,</span><span class="n">ra</span><span class="o">=</span><span class="n">ra</span><span class="p">,</span><span class="n">dec</span><span class="o">=</span><span class="n">dec</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;TS Map saved in &quot;</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;tsfits&#39;</span><span class="p">])</span>   
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TS Map saved in &quot;</span><span class="o">+</span><span class="n">c</span><span class="p">[</span><span class="s1">&#39;tsfits&#39;</span><span class="p">])</span>   
 
     <span class="k">return</span> <span class="n">ra</span><span class="p">,</span><span class="n">dec</span><span class="p">,</span><span class="n">ts</span> </div>
     
@@ -303,14 +306,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -321,8 +321,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
     </div>
 

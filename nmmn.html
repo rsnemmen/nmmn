@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nmmn package &mdash; nmmn  documentation</title>
+    <title>nmmn package &#8212; nmmn  documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,13 +25,16 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="nmmn  documentation" href="index.html" />
-    <link rel="prev" title="nmmn tools" href="index.html" />
+    <link rel="prev" title="nmmn" href="index.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -85,11 +88,11 @@ log(lambda/micron), log(Fnu/mJy), error in log(Fnu).
 The input units are CGS.</p>
 <p>Usage:
 If you have errors in the flux:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="p">,</span><span class="n">ferr</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">yerr</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="p">,</span><span class="n">ferr</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">yerr</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If you do not have errors in the flux:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lamb</span><span class="p">,</span><span class="n">fnu</span><span class="o">=</span><span class="n">mjy</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -160,127 +163,8 @@ the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
 
 </div>
 </div>
-<div class="section" id="module-nmmn.dsp">
-<span id="nmmn-dsp-module"></span><h2>nmmn.dsp module<a class="headerlink" href="#module-nmmn.dsp" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="signal-processing">
-<h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h3>
-<p>Mostly time series.</p>
-<dl class="function">
-<dt id="nmmn.dsp.peaks">
-<code class="descclassname">nmmn.dsp.</code><code class="descname">peaks</code><span class="sig-paren">(</span><em>y</em>, <em>x=None</em>, <em>what=0</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#peaks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.peaks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Detects the peaks in the time series given by Y (and X if provided).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x,y</strong> &#8211; time series input arrays</li>
-<li><strong>what</strong> &#8211; select what you want &#8211; max/0 or min/1 peaks returned</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">xmax,ymax &#8211; arrays with max peaks in the data.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.dsp.smooth">
-<code class="descclassname">nmmn.dsp.</code><code class="descname">smooth</code><span class="sig-paren">(</span><em>x</em>, <em>window_len=11</em>, <em>window='hanning'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.smooth" title="Permalink to this definition">¶</a></dt>
-<dd><p>Smooth the data using a window with requested size.
-Copied from <a class="reference external" href="http://wiki.scipy.org/Cookbook/SignalSmooth">http://wiki.scipy.org/Cookbook/SignalSmooth</a></p>
-<p>This method is based on the convolution of a scaled window with the signal.
-The signal is prepared by introducing reflected copies of the signal 
-(with the window size) in both ends so that transient parts are minimized
-in the begining and end part of the output signal.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> &#8211; the input signal</li>
-<li><strong>window_len</strong> &#8211; the dimension of the smoothing window; should be an odd integer</li>
-<li><strong>window</strong> &#8211; the type of window from &#8216;flat&#8217;, &#8216;hanning&#8217;, &#8216;hamming&#8217;, &#8216;bartlett&#8217;, &#8216;blackman&#8217;     flat window will produce a moving average smoothing.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the smoothed signal</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Example</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="mf">0.1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="n">smooth</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last">numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman, numpy.convolve, scipy.signal.lfilter</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">length(output) != length(input), to correct this: return y[(window_len/2-1):-(window_len/2)] instead of just y.</p>
-</div>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">the window parameter could be the window itself if an array instead of a string</p>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.dsp.smoothxy">
-<code class="descclassname">nmmn.dsp.</code><code class="descname">smoothxy</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>*arg</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smoothxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.smoothxy" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> &#8211; &#8220;time&#8221; in the time series</li>
-<li><strong>y</strong> &#8211; y variable</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">smoothed y and corresponding x arrays</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.dsp.varsig">
-<code class="descclassname">nmmn.dsp.</code><code class="descname">varsig</code><span class="sig-paren">(</span><em>f</em>, <em>df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#varsig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.varsig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Quantifies significance of variability of time series, taking into 
-account the uncertainties.</p>
-<p>Given the time series signal <em>y</em> and the corresponding uncertainties
-<span class="math">\(\sigma y\)</span>, the test statistics <em>T</em> is defined as</p>
-<div class="math">
-\[T \equiv \frac{y_{i+1}-y_i}{\sigma y_i}.\]</div>
-<p><em>T</em> will give the significance of variability at each point in time,
-in standard deviations of the preceding noise point.</p>
-<p><strong>Usage:</strong></p>
-<p>Computes TS and plots time series, highlighting the 1sigma variability
-interval in gray:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">ts</span><span class="o">=</span><span class="n">varsig</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span><span class="n">errflux</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">step</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="s">&#39;o-&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fill_between</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">ones_like</span><span class="p">(</span><span class="n">tdec</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="n">ones_like</span><span class="p">(</span><span class="n">tdec</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">generalize to arbitrary windows of time</p>
-</div>
-<div class="admonition-todo admonition" id="index-3">
-<p class="first admonition-title">Todo</p>
-<p class="last">propagate uncertainty</p>
-</div>
-</dd></dl>
-
-</div>
+<div class="section" id="nmmn-dsp-module">
+<h2>nmmn.dsp module<a class="headerlink" href="#nmmn-dsp-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-nmmn.fermi">
 <span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this headline">¶</a></h2>
@@ -299,7 +183,7 @@ evaluation will be stored</p>
 <dt id="nmmn.fermi.converttime">
 <code class="descclassname">nmmn.fermi.</code><code class="descname">converttime</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#converttime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.converttime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from MET Fermi time to a python datetime tuple.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mi">386817828</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mi">386817828</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns datetime.datetime(2013, 4, 5, 1, 23, 48).</p>
@@ -396,7 +280,8 @@ module.</p>
 <dl class="class">
 <dt id="nmmn.grmhd.Raishin">
 <em class="property">class </em><code class="descclassname">nmmn.grmhd.</code><code class="descname">Raishin</code><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class that reads a RAISHIN VTK datafile and converts to numpy format.</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class that reads a RAISHIN VTK datafile and converts to numpy format.</p>
 <p>Attributes of the object:</p>
 <ul class="simple">
 <li>x,y,z: 1D position arrays for the mesh</li>
@@ -407,30 +292,101 @@ module.</p>
 <li>b2: 1D B^2</li>
 </ul>
 <p>Define an empty object:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Raishin</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Raishin</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Reads data from a VTK file, new attributes rho, p, vx, bx etc:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">vtk</span><span class="p">(</span><span class="s">&quot;ok200.vtk&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">vtk</span><span class="p">(</span><span class="s2">&quot;ok200.vtk&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Saves data as an ASCII file with columns corresponding to variables:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s">&quot;ok200.dat&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">o</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="s2">&quot;ok200.dat&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="nmmn.grmhd.Raishin.regrid">
-<code class="descname">regrid</code><span class="sig-paren">(</span><em>nboost=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.regrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.regrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Regrid the RAISHIN data to a nice cartesian grid for plotting with
-python.</p>
-<ul>
-<li><dl class="first docutils">
-<dt>nboost: factor of increase of number of grid points compared to </dt>
-<dd><p class="first last">previous grid</p>
-</dd>
-</dl>
-</li>
+<code class="descname">regrid</code><span class="sig-paren">(</span><em>var</em>, <em>nboost=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.regrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.regrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regrid one specific RAISHIN array to a nice cartesian grid for 
+plotting with python.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>var</strong> &#8211; array to be regridded e.g. d.rho</li>
+<li><strong>nboost</strong> &#8211; factor of increase of number of grid points compared to 
+previous grid</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Raishin</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">vtk</span><span class="p">(</span><span class="s1">&#39;ok100.vtk&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TODO:
+- 3D version
+- parallel version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.regridAll">
+<code class="descname">regridAll</code><span class="sig-paren">(</span><em>nboost=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.regridAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.regridAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regrid all RAISHIN data to a nice cartesian grid for plotting with
+python.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nboost</strong> &#8211; factor of increase of number of grid points compared to 
+previous grid</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Raishin</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">vtk</span><span class="p">(</span><span class="s1">&#39;ok100.vtk&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">regridAll</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Gets interpolated rho:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">xc</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>TODO:
+- 3D version
+- parallel version</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.regridsome">
+<code class="descname">regridsome</code><span class="sig-paren">(</span><em>listarr</em>, <em>nboost=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.regridsome"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.regridsome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regrid the selected arrays in the RAISHIN data to a nice cartesian 
+grid for plotting with python. Regridding only some of the arrays
+will, of course, speed up things.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>listarr</strong> &#8211; list of strings specifying the arrays to be regridded.
+Options are: rho, p, v, b</li>
+<li><strong>nboost</strong> &#8211; factor of increase of number of grid points compared to 
+previous grid</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Raishin</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">vtk</span><span class="p">(</span><span class="s1">&#39;ok100.vtk&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">regridsome</span><span class="p">([</span><span class="s1">&#39;rho&#39;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
 <p>TODO:
 - 3D version
 - parallel version</p>
@@ -439,7 +395,7 @@ python.</p>
 <dl class="method">
 <dt id="nmmn.grmhd.Raishin.savehdf5">
 <code class="descname">savehdf5</code><span class="sig-paren">(</span><em>outfile</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.savehdf5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.savehdf5" title="Permalink to this definition">¶</a></dt>
-<dd><p>Exports data as compressed HDF5. 7x less space tham ASCII.</p>
+<dd><p>Exports data as compressed HDF5. 7x less space than ASCII.</p>
 </dd></dl>
 
 <dl class="method">
@@ -461,6 +417,22 @@ python.</p>
 data as numpy arrays.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="nmmn.grmhd.Raishin.yt2d">
+<code class="descname">yt2d</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.yt2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.yt2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts 2d arrays from raishin to the 3d format that is understood
+by the yt package. Make sure you used regridAll first.</p>
+<p>Inspired by this example: <a class="reference external" href="http://stackoverflow.com/questions/7372316/how-to-make-a-2d-numpy-array-a-3d-array">http://stackoverflow.com/questions/7372316/how-to-make-a-2d-numpy-array-a-3d-array</a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.grmhd.fixminus">
+<code class="descclassname">nmmn.grmhd.</code><code class="descname">fixminus</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#fixminus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.fixminus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace nonphysical, negative values in array <em>x</em> with the corresponding
+positiva numerical values. Returns modified array. Does not 
+touch original array.</p>
 </dd></dl>
 
 <dl class="function">
@@ -487,7 +459,7 @@ data using the Wolfram Language.</p>
 <dd><p>Constructs Monte Carlo simulated data set using the
 Bootstrap algorithm.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">bootstrap</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">bootstrap</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>where x is either an array or a list of arrays. If it is a
@@ -501,13 +473,13 @@ same &#8220;physical&#8221; object.</p>
 <dt id="nmmn.lsd.cmset_and">
 <code class="descclassname">nmmn.lsd.</code><code class="descname">cmset_and</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#cmset_and"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.cmset_and" title="Permalink to this definition">¶</a></dt>
 <dd><p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cmset_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cmset_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns the index of the elements of array x which are also present in the
 array y.</p>
 <p>This is equivalent to using the IDL command</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">botha</span><span class="o">=</span><span class="n">cmset_op</span><span class="p">(</span><span class="n">namea</span><span class="p">,</span> <span class="s">&#39;AND&#39;</span><span class="p">,</span> <span class="n">nameb</span><span class="p">,</span> <span class="o">/</span><span class="n">index</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">botha</span><span class="o">=</span><span class="n">cmset_op</span><span class="p">(</span><span class="n">namea</span><span class="p">,</span> <span class="s1">&#39;AND&#39;</span><span class="p">,</span> <span class="n">nameb</span><span class="p">,</span> <span class="o">/</span><span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>i.e. performs the same thing as the IDL routine <a class="reference external" href="http://cow.physics.wisc.edu/~craigm/idl/idl.html">cmset_op</a>.</p>
@@ -530,14 +502,14 @@ i.e. performs the same thing as the IDL routine cmset_op from
 <dt id="nmmn.lsd.cmsetsort_and">
 <code class="descclassname">nmmn.lsd.</code><code class="descname">cmsetsort_and</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#cmsetsort_and"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.cmsetsort_and" title="Permalink to this definition">¶</a></dt>
 <dd><p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returning the index of the elements of array x which are also present in the
 array y.</p>
 <p>The resulting elements have the same order as the ones in y. For 
 instance, if you run</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">=</span><span class="n">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">=</span><span class="n">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">y</span>
 </pre></div>
 </div>
@@ -551,7 +523,7 @@ not guaranteed that all elements would match in x[i] and y.</p>
 <code class="descclassname">nmmn.lsd.</code><code class="descname">crop</code><span class="sig-paren">(</span><em>cube</em>, <em>x</em>, <em>y</em>, <em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.crop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Crops the image or 2D array, leaving only pixels inside the region
 you define.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">Znew</span><span class="p">,</span><span class="n">Xnew</span><span class="p">,</span><span class="n">Ynew</span> <span class="o">=</span> <span class="n">crop</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Znew</span><span class="p">,</span><span class="n">Xnew</span><span class="p">,</span><span class="n">Ynew</span> <span class="o">=</span> <span class="n">crop</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>where X,Y,Z are 2D arrays.</p>
@@ -599,12 +571,18 @@ you define.</p>
 <dl class="function">
 <dt id="nmmn.lsd.regrid">
 <code class="descclassname">nmmn.lsd.</code><code class="descname">regrid</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>z</em>, <em>xnew</em>, <em>ynew</em>, <em>method='cubic'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#regrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.regrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids
-xnew,ynew (1D arrays with new grid).</p>
+<dd><p>Regrid 1D arrays (x,y,z) &#8211; where z is some scalar field mapped at positions
+x,y &#8211; to a 2d array Z defined in the cartesian grids xnew,ynew (1D arrays with 
+new grid).</p>
 <p>For the interpolation method, choose nearest, linear or cubic.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">need to create a 3d version of this method, paving the road</p>
+</div>
+<p>for the 3d simulations.</p>
 </dd></dl>
 
 <dl class="function">
@@ -618,7 +596,7 @@ xnew,ynew (1D arrays with new grid).</p>
 <code class="descclassname">nmmn.lsd.</code><code class="descname">search</code><span class="sig-paren">(</span><em>xref</em>, <em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for the element in an array x with the value nearest xref.
 Piece of code based on <a class="reference external" href="http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array">http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array</a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">=</span><span class="n">search</span><span class="p">(</span><span class="n">xref</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span><span class="o">=</span><span class="n">search</span><span class="p">(</span><span class="n">xref</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -662,15 +640,15 @@ element of x.</p>
 replacement of asciitable), if I try to create an uncertainties array with
 the column of a table imported with ascii I run into trouble. For instance, 
 if I use the sequence of commands below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="kn">as</span> <span class="nn">asciitable</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">raff</span><span class="o">=</span> <span class="n">asciitable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;data/rafferty06.dat&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="p">,</span><span class="n">errm</span><span class="o">=</span><span class="n">raff</span><span class="p">[</span><span class="s">&#39;mass&#39;</span><span class="p">],</span><span class="n">raff</span><span class="p">[</span><span class="s">&#39;errm&#39;</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">asciitable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">raff</span><span class="o">=</span> <span class="n">asciitable</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;data/rafferty06.dat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="p">,</span><span class="n">errm</span><span class="o">=</span><span class="n">raff</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span><span class="n">raff</span><span class="p">[</span><span class="s1">&#39;errm&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mass</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">errm</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="mf">0.2</span><span class="o">*</span><span class="n">mass</span>
 </pre></div>
 </div>
 <p>I get the error message:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">*</span><span class="p">:</span> <span class="s">&#39;float&#39;</span> <span class="ow">and</span> <span class="s">&#39;Column&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">*</span><span class="p">:</span> <span class="s1">&#39;float&#39;</span> <span class="ow">and</span> <span class="s1">&#39;Column&#39;</span>
 </pre></div>
 </div>
 <p>which I can only assume is due to the new way ascii handles tables.</p>
@@ -697,7 +675,7 @@ the tables created with astropy.io.ascii.</p>
 <dt id="nmmn.misc.cart2pol">
 <code class="descclassname">nmmn.misc.</code><code class="descname">cart2pol</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#cart2pol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.cart2pol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from cartesian to polar coordinates.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">cart2pol</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">cart2pol</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -706,7 +684,7 @@ the tables created with astropy.io.ascii.</p>
 <dt id="nmmn.misc.convertyear">
 <code class="descclassname">nmmn.misc.</code><code class="descname">convertyear</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#convertyear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.convertyear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from decimal year to a python datetime tuple.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mf">2012.9</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mf">2012.9</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns datetime.datetime(2012, 11, 24, 12, 0, 0, 3).</p>
@@ -737,20 +715,20 @@ the tables created with astropy.io.ascii.</p>
 provided in the array/list par. fun is assumed to return a scalar. Returns an
 array with fun evaluated at x. See example below.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
 <blockquote>
 <div>x=1, par0=2, par1=3</div></blockquote>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fun</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fun</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </pre></div>
 </div>
 <blockquote>
 <div>returns a scalar</div></blockquote>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">x</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">x</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 </pre></div>
 </div>
 <blockquote>
@@ -789,7 +767,7 @@ to draw the ellipses.</p>
 <dt id="nmmn.misc.pol2cart">
 <code class="descclassname">nmmn.misc.</code><code class="descname">pol2cart</code><span class="sig-paren">(</span><em>r</em>, <em>phi</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#pol2cart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.pol2cart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from polar to cartesian coordinates.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pol2cart</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pol2cart</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -818,7 +796,7 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 </dl>
 <p>where the distance is in Mpc.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">agngrb</span><span class="o">.</span><span class="n">exportpartial</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">log10</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">d</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="s">&#39;par</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">agngrb</span><span class="o">.</span><span class="n">exportpartial</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">log10</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">d</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="n">ones_like</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">),</span><span class="s1">&#39;par</span>
 <span class="go">tialdata.dat&#39;)</span>
 </pre></div>
 </div>
@@ -829,7 +807,7 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 <dt id="nmmn.misc.string2year">
 <code class="descclassname">nmmn.misc.</code><code class="descname">string2year</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#string2year"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.string2year" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from a string in the format DDMMYYYY to a python datetime tuple.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">string2year</span><span class="p">(</span><span class="s">&#39;28122014&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">string2year</span><span class="p">(</span><span class="s1">&#39;28122014&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns datetime.datetime(2014, 12, 22, 0, 0).</p>
@@ -869,7 +847,7 @@ confidence band (generated using analytical methods). I decided to put together
 these commands in a method because I have been using them very frequently.</p>
 <p>Assumes you initialized the plot window before calling this method.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s">&#39;LightGrey&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Explanation of some arguments:</p>
@@ -892,7 +870,7 @@ commands in a method because I have been using them very frequently.</p>
 This method is more stable than fitconf, which is plagued with numerical 
 instabilities when computing the gradient.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s">&#39;LightGrey&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Explanation of some arguments:
@@ -913,7 +891,7 @@ fit, get the orthogonal parameters and plot (i) the best-fit line,
 using them very frequently.</p>
 <p>Assumes you initialized the plot window before calling this method.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconfpred</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s">&#39;LightGrey&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconfpred</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -928,7 +906,7 @@ fit, get the orthogonal parameters and plot (i) the best-fit line and
 using them very frequently.</p>
 <p>Assumes you initialized the plot window before calling this method.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitpred</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="n">predcolor</span><span class="o">=</span><span class="s">&#39;LightGrey&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">erra1</span><span class="p">,</span><span class="n">errb1</span><span class="p">,</span><span class="n">cov1</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitpred</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">predcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -999,7 +977,7 @@ confidence band.</p>
 <p>I wrote this for the John Hunter plotting contest, in order to simplify
 my AGN-GRB plot. Inherited from method fitconf.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s">&#39;LightGrey&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">fitconf</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">errx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">covxy</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nboot</span><span class="p">,</span><span class="n">bces</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>where y are the line points, lcb and ucb are the lower and upper confidence band
@@ -1050,7 +1028,7 @@ The input is:
 X, Y, slope (A), errA, intercept (B), errB and cov(A,B)</p>
 <p>Assumes you initialized the plot window before calling this method.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nemmen</span><span class="o">.</span><span class="n">plotlinfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">covab</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s">&#39;LightGrey&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nemmen</span><span class="o">.</span><span class="n">plotlinfit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">covab</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;LightGrey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Explanation of some arguments:
@@ -1065,7 +1043,7 @@ points; otherwise, will plot it behind the points</p>
 <code class="descclassname">nmmn.plots.</code><code class="descname">text</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>s</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Version of pylab.text that can be applied to arrays.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">s</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>will plot the strings in array &#8216;s&#8217; at coordinates given by arrays
@@ -1090,7 +1068,7 @@ sharing the same X-axis.</p>
 </ul>
 <p>Example:
 x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="s">&#39;AD&#39;</span><span class="p">,</span><span class="s">&#39;JD&#39;</span><span class="p">,</span><span class="s">&#39;EHF10&#39;</span><span class="p">,</span><span class="s">&#39;$\log L_{</span><span class="se">\r</span><span class="s">m bol}$ (erg s$^{-1}$)&#39;</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="s1">&#39;AD&#39;</span><span class="p">,</span><span class="s1">&#39;JD&#39;</span><span class="p">,</span><span class="s1">&#39;EHF10&#39;</span><span class="p">,</span><span class="s1">&#39;$\log L_{</span><span class="se">\r</span><span class="s1">m bol}$ (erg s$^{-1}$)&#39;</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">Scipy</a>.</p>
@@ -1106,7 +1084,7 @@ x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</p>
 :param fig: which plot window should I use?</p>
 <p>Example:
 x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="s">&#39;AD&#39;</span><span class="p">,</span><span class="s">&#39;JD&#39;</span><span class="p">,</span><span class="s">&#39;EHF10&#39;</span><span class="p">,</span><span class="s">&#39;$\log L_{</span><span class="se">\r</span><span class="s">m bol}$ (erg s$^{-1}$)&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="mi">38</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="s1">&#39;AD&#39;</span><span class="p">,</span><span class="s1">&#39;JD&#39;</span><span class="p">,</span><span class="s1">&#39;EHF10&#39;</span><span class="p">,</span><span class="s1">&#39;$\log L_{</span><span class="se">\r</span><span class="s1">m bol}$ (erg s$^{-1}$)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Inspired by <a class="reference external" href="http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label">http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label</a>.</p>
@@ -1145,11 +1123,24 @@ histograms.</li>
 <dd><p>Adaptation of pylab.errorbar to work with arrays defined using the
 uncertainties package, which include the errorbars built-in.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">uerrorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">uerrorbar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>will plot the points and error bars associated with the &#8216;unumpy&#8217;
 arrays x and y</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.wolframcmap">
+<code class="descclassname">nmmn.plots.</code><code class="descname">wolframcmap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#wolframcmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.wolframcmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns colormap that matches closely the one used by default
+for images in Wolfram Mathematica 11 (dark blue to orange).</p>
+<p>I spent one hour playing around to reproduce it.</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mycmap</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">wolframcmap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imshow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mycmap</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -1175,7 +1166,7 @@ a particular case of the more complex one. If errors==False then assume the
 errors are the same for every data point. Otherwise, assumes you are providing
 the chi-squared values instead of RSS.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">aic</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">rss</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aic</span> <span class="o">=</span> <span class="n">aic</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">rss</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1241,7 +1232,7 @@ Otherwise, assumes you are providing the chi-squared values instead of RSS.</p>
 bootstrapped Pearson and Spearman correlation coefficients. This
 will give you an idea of how much outliers affect your correlation.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="o">=</span><span class="n">bootcorr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">100000</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="o">=</span><span class="n">bootcorr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">100000</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>performs 100000 bootstrapping realizations on the arrays x and y.</p>
@@ -1306,7 +1297,7 @@ a,b : slope and intercept of the best-fit linear regression model</div></blockqu
 E.g., p=0.683 -&gt; 1sigma, p=0.954 -&gt; 2sigma, etc.</p>
 <p>Inspired on p2sig method.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">conf2sig</span><span class="p">(</span><span class="mf">0.683</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">conf2sig</span><span class="p">(</span><span class="mf">0.683</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1331,7 +1322,7 @@ corresponding to the [input] x array.</p>
 <p>Usage:
 &gt;&gt;&gt; lcb,ucb,x=nemmen.confband(all.kp,all.lg,a,b,conf=0.95)
 calculates the confidence bands for the given input arrays</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="go">plots a shaded area containing the confidence band</span>
 </pre></div>
 </div>
@@ -1365,11 +1356,11 @@ band</li>
 <li>y : values of the model tabulated at x</li>
 </ul>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">confbandmc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">bfit</span><span class="p">,</span><span class="n">bcov</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">confbandmc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">bfit</span><span class="p">,</span><span class="n">bcov</span><span class="p">)</span>
 <span class="go">calculates the prediction bands for the given input arrays</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="go">plots a shaded area containing the prediction band</span>
 </pre></div>
 </div>
@@ -1394,11 +1385,11 @@ parameters that will be fed into fun</li>
 by default generate 100 points in the original x-range of the data.</li>
 </ul>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">confbandnl</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">broken</span><span class="p">,</span><span class="n">bfit</span><span class="p">,</span><span class="n">bcov</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">confbandnl</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">broken</span><span class="p">,</span><span class="n">bfit</span><span class="p">,</span><span class="n">bcov</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
 <span class="go">calculates the confidence bands for the given input arrays</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="go">plots a shaded area containing the prediction band  </span>
 </pre></div>
 </div>
@@ -1440,11 +1431,11 @@ band</li>
 <li>y : best-fit values of the model tabulated at x</li>
 </ul>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">predbandmc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">predbandmc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
 <span class="go">calculates the prediction bands for the given input arrays</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lcb</span><span class="p">,</span> <span class="n">ucb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="go">plots a shaded area containing the prediction band</span>
 </pre></div>
 </div>
@@ -1458,7 +1449,7 @@ band</li>
 arrays of data. Also quantifies the goodness-of-fit of the provided
 linear fit with slope &#8216;a&#8217; and intercept &#8216;b&#8217;.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">rchisq</span><span class="p">,</span><span class="n">scat</span><span class="p">,</span><span class="n">iscat</span><span class="p">,</span><span class="n">r2</span><span class="o">=</span><span class="n">fitstats</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">rchisq</span><span class="p">,</span><span class="n">scat</span><span class="p">,</span><span class="n">iscat</span><span class="p">,</span><span class="n">r2</span><span class="o">=</span><span class="n">fitstats</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
 </pre></div>
 </div>
 <blockquote>
@@ -1589,7 +1580,7 @@ evaluates the confidence level with which we can reject the hypothesis in standa
 deviations.</p>
 <p>Inspired on prob2sig.nb.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">p2sig</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">p2sig</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1614,11 +1605,11 @@ points. The 95% prediction interval is the area in which you expect 95% of all d
 by default generate 100 points in the original x-range of the data.</li>
 </ul>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">predband</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">predband</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
 <span class="go">calculates the prediction bands for the given input arrays</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="go">plots a shaded area containing the prediction band  </span>
 </pre></div>
 </div>
@@ -1655,11 +1646,11 @@ parameters that will be fed into fun</li>
 by default generate 100 points in the original x-range of the data.</li>
 </ul>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">predbandnl</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">broken</span><span class="p">,</span><span class="n">bfit</span><span class="p">,</span><span class="n">bcov</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lpb</span><span class="p">,</span><span class="n">upb</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">nemmen</span><span class="o">.</span><span class="n">predbandnl</span><span class="p">(</span><span class="nb">all</span><span class="o">.</span><span class="n">kp</span><span class="p">,</span><span class="nb">all</span><span class="o">.</span><span class="n">lg</span><span class="p">,</span><span class="n">broken</span><span class="p">,</span><span class="n">bfit</span><span class="p">,</span><span class="n">bcov</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.95</span><span class="p">)</span>
 <span class="go">calculates the prediction bands for the given input arrays</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lpb</span><span class="p">,</span> <span class="n">upb</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="go">plots a shaded area containing the prediction band  </span>
 </pre></div>
 </div>
@@ -1699,7 +1690,7 @@ are likely to be predicted by the model.&#8221;</p>
 corresponding p-value of the null hypothesis (i.e. no correlation).</p>
 <p>Code copied from scipy.stats.pearsonr source.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">r2p</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">r2p</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>where &#8216;r&#8217; is the Pearson coefficient and n is the number of data
@@ -1719,7 +1710,7 @@ points.</p>
 <code class="descclassname">nmmn.stats.</code><code class="descname">random</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>n=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#random"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.random" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates an array of random uniformly distributed floats in the 
 interval <em>[x0,x1)</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1739,7 +1730,7 @@ Uses the rejection method for generating random numbers derived from an arbitrar
 probability distribution. For reference, see Bevington&#8217;s book, page 84. Based on
 rejection*.py.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">randomvariate</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">randomvariate</span><span class="p">(</span><span class="n">P</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">)</span>
 </pre></div>
 </div>
 <blockquote>
@@ -1833,12 +1824,15 @@ a,b : slope and intercept of the best-fit linear regression model</div></blockqu
 <code class="descclassname">nmmn.stats.</code><code class="descname">residual</code><span class="sig-paren">(</span><em>ydata</em>, <em>ymod</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#residual"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.residual" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the residual sum of squares (RSS) also known as the sum of 
 squared residuals (see <a class="reference external" href="http://en.wikipedia.org/wiki/Residual_sum_of_squares">http://en.wikipedia.org/wiki/Residual_sum_of_squares</a>).</p>
-<p>Usage:
-&gt;&gt;&gt; rss=residual(ydata,ymod)
-where</p>
-<blockquote>
-<div>ydata : data
-ymod : model evaluated at xdata</div></blockquote>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rss</span><span class="o">=</span><span class="n">residual</span><span class="p">(</span><span class="n">ydata</span><span class="p">,</span><span class="n">ymod</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>where</dt>
+<dd>ydata : data
+ymod : model evaluated at xdata</dd>
+</dl>
 <p>ydata,ymod assumed to be Numpy arrays. 
 Returns the float rss with the mean deviation.</p>
 <p>Dec. 2011</p>
@@ -1908,7 +1902,7 @@ the best-fit line.</p>
 <dd><p>Compute the mean deviation of the data about the model given in
 the array ymod, tabulated exactly like ydata.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span><span class="o">=</span><span class="n">scatterfitg</span><span class="p">(</span><span class="n">ydata</span><span class="p">,</span><span class="n">ymod</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span><span class="o">=</span><span class="n">scatterfitg</span><span class="p">(</span><span class="n">ydata</span><span class="p">,</span><span class="n">ymod</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 <blockquote>
@@ -1973,21 +1967,21 @@ CDF and PPF methods below in order to speedup calls to this class
 </tbody>
 </table>
 <p>Defines distribution with sig1=1, sig2=3, mu=0:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">split</span> <span class="o">=</span> <span class="n">splitnorm_gen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;splitnorm&#39;</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="s">&#39;sig1, sig2, mu&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split</span> <span class="o">=</span> <span class="n">splitnorm_gen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;splitnorm&#39;</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="s1">&#39;sig1, sig2, mu&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">split</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Computes PDF:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Computes CDF:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Generates 100 random numbers:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -2064,10 +2058,7 @@ intensive minimization involved when fitting a function.</p>
 <li><a class="reference internal" href="#methods-for-dealing-with-bayesian-statistics">Methods for dealing with Bayesian statistics</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-nmmn.dsp">nmmn.dsp module</a><ul>
-<li><a class="reference internal" href="#signal-processing">Signal processing</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#nmmn-dsp-module">nmmn.dsp module</a></li>
 <li><a class="reference internal" href="#module-nmmn.fermi">nmmn.fermi module</a><ul>
 <li><a class="reference internal" href="#methods-to-handle-fermi-lat-data">Methods to handle Fermi LAT data</a></li>
 </ul>
@@ -2100,7 +2091,7 @@ intensive minimization involved when fitting a function.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">nmmn tools</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">nmmn</a></li>
   </ul></li>
 </ul>
 </div>
@@ -2114,14 +2105,11 @@ intensive minimization involved when fitting a function.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -2132,8 +2120,8 @@ intensive minimization involved when fitting a function.</p>
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="_sources/nmmn.txt"

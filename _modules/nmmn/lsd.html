@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nmmn.lsd &mdash; nmmn  documentation</title>
+    <title>nmmn.lsd &#8212; nmmn  documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -27,11 +27,14 @@
     <link rel="top" title="nmmn  documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -135,7 +138,7 @@
 <span class="sd">Set nan elements to zero in the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
-	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span>
 
 	<span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 	<span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mf">0.</span>
@@ -152,7 +155,7 @@
 <span class="sd">Remove nan elements from the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
-	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span>
 	
 	<span class="c1"># Removes the nan elements</span>
 	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
@@ -165,7 +168,7 @@
 <span class="sd">Remove nan or inf elements from the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
-	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="bp">True</span><span class="p">)</span> <span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">)</span> <span class="p">)</span>
 	
 	<span class="c1"># Removes the nan elements</span>
 	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">i</span><span class="p">)</span></div>
@@ -223,7 +226,7 @@
 
 
 
-<div class="viewcode-block" id="norm"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.norm">[docs]</a><span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="norm"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.norm">[docs]</a><span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Normalizes x1. If also given as input x2, then normalizes x1 to x2.</span>
 
@@ -231,7 +234,7 @@
 <span class="sd">:param x2: optional</span>
 <span class="sd">:returns: normalized x1</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">if</span> <span class="n">x2</span><span class="o">==</span><span class="bp">None</span><span class="p">:</span>
+	<span class="k">if</span> <span class="n">x2</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">x1</span><span class="o">/</span><span class="n">x1</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="k">return</span> <span class="n">x1</span><span class="o">*</span><span class="n">x2</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">/</span><span class="n">x1</span><span class="o">.</span><span class="n">max</span><span class="p">()</span></div>
@@ -267,7 +270,7 @@
 <span class="sd">:type x,errx: arrays created with astropy.io.ascii.</span>
 <span class="sd">:returns: uncertainties array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="kn">as</span> <span class="nn">unumpy</span>
+	<span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="k">as</span> <span class="nn">unumpy</span>
 
 	<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 	<span class="n">errx</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">errx</span><span class="p">)</span>
@@ -313,17 +316,21 @@
 
 <div class="viewcode-block" id="regrid"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.regrid">[docs]</a><span class="k">def</span> <span class="nf">regrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids</span>
-<span class="sd">xnew,ynew (1D arrays with new grid).</span>
+<span class="sd">Regrid 1D arrays (x,y,z) -- where z is some scalar field mapped at positions</span>
+<span class="sd">x,y -- to a 2d array Z defined in the cartesian grids xnew,ynew (1D arrays with </span>
+<span class="sd">new grid).</span>
 
 <span class="sd">For the interpolation method, choose nearest, linear or cubic.</span>
 
 <span class="sd">&gt;&gt;&gt; rho=regrid(d.x,d.y,d.rho,xnew,ynew)</span>
+
+<span class="sd">.. todo:: need to create a 3d version of this method, paving the road </span>
+<span class="sd">for the 3d simulations.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">scipy.interpolate</span>
 
 	<span class="c1"># regrid the data to a nice cartesian grid</span>
-	<span class="n">Z</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">griddata</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">xnew</span><span class="p">[</span><span class="bp">None</span><span class="p">,:],</span> <span class="n">ynew</span><span class="p">[:,</span><span class="bp">None</span><span class="p">]),</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+	<span class="n">Z</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">griddata</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">z</span><span class="p">,</span> <span class="p">(</span><span class="n">xnew</span><span class="p">[</span><span class="kc">None</span><span class="p">,:],</span> <span class="n">ynew</span><span class="p">[:,</span><span class="kc">None</span><span class="p">]),</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
 	<span class="c1"># get rid of NaNs</span>
 	<span class="k">return</span> <span class="n">nanzero</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span></div>
@@ -354,6 +361,10 @@
 
 
 
+
+
+
+
 </pre></div>
 
           </div>
@@ -372,14 +383,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -390,8 +398,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
     </div>
 

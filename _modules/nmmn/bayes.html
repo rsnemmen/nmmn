@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nmmn.bayes &mdash; nmmn  documentation</title>
+    <title>nmmn.bayes &#8212; nmmn  documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -27,11 +27,14 @@
     <link rel="top" title="nmmn  documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -59,7 +62,7 @@
 
 
 
-<div class="viewcode-block" id="joint_density"><a class="viewcode-back" href="../../nmmn.html#nmmn.bayes.joint_density">[docs]</a><span class="k">def</span> <span class="nf">joint_density</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="joint_density"><a class="viewcode-back" href="../../nmmn.html#nmmn.bayes.joint_density">[docs]</a><span class="k">def</span> <span class="nf">joint_density</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots joint distribution of variables.</span>
 <span class="sd">Inherited from method in src/graphics.py module in project </span>
@@ -123,12 +126,12 @@
 
 	<span class="c1"># X-axis histogram</span>
 	<span class="n">histx</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">)</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
 	<span class="c1">#histx.xaxis.set_major_formatter(pylab.NullFormatter())	# no X label</span>
 
 	<span class="c1"># Y-axis histogram</span>
 	<span class="n">histy</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
 	<span class="c1">#histy.yaxis.set_major_formatter(pylab.NullFormatter())	# no Y label</span>
 
 	<span class="c1">#pylab.minorticks_on()</span>
@@ -140,7 +143,7 @@
 
 
 
-<div class="viewcode-block" id="jointplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.bayes.jointplot">[docs]</a><span class="k">def</span> <span class="nf">jointplot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">binsim</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">binsh</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<div class="viewcode-block" id="jointplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.bayes.jointplot">[docs]</a><span class="k">def</span> <span class="nf">jointplot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">binsim</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">binsh</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots the joint distribution of posteriors for X1 and X2, including the 1D</span>
 <span class="sd">histograms showing the median and standard deviations.</span>
@@ -154,7 +157,7 @@
 <span class="sd">&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#39;$\log \ r_{\\rm tr}$&#39;, ylabel=&#39;$\log \ \dot{m}$&#39;)</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Generates 2D histogram for image</span>
-	<span class="n">histt</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">binsim</span><span class="p">,</span><span class="n">binsim</span><span class="p">],</span> <span class="n">normed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">histt</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">binsim</span><span class="p">,</span><span class="n">binsim</span><span class="p">],</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 	<span class="n">histt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">histt</span><span class="p">)</span>  <span class="c1"># Beware: numpy switches axes, so switch back.</span>
 
 	<span class="c1"># assigns correct proportions to subplots</span>
@@ -178,13 +181,13 @@
 	<span class="c1"># use dictionary in order to assign your own labels to the contours.</span>
 	<span class="c1">#fmtdict = {s[0]:r&#39;$1\sigma$&#39;,s[1]:r&#39;$2\sigma$&#39;}</span>
 	<span class="c1">#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)</span>
-	<span class="k">if</span> <span class="n">xlabel</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
-	<span class="k">if</span> <span class="n">ylabel</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">xlabel</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">ylabel</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
 
 	<span class="c1"># X-axis histogram</span>
 	<span class="n">histx</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">binsh</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
 	<span class="c1"># Vertical lines with median and 1sigma confidence</span>
 	<span class="n">yax</span><span class="o">=</span><span class="n">histx</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">()</span>
 	<span class="n">histx</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">X</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">X</span><span class="p">)],[</span><span class="n">yax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yax</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;k-&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># median</span>
@@ -194,8 +197,8 @@
 
 	<span class="c1"># Y-axis histogram</span>
 	<span class="n">histy</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">binsh</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightyellow&#39;</span><span class="p">)</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
 	<span class="c1"># Vertical lines with median and 1sigma confidence</span>
 	<span class="n">xax</span><span class="o">=</span><span class="n">histy</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">()</span>
 	<span class="n">histy</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">xax</span><span class="p">[</span><span class="mi">1</span><span class="p">]],[</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">Y</span><span class="p">)],</span><span class="s1">&#39;k-&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># median</span>
@@ -209,7 +212,7 @@
 
 
 
-<div class="viewcode-block" id="jointplotx"><a class="viewcode-back" href="../../nmmn.html#nmmn.bayes.jointplotx">[docs]</a><span class="k">def</span> <span class="nf">jointplotx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">binsim</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">binsh</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">binscon</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
+<div class="viewcode-block" id="jointplotx"><a class="viewcode-back" href="../../nmmn.html#nmmn.bayes.jointplotx">[docs]</a><span class="k">def</span> <span class="nf">jointplotx</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">binsim</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span><span class="n">binsh</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">binscon</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots the joint distribution of posteriors for X1 and X2, including the 1D</span>
 <span class="sd">histograms showing the median and standard deviations. Uses simple method</span>
@@ -223,7 +226,7 @@
 <span class="sd">&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#39;$\log \ r_{\\rm tr}$&#39;, ylabel=&#39;$\log \ \dot{m}$&#39;)</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Generates 2D histogram for image</span>
-	<span class="n">histt</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">binsim</span><span class="p">,</span><span class="n">binsim</span><span class="p">],</span> <span class="n">normed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">histt</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span> <span class="n">yt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">binsim</span><span class="p">,</span><span class="n">binsim</span><span class="p">],</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 	<span class="n">histt</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">histt</span><span class="p">)</span>  <span class="c1"># Beware: numpy switches axes, so switch back.</span>
 
 	<span class="c1"># assigns correct proportions to subplots</span>
@@ -238,20 +241,20 @@
 
 	<span class="c1"># Overplot with error contours 1,2 sigma</span>
 	<span class="c1"># Contour plot</span>
-	<span class="n">histdata</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">binscon</span><span class="p">,</span><span class="n">binscon</span><span class="p">],</span> <span class="n">normed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+	<span class="n">histdata</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="n">binscon</span><span class="p">,</span><span class="n">binscon</span><span class="p">],</span> <span class="n">normed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 	<span class="n">histdata</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">histdata</span><span class="p">)</span>  <span class="c1"># Beware: numpy switches axes, so switch back.</span>
 	<span class="n">pmax</span>  <span class="o">=</span> <span class="n">histdata</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 	<span class="n">cs</span><span class="o">=</span><span class="n">con</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">histdata</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mf">0.68</span><span class="o">*</span><span class="n">pmax</span><span class="p">,</span><span class="mf">0.05</span><span class="o">*</span><span class="n">pmax</span><span class="p">],</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">])</span>
 	<span class="c1"># use dictionary in order to assign your own labels to the contours.</span>
 	<span class="c1">#fmtdict = {s[0]:r&#39;$1\sigma$&#39;,s[1]:r&#39;$2\sigma$&#39;}</span>
 	<span class="c1">#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)</span>
-	<span class="k">if</span> <span class="n">xlabel</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
-	<span class="k">if</span> <span class="n">ylabel</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">xlabel</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">ylabel</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">con</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>
 
 	<span class="c1"># X-axis histogram</span>
 	<span class="n">histx</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">binsh</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histx</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
 	<span class="c1"># Vertical lines with median and 1sigma confidence</span>
 	<span class="n">yax</span><span class="o">=</span><span class="n">histx</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">()</span>
 	<span class="n">histx</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">X</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">X</span><span class="p">)],[</span><span class="n">yax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yax</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;k-&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># median</span>
@@ -261,8 +264,8 @@
 
 	<span class="c1"># Y-axis histogram</span>
 	<span class="n">histy</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">binsh</span><span class="p">,</span> <span class="n">histtype</span><span class="o">=</span><span class="s1">&#39;stepfilled&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">,</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightyellow&#39;</span><span class="p">)</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
-	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_yticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no Y label</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">histy</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>	<span class="c1"># no X label</span>
 	<span class="c1"># Vertical lines with median and 1sigma confidence</span>
 	<span class="n">xax</span><span class="o">=</span><span class="n">histy</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">()</span>
 	<span class="n">histy</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">xax</span><span class="p">[</span><span class="mi">1</span><span class="p">]],[</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">Y</span><span class="p">)],</span><span class="s1">&#39;k-&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># median</span>
@@ -288,14 +291,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -306,8 +306,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
     </div>
 

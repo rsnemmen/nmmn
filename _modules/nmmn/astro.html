@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>nmmn.astro &mdash; nmmn  documentation</title>
+    <title>nmmn.astro &#8212; nmmn  documentation</title>
     
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -27,11 +27,14 @@
     <link rel="top" title="nmmn  documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" />
    
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -70,7 +73,7 @@
  
 
 
-<div class="viewcode-block" id="mjy"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.mjy">[docs]</a><span class="k">def</span> <span class="nf">mjy</span><span class="p">(</span><span class="n">lognu</span><span class="p">,</span><span class="n">ll</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">llerr</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="mjy"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.mjy">[docs]</a><span class="k">def</span> <span class="nf">mjy</span><span class="p">(</span><span class="n">lognu</span><span class="p">,</span><span class="n">ll</span><span class="p">,</span><span class="n">dist</span><span class="p">,</span><span class="n">llerr</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Converts log(nu/Hz), log(nu Lnu [erg/s]), error in log(nuLnu) to</span>
 <span class="sd">log(lambda/micron), log(Fnu/mJy), error in log(Fnu).</span>
@@ -87,20 +90,20 @@
 
 <span class="sd">:param dist: distance in Mpc</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="kn">as</span> <span class="nn">unumpy</span>
+    <span class="kn">import</span> <span class="nn">uncertainties.unumpy</span> <span class="k">as</span> <span class="nn">unumpy</span>
 
     <span class="n">c</span><span class="o">=</span><span class="mf">29979245800.</span>	<span class="c1"># speed of light in CGS</span>
     <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.085677581e24</span>	<span class="c1"># Mpc -&gt; cm</span>
 
     <span class="n">nu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lognu</span>
-    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mf">1e4</span> <span class="c1"># cm -&gt; micron</span>
-    <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
+    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mi">1</span><span class="n">e4</span> <span class="c1"># cm -&gt; micron</span>
+    <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
     	<span class="n">lllerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span><span class="n">llerr</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
     	<span class="n">lllerr</span><span class="o">=</span><span class="n">ll</span>
     <span class="n">lnuerr</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lllerr</span><span class="o">/</span><span class="n">nu</span>  
-    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
-    <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="bp">None</span><span class="p">:</span>
+    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
+    <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
     	<span class="n">fluxerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
     	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lamb</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">std_devs</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -124,7 +127,7 @@
 	<span class="c1"># convert arcsec to radians</span>
 	<span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="mf">4.848e-6</span>	
 	<span class="c1"># convert distance to pc instead of Mpc</span>
-	<span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="mf">1e6</span>
+	<span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="mi">1</span><span class="n">e6</span>
 
 	<span class="k">return</span> <span class="n">d</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
 
@@ -159,14 +162,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -177,8 +177,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
     </div>
 
