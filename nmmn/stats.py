@@ -741,16 +741,16 @@ performs 100000 bootstrapping realizations on the arrays x and y.
 	r,rho=numpy.array(r),numpy.array(rho)
 
 	results=numpy.array([ numpy.median(r), r.std(), numpy.median(rho), rho.std() ])
-	print "<r>    err_r <rho> errrho"
-	print numpy.round(results, 2)
+	print("<r>    err_r <rho> errrho")
+	print(numpy.round(results, 2))
 
 	results=numpy.array([ r2p(numpy.median(r)-numpy.abs(r.std()),x.size), r2p(numpy.median(r),x.size), r2p(numpy.median(r)+numpy.abs(r.std()),x.size) ])
-	print "Prob. <- <r>-std,  <r>,    <r>+std"
-	print results
+	print("Prob. <- <r>-std,  <r>,    <r>+std")
+	print(results)
 
-	print "Rejection of H0 respectively at"
+	print("Rejection of H0 respectively at")
 	for p in results:
-		print round(p2sig(p),2)	
+		print(round(p2sig(p),2)	)
 		
 	return r,rho
 

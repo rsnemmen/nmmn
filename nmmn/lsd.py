@@ -280,8 +280,7 @@ For the interpolation method, choose nearest, linear or cubic.
 
 >>> rho=regrid(d.x,d.y,d.rho,xnew,ynew)
 
-.. todo:: need to create a 3d version of this method, paving the road 
-for the 3d simulations.
+.. todo:: need to create a 3d version of this method, paving the road for the 3d simulations.
 	"""
 	import scipy.interpolate
 
