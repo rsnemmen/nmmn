@@ -272,12 +272,16 @@ Rodrigo Nemmen, http://goo.gl/8S1Oo
 
 def regrid(x,y,z,xnew,ynew,method='cubic'):
 	"""
-Regrid 1D arrays (x,y,z) to a 2d array Z defined in the cartesian grids
-xnew,ynew (1D arrays with new grid).
+Regrid 1D arrays (x,y,z) -- where z is some scalar field mapped at positions
+x,y -- to a 2d array Z defined in the cartesian grids xnew,ynew (1D arrays with 
+new grid).
 
 For the interpolation method, choose nearest, linear or cubic.
 
 >>> rho=regrid(d.x,d.y,d.rho,xnew,ynew)
+
+.. todo:: need to create a 3d version of this method, paving the road 
+for the 3d simulations.
 	"""
 	import scipy.interpolate
 

@@ -298,7 +298,7 @@ Executes command cmd and saves its standard output as log
 
 	# saves output in a diagnostic file
 	text=open(log,"w")
-	text.write(out)
+	text.write(str(out))
 	text.close()
 
 

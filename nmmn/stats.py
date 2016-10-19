@@ -112,7 +112,9 @@ Compute the residual sum of squares (RSS) also known as the sum of
 squared residuals (see http://en.wikipedia.org/wiki/Residual_sum_of_squares).
 
 Usage:
+
 >>> rss=residual(ydata,ymod)
+
 where
   ydata : data
   ymod : model evaluated at xdata

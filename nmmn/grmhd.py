@@ -193,8 +193,18 @@ Saves data as an ASCII file with columns corresponding to variables:
 	Regrid all RAISHIN data to a nice cartesian grid for plotting with
 	python.
 
-	- nboost: factor of increase of number of grid points compared to 
+	:param nboost: factor of increase of number of grid points compared to 
 		previous grid
+
+	Usage:
+
+	>>> d=nmmn.grmhd.Raishin()
+	>>> d.vtk('ok100.vtk')
+	>>> d.regridAll()
+
+	Gets interpolated rho:
+
+	>>> print(d.xc)
 
 	TODO:
 	- 3D version
@@ -224,7 +234,8 @@ Saves data as an ASCII file with columns corresponding to variables:
 		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
 		self.bzc=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
 
-		self.bc=numpy.sqrt(self.bxr**2+self.byr**2)
+		self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
+		self.vc=numpy.sqrt(self.vxc**2+self.vyc**2)
 	
 
 
@@ -233,9 +244,15 @@ Saves data as an ASCII file with columns corresponding to variables:
 	Regrid one specific RAISHIN array to a nice cartesian grid for 
 	plotting with python.
 
-	- var: array to be regridded e.g. d.rho
-	- nboost: factor of increase of number of grid points compared to 
+	:param var: array to be regridded e.g. d.rho
+	:param nboost: factor of increase of number of grid points compared to 
 		previous grid
+
+	Usage:
+
+	>>> d=nmmn.grmhd.Raishin()
+	>>> d.vtk('ok100.vtk')
+	>>> d.regrid(d.rho)
 
 	TODO:
 	- 3D version
@@ -257,8 +274,98 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 		# bottleneck,
 		return lsd.regrid(self.x,self.y,var,xnew,ynew)
-		
 
+
+	def regridsome(self,listarr,nboost=5):
+		"""
+	Regrid the selected arrays in the RAISHIN data to a nice cartesian 
+	grid for plotting with python. Regridding only some of the arrays
+	will, of course, speed up things.
+
+	:param listarr: list of strings specifying the arrays to be regridded.
+	  Options are: rho, p, v, b
+	:param nboost: factor of increase of number of grid points compared to 
+		previous grid
+
+	Usage:
+
+	>>> d=nmmn.grmhd.Raishin()
+	>>> d.vtk('ok100.vtk')
+	>>> d.regridsome(['rho','v'])
+
+	TODO:
+	- 3D version
+	- parallel version
+		"""
+		#import lsd
+		from . import lsd # py3
+
+		# create two new arrays with spatial grid, with more points than the 
+		# original grid
+		nxnew=self.nx*nboost
+		nynew=self.ny*nboost
+		xnew=numpy.linspace(self.x.min(),round(self.x.max()),nxnew)
+		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
+
+		# 'c' is added to 2D array values
+		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xc1d,self.yc1d=xnew,ynew # 1D
+
+		# bottleneck
+		if 'rho' in listarr:
+			self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
+		if 'p' in listarr: 
+			self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
+		if 'v' in listarr:
+			self.vxc=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
+			self.vyc=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
+			self.vzc=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
+			self.vc=numpy.sqrt(self.vxc**2+self.vyc**2)
+		if 'b' in listarr:
+			self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
+			self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+			self.bzc=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
+			self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
+
+
+
+
+	def yt2d(self):
+		"""
+	Converts 2d arrays from raishin to the 3d format that is understood
+	by the yt package. Make sure you used regridAll first.
+
+	Inspired by this example: http://stackoverflow.com/questions/7372316/how-to-make-a-2d-numpy-array-a-3d-array
+		"""
+		self.x3d=self.xc.T[..., numpy.newaxis]
+		self.y3d=self.yc.T[..., numpy.newaxis]
+		self.z3d=self.zc.T[..., numpy.newaxis]
+
+		self.rho3d=self.rhoc.T[..., numpy.newaxis]
+
+		self.vx3d=self.vxc.T[..., numpy.newaxis]
+		self.vy3d=self.vyc.T[..., numpy.newaxis]
+		self.vz3d=self.vzc.T[..., numpy.newaxis]
+		self.v3d=self.vc.T[..., numpy.newaxis]
+
+	
+
+		# 'c' is added to 2D array values
+		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
+		self.xc1d,self.yc1d=xnew,ynew # 1D
+
+		# bottleneck,
+		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
+		self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
+		self.vxc=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
+		self.vyc=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
+		self.vzc=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
+		self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
+		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
+		self.bzc=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
+
+		self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
+		self.vc=numpy.sqrt(self.vxc**2+self.vyc**2)
 
 
 
