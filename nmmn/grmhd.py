@@ -207,7 +207,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 	>>> print(d.xc)
 
 	TODO:
-	- 3D version
+	- [x] 3D version
 	- parallel version
 		"""
 		#import lsd
@@ -217,25 +217,27 @@ Saves data as an ASCII file with columns corresponding to variables:
 		# original grid
 		nxnew=self.nx*nboost
 		nynew=self.ny*nboost
+		nznew=self.nz*nboost
 		xnew=numpy.linspace(self.x.min(),round(self.x.max()),nxnew)
 		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
+		znew=numpy.linspace(self.z.min(),round(self.z.max()),nznew)
 
 		# 'c' is added to 2D array values
-		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
-		self.xc1d,self.yc1d=xnew,ynew # 1D
+		self.xc,self.yc,self.zc=numpy.meshgrid(xnew,ynew,znew) # 3D
+		self.xc1d,self.yc1d,self.zc1d=xnew,ynew,znew # 1D
 
 		# bottleneck,
-		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
-		self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
-		self.vxc=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
-		self.vyc=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
-		self.vzc=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
-		self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
-		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
-		self.bzc=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
+		self.rhoc=lsd.regrid3d(self.x,self.y,self.z,self.rho,xnew,ynew,znew)
+		self.pc=lsd.regrid3d(self.x,self.y,self.z,self.p,xnew,ynew,znew)
+		self.vxc=lsd.regrid3d(self.x,self.y,self.z,self.vx,xnew,ynew,znew)
+		self.vyc=lsd.regrid3d(self.x,self.y,self.z,self.vy,xnew,ynew,znew)
+		self.vzc=lsd.regrid3d(self.x,self.y,self.z,self.vz,xnew,ynew,znew)
+		self.bxc=lsd.regrid3d(self.x,self.y,self.z,self.bx,xnew,ynew,znew)
+		self.byc=lsd.regrid3d(self.x,self.y,self.z,self.by,xnew,ynew,znew)
+		self.bzc=lsd.regrid3d(self.x,self.y,self.z,self.bz,xnew,ynew,znew)
 
-		self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
-		self.vc=numpy.sqrt(self.vxc**2+self.vyc**2)
+		self.bc=numpy.sqrt(self.bxc**2+self.byc**2+self.bzc**2)
+		self.vc=numpy.sqrt(self.vxc**2+self.vyc**2+self.vzc**2)
 	
 
 

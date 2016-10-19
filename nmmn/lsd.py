@@ -270,17 +270,15 @@ Rodrigo Nemmen, http://goo.gl/8S1Oo
 
 
 
-def regrid(x,y,z,xnew,ynew,method='cubic'):
+def regrid2d(x,y,z,xnew,ynew,method='cubic'):
 	"""
-Regrid 1D arrays (x,y,z) -- where z is some scalar field mapped at positions
+Regrid 1D arrays (x,y,arr) -- where arr is some scalar field mapped at positions
 x,y -- to a 2d array Z defined in the cartesian grids xnew,ynew (1D arrays with 
 new grid).
 
 For the interpolation method, choose nearest, linear or cubic.
 
->>> rho=regrid(d.x,d.y,d.rho,xnew,ynew)
-
-.. todo:: need to create a 3d version of this method, paving the road for the 3d simulations.
+>>> rho=regrid2d(d.x,d.y,d.rho,xnew,ynew)
 	"""
 	import scipy.interpolate
 
@@ -290,6 +288,25 @@ For the interpolation method, choose nearest, linear or cubic.
 	# get rid of NaNs
 	return nanzero(Z)
 
+
+def regrid3d(x,y,z,arr,xnew,ynew,znew,method='linear'):
+	"""
+Regrid 1D arrays (x,y,z,arr) -- where arr is some scalar field mapped at positions
+x,y,z -- to a 3d array ARR defined in the cartesian grids xnew,ynew,znew (1D arrays with 
+new grid).
+
+For the interpolation method, choose nearest, linear or cubic.
+
+>>> rho=regrid3d(d.x,d.y,d.z,d.rho,xnew,ynew,znew)
+	"""
+	import scipy.interpolate
+
+	# regrid the data to a nice cartesian grid 
+	# ??????????
+	ARR = scipy.interpolate.griddata((x,y,z), arr, (xnew[None,:,None], ynew[:,None,None], znew[None,None,:]), method=method)
+
+	# get rid of NaNs
+	return nanzero(ARR)
 
 
 
