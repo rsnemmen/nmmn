@@ -20,7 +20,7 @@ import os
 
 
 # http://read-the-docs.readthedocs.io/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
-#from unittest.mock import MagicMock
+"""
 from mock import Mock as MagicMock
 
 class Mock(MagicMock):
@@ -30,7 +30,7 @@ class Mock(MagicMock):
 
 MOCK_MODULES = ['pymc']
 sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
+"""
 
 
 
