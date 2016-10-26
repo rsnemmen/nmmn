@@ -217,12 +217,14 @@ Saves data as an ASCII file with columns corresponding to variables:
 		# original grid
 		nxnew=self.nx*nboost
 		nynew=self.ny*nboost
+		nznew=self.nz*nboost
 		xnew=numpy.linspace(self.x.min(),round(self.x.max()),nxnew)
 		ynew=numpy.linspace(self.y.min(),round(self.y.max()),nynew)
+		znew=numpy.linspace(self.z.min(),round(self.z.max()),nznew)
 
 		# 'c' is added to 2D array values
 		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
-		self.xc1d,self.yc1d=xnew,ynew # 1D
+		self.xc1d,self.yc1d,self.zc1d=xnew,ynew,znew # 1D
 
 		# bottleneck,
 		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
@@ -339,33 +341,21 @@ Saves data as an ASCII file with columns corresponding to variables:
 		"""
 		self.x3d=self.xc.T[..., numpy.newaxis]
 		self.y3d=self.yc.T[..., numpy.newaxis]
-		self.z3d=self.zc.T[..., numpy.newaxis]
 
 		self.rho3d=self.rhoc.T[..., numpy.newaxis]
+		self.p3d=self.pc.T[..., numpy.newaxis]
 
 		self.vx3d=self.vxc.T[..., numpy.newaxis]
 		self.vy3d=self.vyc.T[..., numpy.newaxis]
 		self.vz3d=self.vzc.T[..., numpy.newaxis]
 		self.v3d=self.vc.T[..., numpy.newaxis]
 
-	
+		self.bx3d=self.bxc.T[..., numpy.newaxis]
+		self.by3d=self.byc.T[..., numpy.newaxis]
+		self.bz3d=self.bzc.T[..., numpy.newaxis]
+		self.b3d=self.bc.T[..., numpy.newaxis]
 
-		# 'c' is added to 2D array values
-		self.xc,self.yc=numpy.meshgrid(xnew,ynew) # 2D
-		self.xc1d,self.yc1d=xnew,ynew # 1D
 
-		# bottleneck,
-		self.rhoc=lsd.regrid(self.x,self.y,self.rho,xnew,ynew)
-		self.pc=lsd.regrid(self.x,self.y,self.p,xnew,ynew)
-		self.vxc=lsd.regrid(self.x,self.y,self.vx,xnew,ynew)
-		self.vyc=lsd.regrid(self.x,self.y,self.vy,xnew,ynew)
-		self.vzc=lsd.regrid(self.x,self.y,self.vz,xnew,ynew)
-		self.bxc=lsd.regrid(self.x,self.y,self.bx,xnew,ynew)
-		self.byc=lsd.regrid(self.x,self.y,self.by,xnew,ynew)
-		self.bzc=lsd.regrid(self.x,self.y,self.bz,xnew,ynew)
-
-		self.bc=numpy.sqrt(self.bxc**2+self.byc**2)
-		self.vc=numpy.sqrt(self.vxc**2+self.vyc**2)
 
 
 
