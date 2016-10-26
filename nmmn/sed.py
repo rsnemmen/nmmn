@@ -1,5 +1,5 @@
 import numpy
-import nemmen
+from . import lsd # intrapackage reference
 
 class SED:
 	"""
@@ -327,7 +327,7 @@ class SED:
 			if xray==None:	# if xray keyword is not provided
 				# Finds the nuLnu corresponding to the frequency nearest nuref.
 				# Uses the interpolated arrays for this purpose.
-				i=nemmen.search(nuref, self.lognui)
+				i=lsd.search(nuref, self.lognui)
 			
 				self.nlnu=self.nlnu*refnlnu/self.nlnui[i]
 				self.nlnui=self.nlnui*refnlnu/self.nlnui[i]
@@ -344,7 +344,7 @@ class SED:
 		else:
 			for sed in seds:
 				if xray==None:	# if xray keyword is not provided
-					i=nemmen.search(nuref, sed.lognui)
+					i=lsd.search(nuref, sed.lognui)
 			
 					sed.nlnu=sed.nlnu*refnlnu/sed.nlnui[i]
 					sed.nlnui=sed.nlnui*refnlnu/sed.nlnui[i]
@@ -660,7 +660,7 @@ class SED:
 		if not hasattr(self, 'nlnui'): self.interp()
 		
 		# Looks for the frequency
-		i=nemmen.search(x,self.lognui)	# index
+		i=lsd.search(x,self.lognui)	# index
 		
 		return [self.lognui[i], self.nlnui[i]/self.nui[i]]
 	
