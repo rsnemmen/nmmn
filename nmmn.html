@@ -107,164 +107,14 @@ If you have errors in the flux:</p>
 
 </div>
 </div>
-<div class="section" id="module-nmmn.bayes">
-<span id="nmmn-bayes-module"></span><h2>nmmn.bayes module<a class="headerlink" href="#module-nmmn.bayes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="methods-for-dealing-with-bayesian-statistics">
-<h3>Methods for dealing with Bayesian statistics<a class="headerlink" href="#methods-for-dealing-with-bayesian-statistics" title="Permalink to this headline">¶</a></h3>
-<p>e.g. priors, posteriors, joint density plots.</p>
-<p>Right now the module is focused around PyMC, but I am migrating
-to emcee.</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">plot confidence/credibility interval of a model</p>
-</div>
-<dl class="function">
-<dt id="nmmn.bayes.allplot">
-<code class="descclassname">nmmn.bayes.</code><code class="descname">allplot</code><span class="sig-paren">(</span><em>xb</em>, <em>yb</em>, <em>bins=30</em>, <em>fig=1</em>, <em>xlabel='x'</em>, <em>ylabel='y'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#allplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.allplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Input:
-X,Y : objects referring to the variables produced by PyMC that you want
-to analyze. Example: X=M.theta, Y=M.slope.</p>
-<p>Inherited from Tommy LE BLANC&#8217;s code at astroplotlib|STSCI.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.bayes.joint_density">
-<code class="descclassname">nmmn.bayes.</code><code class="descname">joint_density</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>bounds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#joint_density"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.joint_density" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots joint distribution of variables.
-Inherited from method in src/graphics.py module in project 
-git://github.com/aflaxman/pymc-example-tfr-hdi.git</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.bayes.jointplot">
-<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplot</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
-histograms showing the median and standard deviations.</p>
-<p>The work that went in creating this nice method is shown, step by step, in 
-the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
-- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a>
-- <a class="reference external" href="http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals">http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals</a></p>
-<p>Usage:
-&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.bayes.jointplotx">
-<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplotx</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em>, <em>binscon=15</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplotx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplotx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
-histograms showing the median and standard deviations. Uses simple method
-for drawing the confidence contours compared to jointplot (which is wrong).</p>
-<p>The work that went in creating this method is shown, step by step, in 
-the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
-- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a></p>
-<p>Usage:
-&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
-</dd></dl>
-
-</div>
+<div class="section" id="nmmn-bayes-module">
+<h2>nmmn.bayes module<a class="headerlink" href="#nmmn-bayes-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="nmmn-dsp-module">
 <h2>nmmn.dsp module<a class="headerlink" href="#nmmn-dsp-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-nmmn.fermi">
-<span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="methods-to-handle-fermi-lat-data">
-<h3>Methods to handle Fermi LAT data<a class="headerlink" href="#methods-to-handle-fermi-lat-data" title="Permalink to this headline">¶</a></h3>
-<p>Handle output of Fermi analysis.</p>
-<dl class="function">
-<dt id="nmmn.fermi.PixelFile">
-<code class="descclassname">nmmn.fermi.</code><code class="descname">PixelFile</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#PixelFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.PixelFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the name of a file where the result of 1 pixel 
-evaluation will be stored</p>
-<p>From enrico/tsmap.py.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.fermi.converttime">
-<code class="descclassname">nmmn.fermi.</code><code class="descname">converttime</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#converttime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.converttime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts from MET Fermi time to a python datetime tuple.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mi">386817828</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>returns datetime.datetime(2013, 4, 5, 1, 23, 48).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> &#8211; a float or array of floats</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a datetime structure (or list) with the date corresponding to the input float or array</td>
-</tr>
-</tbody>
-</table>
-<p>y is the amount of seconds since 2001.0 UTC. Beware that my method
-may assume that all years have 365 days.</p>
-<p>References:</p>
-<ul class="simple">
-<li><a class="reference external" href="http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python">http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python</a></li>
-<li><a class="reference external" href="http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl</a></li>
-</ul>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.fermi.getconfig">
-<code class="descclassname">nmmn.fermi.</code><code class="descname">getconfig</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#getconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.getconfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads config file and gets parameters.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.fermi.plotMap">
-<code class="descclassname">nmmn.fermi.</code><code class="descname">plotMap</code><span class="sig-paren">(</span><em>counts</em>, <em>out='tmp.png'</em>, <em>cmap=None</em>, <em>roi=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotMap" title="Permalink to this definition">¶</a></dt>
-<dd><p>This method plots some count map. Inherited from the method plotMaps
-above.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>counts</strong> &#8211; FITS file with counts to be plotted</li>
-<li><strong>cmap</strong> &#8211; desired colormap for image</li>
-<li><strong>roi</strong> &#8211; DS9 region file if present, otherwise leave None</li>
-<li><strong>out</strong> &#8211; output filename and format</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">image file &#8216;tmp.png&#8217; in the source folder.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.fermi.plotMaps">
-<code class="descclassname">nmmn.fermi.</code><code class="descname">plotMaps</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotMaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotMaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the directory where the results of an Enrico analysis are 
-located (enrico_sed), this method plots the different count maps
-(observed, model and residuals).</p>
-<p>This is the fixed version of the script plotMaps.py from the Enrico
-distribution.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configdir</strong> &#8211; directory with &#8220;/&#8221; at the end that points to the place</td>
-</tr>
-</tbody>
-</table>
-<p>where Enrico output files are located.
-:returns: image file SOURCE_Maps.png in the source folder.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nmmn.fermi.plotTSmap">
-<code class="descclassname">nmmn.fermi.</code><code class="descname">plotTSmap</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotTSmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotTSmap" title="Permalink to this definition">¶</a></dt>
-<dd><p>From Enrico/tsmap.py.</p>
-<p>Gather the results of the evaluation of 
-each pixel and fill a fits file</p>
-</dd></dl>
-
-</div>
+<div class="section" id="nmmn-fermi-module">
+<h2>nmmn.fermi module<a class="headerlink" href="#nmmn-fermi-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-nmmn.grmhd">
 <span id="nmmn-grmhd-module"></span><h2>nmmn.grmhd module<a class="headerlink" href="#module-nmmn.grmhd" title="Permalink to this headline">¶</a></h2>
@@ -578,11 +428,10 @@ new grid).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-1">
+<div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">need to create a 3d version of this method, paving the road</p>
+<p class="last">need to create a 3d version of this method, paving the road for the 3d simulations.</p>
 </div>
-<p>for the 3d simulations.</p>
 </dd></dl>
 
 <dl class="function">
@@ -2054,15 +1903,9 @@ intensive minimization involved when fitting a function.</p>
 <li><a class="reference internal" href="#astrophysical-routines">Astrophysical routines</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-nmmn.bayes">nmmn.bayes module</a><ul>
-<li><a class="reference internal" href="#methods-for-dealing-with-bayesian-statistics">Methods for dealing with Bayesian statistics</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#nmmn-bayes-module">nmmn.bayes module</a></li>
 <li><a class="reference internal" href="#nmmn-dsp-module">nmmn.dsp module</a></li>
-<li><a class="reference internal" href="#module-nmmn.fermi">nmmn.fermi module</a><ul>
-<li><a class="reference internal" href="#methods-to-handle-fermi-lat-data">Methods to handle Fermi LAT data</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#nmmn-fermi-module">nmmn.fermi module</a></li>
 <li><a class="reference internal" href="#module-nmmn.grmhd">nmmn.grmhd module</a><ul>
 <li><a class="reference internal" href="#dealing-with-gr-r-m-hd-simulations">Dealing with (GR)(R)(M)HD simulations</a></li>
 </ul>
