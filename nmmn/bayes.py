@@ -10,9 +10,7 @@ to emcee.
 .. todo:: plot confidence/credibility interval of a model
 """
 
-# Import necessary modules
 import numpy, pylab, scipy, scipy.stats
-import pymc
 
 
 

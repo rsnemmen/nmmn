@@ -1,3 +1,10 @@
+"""
+Spectral energy distributions
+===============================
+
+Methods and classes for dealing with spectral energy distributions (SEDs).
+"""
+
 import numpy
 from . import lsd # intrapackage reference
 
@@ -111,20 +118,25 @@ class SED:
 
 
 
-	def hayden(self, file):
+	def hayden(self, file, dist):
 		"""
 		Reads SEDs in the format provided by Hampadarath et al.:
-		nu	nuLnu	error	upperLimit?(0/1)
+	nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]
 		
 		Adds the following attributes to the SED object:
-		- nlnuex: nuLnu after extinction correction
 		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not
+		- distance: distance to object in Mpc
 		"""
 		self.file=file
+		self.distance=dist
 		
-		self.lognu,self.ll,self.llerr,self.ul = numpy.loadtxt(file,unpack=True,usecols=(0,1,2,3))
-		#self.ll=self.ll+self.lognu
-		# should I include nu and nlnu as well?
+		self.nu,flux,x,self.ul = numpy.loadtxt(file,unpack=True,usecols=(0,1,2,3))
+		flux=flux*1e-26*1e-6*1e7*1e-4	# microJy to erg/s/cm^2/Hz
+		dist=dist*3.086e24	# Mpc to cm
+		self.lnu=4.*numpy.pi*dist**2*flux
+		self.lognu=numpy.log10(self.nu)
+		self.ll=numpy.log10(self.lnu)+self.lognu
+		
 
 		# inverts the convention for upper limits, to be consistent with my
 		# previous one (Hayden adopts the inverse convention)
@@ -141,18 +153,20 @@ class SED:
 
 
 
+
 	def haydenx(self, file):
 		"""
 		Reads X-ray data in the format provided by F. Panessa:
-		nu	enu(?) nuLnu	error	?
+		nu	error_nu nuLnu	error	?
 		
 		Adds the following attributes to the SED object:
 		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not
 		"""
 		self.file=file
 		
-		self.lognu,self.ll,self.llerr = numpy.loadtxt(file,unpack=True,usecols=(0,2,3))
-
+		self.lognu,self.lognuerr,self.ll,self.llerr = numpy.loadtxt(file,unpack=True,usecols=(0,1,2,4))
+		self.lognuerr=numpy.abs(self.lognu-self.lognuerr)
+		self.llerr=numpy.abs(self.ll-self.llerr)
 		self.ul=numpy.zeros_like(self.ll)
 		
 		# Checks if ll has NaN or Inf values
@@ -602,8 +616,35 @@ class SED:
 			# Integration
 			lumbol=scipy.integrate.trapz(self.nlnui[i]/self.nui[i], self.nui[i])
 
+		self.lumbol=lumbol
+
 		return lumbol
 
+
+
+
+
+	def edd(self,mass=None):
+		"""
+	Computes the Eddington ratio :math:`L_{\\rm bol}/L_{\\rm} Edd}`.
+	First computes the bolometric luminosity via interpolation and 
+	then calculates the Eddington ratio.
+
+	:param mass: log10(BH mass in solar masses)
+		"""
+		# Computes Lbol before anything else	
+		if not hasattr(self, 'lumbol'): 			
+			lumbol=self.bol()
+
+		# if no mass argument was given
+		if mass==None: 
+			mass=self.mass
+
+		# Eddington ratio
+		self.lumedd=1.3e38*10**mass
+		self.eddratio=lumbol/self.lumedd
+
+		return self.eddratio
 
 	
 
@@ -827,18 +868,58 @@ if needed.
 	return SED(lognu=seds[0].lognui, ll=numpy.log10(sums), logfmt=1)
 
 		
+
+
+
+
+
+
+
+def haydensed(source, patho='/Users/nemmen/work/projects/hayden/all/', info='/Users/nemmen/work/projects/hayden/info.dat'):
+	"""
+Reads an observed SED from the Hayden et al. sample. Computes useful 
+quantities.
+
+:param source: source name e.g. 'NGC1097' or 'ngc1097' or 'NGC 1097'. Must have four numbers.
+:param patho: path to observed SED data files
+:param info: path to information datafile with distances and masses
+
+:returns: SED object 
+	"""
+	import astropy.io.ascii as ascii
+	# READS SEDS
+	# =============
+	# Finds the required parameters to plot the data for the specified source.
+	# First converts the source name to uppercase, no spaces
+	source=source.upper()
+	source=source.replace(' ', '')
+
+	# Reads information table and gets required info
+	t=ascii.read(info)
+	names=t['name'].tolist()
+	# finds location of source in the arrays
+	i=names.index(source)
+	# gets distance 
+	dist=t['distance/Mpc'][i]
+	# gets BH mass
+	mass=t['logmass'][i]
+
+	# Reads observed SED from radio to X-rays 
+	# (which is given in weird units)
+	ofile=patho+source+'_sed.txt'
+	o=SED()
+	o.hayden(ofile,dist)
+	o.mass=mass	
 		
-		
-"""
-METHODS TO DEFINE:
-X - normalize SEDs in a given nu
-X - export to ASCII
-X - average SEDs
-X - interpolates SEDs
-X - sum SEDs
-X - unit
-X - calculates Lbol
-X - Lx
-X - radio loudness (optical)
-X- alpha_ox
-""" 
+	# X-ray data
+	# Reads Panessa's X-ray SED and creates another SED object
+	xfile=patho+source+'_x.txt'
+	x=SED()
+	x.haydenx(xfile)	
+
+	# Stacks together all the multiwavelength information
+	o.lognu=numpy.concatenate([o.lognu,x.lognu])
+	o.ll=numpy.concatenate([o.ll,x.ll])	
+
+	return o
+

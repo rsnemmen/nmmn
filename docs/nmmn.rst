@@ -68,6 +68,14 @@ nmmn.plots module
     :undoc-members:
     :show-inheritance:
 
+nmmn.sed module
+-----------------
+
+.. automodule:: nmmn.sed
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 nmmn.stats module
 -----------------
 
