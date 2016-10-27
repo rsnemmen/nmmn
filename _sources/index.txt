@@ -18,6 +18,7 @@ List of submodules available:
 * `fermi`: Fermi LAT analysis methods
 * `bayes`: Bayesian tools for dealing with posterior distributions
 * `grmhd`: tools for dealing with GRMHD numerical simulations
+* `sed`: tools for dealing with spectral energy distributions (SEDs) 
 
 `Code available on Github <https://github.com/rsnemmen/nmmn>`_.
 

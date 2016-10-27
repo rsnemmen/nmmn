@@ -107,8 +107,61 @@ If you have errors in the flux:</p>
 
 </div>
 </div>
-<div class="section" id="nmmn-bayes-module">
-<h2>nmmn.bayes module<a class="headerlink" href="#nmmn-bayes-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-nmmn.bayes">
+<span id="nmmn-bayes-module"></span><h2>nmmn.bayes module<a class="headerlink" href="#module-nmmn.bayes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="methods-for-dealing-with-bayesian-statistics">
+<h3>Methods for dealing with Bayesian statistics<a class="headerlink" href="#methods-for-dealing-with-bayesian-statistics" title="Permalink to this headline">¶</a></h3>
+<p>e.g. priors, posteriors, joint density plots.</p>
+<p>Right now the module is focused around PyMC, but I am migrating
+to emcee.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">plot confidence/credibility interval of a model</p>
+</div>
+<dl class="function">
+<dt id="nmmn.bayes.allplot">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">allplot</code><span class="sig-paren">(</span><em>xb</em>, <em>yb</em>, <em>bins=30</em>, <em>fig=1</em>, <em>xlabel='x'</em>, <em>ylabel='y'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#allplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.allplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Input:
+X,Y : objects referring to the variables produced by PyMC that you want
+to analyze. Example: X=M.theta, Y=M.slope.</p>
+<p>Inherited from Tommy LE BLANC&#8217;s code at astroplotlib|STSCI.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.bayes.joint_density">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">joint_density</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>bounds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#joint_density"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.joint_density" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots joint distribution of variables.
+Inherited from method in src/graphics.py module in project 
+git://github.com/aflaxman/pymc-example-tfr-hdi.git</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.bayes.jointplot">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplot</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
+histograms showing the median and standard deviations.</p>
+<p>The work that went in creating this nice method is shown, step by step, in 
+the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
+- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a>
+- <a class="reference external" href="http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals">http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals</a></p>
+<p>Usage:
+&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.bayes.jointplotx">
+<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplotx</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em>, <em>binscon=15</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplotx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplotx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
+histograms showing the median and standard deviations. Uses simple method
+for drawing the confidence contours compared to jointplot (which is wrong).</p>
+<p>The work that went in creating this method is shown, step by step, in 
+the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
+- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a></p>
+<p>Usage:
+&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="nmmn-dsp-module">
 <h2>nmmn.dsp module<a class="headerlink" href="#nmmn-dsp-module" title="Permalink to this headline">¶</a></h2>
@@ -428,7 +481,7 @@ new grid).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-0">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">need to create a 3d version of this method, paving the road for the 3d simulations.</p>
 </div>
@@ -990,6 +1043,407 @@ for images in Wolfram Mathematica 11 (dark blue to orange).</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imshow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mycmap</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.sed">
+<span id="nmmn-sed-module"></span><h2>nmmn.sed module<a class="headerlink" href="#module-nmmn.sed" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="spectral-energy-distributions">
+<h3>Spectral energy distributions<a class="headerlink" href="#spectral-energy-distributions" title="Permalink to this headline">¶</a></h3>
+<p>Methods and classes for dealing with spectral energy distributions (SEDs).</p>
+<dl class="class">
+<dt id="nmmn.sed.SED">
+<em class="property">class </em><code class="descclassname">nmmn.sed.</code><code class="descname">SED</code><span class="sig-paren">(</span><em>file=None</em>, <em>logfmt=0</em>, <em>lognu=None</em>, <em>ll=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class that defines objects storing Spectral energy distributions (SEDs). 
+The SEDs can be imported either from datafiles with the observations/models,
+or from arrays with the values of log(nu) and log(nuLnu).</p>
+<p>The object&#8217;s initial attributes are:</p>
+<ul class="simple">
+<li>nu: frequency in Hertz</li>
+<li>lognu: log10(frequency)</li>
+<li>nlnu: nu L_nu in erg/s</li>
+<li>ll: log10(nu Lnu)</li>
+<li>file : input datafile</li>
+</ul>
+<p>To import a SED from an ASCII file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">datafile</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="n">XX</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where logfmt is 1 if the data is already in logarithm or 0 otherwise.
+NOTE: logfmt for now is by default 0 (Eracleous&#8217; SEDs).</p>
+<p>To create a SED object from the arrays lognu and lognulnu:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">lognulnu</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To import a SED in a special format:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">SED</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">erac</span><span class="p">(</span><span class="s1">&#39;ngc1097.dat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To plot the SED:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To calculate the bolometric luminosity:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">bol</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>after which the value will be stored in s.lumbol</p>
+<dl class="method">
+<dt id="nmmn.sed.SED.alphaox">
+<code class="descname">alphaox</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.alphaox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.alphaox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the alpha_ox index.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alphaox</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">alphaox</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.bol">
+<code class="descname">bol</code><span class="sig-paren">(</span><em>lognu0=None, lognu1=None, xrange=[8, 22]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.bol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.bol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the bolometric luminosity of the SED. Performs the integration 
+using the trapezoidal rule. Adds the attribute lumbol to the object with
+the result.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">bol</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>makes the variable s.lumbol hold the bolometric luminosity.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">bol</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>makes s.lumbol hold the luminosity integrated in the range 1e17-1e20 Hz.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">bol</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>gives the integrated luminosity in the range 1e18-1e20 Hz. Before integrating,
+interpolates the SED over its original frequency range with 1000 points.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.check">
+<code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether there are NaN or Inf values in the array log10(nuLnu).
+If so, displays a warning to the user and the corresponding filename.
+Method called by initialization methods init and erac.</p>
+<p>Creates a new attribute, weird, which is 1 if there are NaN or Inf values,
+and 0 otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.chisq">
+<code class="descname">chisq</code><span class="sig-paren">(</span><em>model</em>, <em>npars=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.chisq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.chisq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the goodness of fit between the observed SED (assumed to be &#8220;self&#8221;) 
+and the given model. If you don&#8217;t provide the number of free 
+parameters in the model, it returns a modified chi squared (modified in 
+the sense that it assumes the uncertainties in all data points to be unity).
+If you provide npars it returns the modified reduced chi squared.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">chisq</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+<span class="go">returns the (modified) chi square with s and m being the observed and model</span>
+<span class="go">SEDs, respectively.</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">chisq</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">returns the reduced chi square.</span>
+</pre></div>
+</div>
+<p>NOTE: this method was written assuming that the observed SEDs correspond
+to Eracleous&#8217; SEDs. Needs to be adapted in order to be applied to other 
+types of SEDs. We discard the 100 keV interpolation done by EHF10.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current SED object. Use this in the same way you would use
+the numpy copy() method to avoid changing the attributes of a SED
+unintentionally.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.erac">
+<code class="descname">erac</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.erac"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.erac" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads SEDs in the format provided by Eracleous et al. LINER SEDs:
+nu      nuLnu   nuLnu(extinction)       error   upperLimit?(0/1)</p>
+<p>Adds the following attributes to the SED object:
+- nlnuex: nuLnu after extinction correction
+- llex: log10(nuLnu) after extinction correction
+- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.findlum">
+<code class="descname">findlum</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.findlum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.findlum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the input frequency in units of log(nu/Hz), returns the list [log(nu),
+Lnu] with the frequency and luminosity closest to the specified value.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lognu</span><span class="p">,</span><span class="n">lum</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">findlum</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will look for the freq. and lum. nearest nu=10^14 Hz</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.geomean">
+<code class="descname">geomean</code><span class="sig-paren">(</span><em>seds</em>, <em>nuref=17.684</em>, <em>refnlnu=1e+40</em>, <em>xray=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.geomean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.geomean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of SEDs and a reference value of log10(nu), normalizes the 
+SEDs (s.normalize) at the given nuref and refnlnu, calculates the geometric
+mean of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) 
+and returns the list [mean,sd] where &#8216;mean&#8217; is SED object with the geometric 
+mean and &#8216;sd&#8217; is the object with the standard deviation.</p>
+<p>Alternatively, if the user provides the argument xray=True, then
+the method normalizes the SEDs such that they have the same X-ray
+luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.
+nuref).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns mean &lt;- [lognu, &lt;s1,s2&gt;],
+where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common 
+units of frequency for the SEDs after interpolation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns the mean after normalizing the SEDs to the X-ray lum.
+1e40 erg/s in the range 2-10 keV.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.hayden">
+<code class="descname">hayden</code><span class="sig-paren">(</span><em>file</em>, <em>dist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.hayden"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.hayden" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div>Reads SEDs in the format provided by Hampadarath et al.:</div></blockquote>
+<p>nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]</p>
+<blockquote>
+<div>Adds the following attributes to the SED object:
+- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not
+- distance: distance to object in Mpc</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.haydenx">
+<code class="descname">haydenx</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.haydenx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.haydenx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads X-ray data in the format provided by F. Panessa:
+nu      error_nu nuLnu  error   ?</p>
+<p>Adds the following attributes to the SED object:
+- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.interp">
+<code class="descname">interp</code><span class="sig-paren">(</span><em>seds=None, points=1000, xrange=[8, 22]</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.interp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.interp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates the SED and a list of SEDs (optional) in the given range
+of values of log(nu) and for the given number of points.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">interp</span><span class="p">([</span><span class="n">s</span><span class="p">,</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">])</span>
+<span class="go">interpolates s, s1 and s2 with 1000 points in the range</span>
+<span class="go">log(nu)=8-22 (Hz). s, s1 and s2 are also instances of the class SED. The</span>
+<span class="go">interpolated arrays (lognui, lli, nui, nlnui) will be added as new </span>
+<span class="go">attributes to each object. If given no argument, will interpolate the</span>
+<span class="go">current SED object.</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>seds</strong> &#8211; list of SED objects to interpolate</li>
+<li><strong>points</strong> &#8211; number of interpolated points</li>
+<li><strong>xrange</strong> &#8211; list in the form [xinitial, xfinal] with the x-range of interpolation.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If provided with no list of SEDs (e.g., s.interp()), then the method
+interpolates only the current SED s. If provided with no xrange argument,
+it will by default assume the range [8,22] discarding data points outside
+that range in the interpolation, hence adjust accordingly.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.ion">
+<code class="descname">ion</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.ion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.ion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the rate of ionizing photons in the SED.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.mean">
+<code class="descname">mean</code><span class="sig-paren">(</span><em>seds</em>, <em>nuref=17.684</em>, <em>refnlnu=1e+40</em>, <em>xray=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of SEDs and a reference value of log10(nu), normalizes the 
+SEDs (s.normalize) at the given nuref and refnlnu, calculates the average 
+of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) 
+and returns the list [mean,sd] where &#8216;mean&#8217; is SED object with the mean and 
+&#8216;sd&#8217; is the object with the     standard deviation.</p>
+<p>Alternatively, if the user provides the argument xray=True, then
+the method normalizes the SEDs such that they have the same X-ray
+luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.
+nuref).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns mean &lt;- [lognu, &lt;s1,s2&gt;],
+where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common 
+units of frequency for the SEDs after interpolation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns the mean after normalizing the SEDs to the X-ray lum.
+1e40 erg/s in the range 2-10 keV.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.meanlin">
+<code class="descname">meanlin</code><span class="sig-paren">(</span><em>seds</em>, <em>nuref=17.684</em>, <em>refnlnu=1e+40</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.meanlin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.meanlin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of SEDs and a reference value of log10(nu), normalizes the 
+SEDs (s.normalize) at the given nuref and refnlnu, calculates the average 
+of their luminosities (log10(average nuLnu)) and returns the list [mean,sd] 
+where &#8216;mean&#8217; is SED object with the mean and &#8216;sd&#8217; is the object with the
+standard deviation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">meanlin</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+<span class="go">returns mean &lt;- [lognu, &lt;s1,s2&gt;],</span>
+<span class="go">where &lt;s,s1,s2&gt; -&gt; log10[&lt;nuLnu(s),nuLnu(s1),nuLnu(s2)&gt;], lognu being the common </span>
+<span class="go">units of frequency for the SEDs after interpolation.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.median">
+<code class="descname">median</code><span class="sig-paren">(</span><em>seds</em>, <em>nuref=17.684</em>, <em>refnlnu=1e+40</em>, <em>xray=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.median"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of SEDs and a reference value of log10(nu), normalizes the 
+SEDs (s.normalize) at the given nuref and refnlnu, calculates the average 
+of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) 
+and returns the list [mean,sd] where &#8216;mean&#8217; is SED object with the median and 
+&#8216;sd&#8217; is the object with the     standard deviation.</p>
+<p>Alternatively, if the user provides the argument xray=True, then
+the method normalizes the SEDs such that they have the same X-ray
+luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.
+nuref).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns median &lt;- [lognu, &lt;s1,s2&gt;],
+where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common 
+units of frequency for the SEDs after interpolation.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns the mean after normalizing the SEDs to the X-ray lum.
+1e40 erg/s in the range 2-10 keV.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><em>seds=None</em>, <em>nuref=17.684</em>, <em>refnlnu=1e+40</em>, <em>xray=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes a SED at the given frequency (lognu/Hz) and nuLnu (erg/s). 
+NOTE: this will modify the SED(s). Alternatively, if the user provides 
+the argument xray=True, then the method normalizes the SEDs such that 
+they have the same X-ray luminosity refnlnu in the range 2-10 keV 
+(thus ignoring the arg. nuref).</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">normalize</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">s3</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>normalizes the SEDs in the object list at the same frequency and nuLnu</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">normalize</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">s3</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>normalizes the SEDs such that they have the same X-ray luminosity 1e40 
+erg/s in the range 2-10 keV.</p>
+<p>The method is designed to automatically call the interp method (e.g., 
+s.interp([s1,s2])) if needed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.radioloud">
+<code class="descname">radioloud</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.radioloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.radioloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the radio-loudness for the SED. Adds the attribute rl to the 
+object with     the result. If Ro&gt;=10. we have a RL AGN, otherwise it is a
+RQ one.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rl</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">radioloud</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>makes the variable s.rl hold the radio-loudness.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.sort">
+<code class="descname">sort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.sort" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Sorts the SED in ascending order of frequencies.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.unit">
+<code class="descname">unit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.unit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalizes the spectrum to one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports the SED as an ASCII file with the structure:
+col1=log10(nu/Hz), col2=log10(nu Lnu / erg per sec)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>exports the SED s as the file &#8220;file&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.xrays">
+<code class="descname">xrays</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.xrays"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.xrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the photon index of the X-ray spectrum and Lx (2-10 keV). 
+Stores the new attributes gammax and lumx in the object.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Lx</span><span class="p">,</span><span class="n">gamma</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">xrays</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>creates the new attributes s.lumx and s.gammax</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.sed.haydensed">
+<code class="descclassname">nmmn.sed.</code><code class="descname">haydensed</code><span class="sig-paren">(</span><em>source</em>, <em>patho='/Users/nemmen/work/projects/hayden/all/'</em>, <em>info='/Users/nemmen/work/projects/hayden/info.dat'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#haydensed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.haydensed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads an observed SED from the Hayden et al. sample. Computes useful 
+quantities.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>source</strong> &#8211; source name e.g. &#8216;NGC1097&#8217; or &#8216;ngc1097&#8217; or &#8216;NGC 1097&#8217;. Must have four numbers.</li>
+<li><strong>patho</strong> &#8211; path to observed SED data files</li>
+<li><strong>info</strong> &#8211; path to information datafile with distances and masses</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">SED object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.sed.sum">
+<code class="descclassname">nmmn.sed.</code><code class="descname">sum</code><span class="sig-paren">(</span><em>seds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#sum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of SEDs previously interpolated in the same binning, 
+sums their luminosities and returns a SED object with the sum.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ss</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">s</span><span class="p">,</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>returns the SED ss &lt;- [lognu, s+s1+s2],
+where s+s1+s2 -&gt; log10[nuLnu(s)+nuLnu(s1)+nuLnu(s2)], lognu being the common 
+units of frequency for the SEDs after interpolation.</p>
+<p>The method is designed to automatically call the interp method for each SED
+if needed.</p>
 </dd></dl>
 
 </div>
@@ -1903,7 +2357,10 @@ intensive minimization involved when fitting a function.</p>
 <li><a class="reference internal" href="#astrophysical-routines">Astrophysical routines</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#nmmn-bayes-module">nmmn.bayes module</a></li>
+<li><a class="reference internal" href="#module-nmmn.bayes">nmmn.bayes module</a><ul>
+<li><a class="reference internal" href="#methods-for-dealing-with-bayesian-statistics">Methods for dealing with Bayesian statistics</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#nmmn-dsp-module">nmmn.dsp module</a></li>
 <li><a class="reference internal" href="#nmmn-fermi-module">nmmn.fermi module</a></li>
 <li><a class="reference internal" href="#module-nmmn.grmhd">nmmn.grmhd module</a><ul>
@@ -1920,6 +2377,10 @@ intensive minimization involved when fitting a function.</p>
 </li>
 <li><a class="reference internal" href="#module-nmmn.plots">nmmn.plots module</a><ul>
 <li><a class="reference internal" href="#fancy-plots">Fancy plots</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.sed">nmmn.sed module</a><ul>
+<li><a class="reference internal" href="#spectral-energy-distributions">Spectral energy distributions</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#module-nmmn.stats">nmmn.stats module</a><ul>

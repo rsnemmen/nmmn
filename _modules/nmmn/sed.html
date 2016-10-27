@@ -1,0 +1,981 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nmmn.sed &#8212; nmmn  documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="nmmn  documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for nmmn.sed</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Spectral energy distributions</span>
+<span class="sd">===============================</span>
+
+<span class="sd">Methods and classes for dealing with spectral energy distributions (SEDs).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">lsd</span> <span class="c1"># intrapackage reference</span>
+
+<div class="viewcode-block" id="SED"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED">[docs]</a><span class="k">class</span> <span class="nc">SED</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Class that defines objects storing Spectral energy distributions (SEDs). </span>
+<span class="sd">	The SEDs can be imported either from datafiles with the observations/models,</span>
+<span class="sd">	or from arrays with the values of log(nu) and log(nuLnu).</span>
+<span class="sd">	</span>
+<span class="sd">	The object&#39;s initial attributes are:</span>
+
+<span class="sd">	- nu: frequency in Hertz</span>
+<span class="sd">	- lognu: log10(frequency)</span>
+<span class="sd">	- nlnu: nu L_nu in erg/s</span>
+<span class="sd">	- ll: log10(nu Lnu)</span>
+<span class="sd">	- file : input datafile</span>
+<span class="sd">	</span>
+<span class="sd">	To import a SED from an ASCII file:</span>
+
+<span class="sd">	&gt;&gt;&gt; s=sed.SED(file=datafile, logfmt=XX)</span>
+
+<span class="sd">	where logfmt is 1 if the data is already in logarithm or 0 otherwise.</span>
+<span class="sd">	NOTE: logfmt for now is by default 0 (Eracleous&#39; SEDs).</span>
+<span class="sd">	</span>
+<span class="sd">	To create a SED object from the arrays lognu and lognulnu:</span>
+
+<span class="sd">	&gt;&gt;&gt; s=sed.SED(lognu=lognu, ll=lognulnu)</span>
+<span class="sd">	</span>
+<span class="sd">	To import a SED in a special format:</span>
+
+<span class="sd">	&gt;&gt;&gt; s=sed.SED()</span>
+<span class="sd">	&gt;&gt;&gt; s.erac(&#39;ngc1097.dat&#39;)</span>
+<span class="sd">	</span>
+<span class="sd">	To plot the SED:</span>
+
+<span class="sd">	&gt;&gt;&gt; plot(s.lognu, s.ll)</span>
+<span class="sd">	</span>
+<span class="sd">	To calculate the bolometric luminosity:</span>
+
+<span class="sd">	&gt;&gt;&gt; s.bol()</span>
+<span class="sd">	</span>
+<span class="sd">	after which the value will be stored in s.lumbol	</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+		
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lognu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	To import a SED from an ASCII file:</span>
+<span class="sd">	&gt;&gt;&gt; s=sed.SED(file=XX, logfmt=XX)</span>
+<span class="sd">	where logfmt is 1 if the data is already in logarithm or 0 otherwise.</span>
+<span class="sd">	NOTE: logfmt for now is by default 0 (e.g. Eracleous&#39; SEDs).</span>
+<span class="sd">	</span>
+<span class="sd">	To create a SED object from the arrays lognu and lognulnu:</span>
+
+<span class="sd">	&gt;&gt;&gt; s=sed.SED(lognu=lognu, ll=lognulnu)</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s=sed.SED()</span>
+
+<span class="sd">	creates an empty SED object. Then you can call specific methods to handle</span>
+<span class="sd">	SEDs in special formats (e.g. s.erac).</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>	<span class="c1"># input datafile (string) from which the observed spectrum was imported</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">ll</span>
+
+		<span class="c1"># If the SED is imported from a file...</span>
+		<span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">logfmt</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+				<span class="c1"># Reads SED from datafile</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+		
+				<span class="c1"># Take logs</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
+
+		<span class="c1"># If the SED is created from the arrays</span>
+		<span class="k">if</span> <span class="n">file</span><span class="o">==</span><span class="kc">None</span> <span class="ow">and</span> <span class="n">lognu</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">logfmt</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
+		
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="kc">None</span> <span class="ow">or</span> <span class="n">lognu</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+
+
+
+<div class="viewcode-block" id="SED.erac"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.erac">[docs]</a>	<span class="k">def</span> <span class="nf">erac</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Reads SEDs in the format provided by Eracleous et al. LINER SEDs:</span>
+<span class="sd">		nu	nuLnu	nuLnu(extinction)	error	upperLimit?(0/1)</span>
+<span class="sd">		</span>
+<span class="sd">		Adds the following attributes to the SED object:</span>
+<span class="sd">		- nlnuex: nuLnu after extinction correction</span>
+<span class="sd">		- llex: log10(nuLnu) after extinction correction</span>
+<span class="sd">		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnuex</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">llex</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnuex</span><span class="p">)</span>
+		
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
+
+
+
+
+<div class="viewcode-block" id="SED.hayden"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.hayden">[docs]</a>	<span class="k">def</span> <span class="nf">hayden</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Reads SEDs in the format provided by Hampadarath et al.:</span>
+<span class="sd">	nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]</span>
+<span class="sd">		</span>
+<span class="sd">		Adds the following attributes to the SED object:</span>
+<span class="sd">		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not</span>
+<span class="sd">		- distance: distance to object in Mpc</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">=</span><span class="n">dist</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="n">flux</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+		<span class="n">flux</span><span class="o">=</span><span class="n">flux</span><span class="o">*</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">26</span><span class="o">*</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="mi">1</span><span class="n">e7</span><span class="o">*</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span>	<span class="c1"># microJy to erg/s/cm^2/Hz</span>
+		<span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.086e24</span>	<span class="c1"># Mpc to cm</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lnu</span><span class="o">=</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">flux</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lnu</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span>
+		
+
+		<span class="c1"># inverts the convention for upper limits, to be consistent with my</span>
+		<span class="c1"># previous one (Hayden adopts the inverse convention)</span>
+		<span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="n">x</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+		<span class="n">x</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="o">=</span><span class="n">x</span>
+
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
+
+
+
+
+
+
+
+<div class="viewcode-block" id="SED.haydenx"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.haydenx">[docs]</a>	<span class="k">def</span> <span class="nf">haydenx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Reads X-ray data in the format provided by F. Panessa:</span>
+<span class="sd">		nu	error_nu nuLnu	error	?</span>
+<span class="sd">		</span>
+<span class="sd">		Adds the following attributes to the SED object:</span>
+<span class="sd">		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lognuerr</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">llerr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognuerr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">lognuerr</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">llerr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">llerr</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
+		
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
+
+
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="SED.check"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.check">[docs]</a>	<span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Checks whether there are NaN or Inf values in the array log10(nuLnu).</span>
+<span class="sd">	If so, displays a warning to the user and the corresponding filename.</span>
+<span class="sd">	Method called by initialization methods init and erac.</span>
+<span class="sd">	</span>
+<span class="sd">	Creates a new attribute, weird, which is 1 if there are NaN or Inf values,</span>
+<span class="sd">	and 0 otherwise.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="kc">False</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">):</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Warning: NaN or Inf in the Lnu array! &#39;</span><span class="p">),</span>
+			<span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">weird</span><span class="o">=</span><span class="mi">1</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">weird</span><span class="o">=</span><span class="mi">0</span></div>
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="SED.sort"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.sort">[docs]</a>	<span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	&gt;&gt;&gt; s.sort()</span>
+
+<span class="sd">	Sorts the SED in ascending order of frequencies.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Index of sorted elements</span>
+		<span class="n">i</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		
+		<span class="c1"># Precaution in case the user used the interp method</span>
+		<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> 
+			<span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lli</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">lli</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+		
+
+		
+<div class="viewcode-block" id="SED.unit"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.unit">[docs]</a>	<span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;Normalizes the spectrum to one.&quot;&quot;&quot;</span>
+
+		<span class="c1"># Precaution in case the user did not use the interp method</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">()</span>
+	
+		<span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+		
+		<span class="c1"># Normalizes the interpolated values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lli</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">)</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="SED.write"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.write">[docs]</a>	<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Exports the SED as an ASCII file with the structure:</span>
+<span class="sd">		col1=log10(nu/Hz), col2=log10(nu Lnu / erg per sec)</span>
+<span class="sd">		</span>
+<span class="sd">		&gt;&gt;&gt; s.write(file)</span>
+
+<span class="sd">		exports the SED s as the file &quot;file&quot;</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">numpy</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">)))</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="SED.interp"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.interp">[docs]</a>	<span class="k">def</span> <span class="nf">interp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">xrange</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">22</span><span class="p">]):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Interpolates the SED and a list of SEDs (optional) in the given range</span>
+<span class="sd">	of values of log(nu) and for the given number of points.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.interp([s,s1,s2])</span>
+<span class="sd">	interpolates s, s1 and s2 with 1000 points in the range</span>
+<span class="sd">	log(nu)=8-22 (Hz). s, s1 and s2 are also instances of the class SED. The</span>
+<span class="sd">	interpolated arrays (lognui, lli, nui, nlnui) will be added as new </span>
+<span class="sd">	attributes to each object. If given no argument, will interpolate the</span>
+<span class="sd">	current SED object.</span>
+<span class="sd">	</span>
+<span class="sd">	:param seds: list of SED objects to interpolate</span>
+<span class="sd">	:param points: number of interpolated points</span>
+<span class="sd">	:param xrange: list in the form [xinitial, xfinal] with the x-range of interpolation. </span>
+<span class="sd">	</span>
+<span class="sd">	If provided with no list of SEDs (e.g., s.interp()), then the method</span>
+<span class="sd">	interpolates only the current SED s. If provided with no xrange argument,</span>
+<span class="sd">	it will by default assume the range [8,22] discarding data points outside</span>
+<span class="sd">	that range in the interpolation, hence adjust accordingly.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># If seds==None, then the method operates only on the object itself </span>
+		<span class="c1"># (e.g., s.interp()) and proper actions are taken to avoid problems</span>
+		<span class="k">if</span> <span class="n">seds</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+			<span class="c1"># Defines the new array of interpolated frequencies (with a </span>
+			<span class="c1"># preferentially large number of points)</span>
+			<span class="n">xold</span><span class="p">,</span> <span class="n">yold</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
+			<span class="n">xnew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">xrange</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">points</span><span class="p">)</span>
+			<span class="n">ynew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span><span class="n">xold</span><span class="p">,</span><span class="n">yold</span><span class="p">,</span><span class="n">left</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span><span class="n">right</span><span class="o">=-</span><span class="mi">20</span><span class="p">)</span>
+
+			<span class="c1"># Interpolates the current SED (simple linear interpolation).</span>
+			<span class="c1"># Interpolated y-values outside the original x-range are zeroes (-20</span>
+			<span class="c1"># in log space of luminosities).			</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lli</span> <span class="o">=</span> <span class="n">xnew</span><span class="p">,</span> <span class="n">ynew</span>	<span class="c1"># log scale</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="n">xnew</span><span class="p">,</span> <span class="mf">10.</span><span class="o">**</span><span class="n">ynew</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="c1"># Interpolates the other SEDs with the same binning. But only does</span>
+			<span class="c1"># that if a list of SEDs was actually provided!</span>
+			<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+				<span class="n">xold</span><span class="p">,</span> <span class="n">yold</span> <span class="o">=</span> <span class="n">sed</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="n">sed</span><span class="o">.</span><span class="n">ll</span>
+				<span class="n">xnew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xrange</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">xrange</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">points</span><span class="p">)</span>
+				<span class="n">ynew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span><span class="n">xold</span><span class="p">,</span><span class="n">yold</span><span class="p">,</span><span class="n">left</span><span class="o">=-</span><span class="mi">20</span><span class="p">,</span><span class="n">right</span><span class="o">=-</span><span class="mi">20</span><span class="p">)</span>
+			
+				<span class="n">sed</span><span class="o">.</span><span class="n">lognui</span><span class="p">,</span> <span class="n">sed</span><span class="o">.</span><span class="n">lli</span> <span class="o">=</span> <span class="n">xnew</span><span class="p">,</span> <span class="n">ynew</span>	<span class="c1"># log scale</span>
+				<span class="n">sed</span><span class="o">.</span><span class="n">nui</span><span class="p">,</span> <span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="n">xnew</span><span class="p">,</span> <span class="mf">10.</span><span class="o">**</span><span class="n">ynew</span></div>
+
+
+
+
+		
+
+
+
+	
+	
+	
+<div class="viewcode-block" id="SED.normalize"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.normalize">[docs]</a>	<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Normalizes a SED at the given frequency (lognu/Hz) and nuLnu (erg/s). </span>
+<span class="sd">	NOTE: this will modify the SED(s). Alternatively, if the user provides </span>
+<span class="sd">	the argument xray=True, then the method normalizes the SEDs such that </span>
+<span class="sd">	they have the same X-ray luminosity refnlnu in the range 2-10 keV </span>
+<span class="sd">	(thus ignoring the arg.	nuref).</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.normalize([s1,s2,s3])</span>
+
+<span class="sd">	normalizes the SEDs in the object list at the same frequency and nuLnu</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.normalize([s1,s2,s3],refnlnu=1e40,xray=True)</span>
+
+<span class="sd">	normalizes the SEDs such that they have the same X-ray luminosity 1e40 </span>
+<span class="sd">	erg/s in the range 2-10 keV.</span>
+<span class="sd">	</span>
+<span class="sd">	The method is designed to automatically call the interp method (e.g., </span>
+<span class="sd">	s.interp([s1,s2])) if needed.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Precaution in case the user did not use the interp method</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">seds</span><span class="p">)</span>
+		
+		<span class="c1"># If seds==None, then the method operates on the object itself, </span>
+		<span class="c1"># otherwise it operates on a list of objects</span>
+		<span class="k">if</span> <span class="n">seds</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">xray</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>	<span class="c1"># if xray keyword is not provided</span>
+				<span class="c1"># Finds the nuLnu corresponding to the frequency nearest nuref.</span>
+				<span class="c1"># Uses the interpolated arrays for this purpose.</span>
+				<span class="n">i</span><span class="o">=</span><span class="n">lsd</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">nuref</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">)</span>
+			
+				<span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">*</span><span class="n">refnlnu</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">*</span><span class="n">refnlnu</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">lli</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>	<span class="c1"># if xray keyword IS provided</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">xrays</span><span class="p">()</span>
+				<span class="n">factor</span><span class="o">=</span><span class="n">refnlnu</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">lumx</span>	<span class="c1"># normalization factor</span>
+				
+				<span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">*</span><span class="n">factor</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">*</span><span class="n">factor</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">lli</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+				<span class="k">if</span> <span class="n">xray</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>	<span class="c1"># if xray keyword is not provided</span>
+					<span class="n">i</span><span class="o">=</span><span class="n">lsd</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">nuref</span><span class="p">,</span> <span class="n">sed</span><span class="o">.</span><span class="n">lognui</span><span class="p">)</span>
+			
+					<span class="n">sed</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnu</span><span class="o">*</span><span class="n">refnlnu</span><span class="o">/</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="o">*</span><span class="n">refnlnu</span><span class="o">/</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">lli</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="p">)</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+				<span class="k">else</span><span class="p">:</span>	<span class="c1"># if xray keyword IS provided</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">xrays</span><span class="p">()</span>
+					<span class="n">factor</span><span class="o">=</span><span class="n">refnlnu</span><span class="o">/</span><span class="n">sed</span><span class="o">.</span><span class="n">lumx</span>	<span class="c1"># normalization factor</span>
+				
+					<span class="n">sed</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnu</span><span class="o">*</span><span class="n">factor</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="o">=</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="o">*</span><span class="n">factor</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">lli</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="p">)</span>
+					<span class="n">sed</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span></div>
+		
+
+		
+		
+		
+		
+<div class="viewcode-block" id="SED.meanlin"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.meanlin">[docs]</a>	<span class="k">def</span> <span class="nf">meanlin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
+<span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
+<span class="sd">	of their luminosities (log10(average nuLnu)) and returns the list [mean,sd] </span>
+<span class="sd">	where &#39;mean&#39; is SED object with the mean and &#39;sd&#39; is the object with the</span>
+<span class="sd">	standard deviation.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; mean=s.meanlin([s1,s2],17.684,1e40)</span>
+<span class="sd">	returns mean &lt;- [lognu, &lt;s1,s2&gt;],</span>
+<span class="sd">	where &lt;s,s1,s2&gt; -&gt; log10[&lt;nuLnu(s),nuLnu(s1),nuLnu(s2)&gt;], lognu being the common </span>
+<span class="sd">	units of frequency for the SEDs after interpolation.</span>
+<span class="sd">		&quot;&quot;&quot;</span>	
+		<span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">seds</span><span class="p">,</span><span class="n">nuref</span><span class="p">,</span><span class="n">refnlnu</span><span class="p">)</span>	<span class="c1"># normalize them to a common nu</span>
+		
+		<span class="n">s</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">seds</span><span class="p">)</span>
+		<span class="n">lognu</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span>
+		<span class="n">m</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">nlnu</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">)</span>	<span class="c1"># takes the average</span>
+		
+		<span class="c1"># Computes the standard deviation</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>	<span class="c1"># initializes the sd array		</span>
+		<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+			<span class="n">sd</span><span class="o">=</span><span class="n">sd</span><span class="o">+</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">))</span>
+		
+		<span class="n">meansed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">sdsed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sd</span><span class="p">),</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="p">[</span><span class="n">meansed</span><span class="p">,</span><span class="n">sdsed</span><span class="p">]</span>		</div>
+		<span class="c1">#return SED(lognu=lognu, ll=numpy.log10(m))</span>
+		
+
+
+
+
+
+		
+<div class="viewcode-block" id="SED.mean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.mean">[docs]</a>	<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
+<span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
+<span class="sd">	of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) </span>
+<span class="sd">	and returns the list [mean,sd] where &#39;mean&#39; is SED object with the mean and </span>
+<span class="sd">	&#39;sd&#39; is the object with the	standard deviation.</span>
+<span class="sd">	</span>
+<span class="sd">	Alternatively, if the user provides the argument xray=True, then</span>
+<span class="sd">	the method normalizes the SEDs such that they have the same X-ray</span>
+<span class="sd">	luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.</span>
+<span class="sd">	nuref).</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; means=s.mean([s1,s2],17.684,1e40)</span>
+
+<span class="sd">	returns mean &lt;- [lognu, &lt;s1,s2&gt;],</span>
+<span class="sd">	where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common </span>
+<span class="sd">	units of frequency for the SEDs after interpolation.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; means=s.mean([s1,s2],refnlnu=1e40,xray=True)</span>
+
+<span class="sd">	returns the mean after normalizing the SEDs to the X-ray lum.</span>
+<span class="sd">	1e40 erg/s in the range 2-10 keV.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">seds</span><span class="p">,</span><span class="n">nuref</span><span class="p">,</span><span class="n">refnlnu</span><span class="p">,</span><span class="n">xray</span><span class="p">)</span>	<span class="c1"># normalize them to a common nu</span>
+			
+		<span class="c1"># Sum the values of log10(nuLnu)</span>
+		<span class="n">sums</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lli</span><span class="p">)</span>	<span class="c1"># initializes the sum</span>
+		<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+			<span class="n">sums</span><span class="o">=</span><span class="n">sums</span><span class="o">+</span><span class="n">sed</span><span class="o">.</span><span class="n">lli</span>
+
+		<span class="n">lognu</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lognui</span>		
+		<span class="n">m</span><span class="o">=</span><span class="n">sums</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">)</span>	<span class="c1"># takes the average</span>
+		
+		<span class="c1"># Computes the standard deviation</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">sums</span><span class="p">)</span>	<span class="c1"># initializes the std. dev. array</span>
+		<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+			<span class="n">sd</span><span class="o">=</span><span class="n">sd</span><span class="o">+</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">lli</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">))</span>
+		
+		<span class="n">meansed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">sdsed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="p">[</span><span class="n">meansed</span><span class="p">,</span><span class="n">sdsed</span><span class="p">]</span></div>
+		<span class="c1">#return SED(lognu=lognu, ll=m)</span>
+
+
+
+
+
+<div class="viewcode-block" id="SED.median"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.median">[docs]</a>	<span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
+<span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
+<span class="sd">	of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) </span>
+<span class="sd">	and returns the list [mean,sd] where &#39;mean&#39; is SED object with the median and </span>
+<span class="sd">	&#39;sd&#39; is the object with the	standard deviation.</span>
+<span class="sd">	</span>
+<span class="sd">	Alternatively, if the user provides the argument xray=True, then</span>
+<span class="sd">	the method normalizes the SEDs such that they have the same X-ray</span>
+<span class="sd">	luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.</span>
+<span class="sd">	nuref).</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; means=s.median([s1,s2],17.684,1e40)</span>
+
+<span class="sd">	returns median &lt;- [lognu, &lt;s1,s2&gt;],</span>
+<span class="sd">	where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common </span>
+<span class="sd">	units of frequency for the SEDs after interpolation.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; means=s.median([s1,s2],refnlnu=1e40,xray=True)</span>
+
+<span class="sd">	returns the mean after normalizing the SEDs to the X-ray lum.</span>
+<span class="sd">	1e40 erg/s in the range 2-10 keV.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">seds</span><span class="p">,</span><span class="n">nuref</span><span class="p">,</span><span class="n">refnlnu</span><span class="p">,</span><span class="n">xray</span><span class="p">)</span>	<span class="c1"># normalize them to a common nu</span>
+		
+		<span class="c1"># Array that stores the median of luminosities</span>
+		<span class="n">m</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lli</span><span class="p">)</span>
+		
+		<span class="c1"># Loop that uses the numpy.median method</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+			<span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">seds</span><span class="p">))</span>
+			<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">seds</span><span class="p">)):</span>
+				<span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">lli</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="n">m</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+		<span class="n">lognu</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lognui</span>
+
+		<span class="c1"># Computes the standard deviation</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>	<span class="c1"># initializes the std. dev. array</span>
+		<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+			<span class="n">sd</span><span class="o">=</span><span class="n">sd</span><span class="o">+</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">lli</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">))</span>
+		
+		<span class="n">meansed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">sdsed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="p">[</span><span class="n">meansed</span><span class="p">,</span><span class="n">sdsed</span><span class="p">]</span></div>
+
+
+
+
+
+
+	
+
+
+
+
+<div class="viewcode-block" id="SED.geomean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.geomean">[docs]</a>	<span class="k">def</span> <span class="nf">geomean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
+<span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the geometric</span>
+<span class="sd">	mean of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) </span>
+<span class="sd">	and returns the list [mean,sd] where &#39;mean&#39; is SED object with the geometric </span>
+<span class="sd">	mean and &#39;sd&#39; is the object with the standard deviation.</span>
+<span class="sd">	</span>
+<span class="sd">	Alternatively, if the user provides the argument xray=True, then</span>
+<span class="sd">	the method normalizes the SEDs such that they have the same X-ray</span>
+<span class="sd">	luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.</span>
+<span class="sd">	nuref).</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; means=s.mean([s1,s2],17.684,1e40)</span>
+
+<span class="sd">	returns mean &lt;- [lognu, &lt;s1,s2&gt;],</span>
+<span class="sd">	where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common </span>
+<span class="sd">	units of frequency for the SEDs after interpolation.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; means=s.mean([s1,s2],refnlnu=1e40,xray=True)</span>
+<span class="sd">	</span>
+<span class="sd">	returns the mean after normalizing the SEDs to the X-ray lum.</span>
+<span class="sd">	1e40 erg/s in the range 2-10 keV.</span>
+<span class="sd">		&quot;&quot;&quot;</span>	
+		<span class="bp">self</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">seds</span><span class="p">,</span><span class="n">nuref</span><span class="p">,</span><span class="n">refnlnu</span><span class="p">,</span><span class="n">xray</span><span class="p">)</span>	<span class="c1"># normalize them to a common nu</span>
+		
+		<span class="c1"># Calculates the product of log(nuLnu) (produtorio)</span>
+		<span class="n">sums</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lli</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>	<span class="c1"># initializes the sum</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">)):</span>
+			<span class="n">sums</span><span class="o">=</span><span class="n">sums</span><span class="o">*</span><span class="n">seds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lli</span>
+
+		<span class="n">lognu</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lognui</span>		
+		<span class="n">m</span><span class="o">=</span><span class="n">sums</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">))</span> 	<span class="c1"># takes the nth root</span>
+		
+		<span class="c1"># Computes the standard deviation</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">sums</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>	<span class="c1"># initializes the std. dev. array</span>
+		<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+			<span class="n">sd</span><span class="o">=</span><span class="n">sd</span><span class="o">+</span><span class="p">(</span><span class="n">sed</span><span class="o">.</span><span class="n">lli</span><span class="o">-</span><span class="n">m</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+		<span class="n">sd</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sd</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">seds</span><span class="p">))</span>
+		
+		<span class="n">meansed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">sdsed</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">sd</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		
+		<span class="k">return</span> <span class="p">[</span><span class="n">meansed</span><span class="p">,</span><span class="n">sdsed</span><span class="p">]</span></div>
+
+
+
+
+
+
+
+	
+	
+	
+<div class="viewcode-block" id="SED.bol"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.bol">[docs]</a>	<span class="k">def</span> <span class="nf">bol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lognu0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lognu1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xrange</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">22</span><span class="p">]):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Calculates the bolometric luminosity of the SED. Performs the integration </span>
+<span class="sd">	using the trapezoidal rule. Adds the attribute lumbol to the object with</span>
+<span class="sd">	the result.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.bol()</span>
+
+<span class="sd">	makes the variable s.lumbol hold the bolometric luminosity.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.bol(17, 20)</span>
+
+<span class="sd">	makes s.lumbol hold the luminosity integrated in the range 1e17-1e20 Hz.</span>
+
+<span class="sd">	&gt;&gt;&gt; s.bol(18, 20, [s.lognu[0],s.lognu[-1]])</span>
+
+<span class="sd">	gives the integrated luminosity in the range 1e18-1e20 Hz. Before integrating,</span>
+<span class="sd">	interpolates the SED over its original frequency range with 1000 points.</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="kn">import</span> <span class="nn">scipy.integrate</span>
+
+		<span class="c1"># Performs interpolation before integrating. This is a precaution in </span>
+		<span class="c1"># case the user specifies weird integration limits.	In addition, I </span>
+		<span class="c1"># found out that integrating certain sparse SEDs (e.g. qsos) without</span>
+		<span class="c1"># interpolating induces incorrect Lbol estimates		</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">xrange</span><span class="o">=</span><span class="n">xrange</span><span class="p">)</span>			
+		
+		<span class="c1"># If no arguments are given to the method, integrates the entire SED</span>
+		<span class="k">if</span> <span class="n">lognu0</span><span class="o">==</span><span class="kc">None</span> <span class="ow">and</span> <span class="n">lognu1</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+			<span class="n">lumbol</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="c1"># Gets only the elements in the given range</span>
+			<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="o">&gt;=</span><span class="n">lognu0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="o">&lt;=</span><span class="n">lognu1</span><span class="p">))</span>
+			
+			<span class="c1"># Integration</span>
+			<span class="n">lumbol</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+		<span class="k">return</span> <span class="n">lumbol</span></div>
+
+
+	
+
+
+<div class="viewcode-block" id="SED.xrays"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.xrays">[docs]</a>	<span class="k">def</span> <span class="nf">xrays</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Calculates the photon index of the X-ray spectrum and Lx (2-10 keV). </span>
+<span class="sd">	Stores the new attributes gammax and lumx in the object.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; Lx,gamma=s.xrays()</span>
+
+<span class="sd">	creates the new attributes s.lumx and s.gammax</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="kn">import</span> <span class="nn">scipy.integrate</span>
+		<span class="kn">import</span> <span class="nn">scipy.stats</span>
+		
+		<span class="c1"># Performs interpolation before integrating. This is a precaution in </span>
+		<span class="c1"># case the user specify weird integration limits.			</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">()</span>
+		
+		<span class="c1"># 2-10 keV in log(nu)</span>
+		<span class="n">xi</span><span class="p">,</span> <span class="n">xf</span> <span class="o">=</span> <span class="mf">17.684</span><span class="p">,</span> <span class="mf">18.384</span>
+		
+		<span class="c1"># Gets only the elements in the range 2-10 keV</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="o">&gt;=</span><span class="n">xi</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="o">&lt;=</span><span class="n">xf</span><span class="p">))</span>
+		<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">lli</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>	<span class="c1"># easier notation</span>
+		
+		<span class="c1"># Calculates Lx using integration (trapezoidal rule)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lumx</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+		<span class="c1"># Linear fit to the SED in the interval 2-10 keV, y=ax+b</span>
+		<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+		
+		<span class="c1"># Calculates Gamma_X (photon index)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">gammax</span><span class="o">=</span><span class="mi">2</span><span class="o">-</span><span class="n">a</span>
+
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lumx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gammax</span></div>
+		
+		
+		
+		
+		
+	
+<div class="viewcode-block" id="SED.findlum"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.findlum">[docs]</a>	<span class="k">def</span> <span class="nf">findlum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Given the input frequency in units of log(nu/Hz), returns the list [log(nu),</span>
+<span class="sd">	Lnu] with the frequency and luminosity closest to the specified value.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; lognu,lum=s.findlum(14)</span>
+
+<span class="sd">	will look for the freq. and lum. nearest nu=10^14 Hz</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Performs interpolation before the search</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">()</span>
+		
+		<span class="c1"># Looks for the frequency</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">lsd</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">)</span>	<span class="c1"># index</span>
+		
+		<span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span></div>
+	
+	
+	
+	
+	
+	
+<div class="viewcode-block" id="SED.radioloud"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.radioloud">[docs]</a>	<span class="k">def</span> <span class="nf">radioloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the radio-loudness for the SED. Adds the attribute rl to the </span>
+<span class="sd">	object with	the result. If Ro&gt;=10. we have a RL AGN, otherwise it is a</span>
+<span class="sd">	RQ one.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; rl=s.radioloud()</span>
+
+<span class="sd">	makes the variable s.rl hold the radio-loudness.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Radio luminosity at 6 cm. 6 cm -&gt; 4.997x10^9 Hz -&gt; lognu=9.7</span>
+		<span class="n">lumrad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">findlum</span><span class="p">(</span><span class="mf">9.7</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="c1"># Optical lum. at 4400 A. B band -&gt; 4400 A -&gt; 6.813x10^14 Hz -&gt; lognu=14.833 </span>
+		<span class="n">lumopt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">findlum</span><span class="p">(</span><span class="mf">14.833</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+				
+		<span class="c1"># Kellermann recipe: Lnu(6 cm)/Lnu(B)</span>
+		<span class="k">return</span> <span class="n">lumrad</span><span class="o">/</span><span class="n">lumopt</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="SED.alphaox"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.alphaox">[docs]</a>	<span class="k">def</span> <span class="nf">alphaox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the alpha_ox index.</span>
+
+<span class="sd">	&gt;&gt;&gt; alphaox=s.alphaox()</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Lnu(2 keV)</span>
+		<span class="n">lumx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">findlum</span><span class="p">(</span><span class="mf">17.684</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="c1"># UV lum. at 2500 AA -&gt; 1.199e15 Hz  -&gt; lognu=15.079 </span>
+		<span class="n">lumuv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">findlum</span><span class="p">(</span><span class="mf">15.079</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lumx</span><span class="o">/</span><span class="n">lumuv</span><span class="p">)</span><span class="o">/</span><span class="mf">2.605</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="SED.ion"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.ion">[docs]</a>	<span class="k">def</span> <span class="nf">ion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Calculates the rate of ionizing photons in the SED.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; q=s.ion()</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="kn">import</span> <span class="nn">scipy.integrate</span>
+		<span class="kn">import</span> <span class="nn">scipy.stats</span>
+		<span class="n">h</span><span class="o">=</span><span class="mf">6.62607e-27</span>	<span class="c1"># Planck constant in CGS</span>
+		
+		<span class="c1"># Performs interpolation before integrating. This is a precaution in </span>
+		<span class="c1"># case the user specify weird integration limits.			</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">()</span>
+		
+		<span class="c1"># 13.6 eV - &quot;infty&quot;</span>
+		<span class="n">xi</span><span class="p">,</span> <span class="n">xf</span> <span class="o">=</span> <span class="mf">15.52</span><span class="p">,</span> <span class="mf">22.</span>
+		
+		<span class="c1"># Gets only the elements corresponding to ionizing frequencies</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="o">&gt;=</span><span class="n">xi</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="o">&lt;=</span><span class="n">xf</span><span class="p">))</span>
+		<span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lognui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">lli</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>	<span class="c1"># easier notation</span>
+		
+		<span class="c1"># Calculates ionizing rate using integration (trapezoidal rule)</span>
+		<span class="n">q</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+		<span class="k">return</span> <span class="n">q</span></div>
+
+
+		
+		
+	
+	
+	
+<div class="viewcode-block" id="SED.chisq"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.chisq">[docs]</a>	<span class="k">def</span> <span class="nf">chisq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">npars</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the goodness of fit between the observed SED (assumed to be &quot;self&quot;) </span>
+<span class="sd">	and the given model. If you don&#39;t provide the number of free </span>
+<span class="sd">	parameters in the model, it returns a modified chi squared (modified in </span>
+<span class="sd">	the sense that it assumes the uncertainties in all data points to be unity).</span>
+<span class="sd">	If you provide npars it returns the modified reduced chi squared.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.chisq(m)</span>
+<span class="sd">	returns the (modified) chi square with s and m being the observed and model</span>
+<span class="sd">	SEDs, respectively.</span>
+<span class="sd">	</span>
+<span class="sd">	&gt;&gt;&gt; s.chisq(m,4)</span>
+<span class="sd">	returns the reduced chi square.</span>
+<span class="sd">	</span>
+<span class="sd">	NOTE: this method was written assuming that the observed SEDs correspond</span>
+<span class="sd">	to Eracleous&#39; SEDs. Needs to be adapted in order to be applied to other </span>
+<span class="sd">	types of SEDs. We discard the 100 keV interpolation done by EHF10.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">obs</span><span class="o">=</span><span class="bp">self</span>
+		
+		<span class="c1"># Discards upper limits in the data and the 100 keV interpolated point </span>
+		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">obs</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;</span><span class="mf">19.</span><span class="p">))</span>	<span class="c1"># index of elements corresponding to good elements</span>
+		
+		<span class="c1"># Interpolates the model SED in the same binning as the obs.</span>
+		<span class="n">yobs</span><span class="o">=</span><span class="n">obs</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">ymod</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">obs</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">model</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
+
+		<span class="c1"># Chi-square </span>
+		<span class="k">if</span> <span class="n">npars</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+			<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">yobs</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>	<span class="c1"># or reduced chi-square statistic</span>
+			<span class="n">nu</span><span class="o">=</span><span class="n">yobs</span><span class="o">.</span><span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">npars</span>		<span class="c1"># Number of degrees of freedom</span>
+			<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">yobs</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">nu</span>
+			
+		<span class="k">return</span> <span class="n">chisq</span></div>
+	
+	
+	
+	
+	
+<div class="viewcode-block" id="SED.copy"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.copy">[docs]</a>	<span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Returns a copy of the current SED object. Use this in the same way you would use</span>
+<span class="sd">	the numpy copy() method to avoid changing the attributes of a SED</span>
+<span class="sd">	unintentionally.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">c</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">ll</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="n">file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+		
+		<span class="c1"># Precaution if SED was imported using erac method</span>
+		<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;llex&#39;</span><span class="p">):</span>
+			<span class="n">c</span><span class="o">.</span><span class="n">llex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">llex</span>
+			<span class="n">c</span><span class="o">.</span><span class="n">nlnuex</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnuex</span>
+			<span class="n">c</span><span class="o">.</span><span class="n">ul</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span>
+		
+		<span class="k">return</span> <span class="n">c</span></div></div>
+
+
+
+
+<div class="viewcode-block" id="sum"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.sum">[docs]</a><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">seds</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given a list of SEDs previously interpolated in the same binning, </span>
+<span class="sd">sums their luminosities and returns a SED object with the sum.</span>
+<span class="sd">	</span>
+<span class="sd">&gt;&gt;&gt; ss=sum([s,s1,s2])</span>
+
+<span class="sd">returns the SED ss &lt;- [lognu, s+s1+s2],</span>
+<span class="sd">where s+s1+s2 -&gt; log10[nuLnu(s)+nuLnu(s1)+nuLnu(s2)], lognu being the common </span>
+<span class="sd">units of frequency for the SEDs after interpolation.</span>
+<span class="sd">	</span>
+<span class="sd">The method is designed to automatically call the interp method for each SED</span>
+<span class="sd">if needed.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Precaution in case the user did not use the interp method</span>
+	<span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">seds</span><span class="p">)</span>
+		
+	<span class="n">sums</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lognui</span><span class="p">)</span>	<span class="c1"># initializes the sum</span>
+
+	<span class="k">for</span> <span class="n">sed</span> <span class="ow">in</span> <span class="n">seds</span><span class="p">:</span>
+		<span class="n">sums</span><span class="o">=</span><span class="n">sums</span><span class="o">+</span><span class="n">sed</span><span class="o">.</span><span class="n">nlnui</span>
+		
+	<span class="k">return</span> <span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lognui</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">sums</span><span class="p">),</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+		
+
+
+
+
+
+
+
+<div class="viewcode-block" id="haydensed"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.haydensed">[docs]</a><span class="k">def</span> <span class="nf">haydensed</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">patho</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/all/&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/info.dat&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Reads an observed SED from the Hayden et al. sample. Computes useful </span>
+<span class="sd">quantities.</span>
+
+<span class="sd">:param source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four numbers.</span>
+<span class="sd">:param patho: path to observed SED data files</span>
+<span class="sd">:param info: path to information datafile with distances and masses</span>
+<span class="sd">:returns: SED object </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
+	<span class="c1"># READS SEDS</span>
+	<span class="c1"># =============</span>
+	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
+	<span class="c1"># First converts the source name to uppercase, no spaces</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+	<span class="c1"># Reads information table and gets required info</span>
+	<span class="n">t</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+	<span class="n">names</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+	<span class="c1"># finds location of source in the arrays</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+	<span class="c1"># gets distance </span>
+	<span class="n">dist</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distance/Mpc&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># Reads observed SED from radio to X-rays </span>
+	<span class="c1"># (which is given in weird units)</span>
+	<span class="n">ofile</span><span class="o">=</span><span class="n">patho</span><span class="o">+</span><span class="n">source</span><span class="o">+</span><span class="s1">&#39;_sed.txt&#39;</span>
+	<span class="n">o</span><span class="o">=</span><span class="n">SED</span><span class="p">()</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">hayden</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>	
+		
+	<span class="c1"># X-ray data</span>
+	<span class="c1"># Reads Panessa&#39;s X-ray SED and creates another SED object</span>
+	<span class="n">xfile</span><span class="o">=</span><span class="n">patho</span><span class="o">+</span><span class="n">source</span><span class="o">+</span><span class="s1">&#39;_x.txt&#39;</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">SED</span><span class="p">()</span>
+	<span class="n">x</span><span class="o">.</span><span class="n">haydenx</span><span class="p">(</span><span class="n">xfile</span><span class="p">)</span>	
+
+	<span class="c1"># Stacks together all the multiwavelength information</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">lognu</span><span class="p">])</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">ll</span><span class="p">])</span>	
+
+	<span class="k">return</span> <span class="n">o</span></div>
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Author.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
