@@ -151,6 +151,38 @@ class SED:
 
 
 
+	def grmonty(self, file):
+		"""
+		Reads SEDs in the format provided by grmonty. I ported the 
+		original SM script `plspec.m` provided by J. Dolence. 
+		"""
+		import astropy.io.ascii as ascii
+
+		# reads grmonty SED file
+		self.file=file
+		s=ascii.read(file, Reader=ascii.NoHeader)
+
+		# carries out array conversions
+		small = 1e-12
+		ll0 = numpy.log10(s['col2']+small) + numpy.log10(3.83e33)
+		ll1 = numpy.log10(s['col8']+small) + numpy.log10(3.83e33)
+		ll2 = numpy.log10(s['col14']+small) + numpy.log10(3.83e33)
+		ll3 = numpy.log10(s['col20']+small) + numpy.log10(3.83e33)
+		ll4 = numpy.log10(s['col26']+small) + numpy.log10(3.83e33)
+		ll5 = numpy.log10(s['col32']+small) + numpy.log10(3.83e33)
+		lw = s['col1'] + numpy.log10(9.1e-28*3e10*3e10/6.626e-27)
+
+		# gets log(nu) and log(nuLnu)
+		self.lognu, self.ll = lw, ll5
+		self.nu,self.nlnu = 10**self.lognu,10**self.ll
+		
+		# Checks if ll has NaN or Inf values
+		self.check()
+
+
+
+
+
 
 
 

@@ -363,7 +363,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 def fixminus(x):
 	"""
 	Replace nonphysical, negative values in array *x* with the corresponding
-	positiva numerical values. Returns modified array. Does not 
+	positive numerical values. Returns modified array. Does not 
 	touch original array.
 	"""
 	i=numpy.where(x<0)
