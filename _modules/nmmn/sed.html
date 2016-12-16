@@ -195,6 +195,38 @@
 
 
 
+<div class="viewcode-block" id="SED.grmonty"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.grmonty">[docs]</a>	<span class="k">def</span> <span class="nf">grmonty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Reads SEDs in the format provided by grmonty. I ported the </span>
+<span class="sd">		original SM script `plspec.m` provided by J. Dolence. </span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
+
+		<span class="c1"># reads grmonty SED file</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
+		<span class="n">s</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">NoHeader</span><span class="p">)</span>
+
+		<span class="c1"># carries out array conversions</span>
+		<span class="n">small</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">12</span>
+		<span class="n">ll0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
+		<span class="n">ll1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col8&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
+		<span class="n">ll2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col14&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
+		<span class="n">ll3</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col20&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
+		<span class="n">ll4</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col26&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
+		<span class="n">ll5</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col32&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
+		<span class="n">lw</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">9.1e-28</span><span class="o">*</span><span class="mi">3</span><span class="n">e10</span><span class="o">*</span><span class="mi">3</span><span class="n">e10</span><span class="o">/</span><span class="mf">6.626e-27</span><span class="p">)</span>
+
+		<span class="c1"># gets log(nu) and log(nuLnu)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">lw</span><span class="p">,</span> <span class="n">ll5</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
+		
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
+
+
+
+
+
 
 
 
@@ -660,8 +692,35 @@
 			<span class="c1"># Integration</span>
 			<span class="n">lumbol</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnui</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">nui</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
+		<span class="bp">self</span><span class="o">.</span><span class="n">lumbol</span><span class="o">=</span><span class="n">lumbol</span>
+
 		<span class="k">return</span> <span class="n">lumbol</span></div>
 
+
+
+
+
+<div class="viewcode-block" id="SED.edd"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.edd">[docs]</a>	<span class="k">def</span> <span class="nf">edd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mass</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the Eddington ratio :math:`L_{\\rm bol}/L_{\\rm} Edd}`.</span>
+<span class="sd">	First computes the bolometric luminosity via interpolation and </span>
+<span class="sd">	then calculates the Eddington ratio.</span>
+
+<span class="sd">	:param mass: log10(BH mass in solar masses)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Computes Lbol before anything else	</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;lumbol&#39;</span><span class="p">):</span> 			
+			<span class="n">lumbol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bol</span><span class="p">()</span>
+
+		<span class="c1"># if no mass argument was given</span>
+		<span class="k">if</span> <span class="n">mass</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span> 
+			<span class="n">mass</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mass</span>
+
+		<span class="c1"># Eddington ratio</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lumedd</span><span class="o">=</span><span class="mf">1.3e38</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="n">mass</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">eddratio</span><span class="o">=</span><span class="n">lumbol</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">lumedd</span>
+
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eddratio</span></div>
 
 	
 
@@ -900,6 +959,7 @@
 <span class="sd">:param source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four numbers.</span>
 <span class="sd">:param patho: path to observed SED data files</span>
 <span class="sd">:param info: path to information datafile with distances and masses</span>
+
 <span class="sd">:returns: SED object </span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
@@ -917,12 +977,15 @@
 	<span class="n">i</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 	<span class="c1"># gets distance </span>
 	<span class="n">dist</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distance/Mpc&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+	<span class="c1"># gets BH mass</span>
+	<span class="n">mass</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;logmass&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
 
 	<span class="c1"># Reads observed SED from radio to X-rays </span>
 	<span class="c1"># (which is given in weird units)</span>
 	<span class="n">ofile</span><span class="o">=</span><span class="n">patho</span><span class="o">+</span><span class="n">source</span><span class="o">+</span><span class="s1">&#39;_sed.txt&#39;</span>
 	<span class="n">o</span><span class="o">=</span><span class="n">SED</span><span class="p">()</span>
-	<span class="n">o</span><span class="o">.</span><span class="n">hayden</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>	
+	<span class="n">o</span><span class="o">.</span><span class="n">hayden</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">mass</span><span class="o">=</span><span class="n">mass</span>	
 		
 	<span class="c1"># X-ray data</span>
 	<span class="c1"># Reads Panessa&#39;s X-ray SED and creates another SED object</span>

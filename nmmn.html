@@ -334,7 +334,7 @@ by the yt package. Make sure you used regridAll first.</p>
 <dt id="nmmn.grmhd.fixminus">
 <code class="descclassname">nmmn.grmhd.</code><code class="descname">fixminus</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#fixminus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.fixminus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replace nonphysical, negative values in array <em>x</em> with the corresponding
-positiva numerical values. Returns modified array. Does not 
+positive numerical values. Returns modified array. Does not 
 touch original array.</p>
 </dd></dl>
 
@@ -1162,6 +1162,22 @@ unintentionally.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="nmmn.sed.SED.edd">
+<code class="descname">edd</code><span class="sig-paren">(</span><em>mass=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.edd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.edd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the Eddington ratio <span class="math">\(L_{\rm bol}/L_{\rm} Edd}\)</span>.
+First computes the bolometric luminosity via interpolation and 
+then calculates the Eddington ratio.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mass</strong> &#8211; log10(BH mass in solar masses)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="nmmn.sed.SED.erac">
 <code class="descname">erac</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.erac"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.erac" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads SEDs in the format provided by Eracleous et al. LINER SEDs:
@@ -1206,6 +1222,13 @@ units of frequency for the SEDs after interpolation.</p>
 </div>
 <p>returns the mean after normalizing the SEDs to the X-ray lum.
 1e40 erg/s in the range 2-10 keV.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.grmonty">
+<code class="descname">grmonty</code><span class="sig-paren">(</span><em>file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.grmonty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.grmonty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads SEDs in the format provided by grmonty. I ported the 
+original SM script <cite>plspec.m</cite> provided by J. Dolence.</p>
 </dd></dl>
 
 <dl class="method">
