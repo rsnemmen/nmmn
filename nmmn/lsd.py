@@ -69,7 +69,9 @@ Inherited from :func:`nemmen.cmset_and`.
 def cmset_not(x,y):
 	"""
 Usage:
+
 >>> cmset_not(x,y)
+
 returning the index of the elements of array x which are not present in the
 array y. 
 

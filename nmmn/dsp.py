@@ -7,6 +7,7 @@ Mostly time series.
 
 
 import numpy
+import pylab
 
 
 
@@ -61,16 +62,16 @@ def smooth(x,window_len=11,window='hanning'):
 	""" 
 	 
 	if x.ndim != 1:
-	    raise ValueError, "smooth only accepts 1 dimension arrays."
+	    raise ValueError("smooth only accepts 1 dimension arrays.")
 
 	if x.size < window_len:
-	    raise ValueError, "Input vector needs to be bigger than window size."
+	    raise ValueError("Input vector needs to be bigger than window size.")
 	    
 	if window_len<3:
 	    return x
 		
 	if not window in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
-	    raise ValueError, "Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'"
+	    raise ValueError("Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'")
 	
 	s=numpy.r_[x[window_len-1:0:-1],x,x[-1:-window_len:-1]]
 	#print(len(s))
@@ -128,4 +129,51 @@ interval in gray:
 			q[i]=dy/df[i-1]
 
 	return q
+
+
+
+
+
+def ls(t,z,plot=True):
+    """
+Computes and plot Lomb-Scargle periodogram for a given timeseries. 
+Returns arrays with periods and LS spectral power, and most significant 
+periodicity found.
+
+>>> pbest,spmax,t,sp=l.ls(time,values,plot=False)
+
+:returns: best_period, max_power, periods, spectral power
+
+.. todo:: automatically find 3 most significant peaks
+    """
+    import scipy.signal
+
+    tbin = t[1] - t[0] # time bin
+    f = numpy.linspace(0.001, 3./tbin, 10000)
+    z = scipy.signal.detrend(z)
+
+    # periodogram
+    pgram = scipy.signal.lombscargle(t,z,f)
+
+    # Lomb-Scargle spectral power
+    period=1./(f/(2*numpy.pi))
+    spower=(numpy.sqrt(4.*(pgram/len(t)))/numpy.mean(numpy.sqrt(4.*(pgram/len(t)))))**2 
+    
+    # most significant periodicity
+    i=spower.argmax() # finds index of maximum power
+    pbest=period[i]
+    spmax=spower[i]
+    #print("Spectral peak found at t="+str(pbest)+", "+str(spmax))
+
+    # plot
+    if plot==True:
+        #pylab.figure(figsize=(16,8))
+        pylab.title("Lomb-Scargle ")
+        pylab.ylabel('Spectral Power')
+        pylab.xlabel('Period [days]')
+        pylab.xscale('log')
+        pylab.plot(period, spower)
+
+    return pbest,spmax,period,spower
+
 
