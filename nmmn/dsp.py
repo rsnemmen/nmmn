@@ -134,7 +134,7 @@ interval in gray:
 
 
 
-def ls(t,z,plot=True):
+def ls(t,z,plot=False):
     """
 Computes and plot Lomb-Scargle periodogram for a given timeseries. 
 Returns arrays with periods and LS spectral power, and most significant 
