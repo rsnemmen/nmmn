@@ -1414,5 +1414,18 @@ Usage:
 
 
 
+def sig2conf(sig):
+	"""
+Given a number of std. deviations, translates it into a p-value.
+E.g., 1sigma -> p=0.683, 2sigma -> p=0.954, etc.
+
+Inspired on p2sig method.
+
+Usage:
+
+>>> s=sig2conf(5.)
+	"""
+	return scipy.special.erf(sig/numpy.sqrt(2.))
+	
 
 	
