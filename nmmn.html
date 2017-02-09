@@ -163,11 +163,250 @@ the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
 
 </div>
 </div>
-<div class="section" id="nmmn-dsp-module">
-<h2>nmmn.dsp module<a class="headerlink" href="#nmmn-dsp-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-nmmn.dsp">
+<span id="nmmn-dsp-module"></span><h2>nmmn.dsp module<a class="headerlink" href="#module-nmmn.dsp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="signal-processing">
+<h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h3>
+<p>Mostly time series.</p>
+<dl class="function">
+<dt id="nmmn.dsp.ls">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">ls</code><span class="sig-paren">(</span><em>t</em>, <em>z</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes and plot Lomb-Scargle periodogram for a given timeseries. 
+Returns arrays with periods and LS spectral power, and most significant 
+periodicity found.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pbest</span><span class="p">,</span><span class="n">spmax</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">sp</span><span class="o">=</span><span class="n">l</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">values</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
 </div>
-<div class="section" id="nmmn-fermi-module">
-<h2>nmmn.fermi module<a class="headerlink" href="#nmmn-fermi-module" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">best_period, max_power, periods, spectral power</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">automatically find 3 most significant peaks</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.peaks">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">peaks</code><span class="sig-paren">(</span><em>y</em>, <em>x=None</em>, <em>what=0</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#peaks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detects the peaks in the time series given by Y (and X if provided).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x,y</strong> &#8211; time series input arrays</li>
+<li><strong>what</strong> &#8211; select what you want &#8211; max/0 or min/1 peaks returned</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">xmax,ymax &#8211; arrays with max peaks in the data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.smooth">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">smooth</code><span class="sig-paren">(</span><em>x</em>, <em>window_len=11</em>, <em>window='hanning'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smooth"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.smooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth the data using a window with requested size.
+Copied from <a class="reference external" href="http://wiki.scipy.org/Cookbook/SignalSmooth">http://wiki.scipy.org/Cookbook/SignalSmooth</a></p>
+<p>This method is based on the convolution of a scaled window with the signal.
+The signal is prepared by introducing reflected copies of the signal 
+(with the window size) in both ends so that transient parts are minimized
+in the begining and end part of the output signal.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; the input signal</li>
+<li><strong>window_len</strong> &#8211; the dimension of the smoothing window; should be an odd integer</li>
+<li><strong>window</strong> &#8211; the type of window from &#8216;flat&#8217;, &#8216;hanning&#8217;, &#8216;hamming&#8217;, &#8216;bartlett&#8217;, &#8216;blackman&#8217;     flat window will produce a moving average smoothing.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the smoothed signal</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span><span class="o">*</span><span class="mf">0.1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="n">smooth</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">numpy.hanning, numpy.hamming, numpy.bartlett, numpy.blackman, numpy.convolve, scipy.signal.lfilter</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">length(output) != length(input), to correct this: return y[(window_len/2-1):-(window_len/2)] instead of just y.</p>
+</div>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">the window parameter could be the window itself if an array instead of a string</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.smoothxy">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">smoothxy</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>*arg</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smoothxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.smoothxy" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> &#8211; &#8220;time&#8221; in the time series</li>
+<li><strong>y</strong> &#8211; y variable</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">smoothed y and corresponding x arrays</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.varsig">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">varsig</code><span class="sig-paren">(</span><em>f</em>, <em>df</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#varsig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.varsig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quantifies significance of variability of time series, taking into 
+account the uncertainties.</p>
+<p>Given the time series signal <em>y</em> and the corresponding uncertainties
+<span class="math">\(\sigma y\)</span>, the test statistics <em>T</em> is defined as</p>
+<div class="math">
+\[T \equiv \frac{y_{i+1}-y_i}{\sigma y_i}.\]</div>
+<p><em>T</em> will give the significance of variability at each point in time,
+in standard deviations of the preceding noise point.</p>
+<p><strong>Usage:</strong></p>
+<p>Computes TS and plots time series, highlighting the 1sigma variability
+interval in gray:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ts</span><span class="o">=</span><span class="n">varsig</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span><span class="n">errflux</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">step</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">q</span><span class="p">,</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fill_between</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">ones_like</span><span class="p">(</span><span class="n">tdec</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="n">ones_like</span><span class="p">(</span><span class="n">tdec</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">generalize to arbitrary windows of time</p>
+</div>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">propagate uncertainty</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-nmmn.fermi">
+<span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="methods-to-handle-fermi-lat-data">
+<h3>Methods to handle Fermi LAT data<a class="headerlink" href="#methods-to-handle-fermi-lat-data" title="Permalink to this headline">¶</a></h3>
+<p>Handle output of Fermi analysis.</p>
+<dl class="function">
+<dt id="nmmn.fermi.PixelFile">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">PixelFile</code><span class="sig-paren">(</span><em>i</em>, <em>j</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#PixelFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.PixelFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the name of a file where the result of 1 pixel 
+evaluation will be stored</p>
+<p>From enrico/tsmap.py.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.converttime">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">converttime</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#converttime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.converttime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts from MET Fermi time to a python datetime tuple.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">convertyear</span><span class="p">(</span><span class="mi">386817828</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returns datetime.datetime(2013, 4, 5, 1, 23, 48).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>y</strong> &#8211; a float or array of floats</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a datetime structure (or list) with the date corresponding to the input float or array</td>
+</tr>
+</tbody>
+</table>
+<p>y is the amount of seconds since 2001.0 UTC. Beware that my method
+may assume that all years have 365 days.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python">http://stackoverflow.com/questions/19305991/convert-fractional-years-to-a-real-date-in-python</a></li>
+<li><a class="reference external" href="http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl">http://heasarc.gsfc.nasa.gov/cgi-bin/Tools/xTime/xTime.pl</a></li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.getconfig">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">getconfig</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#getconfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.getconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads config file and gets parameters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.plotMap">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">plotMap</code><span class="sig-paren">(</span><em>counts</em>, <em>out='tmp.png'</em>, <em>cmap=None</em>, <em>roi=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotMap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method plots some count map. Inherited from the method plotMaps
+above.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>counts</strong> &#8211; FITS file with counts to be plotted</li>
+<li><strong>cmap</strong> &#8211; desired colormap for image</li>
+<li><strong>roi</strong> &#8211; DS9 region file if present, otherwise leave None</li>
+<li><strong>out</strong> &#8211; output filename and format</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">image file &#8216;tmp.png&#8217; in the source folder.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.plotMaps">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">plotMaps</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em>, <em>cmap=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotMaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotMaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the directory where the results of an Enrico analysis are 
+located (enrico_sed), this method plots the different count maps
+(observed, model and residuals).</p>
+<p>This is the fixed version of the script plotMaps.py from the Enrico
+distribution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>configdir</strong> &#8211; directory with &#8220;/&#8221; at the end that points to the place</td>
+</tr>
+</tbody>
+</table>
+<p>where Enrico output files are located.
+:returns: image file SOURCE_Maps.png in the source folder.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.plotTSmap">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">plotTSmap</code><span class="sig-paren">(</span><em>configfile='analysis.conf'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#plotTSmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.plotTSmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>From Enrico/tsmap.py.</p>
+<p>Gather the results of the evaluation of 
+each pixel and fill a fits file</p>
+</dd></dl>
+
+</div>
 </div>
 <div class="section" id="module-nmmn.grmhd">
 <span id="nmmn-grmhd-module"></span><h2>nmmn.grmhd module<a class="headerlink" href="#module-nmmn.grmhd" title="Permalink to this headline">¶</a></h2>
@@ -391,9 +630,11 @@ array y.</p>
 <dl class="function">
 <dt id="nmmn.lsd.cmset_not">
 <code class="descclassname">nmmn.lsd.</code><code class="descname">cmset_not</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#cmset_not"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.cmset_not" title="Permalink to this definition">¶</a></dt>
-<dd><p>Usage:
-&gt;&gt;&gt; cmset_not(x,y)
-returning the index of the elements of array x which are not present in the
+<dd><p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cmset_not</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>returning the index of the elements of array x which are not present in the
 array y.</p>
 <p>This is equivalent to using the IDL command
 SET = CMSET_OP(A, &#8216;AND&#8217;, /NOT2, B, /INDEX)   ; A but not B
@@ -481,7 +722,7 @@ new grid).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-1">
+<div class="admonition-todo admonition" id="index-5">
 <p class="first admonition-title">Todo</p>
 <p class="last">need to create a 3d version of this method, paving the road for the 3d simulations.</p>
 </div>
@@ -2246,6 +2487,18 @@ the array ymod, tabulated exactly like ydata.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.stats.sig2conf">
+<code class="descclassname">nmmn.stats.</code><code class="descname">sig2conf</code><span class="sig-paren">(</span><em>sig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#sig2conf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.sig2conf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a number of std. deviations, translates it into a p-value.
+E.g., 1sigma -&gt; p=0.683, 2sigma -&gt; p=0.954, etc.</p>
+<p>Inspired on p2sig method.</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">sig2conf</span><span class="p">(</span><span class="mf">5.</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.stats.splitnorm">
 <code class="descclassname">nmmn.stats.</code><code class="descname">splitnorm</code><span class="sig-paren">(</span><em>x</em>, <em>sig1=1.0</em>, <em>sig2=1.0</em>, <em>mu=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#splitnorm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.splitnorm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split normal distribution (or asymmetric gaussian) PDF. Useful when dealing
@@ -2384,8 +2637,14 @@ intensive minimization involved when fitting a function.</p>
 <li><a class="reference internal" href="#methods-for-dealing-with-bayesian-statistics">Methods for dealing with Bayesian statistics</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#nmmn-dsp-module">nmmn.dsp module</a></li>
-<li><a class="reference internal" href="#nmmn-fermi-module">nmmn.fermi module</a></li>
+<li><a class="reference internal" href="#module-nmmn.dsp">nmmn.dsp module</a><ul>
+<li><a class="reference internal" href="#signal-processing">Signal processing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nmmn.fermi">nmmn.fermi module</a><ul>
+<li><a class="reference internal" href="#methods-to-handle-fermi-lat-data">Methods to handle Fermi LAT data</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-nmmn.grmhd">nmmn.grmhd module</a><ul>
 <li><a class="reference internal" href="#dealing-with-gr-r-m-hd-simulations">Dealing with (GR)(R)(M)HD simulations</a></li>
 </ul>
