@@ -1,5 +1,9 @@
 """
-Downloaded from https://gist.github.com/sixtenbe.
+Peak detection in time series
+===================================
+
+Originally downloaded from https://gist.github.com/sixtenbe. 
+However, now I can't find the original source for the code anymore.
 """
 
 import numpy as np

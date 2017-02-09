@@ -6,7 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 #BUILDDIR      = _build
-BUILDDIR      = /Users/nemmen/work/codes/python/nmmn-ghpages
+BUILDDIR      = /Users/nemmen/Dropbox/codes/python/nmmn-ghpages
 
 
 # User-friendly check for sphinx-build

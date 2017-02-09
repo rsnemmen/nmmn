@@ -8,7 +8,7 @@ with open('LICENSE') as f:
 
 setup(
     name='nmmn',
-    version='0.1',
+    version='0.2',
     description='Miscellaneous methods for astronomy, dealing with arrays, statistical distributions and computing goodness-of-fit',
     long_description=readme,
     author='Rodrigo Nemmen',
