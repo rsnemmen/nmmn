@@ -1162,6 +1162,18 @@ Chris Slocum, Colorado State University</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.plots.parulacmap">
+<code class="descclassname">nmmn.plots.</code><code class="descname">parulacmap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#parulacmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.parulacmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the beautiful Parula colormap which is Matlab&#8217;s default.</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mycmap</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">parulacmap</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imshow</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">mycmap</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Code taken from <a class="reference external" href="https://github.com/BIDS/colormap/blob/master/parula.py">here</a></p>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.plots.plotlinfit">
 <code class="descclassname">nmmn.plots.</code><code class="descname">plotlinfit</code><span class="sig-paren">(</span><em>xdata</em>, <em>ydata</em>, <em>a</em>, <em>b</em>, <em>erra</em>, <em>errb</em>, <em>cov</em>, <em>linestyle=''</em>, <em>conf=0.683</em>, <em>confcolor='gray'</em>, <em>xplot=None</em>, <em>front=False</em>, <em>**args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#plotlinfit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.plotlinfit" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a wrapper that given the output data from a linear regression
