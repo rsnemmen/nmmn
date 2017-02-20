@@ -803,3 +803,78 @@ def parulacmap():
 
 
 
+
+
+
+
+
+
+
+
+
+def jointplot(X,Y,xlabel=None,ylabel=None,binsim=40,binsh=20):
+	"""
+Plots the joint distribution of posteriors for X1 and X2, including the 1D
+histograms showing the median and standard deviations.
+
+The work that went in creating this nice method is shown, step by step, in 
+the ipython notebook "error contours.ipynb". Sources of inspiration:
+- http://python4mpia.github.io/intro/quick-tour.html
+- http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals
+
+Usage:
+>>> jointplot(M.rtr.trace(),M.mdot.trace(),xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
+	"""
+	# Generates 2D histogram for image
+	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], normed=False)
+	histt = numpy.transpose(histt)  # Beware: numpy switches axes, so switch back.
+
+	# assigns correct proportions to subplots
+	fig=pylab.figure()
+	gs = pylab.GridSpec(2, 2, width_ratios=[3,1], height_ratios=[1,3], wspace=0.001, hspace=0.001)
+	con=pylab.subplot(gs[2])
+	histx=pylab.subplot(gs[0], sharex=con)
+	histy=pylab.subplot(gs[3], sharey=con)
+		
+	# Image
+	con.imshow(histt,extent=[xt[0],xt[-1], yt[0],yt[-1]],origin='lower',cmap=pylab.cm.gray_r,aspect='auto')
+
+	# Overplot with error contours 1,2 sigma
+	pdf = scipy.stats.gaussian_kde([X, Y])
+	x,y = pylab.meshgrid(xt,yt)
+	z = numpy.array(pdf.evaluate([x.flatten(),y.flatten()])).reshape(x.shape)
+	# the [61,15] values were obtained by trial and error until the joint confidence 
+	# contours matched the confidence intervals from the individual X,Y
+	s=scipy.stats.scoreatpercentile(pdf(pdf.resample(1000)), [61,15])
+	cs=con.contour(x,y,z, levels=s, extent=[x[0],x[-1], y[0],y[-1]], linestyles=['-','-','-'], colors=['black','blue'])
+	# use dictionary in order to assign your own labels to the contours.
+	#fmtdict = {s[0]:r'$1\sigma$',s[1]:r'$2\sigma$'}
+	#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)
+	if xlabel!=None: con.set_xlabel(xlabel)
+	if ylabel!=None: con.set_ylabel(ylabel)
+
+	# X-axis histogram
+	histx.hist(X, binsh, histtype='stepfilled',facecolor='lightblue')
+	pylab.setp(histx.get_xticklabels(), visible=False)	# no X label
+	pylab.setp(histx.get_yticklabels(), visible=False)	# no Y label
+	# Vertical lines with median and 1sigma confidence
+	yax=histx.set_ylim()
+	histx.plot([numpy.median(X),numpy.median(X)],[yax[0],yax[1]],'k-',linewidth=2) # median
+	xsd=scipy.stats.scoreatpercentile(X, [15.87,84.13])
+	histx.plot([xsd[0],xsd[0]],[yax[0],yax[1]],'k--') # -1sd
+	histx.plot([xsd[-1],xsd[-1]],[yax[0],yax[1]],'k--') # +1sd
+
+	# Y-axis histogram
+	histy.hist(Y, binsh, histtype='stepfilled', orientation='horizontal',facecolor='lightyellow')
+	pylab.setp(histy.get_yticklabels(), visible=False)	# no Y label
+	pylab.setp(histy.get_xticklabels(), visible=False)	# no X label
+	# Vertical lines with median and 1sigma confidence
+	xax=histy.set_xlim()
+	histy.plot([xax[0],xax[1]],[numpy.median(Y),numpy.median(Y)],'k-',linewidth=2) # median
+	ysd=scipy.stats.scoreatpercentile(Y, [15.87,84.13])
+	histy.plot([xax[0],xax[1]],[ysd[0],ysd[0]],'k--') # -1sd
+	histy.plot([xax[0],xax[1]],[ysd[-1],ysd[-1]],'k--') # +1sd
+
+
+
+
