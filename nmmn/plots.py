@@ -812,7 +812,7 @@ def parulacmap():
 
 
 
-def jointplot(X,Y,xlabel=None,ylabel=None,binsim=40,binsh=20):
+def jointplot(X,Y,xlabel=None,ylabel=None,binsim=40,binsh=20,contour=True):
 	"""
 Plots the joint distribution of posteriors for X1 and X2, including the 1D
 histograms showing the median and standard deviations.
@@ -840,18 +840,19 @@ Usage:
 	con.imshow(histt,extent=[xt[0],xt[-1], yt[0],yt[-1]],origin='lower',cmap=pylab.cm.gray_r,aspect='auto')
 
 	# Overplot with error contours 1,2 sigma
-	pdf = scipy.stats.gaussian_kde([X, Y])
-	x,y = pylab.meshgrid(xt,yt)
-	z = numpy.array(pdf.evaluate([x.flatten(),y.flatten()])).reshape(x.shape)
-	# the [61,15] values were obtained by trial and error until the joint confidence 
-	# contours matched the confidence intervals from the individual X,Y
-	s=scipy.stats.scoreatpercentile(pdf(pdf.resample(1000)), [61,15])
-	cs=con.contour(x,y,z, levels=s, extent=[x[0],x[-1], y[0],y[-1]], linestyles=['-','-','-'], colors=['black','blue'])
-	# use dictionary in order to assign your own labels to the contours.
-	#fmtdict = {s[0]:r'$1\sigma$',s[1]:r'$2\sigma$'}
-	#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)
-	if xlabel!=None: con.set_xlabel(xlabel)
-	if ylabel!=None: con.set_ylabel(ylabel)
+	if contour==True:
+		pdf = scipy.stats.gaussian_kde([X, Y])
+		x,y = pylab.meshgrid(xt,yt)
+		z = numpy.array(pdf.evaluate([x.flatten(),y.flatten()])).reshape(x.shape)
+		# the [61,15] values were obtained by trial and error until the joint confidence 
+		# contours matched the confidence intervals from the individual X,Y
+		s=scipy.stats.scoreatpercentile(pdf(pdf.resample(1000)), [61,15])
+		cs=con.contour(x,y,z, levels=s, extent=[x[0],x[-1], y[0],y[-1]], linestyles=['-','-','-'], colors=['black','blue'])
+		# use dictionary in order to assign your own labels to the contours.
+		#fmtdict = {s[0]:r'$1\sigma$',s[1]:r'$2\sigma$'}
+		#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)
+		if xlabel!=None: con.set_xlabel(xlabel)
+		if ylabel!=None: con.set_ylabel(ylabel)
 
 	# X-axis histogram
 	histx.hist(X, binsh, histtype='stepfilled',facecolor='lightblue')
