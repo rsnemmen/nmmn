@@ -136,19 +136,6 @@ git://github.com/aflaxman/pymc-example-tfr-hdi.git</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="nmmn.bayes.jointplot">
-<code class="descclassname">nmmn.bayes.</code><code class="descname">jointplot</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
-histograms showing the median and standard deviations.</p>
-<p>The work that went in creating this nice method is shown, step by step, in 
-the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
-- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a>
-- <a class="reference external" href="http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals">http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals</a></p>
-<p>Usage:
-&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="nmmn.bayes.jointplotx">
 <code class="descclassname">nmmn.bayes.</code><code class="descname">jointplotx</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em>, <em>binscon=15</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/bayes.html#jointplotx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.bayes.jointplotx" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
@@ -168,6 +155,13 @@ the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
 <div class="section" id="signal-processing">
 <h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h3>
 <p>Mostly time series.</p>
+<dl class="function">
+<dt id="nmmn.dsp.cwt">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">cwt</code><span class="sig-paren">(</span><em>t</em>, <em>sig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#cwt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.cwt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the time and flux (sig), this method computes a continuous 
+wavelet transform (CWT).</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="nmmn.dsp.ls">
 <code class="descclassname">nmmn.dsp.</code><code class="descname">ls</code><span class="sig-paren">(</span><em>t</em>, <em>z</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls" title="Permalink to this definition">¶</a></dt>
@@ -1139,6 +1133,19 @@ points; otherwise, will plot it behind the points</li>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.jointplot">
+<code class="descclassname">nmmn.plots.</code><code class="descname">jointplot</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>xlabel=None</em>, <em>ylabel=None</em>, <em>binsim=40</em>, <em>binsh=20</em>, <em>contour=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#jointplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.jointplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the joint distribution of posteriors for X1 and X2, including the 1D
+histograms showing the median and standard deviations.</p>
+<p>The work that went in creating this nice method is shown, step by step, in 
+the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
+- <a class="reference external" href="http://python4mpia.github.io/intro/quick-tour.html">http://python4mpia.github.io/intro/quick-tour.html</a>
+- <a class="reference external" href="http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals">http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals</a></p>
+<p>Usage:
+&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#8217;$log r_{rm tr}$&#8217;, ylabel=&#8217;$log dot{m}$&#8217;)</p>
 </dd></dl>
 
 <dl class="function">
@@ -2299,6 +2306,10 @@ interval <em>[x0,x1)</em>.</p>
 <code class="descclassname">nmmn.stats.</code><code class="descname">random_normal</code><span class="sig-paren">(</span><em>mean</em>, <em>std</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#random_normal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.random_normal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an array of n elements of random variables, following a normal 
 distribution with the supplied mean and standard deviation.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">this is superseded. Use <a href="#id4"><span class="problematic" id="id5">`numpy.random.normal&lt;https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html&gt;`_</span></a> instead.</p>
+</div>
 </dd></dl>
 
 <dl class="function">
