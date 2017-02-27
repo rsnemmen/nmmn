@@ -1151,6 +1151,8 @@ def random_normal(mean,std,n):
 	"""
 Returns an array of n elements of random variables, following a normal 
 distribution with the supplied mean and standard deviation.
+
+.. warning:: this is superseded. Use `numpy.random.normal<https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html>`_ instead.
 	"""
 	return std*scipy.random.standard_normal(n)+mean
 	

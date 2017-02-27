@@ -179,3 +179,41 @@ periodicity found.
     return pbest,spmax,period,spower
 
 
+
+
+
+
+
+
+
+
+def cwt(t,sig):
+
+    """Given the time and flux (sig), this method computes a continuous 
+    wavelet transform (CWT).
+    """
+    import matplotlib
+    import matplotlib.pyplot as plt
+    import obspy.signal.tf_misfit
+    import scipy.signal
+
+
+    tbin = t[1] - t[0]
+    freqLC = numpy.fft.fftfreq(len(t),d=tbin)
+    fluxo = sig
+    
+    sig = scipy.signal.detrend(sig)
+    fig = plt.figure()
+    f_min = 5./t.max()
+    f_max = 1000*freqLC.max()     #so calcula ate onde vai a FFT. Porque nao faz sentido tentar encontrar frequencias alem da resolucao temporal
+    gs0 = matplotlib.gridspec.GridSpec(2, 2,hspace=0,wspace=0)   #GridSpec specifies the geometry of the grid that a subplot will be placed. 
+                                                      #The number of rows and number of columns of the grid need to be set (here: 2 x 2).
+                                                      #The horizontal and vertical space between graphics can be adjusted in "hspace" and "wspace"
+    ax = fig.add_subplot(gs0[0])
+    dt = 0.001*tbin
+    CWT = obspy.signal.tf_misfit.cwt(sig,dt,6,f_min,f_max,nf=1000)
+    x, y = numpy.meshgrid(t, numpy.logspace(numpy.log10(f_min), numpy.log10(f_max), CWT.shape[0]))
+    NormCWT = (numpy.abs(CWT)**2)/numpy.var(fluxo)
+
+
+    return x, 1000./y, NormCWT

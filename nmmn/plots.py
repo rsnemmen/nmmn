@@ -825,6 +825,8 @@ the ipython notebook "error contours.ipynb". Sources of inspiration:
 Usage:
 >>> jointplot(M.rtr.trace(),M.mdot.trace(),xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
 	"""
+	import scipy
+
 	# Generates 2D histogram for image
 	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], normed=False)
 	histt = numpy.transpose(histt)  # Beware: numpy switches axes, so switch back.
