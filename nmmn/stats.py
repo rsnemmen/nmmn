@@ -664,7 +664,25 @@ v1 Jun. 2012: inspired by private communication with B. Kelly.
 	
 	
 	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Monte Carlo simulations, generate random numbers
+# ===================================================	
 	
 
 def gauss2d(par,varcov,n=10000):
@@ -754,6 +772,51 @@ performs 100000 bootstrapping realizations on the arrays x and y.
 		
 	return r,rho
 
+
+def gen_ts(y,erry,n,zeropad=True):
+    """
+Given a time series (TS) with uncertainties on the signal, this will generate 
+*n* new TS with y-values distributed according to the error bars. 
+
+Output will be a :math:`n \\times {\rm{size}(t)}` array. Each row of this
+array contains a simulated TS.
+
+:param y: array of y-values for time series (do not need to be in order)
+:param erry: array of 1-sigma errors on y-values
+:param n: number of Mock TS to generate
+:param zeropad: are y-values<0 not allowed? `True` will make any values<0 into 0
+:returns: `n x size(t)` array. Each row of this array contains a simulated TS
+    """
+    ysim=numpy.empty((n,y.size))
+    
+    for i in range(y.size):
+        # generate new points given normal distribution
+        ysim[:,i]=numpy.random.normal(y[i],erry[i],n)   
+        
+    # makes sure no value is smaller than zero
+    ysim[ysim<0]=0.
+    
+    return ysim
+
+
+def random_normal(mean,std,n):
+	"""
+Returns an array of n elements of random variables, following a normal 
+distribution with the supplied mean and standard deviation.
+
+.. warning:: this is superseded. Use `numpy.random.normal <https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html>`_ instead.
+	"""
+	return std*scipy.random.standard_normal(n)+mean
+
+
+def random(a,b,n=None):
+	"""
+Generates an array of random uniformly distributed floats in the 
+interval *[x0,x1)*.
+
+>>> random(0.3,0.4,1000)
+	"""
+	return (b - a) * scipy.random.random_sample(n) + a
 
 
 
@@ -1146,20 +1209,6 @@ Finds the mode of a distribution, i.e. the value where the PDF peaks.
 # ==================================
 #
 
-	
-def random_normal(mean,std,n):
-	"""
-Returns an array of n elements of random variables, following a normal 
-distribution with the supplied mean and standard deviation.
-
-.. warning:: this is superseded. Use `numpy.random.normal<https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html>`_ instead.
-	"""
-	return std*scipy.random.standard_normal(n)+mean
-	
-
-
-
-
 def randomvariate(pdf,n=1000,xmin=0,xmax=1):
 	"""
 Rejection method for random number generation:
@@ -1216,18 +1265,6 @@ v1 Nov. 2011
 	ran=numpy.asarray(ran)
 	
 	return ran,ntrial
-
-
-
-def random(a,b,n=None):
-	"""
-Generates an array of random uniformly distributed floats in the 
-interval *[x0,x1)*.
-
->>> random(0.3,0.4,1000)
-	"""
-	return (b - a) * scipy.random.random_sample(n) + a
-
 
 
 
