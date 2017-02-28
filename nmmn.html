@@ -2119,6 +2119,33 @@ parameters</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.stats.gen_ts">
+<code class="descclassname">nmmn.stats.</code><code class="descname">gen_ts</code><span class="sig-paren">(</span><em>y</em>, <em>erry</em>, <em>n</em>, <em>zeropad=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#gen_ts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.gen_ts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a time series (TS) with uncertainties on the signal, this will generate 
+<em>n</em> new TS with y-values distributed according to the error bars.</p>
+<p>Output will be a <span class="math">\(n \times {
+m{size}(t)}\)</span> array. Each row of this
+array contains a simulated TS.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y</strong> &#8211; array of y-values for time series (do not need to be in order)</li>
+<li><strong>erry</strong> &#8211; array of 1-sigma errors on y-values</li>
+<li><strong>n</strong> &#8211; number of Mock TS to generate</li>
+<li><strong>zeropad</strong> &#8211; are y-values&lt;0 not allowed? <cite>True</cite> will make any values&lt;0 into 0</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><cite>n x size(t)</cite> array. Each row of this array contains a simulated TS</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.stats.intscat">
 <code class="descclassname">nmmn.stats.</code><code class="descname">intscat</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>errx</em>, <em>erry</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#intscat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.stats.intscat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimates the intrinsic scatter about the best-fit, taking into account

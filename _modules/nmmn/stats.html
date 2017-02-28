@@ -708,7 +708,25 @@
 	
 	
 	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="c1"># Monte Carlo simulations, generate random numbers</span>
+<span class="c1"># ===================================================	</span>
 	
 
 <div class="viewcode-block" id="gauss2d"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.gauss2d">[docs]</a><span class="k">def</span> <span class="nf">gauss2d</span><span class="p">(</span><span class="n">par</span><span class="p">,</span><span class="n">varcov</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">10000</span><span class="p">):</span>
@@ -798,6 +816,51 @@
 		
 	<span class="k">return</span> <span class="n">r</span><span class="p">,</span><span class="n">rho</span></div>
 
+
+<div class="viewcode-block" id="gen_ts"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.gen_ts">[docs]</a><span class="k">def</span> <span class="nf">gen_ts</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">zeropad</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given a time series (TS) with uncertainties on the signal, this will generate </span>
+<span class="sd">*n* new TS with y-values distributed according to the error bars. </span>
+
+<span class="sd">Output will be a :math:`n \\times {\rm{size}(t)}` array. Each row of this</span>
+<span class="sd">array contains a simulated TS.</span>
+
+<span class="sd">:param y: array of y-values for time series (do not need to be in order)</span>
+<span class="sd">:param erry: array of 1-sigma errors on y-values</span>
+<span class="sd">:param n: number of Mock TS to generate</span>
+<span class="sd">:param zeropad: are y-values&lt;0 not allowed? `True` will make any values&lt;0 into 0</span>
+<span class="sd">:returns: `n x size(t)` array. Each row of this array contains a simulated TS</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ysim</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="c1"># generate new points given normal distribution</span>
+        <span class="n">ysim</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">erry</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">n</span><span class="p">)</span>   
+        
+    <span class="c1"># makes sure no value is smaller than zero</span>
+    <span class="n">ysim</span><span class="p">[</span><span class="n">ysim</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.</span>
+    
+    <span class="k">return</span> <span class="n">ysim</span></div>
+
+
+<div class="viewcode-block" id="random_normal"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.random_normal">[docs]</a><span class="k">def</span> <span class="nf">random_normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span><span class="n">std</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Returns an array of n elements of random variables, following a normal </span>
+<span class="sd">distribution with the supplied mean and standard deviation.</span>
+
+<span class="sd">.. warning:: this is superseded. Use `numpy.random.normal &lt;https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html&gt;`_ instead.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">return</span> <span class="n">std</span><span class="o">*</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="n">mean</span></div>
+
+
+<div class="viewcode-block" id="random"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.random">[docs]</a><span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Generates an array of random uniformly distributed floats in the </span>
+<span class="sd">interval *[x0,x1)*.</span>
+
+<span class="sd">&gt;&gt;&gt; random(0.3,0.4,1000)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span></div>
 
 
 
@@ -1190,20 +1253,6 @@
 <span class="c1"># ==================================</span>
 <span class="c1">#</span>
 
-	
-<div class="viewcode-block" id="random_normal"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.random_normal">[docs]</a><span class="k">def</span> <span class="nf">random_normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span><span class="n">std</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Returns an array of n elements of random variables, following a normal </span>
-<span class="sd">distribution with the supplied mean and standard deviation.</span>
-
-<span class="sd">.. warning:: this is superseded. Use `numpy.random.normal &lt;https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html&gt;`_ instead.</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">return</span> <span class="n">std</span><span class="o">*</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="n">mean</span></div>
-	
-
-
-
-
 <div class="viewcode-block" id="randomvariate"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.randomvariate">[docs]</a><span class="k">def</span> <span class="nf">randomvariate</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">xmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">xmax</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Rejection method for random number generation:</span>
@@ -1260,18 +1309,6 @@
 	<span class="n">ran</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">ran</span><span class="p">)</span>
 	
 	<span class="k">return</span> <span class="n">ran</span><span class="p">,</span><span class="n">ntrial</span></div>
-
-
-
-<div class="viewcode-block" id="random"><a class="viewcode-back" href="../../nmmn.html#nmmn.stats.random">[docs]</a><span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Generates an array of random uniformly distributed floats in the </span>
-<span class="sd">interval *[x0,x1)*.</span>
-
-<span class="sd">&gt;&gt;&gt; random(0.3,0.4,1000)</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">return</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="n">a</span></div>
-
 
 
 
