@@ -82,8 +82,7 @@ sharing the same X-axis.
 
 Arguments:
 - x1,x2,x3: arrays with data to be plotted
-- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range
-	for both histograms.
+- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range for both histograms.
 - x1leg, x2leg, x3leg: legends for each histogram	
 - xlabel: self-explanatory.
 - sharey: sharing the Y-axis among the histograms?

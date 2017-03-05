@@ -89,10 +89,19 @@ the corresponding linear size in pc.
 
 
 
+def freq(T):
+    """
+    Convert array of periods in days to frequencies in Hz.
+    """
+    return 1./T/86400.
 
 
 
-
+def period(freq):
+    """
+    Convert array of frequencies to periods.
+    """
+    return 1./freq
 
 
 

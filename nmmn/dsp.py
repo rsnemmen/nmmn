@@ -217,3 +217,47 @@ def cwt(t,sig):
 
 
     return x, 1000./y, NormCWT
+
+
+
+
+def reconstruct(wa,i=None):
+    """
+    Method to reconstruct a time series signal based on its CWT. 
+
+    signal is the object generated with the wavelets module
+    i is the index array with the elements you want to filter out (make zero)
+
+	:param wa: wavelet object generated with `wavelets` module
+	:param i: index array containing only the elements that will used in the CWT array to reconstruct the signal
+
+	Example: 
+
+    wa = wavelets.WaveletAnalysis(var, dt=dt)
+# wavelet power spectrum
+power = wa.wavelet_power
+
+# scales 
+scales = wa.scales
+
+# associated time vector
+tw = wa.time
+
+# reconstruction of the original data
+rx = wa.reconstruction()
+    """
+    wavecut=wa.wavelet_transform
+    wavecut[i]=0
+    
+    # reconstructed signal
+    rec=wa.reconstruction(wave=wavecut)
+    
+    # find the linear trend on the signal
+    import scipy.stats
+    a, b, r, p, err = scipy.stats.linregress(wa.time,wa.data)
+
+    # detrend the reconstructed signal
+    import scipy.signal
+    recdet=scipy.signal.detrend(rec)
+    
+    return recdet,recdet+a*wa.time+b

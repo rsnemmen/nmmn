@@ -194,11 +194,14 @@ effective variance). See equation 3 in Ascenso et al. 2012, A&A or
 Yee & Ellingson 2003 ApJ.
 
 Usage:
+
 >>> chisq=chisqxy(xdata,ydata,errx,erry,a,b)
+
 where
-  xdata,ydata : data
-  errx,erry : measurement uncertainties in the data
-  a,b : slope and intercept of the best-fit linear regression model
+
+- xdata,ydata : data
+- errx,erry : measurement uncertainties in the data
+- a,b : slope and intercept of the best-fit linear regression model
 	"""
 	sdsq=erry**2+a**2*errx**2
 	chisq=numpy.sum( (y-a*x-b)**2/sdsq )
@@ -216,11 +219,14 @@ the errors in X and Y and the "raw" scatter. Inspired by Pratt et al. 2009,
 A&A, 498, 361. 
 	
 Usage:
+
 >>> sd=intscat(x,y,errx,erry,a,b)
+
 where
-  x,y : X and Y data arrays
-  errx, erry : standard deviations in X and Y
-  a,b : slope and intercept of best-fit linear relation
+  
+- x,y : X and Y data arrays
+- errx, erry : standard deviations in X and Y
+- a,b : slope and intercept of best-fit linear relation
   
 Returns the float sd with the scatter about the best-fit.
 
@@ -292,17 +298,18 @@ the best-fit regression line. This is not the same as saying it will contain 95%
 the data points.
 
 Arguments:
+
 - conf: desired confidence level, by default 0.95 (2 sigma)
 - xd,yd: data arrays
 - a,b: linear fit parameters as in y=ax+b
-- x: (optional) array with x values to calculate the confidence band. If none is provided, will
-  by default generate 100 points in the original x-range of the data.
+- x: (optional) array with x values to calculate the confidence band. If none is provided, will by default generate 100 points in the original x-range of the data.
   
 Returns:
 Sequence (lcb,ucb,x) with the arrays holding the lower and upper confidence bands 
 corresponding to the [input] x array.
 
 Usage:
+
 >>> lcb,ucb,x=nemmen.confband(all.kp,all.lg,a,b,conf=0.95)
 calculates the confidence bands for the given input arrays
 
@@ -846,12 +853,12 @@ def ftest(rss1,rss2,n,p1,p2):
 Carries out the F-test to decide which model fits the data better.
 Computes the F statistic, associated p-value and the significance
 in sigmas with which we can reject the null hypothesis. You can also
-give the chisq^2 values instead of RSS if you have y-errors.
+give the :math:`\chi^2` values instead of RSS if you have y-errors.
 
-Note that p2>p1 must be obeyed, i.e. model 2 is "nested" within model
-1.
+Note that p2>p1 must be obeyed, i.e. model 2 is "nested" within model 1.
 
 Usage:
+
 >>> fstat,pvalue,conf = ftest(rss1,rss2,n,p1,p2)
 
 Arguments:
@@ -866,8 +873,7 @@ Returns:
 
 References:
 1. http://en.wikipedia.org/wiki/F-test
-2. http://graphpad.com/curvefit/2_models__1_dataset.htm, Graphpad.com, 
-  Comparing the fits of two models (CurveFit.com)
+2. http://graphpad.com/curvefit/2_models__1_dataset.htm, Graphpad.com, Comparing the fits of two models (CurveFit.com)
 
 v1 Dec. 2011
 v2 Jan 16 2012: added comment regarding y-errors
@@ -941,8 +947,7 @@ Usage:
 >>> bic = bic(k,n,rss)
 
 Arguments:
-- rss : residual sum of squares for the model in case errors=False, otherwise
-	assumes you are giving the chi-square values
+- rss : residual sum of squares for the model in case errors=False, otherwise assumes you are giving the chi-square values
 - n : sample size, i.e. number of data points
 - k : number of free parameters in the model
 
@@ -950,8 +955,7 @@ Returns: BIC statistic
 
 References:
 1. http://en.wikipedia.org/wiki/Bayesian_information_criterion
-2. Model Selection, Lecture VI: The Bayesian Information Criterion" by Joseph 
-  Cavanaugh (http://myweb.uiowa.edu/cavaaugh/ms_lec_6_ho.pdf)
+2. Model Selection, Lecture VI: The Bayesian Information Criterion" by Joseph Cavanaugh (http://myweb.uiowa.edu/cavaaugh/ms_lec_6_ho.pdf)
 
 v1 Apr 2012
 	"""
@@ -1005,19 +1009,21 @@ Returns the float chisq/nu with the reduced chi-square statistic.
 
 def redchisqxy(x,y,errx,erry,a,b):
 	"""
-Returns the reduced chi-square error statistic for a linear fit:
-  chisq/nu
+Returns the reduced chi-square error statistic for a linear fit :math:`\chi^2/\nu`
 where nu is the number of degrees of freedom. The chi-square statistic is
 computed taking into account the errors in both X and Y (i.e. the
 effective variance). See equation 3 in Ascenso et al. 2012, A&A or
 Yee & Ellingson 2003 ApJ.
 
 Usage:
+
 >>> chisq=redchisqxy(xdata,ydata,errx,erry,a,b)
+
 where
-  xdata,ydata : data
-  errx,erry : measurement uncertainties in the data
-  a,b : slope and intercept of the best-fit linear regression model
+
+- xdata,ydata : data
+- errx,erry : measurement uncertainties in the data
+- a,b : slope and intercept of the best-fit linear regression model
 	"""
 	sdsq=erry**2+a**2*errx**2
 	chisq=numpy.sum( (y-a*x-b)**2/sdsq )
@@ -1042,12 +1048,15 @@ deviations. See http://en.wikipedia.org/wiki/Goodness_of_fit for reference.
 ydata,ymod,sd assumed to be Numpy arrays. deg integer.
 
 Usage:
+
 >>> chisq=redchisqg(ydata,ymod,n,sd)
+
 where
-  ydata : data
-  ymod : model evaluated at the same x points as ydata
-  n : number of free parameters in the model
-  sd : uncertainties in ydata
+
+- ydata : data
+- ymod : model evaluated at the same x points as ydata
+- n : number of free parameters in the model
+- sd : uncertainties in ydata
   	"""
 	# Chi-square statistic
 	if sd==None:
@@ -1305,8 +1314,7 @@ CDF and PPF methods below in order to speedup calls to this class
 :param sig2: right std. dev.
 :param mu: mode
 
-Examples
-----------
+Examples: 
 
 Defines distribution with sig1=1, sig2=3, mu=0:
 
