@@ -261,6 +261,50 @@
 
 
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="mf">1000.</span><span class="o">/</span><span class="n">y</span><span class="p">,</span> <span class="n">NormCWT</span></div>
+
+
+
+
+<div class="viewcode-block" id="reconstruct"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.reconstruct">[docs]</a><span class="k">def</span> <span class="nf">reconstruct</span><span class="p">(</span><span class="n">wa</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method to reconstruct a time series signal based on its CWT. </span>
+
+<span class="sd">    signal is the object generated with the wavelets module</span>
+<span class="sd">    i is the index array with the elements you want to filter out (make zero)</span>
+
+<span class="sd">	:param wa: wavelet object generated with `wavelets` module</span>
+<span class="sd">	:param i: index array containing only the elements that will used in the CWT array to reconstruct the signal</span>
+
+<span class="sd">	Example: </span>
+
+<span class="sd">    wa = wavelets.WaveletAnalysis(var, dt=dt)</span>
+<span class="sd"># wavelet power spectrum</span>
+<span class="sd">power = wa.wavelet_power</span>
+
+<span class="sd"># scales </span>
+<span class="sd">scales = wa.scales</span>
+
+<span class="sd"># associated time vector</span>
+<span class="sd">tw = wa.time</span>
+
+<span class="sd"># reconstruction of the original data</span>
+<span class="sd">rx = wa.reconstruction()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wavecut</span><span class="o">=</span><span class="n">wa</span><span class="o">.</span><span class="n">wavelet_transform</span>
+    <span class="n">wavecut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    
+    <span class="c1"># reconstructed signal</span>
+    <span class="n">rec</span><span class="o">=</span><span class="n">wa</span><span class="o">.</span><span class="n">reconstruction</span><span class="p">(</span><span class="n">wave</span><span class="o">=</span><span class="n">wavecut</span><span class="p">)</span>
+    
+    <span class="c1"># find the linear trend on the signal</span>
+    <span class="kn">import</span> <span class="nn">scipy.stats</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">wa</span><span class="o">.</span><span class="n">time</span><span class="p">,</span><span class="n">wa</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="c1"># detrend the reconstructed signal</span>
+    <span class="kn">import</span> <span class="nn">scipy.signal</span>
+    <span class="n">recdet</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">recdet</span><span class="p">,</span><span class="n">recdet</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">wa</span><span class="o">.</span><span class="n">time</span><span class="o">+</span><span class="n">b</span></div>
 </pre></div>
 
           </div>

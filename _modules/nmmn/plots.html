@@ -121,24 +121,23 @@
 
 <div class="viewcode-block" id="threehists"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.threehists">[docs]</a><span class="k">def</span> <span class="nf">threehists</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">x3</span><span class="p">,</span><span class="n">xmin</span><span class="p">,</span><span class="n">xmax</span><span class="p">,</span><span class="n">x1leg</span><span class="o">=</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">x2leg</span><span class="o">=</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">x3leg</span><span class="o">=</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Script that plots three histograms of quantities x1, x2 and x3 </span>
-<span class="sd">	sharing the same X-axis.</span>
+<span class="sd">Script that plots three histograms of quantities x1, x2 and x3 </span>
+<span class="sd">sharing the same X-axis.</span>
 
-<span class="sd">	Arguments:</span>
-<span class="sd">	- x1,x2,x3: arrays with data to be plotted</span>
-<span class="sd">	- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range</span>
-<span class="sd">		for both histograms.</span>
-<span class="sd">	- x1leg, x2leg, x3leg: legends for each histogram	</span>
-<span class="sd">	- xlabel: self-explanatory.</span>
-<span class="sd">	- sharey: sharing the Y-axis among the histograms?</span>
-<span class="sd">	- fig: which plot window should I use?</span>
+<span class="sd">Arguments:</span>
+<span class="sd">- x1,x2,x3: arrays with data to be plotted</span>
+<span class="sd">- xmin,xmax: lower and upper range of plotted values, will be used to set a consistent x-range for both histograms.</span>
+<span class="sd">- x1leg, x2leg, x3leg: legends for each histogram	</span>
+<span class="sd">- xlabel: self-explanatory.</span>
+<span class="sd">- sharey: sharing the Y-axis among the histograms?</span>
+<span class="sd">- fig: which plot window should I use?</span>
 
-<span class="sd">	Example:</span>
-<span class="sd">	x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</span>
+<span class="sd">Example:</span>
+<span class="sd">x1=Lbol(AD), x2=Lbol(JD), x3=Lbol(EHF10)</span>
 
-<span class="sd">	&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#39;AD&#39;,&#39;JD&#39;,&#39;EHF10&#39;,&#39;$\log L_{\\rm bol}$ (erg s$^{-1}$)&#39;,sharey=True)</span>
+<span class="sd">&gt;&gt;&gt; threehists(x1,x2,x3,38,44,&#39;AD&#39;,&#39;JD&#39;,&#39;EHF10&#39;,&#39;$\log L_{\\rm bol}$ (erg s$^{-1}$)&#39;,sharey=True)</span>
 
-<span class="sd">	Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
+<span class="sd">Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
 	<span class="n">fig</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>

@@ -133,10 +133,19 @@
 
 
 
+<div class="viewcode-block" id="freq"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.freq">[docs]</a><span class="k">def</span> <span class="nf">freq</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert array of periods in days to frequencies in Hz.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="mf">86400.</span></div>
 
 
 
-
+<div class="viewcode-block" id="period"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.period">[docs]</a><span class="k">def</span> <span class="nf">period</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert array of frequencies to periods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">1.</span><span class="o">/</span><span class="n">freq</span></div>
 
 
 
