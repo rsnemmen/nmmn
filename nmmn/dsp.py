@@ -223,31 +223,41 @@ def cwt(t,sig):
 
 def reconstruct(wa,i=None):
     """
-    Method to reconstruct a time series signal based on its CWT. 
+Method to reconstruct a time series (TS) signal based on its CWT. 
 
-    signal is the object generated with the wavelets module
-    i is the index array with the elements you want to filter out (make zero)
+:param wa: wavelet object generated with `wavelets` module
+:param i: index array containing only the elements that will excluded from the signal reconstruction. i.e. the elements indicated by `i` will zeroed in the CWT complex array.
+:returns: detrended reconstructed TS, full reconstructed TS
 
-	:param wa: wavelet object generated with `wavelets` module
-	:param i: index array containing only the elements that will used in the CWT array to reconstruct the signal
+Examples: 
 
-	Example: 
+1. Compute the CWT for TS in ``var``
 
-    wa = wavelets.WaveletAnalysis(var, dt=dt)
-# wavelet power spectrum
-power = wa.wavelet_power
+  import wavelets
 
-# scales 
-scales = wa.scales
+  # compute CWT
+  wa = wavelets.WaveletAnalysis(var, dt=dt)
 
-# associated time vector
-tw = wa.time
+  # time and period 2D arrays
+  T, S = numpy.meshgrid(wa.time, wa.scales)
+  
+2. Reconstruct the signal, throwing out all periods with values between 1000 and 2000
 
-# reconstruction of the original data
-rx = wa.reconstruction()
+  j=where((S<1000) | (S>2000))
+  recdet,rec=nmmn.dsp.reconstruct(wa,j)
+
+3. Plots the reconstructed signal along with the data
+
+  subplot(2,1,1)
+  plot(t,flux,label='original')
+  plot(t,rec,label='reconstructed signal',lw=5)
+
+  subplot(2,1,2)
+  plot(t,recdet,'r')
+  title('Pure reconstructed signal')
     """
     wavecut=wa.wavelet_transform
-    wavecut[i]=0
+    if i is not None: wavecut[i]=0
     
     # reconstructed signal
     rec=wa.reconstruction(wave=wavecut)
