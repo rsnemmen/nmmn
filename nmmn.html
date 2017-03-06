@@ -175,6 +175,21 @@ wavelet transform (CWT).</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.dsp.error_resampler">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">error_resampler</code><span class="sig-paren">(</span><em>errors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#error_resampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.error_resampler" title="Permalink to this definition">¶</a></dt>
+<dd><p>For use with <code class="docutils literal"><span class="pre">pandas</span></code>.</p>
+<p>Method for performing the proper <code class="docutils literal"><span class="pre">mean</span></code> resampling of the <em>uncertainties</em> (error bars) 
+in the time series with <code class="docutils literal"><span class="pre">pandas</span></code>. Note that doing a simple resampling 
+will fail to propagate uncertainties, since error in the mean goes as 
+.. math:: sigma=sqrt{Sigma_n sigma_n^2}</p>
+<p>Example: Resamples the errors with 30 day averages:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># df[&#39;errflux&#39;] has the 1sigma uncertainties</span>
+<span class="n">err</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;errflux&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;30d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">nmmn</span><span class="o">.</span><span class="n">dsp</span><span class="o">.</span><span class="n">error_resampler</span><span class="p">)</span> 
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.dsp.ls">
 <code class="descclassname">nmmn.dsp.</code><code class="descname">ls</code><span class="sig-paren">(</span><em>t</em>, <em>z</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes and plot Lomb-Scargle periodogram for a given timeseries. 
@@ -263,6 +278,13 @@ periodicity found.</p>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pure reconstructed signal&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.reconstruct_period">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">reconstruct_period</code><span class="sig-paren">(</span><em>wa</em>, <em>P1</em>, <em>P2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#reconstruct_period"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.reconstruct_period" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns reconstructed detrended signal from CWT, considering only the interval
+between the two given periods.</p>
 </dd></dl>
 
 <dl class="function">
@@ -471,9 +493,10 @@ your analysis coincides with t0 for LAT.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> &#8211; array with input times given in days, with t0 coinciding with the beginning of LAT</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">t (days), t (years)</td>
+</tr>
 </tbody>
 </table>
-<p>:returns</p>
 </dd></dl>
 
 </div>

@@ -223,12 +223,34 @@
     <span class="k">return</span> <span class="n">pbest</span><span class="p">,</span><span class="n">spmax</span><span class="p">,</span><span class="n">period</span><span class="p">,</span><span class="n">spower</span></div>
 
 
+<div class="viewcode-block" id="error_resampler"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.error_resampler">[docs]</a><span class="k">def</span> <span class="nf">error_resampler</span><span class="p">(</span><span class="n">errors</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">For use with ``pandas``.</span>
+
+<span class="sd">Method for performing the proper ``mean`` resampling of the *uncertainties* (error bars) </span>
+<span class="sd">in the time series with ``pandas``. Note that doing a simple resampling </span>
+<span class="sd">will fail to propagate uncertainties, since error in the mean goes as </span>
+<span class="sd">.. math:: \sigma=\sqrt{\Sigma_n \sigma_n^2}</span>
+
+<span class="sd">Example: Resamples the errors with 30 day averages:</span>
+<span class="sd">::</span>
+
+<span class="sd">    # df[&#39;errflux&#39;] has the 1sigma uncertainties</span>
+<span class="sd">    err=df[&#39;errflux&#39;].resample(&#39;30d&#39;).apply(nmmn.dsp.error_resampler) </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">err</span><span class="o">=</span><span class="n">errors</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">/</span><span class="n">err</span><span class="o">.</span><span class="n">size</span></div>
 
 
 
 
 
 
+
+
+<span class="c1"># Wavelet methods</span>
+<span class="c1"># ==================</span>
 
 
 <div class="viewcode-block" id="cwt"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.cwt">[docs]</a><span class="k">def</span> <span class="nf">cwt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">sig</span><span class="p">):</span>
@@ -302,7 +324,7 @@
 <span class="sd">    subplot(2,1,2)</span>
 <span class="sd">    plot(t,recdet,&#39;r&#39;)</span>
 <span class="sd">    title(&#39;Pure reconstructed signal&#39;)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">wavecut</span><span class="o">=</span><span class="n">wa</span><span class="o">.</span><span class="n">wavelet_transform</span>
     <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">wavecut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
@@ -319,6 +341,24 @@
     <span class="n">recdet</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">recdet</span><span class="o">+</span><span class="n">a</span><span class="o">*</span><span class="n">wa</span><span class="o">.</span><span class="n">time</span><span class="o">+</span><span class="n">b</span><span class="p">,</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">wavecut</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">wavecut</span><span class="p">,</span><span class="n">recdet</span></div>
+
+
+
+<div class="viewcode-block" id="reconstruct_period"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.reconstruct_period">[docs]</a><span class="k">def</span> <span class="nf">reconstruct_period</span><span class="p">(</span><span class="n">wa</span><span class="p">,</span><span class="n">P1</span><span class="p">,</span><span class="n">P2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Returns reconstructed detrended signal from CWT, considering only the interval</span>
+<span class="sd">between the two given periods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">wa</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">wa</span><span class="o">.</span><span class="n">scales</span><span class="p">)</span>
+
+    <span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">P</span><span class="o">&lt;</span><span class="n">P1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">P</span><span class="o">&gt;</span><span class="n">P2</span><span class="p">))</span>
+    <span class="n">xrec</span><span class="p">,</span><span class="n">powerrec</span><span class="p">,</span><span class="n">cwtrec</span><span class="p">,</span><span class="n">xrecdet</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">dsp</span><span class="o">.</span><span class="n">reconstruct</span><span class="p">(</span><span class="n">wa</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">xrecdet</span></div>
+
+
+
+
+
 </pre></div>
 
           </div>
