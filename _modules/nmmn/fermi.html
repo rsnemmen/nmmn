@@ -288,6 +288,30 @@
             <span class="n">date</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">day_one</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">date</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="starttime"><a class="viewcode-back" href="../../nmmn.html#nmmn.fermi.starttime">[docs]</a><span class="k">def</span> <span class="nf">starttime</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Fixes the start time of observations taken with LAT. This assumes that the</span>
+<span class="sd">time array in your light curve is in days already, and the beginning of</span>
+<span class="sd">your analysis coincides with t0 for LAT.</span>
+
+<span class="sd">:param t: array with input times given in days, with t0 coinciding with the beginning of LAT</span>
+<span class="sd">:returns</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">pendulum</span>
+
+    <span class="c1"># start of observations by Fermi</span>
+    <span class="n">tp</span><span class="o">=</span><span class="n">pendulum</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="mi">2008</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">37</span><span class="p">)</span><span class="o">-</span><span class="n">pendulum</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="mi">2008</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">t0</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">days</span> <span class="c1"># how many days since 2008 for the beginning of Fermi observations</span>
+
+    <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">t0</span> <span class="c1"># fixes t array </span>
+    <span class="n">ty</span><span class="o">=</span><span class="mf">2008.</span><span class="o">+</span><span class="n">t</span><span class="o">/</span><span class="mf">365.</span> <span class="c1"># time in years</span>
+
+    <span class="k">return</span> <span class="n">t</span><span class="p">,</span><span class="n">ty</span></div>
 </pre></div>
 
           </div>

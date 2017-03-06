@@ -221,33 +221,50 @@ periodicity found.</p>
 <dl class="function">
 <dt id="nmmn.dsp.reconstruct">
 <code class="descclassname">nmmn.dsp.</code><code class="descname">reconstruct</code><span class="sig-paren">(</span><em>wa</em>, <em>i=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#reconstruct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.reconstruct" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Method to reconstruct a time series signal based on its CWT.</p>
-<p>signal is the object generated with the wavelets module
-i is the index array with the elements you want to filter out (make zero)</p>
-<blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<dd><p>Method to reconstruct a time series (TS) signal based on its CWT.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param wa:</th><td class="field-body">wavelet object generated with <cite>wavelets</cite> module</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>wa</strong> &#8211; wavelet object generated with <cite>wavelets</cite> module</li>
+<li><strong>i</strong> &#8211; index array containing only the elements that will be excluded from the signal reconstruction. i.e. the elements indicated by <code class="docutils literal"><span class="pre">i</span></code> will zeroed in the CWT complex array.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">param i:</th><td class="field-body">index array containing only the elements that will used in the CWT array to reconstruct the signal</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">full reconstructed TS, reconstructed CWT power array, reconstructed CWT complex array, detrended reconstructed TS</p>
+</td>
 </tr>
 </tbody>
 </table>
-<p>Example:</p>
+<p>Examples:</p>
+<ol class="arabic simple">
+<li>Compute the CWT for TS in <code class="docutils literal"><span class="pre">var</span></code>:</li>
+</ol>
+<blockquote>
+<div><p>import wavelets</p>
+<p># compute CWT
+wa = wavelets.WaveletAnalysis(var, dt=dt)</p>
+<p># time and period 2D arrays
+T, S = numpy.meshgrid(wa.time, wa.scales)</p>
 </div></blockquote>
-<p>wa = wavelets.WaveletAnalysis(var, dt=dt)</p>
+<ol class="arabic simple" start="2">
+<li>Reconstruct the signal, throwing out all periods with values between 1000 and 2000:</li>
+</ol>
+<blockquote>
+<div>j=where((S&lt;1000) | (S&gt;2000))
+recdet,rec=nmmn.dsp.reconstruct(wa,j)</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>Plots the reconstructed signal along with the data:</li>
+</ol>
+<blockquote>
+<div><p>subplot(2,1,1)
+plot(t,flux,label=&#8217;original&#8217;)
+plot(t,rec,label=&#8217;reconstructed signal&#8217;,lw=5)</p>
+<p>subplot(2,1,2)
+plot(t,recdet,&#8217;r&#8217;)
+title(&#8216;Pure reconstructed signal&#8217;)</p>
 </div></blockquote>
-<p># wavelet power spectrum
-power = wa.wavelet_power</p>
-<p># scales 
-scales = wa.scales</p>
-<p># associated time vector
-tw = wa.time</p>
-<p># reconstruction of the original data
-rx = wa.reconstruction()</p>
 </dd></dl>
 
 <dl class="function">
@@ -442,6 +459,23 @@ distribution.</p>
 <dd><p>From Enrico/tsmap.py.</p>
 <p>Gather the results of the evaluation of 
 each pixel and fill a fits file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.fermi.starttime">
+<code class="descclassname">nmmn.fermi.</code><code class="descname">starttime</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/fermi.html#starttime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.fermi.starttime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixes the start time of observations taken with LAT. This assumes that the
+time array in your light curve is in days already, and the beginning of
+your analysis coincides with t0 for LAT.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> &#8211; array with input times given in days, with t0 coinciding with the beginning of LAT</td>
+</tr>
+</tbody>
+</table>
+<p>:returns</p>
 </dd></dl>
 
 </div>
