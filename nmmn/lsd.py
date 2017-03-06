@@ -192,7 +192,7 @@ Normalizes x1. If also given as input x2, then normalizes x1 to x2.
 :param x2: optional
 :returns: normalized x1
 	"""
-	if x2==None:
+	if x2 is None:
 		return x1/x1.max()
 	else:
 		return x1*x2.max()/x1.max()

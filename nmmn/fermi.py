@@ -244,3 +244,27 @@ References:
             date.append(d + day_one)
 
     return date
+
+
+
+
+
+def starttime(t):
+    """
+Fixes the start time of observations taken with LAT. This assumes that the
+time array in your light curve is in days already, and the beginning of
+your analysis coincides with t0 for LAT.
+
+:param t: array with input times given in days, with t0 coinciding with the beginning of LAT
+:returns
+    """
+    import pendulum
+
+    # start of observations by Fermi
+    tp=pendulum.create(2008,8,4,15,43,37)-pendulum.create(2008,1,1)
+    t0=tp.days # how many days since 2008 for the beginning of Fermi observations
+
+    t=t-t[0]+t0 # fixes t array 
+    ty=2008.+t/365. # time in years
+
+    return t,ty

@@ -226,35 +226,39 @@ def reconstruct(wa,i=None):
 Method to reconstruct a time series (TS) signal based on its CWT. 
 
 :param wa: wavelet object generated with `wavelets` module
-:param i: index array containing only the elements that will excluded from the signal reconstruction. i.e. the elements indicated by `i` will zeroed in the CWT complex array.
-:returns: detrended reconstructed TS, full reconstructed TS
+:param i: index array containing only the elements that will be excluded from the signal reconstruction. i.e. the elements indicated by ``i`` will zeroed in the CWT complex array.
+:returns: full reconstructed TS, reconstructed CWT power array, reconstructed CWT complex array, detrended reconstructed TS
 
 Examples: 
 
-1. Compute the CWT for TS in ``var``
+1. Compute the CWT for TS in ``var``:
+::
 
-  import wavelets
+    import wavelets
 
-  # compute CWT
-  wa = wavelets.WaveletAnalysis(var, dt=dt)
+    # compute CWT
+    wa = wavelets.WaveletAnalysis(var, dt=dt)
 
-  # time and period 2D arrays
-  T, S = numpy.meshgrid(wa.time, wa.scales)
+    # time and period 2D arrays
+    T, S = numpy.meshgrid(wa.time, wa.scales)
   
-2. Reconstruct the signal, throwing out all periods with values between 1000 and 2000
+2. Reconstruct the signal, throwing out all periods with values between 1000 and 2000:
+::
 
-  j=where((S<1000) | (S>2000))
-  recdet,rec=nmmn.dsp.reconstruct(wa,j)
+    j=where((S<1000) | (S>2000))
+    recdet,rec=nmmn.dsp.reconstruct(wa,j)
 
-3. Plots the reconstructed signal along with the data
+3. Plots the reconstructed signal along with the data:
+::
 
-  subplot(2,1,1)
-  plot(t,flux,label='original')
-  plot(t,rec,label='reconstructed signal',lw=5)
+    subplot(2,1,1)
+    plot(t,flux,label='original')
+    plot(t,rec,label='reconstructed signal',lw=5)
 
-  subplot(2,1,2)
-  plot(t,recdet,'r')
-  title('Pure reconstructed signal')
+    subplot(2,1,2)
+    plot(t,recdet,'r')
+    title('Pure reconstructed signal')
+    
     """
     wavecut=wa.wavelet_transform
     if i is not None: wavecut[i]=0
@@ -270,4 +274,4 @@ Examples:
     import scipy.signal
     recdet=scipy.signal.detrend(rec)
     
-    return recdet,recdet+a*wa.time+b
+    return recdet+a*wa.time+b,numpy.abs(wavecut)**2,wavecut,recdet
