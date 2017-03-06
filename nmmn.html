@@ -180,8 +180,9 @@ wavelet transform (CWT).</p>
 <dd><p>For use with <code class="docutils literal"><span class="pre">pandas</span></code>.</p>
 <p>Method for performing the proper <code class="docutils literal"><span class="pre">mean</span></code> resampling of the <em>uncertainties</em> (error bars) 
 in the time series with <code class="docutils literal"><span class="pre">pandas</span></code>. Note that doing a simple resampling 
-will fail to propagate uncertainties, since error in the mean goes as 
-.. math:: sigma=sqrt{Sigma_n sigma_n^2}</p>
+will fail to propagate uncertainties, since error in the mean goes as</p>
+<div class="math">
+\[\sigma=\sqrt{\Sigma_n \sigma_n^2}\]</div>
 <p>Example: Resamples the errors with 30 day averages:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># df[&#39;errflux&#39;] has the 1sigma uncertainties</span>
 <span class="n">err</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;errflux&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;30d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">nmmn</span><span class="o">.</span><span class="n">dsp</span><span class="o">.</span><span class="n">error_resampler</span><span class="p">)</span> 
