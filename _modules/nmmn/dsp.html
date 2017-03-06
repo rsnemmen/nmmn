@@ -275,30 +275,34 @@
 
 <span class="sd">Examples: </span>
 
-<span class="sd">1. Compute the CWT for TS in ``var``::</span>
+<span class="sd">1. Compute the CWT for TS in ``var``:</span>
+<span class="sd">::</span>
 
-<span class="sd">  import wavelets</span>
+<span class="sd">    import wavelets</span>
 
-<span class="sd">  # compute CWT</span>
-<span class="sd">  wa = wavelets.WaveletAnalysis(var, dt=dt)</span>
+<span class="sd">    # compute CWT</span>
+<span class="sd">    wa = wavelets.WaveletAnalysis(var, dt=dt)</span>
 
-<span class="sd">  # time and period 2D arrays</span>
-<span class="sd">  T, S = numpy.meshgrid(wa.time, wa.scales)</span>
+<span class="sd">    # time and period 2D arrays</span>
+<span class="sd">    T, S = numpy.meshgrid(wa.time, wa.scales)</span>
 <span class="sd">  </span>
-<span class="sd">2. Reconstruct the signal, throwing out all periods with values between 1000 and 2000::</span>
+<span class="sd">2. Reconstruct the signal, throwing out all periods with values between 1000 and 2000:</span>
+<span class="sd">::</span>
 
-<span class="sd">  j=where((S&lt;1000) | (S&gt;2000))</span>
-<span class="sd">  recdet,rec=nmmn.dsp.reconstruct(wa,j)</span>
+<span class="sd">    j=where((S&lt;1000) | (S&gt;2000))</span>
+<span class="sd">    recdet,rec=nmmn.dsp.reconstruct(wa,j)</span>
 
-<span class="sd">3. Plots the reconstructed signal along with the data::</span>
+<span class="sd">3. Plots the reconstructed signal along with the data:</span>
+<span class="sd">::</span>
 
-<span class="sd">  subplot(2,1,1)</span>
-<span class="sd">  plot(t,flux,label=&#39;original&#39;)</span>
-<span class="sd">  plot(t,rec,label=&#39;reconstructed signal&#39;,lw=5)</span>
+<span class="sd">    subplot(2,1,1)</span>
+<span class="sd">    plot(t,flux,label=&#39;original&#39;)</span>
+<span class="sd">    plot(t,rec,label=&#39;reconstructed signal&#39;,lw=5)</span>
 
-<span class="sd">  subplot(2,1,2)</span>
-<span class="sd">  plot(t,recdet,&#39;r&#39;)</span>
-<span class="sd">  title(&#39;Pure reconstructed signal&#39;)</span>
+<span class="sd">    subplot(2,1,2)</span>
+<span class="sd">    plot(t,recdet,&#39;r&#39;)</span>
+<span class="sd">    title(&#39;Pure reconstructed signal&#39;)</span>
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">wavecut</span><span class="o">=</span><span class="n">wa</span><span class="o">.</span><span class="n">wavelet_transform</span>
     <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">wavecut</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>

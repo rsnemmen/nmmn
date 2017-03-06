@@ -238,33 +238,31 @@ periodicity found.</p>
 </tbody>
 </table>
 <p>Examples:</p>
-<ol class="arabic simple">
-<li>Compute the CWT for TS in <code class="docutils literal"><span class="pre">var</span></code>:</li>
-</ol>
-<blockquote>
-<div><p>import wavelets</p>
-<p># compute CWT
-wa = wavelets.WaveletAnalysis(var, dt=dt)</p>
-<p># time and period 2D arrays
-T, S = numpy.meshgrid(wa.time, wa.scales)</p>
-</div></blockquote>
-<ol class="arabic simple" start="2">
-<li>Reconstruct the signal, throwing out all periods with values between 1000 and 2000:</li>
-</ol>
-<blockquote>
-<div>j=where((S&lt;1000) | (S&gt;2000))
-recdet,rec=nmmn.dsp.reconstruct(wa,j)</div></blockquote>
-<ol class="arabic simple" start="3">
-<li>Plots the reconstructed signal along with the data:</li>
-</ol>
-<blockquote>
-<div><p>subplot(2,1,1)
-plot(t,flux,label=&#8217;original&#8217;)
-plot(t,rec,label=&#8217;reconstructed signal&#8217;,lw=5)</p>
-<p>subplot(2,1,2)
-plot(t,recdet,&#8217;r&#8217;)
-title(&#8216;Pure reconstructed signal&#8217;)</p>
-</div></blockquote>
+<p>1. Compute the CWT for TS in <code class="docutils literal"><span class="pre">var</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">wavelets</span>
+
+<span class="c1"># compute CWT</span>
+<span class="n">wa</span> <span class="o">=</span> <span class="n">wavelets</span><span class="o">.</span><span class="n">WaveletAnalysis</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+
+<span class="c1"># time and period 2D arrays</span>
+<span class="n">T</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">wa</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">wa</span><span class="o">.</span><span class="n">scales</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>2. Reconstruct the signal, throwing out all periods with values between 1000 and 2000:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">j</span><span class="o">=</span><span class="n">where</span><span class="p">((</span><span class="n">S</span><span class="o">&lt;</span><span class="mi">1000</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">S</span><span class="o">&gt;</span><span class="mi">2000</span><span class="p">))</span>
+<span class="n">recdet</span><span class="p">,</span><span class="n">rec</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">dsp</span><span class="o">.</span><span class="n">reconstruct</span><span class="p">(</span><span class="n">wa</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>3. Plots the reconstructed signal along with the data:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">flux</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;original&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">rec</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;reconstructed signal&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">recdet</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pure reconstructed signal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
