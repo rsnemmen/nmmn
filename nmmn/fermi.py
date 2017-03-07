@@ -256,7 +256,7 @@ time array in your light curve is in days already, and the beginning of
 your analysis coincides with t0 for LAT.
 
 :param t: array with input times given in days, with t0 coinciding with the beginning of LAT
-:returns
+:returns: t (days), t (years)
     """
     import pendulum
 

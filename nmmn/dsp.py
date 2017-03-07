@@ -179,12 +179,38 @@ periodicity found.
     return pbest,spmax,period,spower
 
 
+def error_resampler(errors):
+    """
+For use with ``pandas``.
+
+Method for performing the proper ``mean`` resampling of the *uncertainties* (error bars) 
+in the time series with ``pandas``. Note that doing a simple resampling 
+will fail to propagate uncertainties, since error in the mean goes as 
+
+.. math:: \sigma=\sqrt{\Sigma_n \sigma_n^2}
+
+Example: Resamples the errors with 30 day averages:
+::
+
+    # df['errflux'] has the 1sigma uncertainties
+    err=df['errflux'].resample('30d').apply(nmmn.dsp.error_resampler) 
+
+    # plot y-values (df['flux']) with errors (err)
+    df['flux'].resample('30d').mean().plot(yerr=err)
+    """
+    err=errors**2
+
+    return numpy.sqrt(err.sum())/err.size
 
 
 
 
 
 
+
+
+# Wavelet methods
+# ==================
 
 
 def cwt(t,sig):
@@ -258,7 +284,7 @@ Examples:
     subplot(2,1,2)
     plot(t,recdet,'r')
     title('Pure reconstructed signal')
-    
+
     """
     wavecut=wa.wavelet_transform
     if i is not None: wavecut[i]=0
@@ -275,3 +301,21 @@ Examples:
     recdet=scipy.signal.detrend(rec)
     
     return recdet+a*wa.time+b,numpy.abs(wavecut)**2,wavecut,recdet
+
+
+
+def reconstruct_period(wa,P1,P2):
+    """
+Returns reconstructed detrended signal from CWT, considering only the interval
+between the two given periods.
+    """
+    T, P = numpy.meshgrid(wa.time, wa.scales)
+
+    i=numpy.where((P<P1) | (P>P2))
+    xrec,powerrec,cwtrec,xrecdet=reconstruct(wa,i)
+    return xrecdet
+
+
+
+
+
