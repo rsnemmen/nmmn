@@ -91,7 +91,7 @@ the corresponding linear size in pc.
 
 def freq(T):
     """
-    Convert array of periods in days to frequencies in Hz.
+Convert array of periods in days to frequencies in Hz.
     """
     return 1./T/86400.
 
@@ -99,13 +99,25 @@ def freq(T):
 
 def period(freq):
     """
-    Convert array of frequencies to periods.
+Convert array of frequencies to periods.
     """
     return 1./freq
 
 
 
 
+class Constants:
+    """
+Defines a set of useful constants in CGS.
+::
 
+    const=nmmn.astro.Constants()
+    E=mass*const.c**2
+    """
 
-
+    def __init__(self):
+        self.G = 6.673E-8
+        self.c = 29979245800
+        self.solarmass = 1.99e33
+        self.year = 31556926
+        

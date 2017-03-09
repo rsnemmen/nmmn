@@ -315,3 +315,33 @@ Displays a number in scientific notation.
 
 	return s
 
+
+
+
+
+
+def readmodel(file,m=1e8):
+    """
+Auxiliary method to rescale the BHBH simulation time series from Gold+14 and 
+compare with the data.
+::
+
+    tphys12, t12, y12 = readmodel('Gold paper/1,2nc mdot bin.csv')
+
+:returns: physical times, ... INCOMPLETE
+    """
+    from . import astro
+    import astropy.io.ascii as ascii
+    import scipy.signal
+
+    data = ascii.read(file)
+    tmod,ymod=data['col1'],data['col2']
+    
+    # detrends data
+    ymoddet=scipy.signal.detrend(ymod)
+    
+    # physical times in years
+    const=astro.Constants()
+    tphys=tmod*1000*const.G*m*const.solarmass/const.c**3/const.year
+    
+    return tphys, tmod, ymoddet
