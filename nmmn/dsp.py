@@ -8,6 +8,7 @@ Mostly time series.
 
 import numpy
 import pylab
+import scipy.signal
 
 
 
@@ -176,6 +177,44 @@ Returns arrays with periods and LS spectral power.
     return period,spower
 
 
+def ls_spectra(t,var,n=200,thres=0.1):
+    """
+Computes Lomb-Scargle power spectrum, find peaks, produces arrays for
+plotting images showing the spectral lines.
+
+:param t: array of times
+:param var: array of signal
+:param n: number of vertical elements in image that will be created showing spectral lines
+:param thres: threshold parameter for finding peaks in time series
+
+Usage: ``N,P,l,pp,power=ls_spectra(t,y,thres=0.3)``
+
+Returns the following variables:
+
+- ``N``: 2d number of vertical elements for plotting the spectra
+- ``P``: 2d periods
+- ``l``: 2d power spectra for plotting images
+- ``pp``: periods corresponding to peaks (peak period) in power spectrum
+- ``power``: peaks in power spectrum
+    """
+    import peakutils 
+
+    p,power=ls(t,var)
+    T, P = numpy.meshgrid(range(n), p)
+    
+    # spectral lines
+    lines = numpy.ones([1, n]) * power[:, None]
+    
+    # peaks
+    ipeak = peakutils.indexes(power,thres=thres)
+        
+    return T.T, P.T, lines.T, p[ipeak], power[ipeak]
+
+
+
+
+
+
 def error_resampler(errors):
     """
 For use with ``pandas``.
@@ -317,5 +356,43 @@ between the two given periods.
 
 
 
+
+def cwt_spectra(t,var,dj=0.01,n=200,thres=0.1):
+    """
+Computes CWT power spectrum, find peaks, produces arrays for
+plotting images showing the spectral lines. Note that the CWT power spectrum
+is an average from the CWT power array. Therefore, they are a smoothed out 
+version of a Fourier spectrum.
+
+:param t: array of times
+:param var: array of signal
+:param n: number of vertical elements in image that will be created showing spectral lines
+:param thres: threshold parameter for finding peaks in time series
+
+Usage: ``N,P,l,pp,power=cwt_spectra(t,y,thres=0.3)``
+
+Returns the following variables:
+
+- ``N``: 2d number of vertical elements for plotting the spectra
+- ``P``: 2d periods
+- ``l``: 2d power spectra for plotting images
+- ``pp``: periods corresponding to peaks (peak period) in power spectrum
+- ``power``: peaks in CWT power spectrum
+    """    
+    import peakutils, wavelets
+
+    dt=t[1]-t[0] # bin size
+    wa = wavelets.WaveletAnalysis(var, dt=dt,dj=dj)
+    T, P = numpy.meshgrid(range(n), wa.scales)
+    cwtpower=wa.wavelet_power
+    
+    # spectral lines
+    z=cwtpower.mean(axis=1)
+    lines = numpy.ones([1, n]) * z[:, None]
+    
+    # peaks
+    ipeak = peakutils.indexes(z,thres=thres)
+        
+    return T.T, P.T, lines.T, wa.scales[ipeak], z[ipeak]
 
 
