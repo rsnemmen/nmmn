@@ -303,4 +303,15 @@ Executes command cmd and saves its standard output as log
 
 
 
+def scinotation(x,n=2):
+	"""
+Displays a number in scientific notation.
+
+:param x: number
+:param n: number of significant digits to display
+	"""
+	import decimal
+	s='%.'+str(n)+'E' % decimal.Decimal(str(x))
+
+	return s
 

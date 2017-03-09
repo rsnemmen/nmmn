@@ -215,8 +215,11 @@ Example: Resamples the errors with 30 day averages:
 
 def cwt(t,sig):
 
-    """Given the time and flux (sig), this method computes a continuous 
-    wavelet transform (CWT).
+    """
+Given the time and flux (sig), this method computes a continuous 
+wavelet transform (CWT).
+
+.. warning:: Deprecated.
     """
     import matplotlib
     import matplotlib.pyplot as plt
