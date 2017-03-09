@@ -139,14 +139,11 @@ interval in gray:
 def ls(t,z,plot=False):
     """
 Computes and plot Lomb-Scargle periodogram for a given timeseries. 
-Returns arrays with periods and LS spectral power, and most significant 
-periodicity found.
+Returns arrays with periods and LS spectral power.
 
->>> pbest,spmax,t,sp=l.ls(time,values,plot=False)
+>>> p,power=l.ls(time,values,plot=False)
 
-:returns: best_period, max_power, periods, spectral power
-
-.. todo:: automatically find 3 most significant peaks
+:returns: periods, spectral power
     """
     import scipy.signal
 
@@ -162,9 +159,9 @@ periodicity found.
     spower=(numpy.sqrt(4.*(pgram/len(t)))/numpy.mean(numpy.sqrt(4.*(pgram/len(t)))))**2 
     
     # most significant periodicity
-    i=spower.argmax() # finds index of maximum power
-    pbest=period[i]
-    spmax=spower[i]
+    #i=spower.argmax() # finds index of maximum power
+    #pbest=period[i]
+    #spmax=spower[i]
     #print("Spectral peak found at t="+str(pbest)+", "+str(spmax))
 
     # plot
@@ -176,7 +173,7 @@ periodicity found.
         pylab.xscale('log')
         pylab.plot(period, spower)
 
-    return pbest,spmax,period,spower
+    return period,spower
 
 
 def error_resampler(errors):
