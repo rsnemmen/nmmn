@@ -135,7 +135,7 @@
 
 <div class="viewcode-block" id="freq"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.freq">[docs]</a><span class="k">def</span> <span class="nf">freq</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert array of periods in days to frequencies in Hz.</span>
+<span class="sd">Convert array of periods in days to frequencies in Hz.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mf">1.</span><span class="o">/</span><span class="n">T</span><span class="o">/</span><span class="mf">86400.</span></div>
 
@@ -143,16 +143,28 @@
 
 <div class="viewcode-block" id="period"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.period">[docs]</a><span class="k">def</span> <span class="nf">period</span><span class="p">(</span><span class="n">freq</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert array of frequencies to periods.</span>
+<span class="sd">Convert array of frequencies to periods.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="mf">1.</span><span class="o">/</span><span class="n">freq</span></div>
 
 
 
 
+<div class="viewcode-block" id="Constants"><a class="viewcode-back" href="../../nmmn.html#nmmn.astro.Constants">[docs]</a><span class="k">class</span> <span class="nc">Constants</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Defines a set of useful constants in CGS.</span>
+<span class="sd">::</span>
 
+<span class="sd">    const=nmmn.astro.Constants()</span>
+<span class="sd">    E=mass*const.c**2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="mf">6.673E-8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="mi">29979245800</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solarmass</span> <span class="o">=</span> <span class="mf">1.99e33</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="mi">31556926</span></div>
+        
 </pre></div>
 
           </div>

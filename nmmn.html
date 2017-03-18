@@ -50,6 +50,17 @@
 <span id="nmmn-astro-module"></span><h2>nmmn.astro module<a class="headerlink" href="#module-nmmn.astro" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="astrophysical-routines">
 <h3>Astrophysical routines<a class="headerlink" href="#astrophysical-routines" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="nmmn.astro.Constants">
+<em class="property">class </em><code class="descclassname">nmmn.astro.</code><code class="descname">Constants</code><a class="reference internal" href="_modules/nmmn/astro.html#Constants"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.astro.Constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Defines a set of useful constants in CGS.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">const</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">astro</span><span class="o">.</span><span class="n">Constants</span><span class="p">()</span>
+<span class="n">E</span><span class="o">=</span><span class="n">mass</span><span class="o">*</span><span class="n">const</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="function">
 <dt id="nmmn.astro.arcsec2pc">
 <code class="descclassname">nmmn.astro.</code><code class="descname">arcsec2pc</code><span class="sig-paren">(</span><em>d=15.0</em>, <em>a=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/astro.html#arcsec2pc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.astro.arcsec2pc" title="Permalink to this definition">¶</a></dt>
@@ -172,6 +183,42 @@ the ipython notebook &#8220;error contours.ipynb&#8221;. Sources of inspiration:
 <code class="descclassname">nmmn.dsp.</code><code class="descname">cwt</code><span class="sig-paren">(</span><em>t</em>, <em>sig</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#cwt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.cwt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the time and flux (sig), this method computes a continuous 
 wavelet transform (CWT).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Deprecated.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.cwt_spectra">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">cwt_spectra</code><span class="sig-paren">(</span><em>t</em>, <em>var</em>, <em>dj=0.01</em>, <em>n=200</em>, <em>thres=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#cwt_spectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.cwt_spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes CWT power spectrum, find peaks, produces arrays for
+plotting images showing the spectral lines. Note that the CWT power spectrum
+is an average from the CWT power array. Therefore, they are a smoothed out 
+version of a Fourier spectrum.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t</strong> &#8211; array of times</li>
+<li><strong>var</strong> &#8211; array of signal</li>
+<li><strong>n</strong> &#8211; number of vertical elements in image that will be created showing spectral lines</li>
+<li><strong>thres</strong> &#8211; threshold parameter for finding peaks in time series</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage: <code class="docutils literal"><span class="pre">N,P,l,pp,power=cwt_spectra(t,y,thres=0.3)</span></code></p>
+<p>Returns the following variables:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">N</span></code>: 2d number of vertical elements for plotting the spectra</li>
+<li><code class="docutils literal"><span class="pre">P</span></code>: 2d periods</li>
+<li><code class="docutils literal"><span class="pre">l</span></code>: 2d power spectra for plotting images</li>
+<li><code class="docutils literal"><span class="pre">pp</span></code>: periods corresponding to peaks (peak period) in power spectrum</li>
+<li><code class="docutils literal"><span class="pre">power</span></code>: peaks in CWT power spectrum</li>
+</ul>
 </dd></dl>
 
 <dl class="function">
@@ -186,6 +233,9 @@ will fail to propagate uncertainties, since error in the mean goes as</p>
 <p>Example: Resamples the errors with 30 day averages:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># df[&#39;errflux&#39;] has the 1sigma uncertainties</span>
 <span class="n">err</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;errflux&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;30d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">nmmn</span><span class="o">.</span><span class="n">dsp</span><span class="o">.</span><span class="n">error_resampler</span><span class="p">)</span> 
+
+<span class="c1"># plot y-values (df[&#39;flux&#39;]) with errors (err)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;flux&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s1">&#39;30d&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">yerr</span><span class="o">=</span><span class="n">err</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -194,23 +244,48 @@ will fail to propagate uncertainties, since error in the mean goes as</p>
 <dt id="nmmn.dsp.ls">
 <code class="descclassname">nmmn.dsp.</code><code class="descname">ls</code><span class="sig-paren">(</span><em>t</em>, <em>z</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes and plot Lomb-Scargle periodogram for a given timeseries. 
-Returns arrays with periods and LS spectral power, and most significant 
-periodicity found.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pbest</span><span class="p">,</span><span class="n">spmax</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">sp</span><span class="o">=</span><span class="n">l</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">values</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+Returns arrays with periods and LS spectral power.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">l</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">values</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">best_period, max_power, periods, spectral power</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">periods, spectral power</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">automatically find 3 most significant peaks</p>
-</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.ls_spectra">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">ls_spectra</code><span class="sig-paren">(</span><em>t</em>, <em>var</em>, <em>n=200</em>, <em>thres=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls_spectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls_spectra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Lomb-Scargle power spectrum, find peaks, produces arrays for
+plotting images showing the spectral lines.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t</strong> &#8211; array of times</li>
+<li><strong>var</strong> &#8211; array of signal</li>
+<li><strong>n</strong> &#8211; number of vertical elements in image that will be created showing spectral lines</li>
+<li><strong>thres</strong> &#8211; threshold parameter for finding peaks in time series</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage: <code class="docutils literal"><span class="pre">N,P,l,pp,power=ls_spectra(t,y,thres=0.3)</span></code></p>
+<p>Returns the following variables:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">N</span></code>: 2d number of vertical elements for plotting the spectra</li>
+<li><code class="docutils literal"><span class="pre">P</span></code>: 2d periods</li>
+<li><code class="docutils literal"><span class="pre">l</span></code>: 2d power spectra for plotting images</li>
+<li><code class="docutils literal"><span class="pre">pp</span></code>: periods corresponding to peaks (peak period) in power spectrum</li>
+<li><code class="docutils literal"><span class="pre">power</span></code>: peaks in power spectrum</li>
+</ul>
 </dd></dl>
 
 <dl class="function">
@@ -327,7 +402,7 @@ in the begining and end part of the output signal.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">length(output) != length(input), to correct this: return y[(window_len/2-1):-(window_len/2)] instead of just y.</p>
 </div>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">the window parameter could be the window itself if an array instead of a string</p>
 </div>
@@ -372,11 +447,11 @@ interval in gray:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fill_between</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">ones_like</span><span class="p">(</span><span class="n">tdec</span><span class="p">),</span> <span class="mi">2</span><span class="o">*</span><span class="n">ones_like</span><span class="p">(</span><span class="n">tdec</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-3">
+<div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">generalize to arbitrary windows of time</p>
 </div>
-<div class="admonition-todo admonition" id="index-4">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">propagate uncertainty</p>
 </div>
@@ -816,7 +891,7 @@ new grid).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rho</span><span class="o">=</span><span class="n">regrid</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">x</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">y</span><span class="p">,</span><span class="n">d</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="admonition-todo admonition" id="index-5">
+<div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
 <p class="last">need to create a 3d version of this method, paving the road for the 3d simulations.</p>
 </div>
@@ -1010,6 +1085,24 @@ to draw the ellipses.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.misc.readmodel">
+<code class="descclassname">nmmn.misc.</code><code class="descname">readmodel</code><span class="sig-paren">(</span><em>file</em>, <em>m=100000000.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#readmodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.readmodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to rescale the BHBH simulation time series from Gold+14 and 
+compare with the data.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tphys12</span><span class="p">,</span> <span class="n">t12</span><span class="p">,</span> <span class="n">y12</span> <span class="o">=</span> <span class="n">readmodel</span><span class="p">(</span><span class="s1">&#39;Gold paper/1,2nc mdot bin.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">physical times, ... INCOMPLETE</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.misc.runsave">
 <code class="descclassname">nmmn.misc.</code><code class="descname">runsave</code><span class="sig-paren">(</span><em>cmd</em>, <em>log</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#runsave"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.runsave" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes command cmd and saves its standard output as log</p>
@@ -1038,6 +1131,24 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 </pre></div>
 </div>
 <p>v1 Sep. 2011</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.scinotation">
+<code class="descclassname">nmmn.misc.</code><code class="descname">scinotation</code><span class="sig-paren">(</span><em>x</em>, <em>n=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#scinotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.scinotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a number in scientific notation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; number</li>
+<li><strong>n</strong> &#8211; number of significant digits to display</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">

@@ -52,6 +52,7 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">pylab</span>
+<span class="kn">import</span> <span class="nn">scipy.signal</span>
 
 
 
@@ -183,14 +184,11 @@
 <div class="viewcode-block" id="ls"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.ls">[docs]</a><span class="k">def</span> <span class="nf">ls</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Computes and plot Lomb-Scargle periodogram for a given timeseries. </span>
-<span class="sd">Returns arrays with periods and LS spectral power, and most significant </span>
-<span class="sd">periodicity found.</span>
+<span class="sd">Returns arrays with periods and LS spectral power.</span>
 
-<span class="sd">&gt;&gt;&gt; pbest,spmax,t,sp=l.ls(time,values,plot=False)</span>
+<span class="sd">&gt;&gt;&gt; p,power=l.ls(time,values,plot=False)</span>
 
-<span class="sd">:returns: best_period, max_power, periods, spectral power</span>
-
-<span class="sd">.. todo:: automatically find 3 most significant peaks</span>
+<span class="sd">:returns: periods, spectral power</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">scipy.signal</span>
 
@@ -206,9 +204,9 @@
     <span class="n">spower</span><span class="o">=</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">4.</span><span class="o">*</span><span class="p">(</span><span class="n">pgram</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">4.</span><span class="o">*</span><span class="p">(</span><span class="n">pgram</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)))))</span><span class="o">**</span><span class="mi">2</span> 
     
     <span class="c1"># most significant periodicity</span>
-    <span class="n">i</span><span class="o">=</span><span class="n">spower</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> <span class="c1"># finds index of maximum power</span>
-    <span class="n">pbest</span><span class="o">=</span><span class="n">period</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">spmax</span><span class="o">=</span><span class="n">spower</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="c1">#i=spower.argmax() # finds index of maximum power</span>
+    <span class="c1">#pbest=period[i]</span>
+    <span class="c1">#spmax=spower[i]</span>
     <span class="c1">#print(&quot;Spectral peak found at t=&quot;+str(pbest)+&quot;, &quot;+str(spmax))</span>
 
     <span class="c1"># plot</span>
@@ -220,7 +218,45 @@
         <span class="n">pylab</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
         <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">period</span><span class="p">,</span> <span class="n">spower</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">pbest</span><span class="p">,</span><span class="n">spmax</span><span class="p">,</span><span class="n">period</span><span class="p">,</span><span class="n">spower</span></div>
+    <span class="k">return</span> <span class="n">period</span><span class="p">,</span><span class="n">spower</span></div>
+
+
+<div class="viewcode-block" id="ls_spectra"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.ls_spectra">[docs]</a><span class="k">def</span> <span class="nf">ls_spectra</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span><span class="n">thres</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Computes Lomb-Scargle power spectrum, find peaks, produces arrays for</span>
+<span class="sd">plotting images showing the spectral lines.</span>
+
+<span class="sd">:param t: array of times</span>
+<span class="sd">:param var: array of signal</span>
+<span class="sd">:param n: number of vertical elements in image that will be created showing spectral lines</span>
+<span class="sd">:param thres: threshold parameter for finding peaks in time series</span>
+
+<span class="sd">Usage: ``N,P,l,pp,power=ls_spectra(t,y,thres=0.3)``</span>
+
+<span class="sd">Returns the following variables:</span>
+
+<span class="sd">- ``N``: 2d number of vertical elements for plotting the spectra</span>
+<span class="sd">- ``P``: 2d periods</span>
+<span class="sd">- ``l``: 2d power spectra for plotting images</span>
+<span class="sd">- ``pp``: periods corresponding to peaks (peak period) in power spectrum</span>
+<span class="sd">- ``power``: peaks in power spectrum</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">peakutils</span> 
+
+    <span class="n">p</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">ls</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">var</span><span class="p">)</span>
+    <span class="n">T</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">p</span><span class="p">)</span>
+    
+    <span class="c1"># spectral lines</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">power</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+    
+    <span class="c1"># peaks</span>
+    <span class="n">ipeak</span> <span class="o">=</span> <span class="n">peakutils</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">power</span><span class="p">,</span><span class="n">thres</span><span class="o">=</span><span class="n">thres</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">T</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lines</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="n">ipeak</span><span class="p">],</span> <span class="n">power</span><span class="p">[</span><span class="n">ipeak</span><span class="p">]</span></div>
+
+
+
+
 
 
 <div class="viewcode-block" id="error_resampler"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.error_resampler">[docs]</a><span class="k">def</span> <span class="nf">error_resampler</span><span class="p">(</span><span class="n">errors</span><span class="p">):</span>
@@ -238,6 +274,9 @@
 
 <span class="sd">    # df[&#39;errflux&#39;] has the 1sigma uncertainties</span>
 <span class="sd">    err=df[&#39;errflux&#39;].resample(&#39;30d&#39;).apply(nmmn.dsp.error_resampler) </span>
+
+<span class="sd">    # plot y-values (df[&#39;flux&#39;]) with errors (err)</span>
+<span class="sd">    df[&#39;flux&#39;].resample(&#39;30d&#39;).mean().plot(yerr=err)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">err</span><span class="o">=</span><span class="n">errors</span><span class="o">**</span><span class="mi">2</span>
 
@@ -256,8 +295,11 @@
 
 <div class="viewcode-block" id="cwt"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.cwt">[docs]</a><span class="k">def</span> <span class="nf">cwt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">sig</span><span class="p">):</span>
 
-    <span class="sd">&quot;&quot;&quot;Given the time and flux (sig), this method computes a continuous </span>
-<span class="sd">    wavelet transform (CWT).</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given the time and flux (sig), this method computes a continuous </span>
+<span class="sd">wavelet transform (CWT).</span>
+
+<span class="sd">.. warning:: Deprecated.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">matplotlib</span>
     <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -353,11 +395,49 @@
     <span class="n">T</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">wa</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">wa</span><span class="o">.</span><span class="n">scales</span><span class="p">)</span>
 
     <span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">P</span><span class="o">&lt;</span><span class="n">P1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">P</span><span class="o">&gt;</span><span class="n">P2</span><span class="p">))</span>
-    <span class="n">xrec</span><span class="p">,</span><span class="n">powerrec</span><span class="p">,</span><span class="n">cwtrec</span><span class="p">,</span><span class="n">xrecdet</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">dsp</span><span class="o">.</span><span class="n">reconstruct</span><span class="p">(</span><span class="n">wa</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">xrec</span><span class="p">,</span><span class="n">powerrec</span><span class="p">,</span><span class="n">cwtrec</span><span class="p">,</span><span class="n">xrecdet</span><span class="o">=</span><span class="n">reconstruct</span><span class="p">(</span><span class="n">wa</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">xrecdet</span></div>
 
 
 
+
+<div class="viewcode-block" id="cwt_spectra"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.cwt_spectra">[docs]</a><span class="k">def</span> <span class="nf">cwt_spectra</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="n">dj</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span><span class="n">thres</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Computes CWT power spectrum, find peaks, produces arrays for</span>
+<span class="sd">plotting images showing the spectral lines. Note that the CWT power spectrum</span>
+<span class="sd">is an average from the CWT power array. Therefore, they are a smoothed out </span>
+<span class="sd">version of a Fourier spectrum.</span>
+
+<span class="sd">:param t: array of times</span>
+<span class="sd">:param var: array of signal</span>
+<span class="sd">:param n: number of vertical elements in image that will be created showing spectral lines</span>
+<span class="sd">:param thres: threshold parameter for finding peaks in time series</span>
+
+<span class="sd">Usage: ``N,P,l,pp,power=cwt_spectra(t,y,thres=0.3)``</span>
+
+<span class="sd">Returns the following variables:</span>
+
+<span class="sd">- ``N``: 2d number of vertical elements for plotting the spectra</span>
+<span class="sd">- ``P``: 2d periods</span>
+<span class="sd">- ``l``: 2d power spectra for plotting images</span>
+<span class="sd">- ``pp``: periods corresponding to peaks (peak period) in power spectrum</span>
+<span class="sd">- ``power``: peaks in CWT power spectrum</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="kn">import</span> <span class="nn">peakutils</span><span class="o">,</span> <span class="nn">wavelets</span>
+
+    <span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># bin size</span>
+    <span class="n">wa</span> <span class="o">=</span> <span class="n">wavelets</span><span class="o">.</span><span class="n">WaveletAnalysis</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span><span class="n">dj</span><span class="o">=</span><span class="n">dj</span><span class="p">)</span>
+    <span class="n">T</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">wa</span><span class="o">.</span><span class="n">scales</span><span class="p">)</span>
+    <span class="n">cwtpower</span><span class="o">=</span><span class="n">wa</span><span class="o">.</span><span class="n">wavelet_power</span>
+    
+    <span class="c1"># spectral lines</span>
+    <span class="n">z</span><span class="o">=</span><span class="n">cwtpower</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">])</span> <span class="o">*</span> <span class="n">z</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+    
+    <span class="c1"># peaks</span>
+    <span class="n">ipeak</span> <span class="o">=</span> <span class="n">peakutils</span><span class="o">.</span><span class="n">indexes</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">thres</span><span class="o">=</span><span class="n">thres</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">T</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lines</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">wa</span><span class="o">.</span><span class="n">scales</span><span class="p">[</span><span class="n">ipeak</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">ipeak</span><span class="p">]</span></div>
 
 
 </pre></div>
