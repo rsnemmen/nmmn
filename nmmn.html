@@ -984,6 +984,25 @@ the tables created with astropy.io.ascii.</p>
 <div class="section" id="miscelaneous-methods">
 <h3>Miscelaneous methods<a class="headerlink" href="#miscelaneous-methods" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
+<dt id="nmmn.misc.adjustmodel">
+<code class="descclassname">nmmn.misc.</code><code class="descname">adjustmodel</code><span class="sig-paren">(</span><em>file</em>, <em>stretch</em>, <em>translate</em>, <em>obs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#adjustmodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.adjustmodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary method to read and normalize the BHBH simulation TS from Gold+14 
+to the observations.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tmod</span><span class="p">,</span><span class="n">smod</span><span class="o">=</span><span class="n">adjustmodel</span><span class="p">(</span><span class="s1">&#39;/Users/nemmen/work/projects/fermi/ngc1275/Gold paper/1,2nc mdot bin.csv&#39;</span><span class="p">,</span><span class="mf">5.6</span><span class="p">,</span><span class="mf">2008.6</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>obs is the data you want to normalize the model to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">time in years, time in code units, signal</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.misc.cart2pol">
 <code class="descclassname">nmmn.misc.</code><code class="descname">cart2pol</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#cart2pol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.cart2pol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from cartesian to polar coordinates.</p>
@@ -1096,7 +1115,7 @@ compare with the data.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">physical times, ... INCOMPLETE</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">time in years, time in code units, signal</td>
 </tr>
 </tbody>
 </table>

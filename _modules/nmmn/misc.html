@@ -372,7 +372,7 @@
 
 <span class="sd">    tphys12, t12, y12 = readmodel(&#39;Gold paper/1,2nc mdot bin.csv&#39;)</span>
 
-<span class="sd">:returns: physical times, ... INCOMPLETE</span>
+<span class="sd">:returns: time in years, time in code units, signal</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">astro</span>
     <span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
@@ -389,6 +389,41 @@
     <span class="n">tphys</span><span class="o">=</span><span class="n">tmod</span><span class="o">*</span><span class="mi">1000</span><span class="o">*</span><span class="n">const</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">const</span><span class="o">.</span><span class="n">solarmass</span><span class="o">/</span><span class="n">const</span><span class="o">.</span><span class="n">c</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="n">const</span><span class="o">.</span><span class="n">year</span>
     
     <span class="k">return</span> <span class="n">tphys</span><span class="p">,</span> <span class="n">tmod</span><span class="p">,</span> <span class="n">ymoddet</span></div>
+
+
+
+
+<div class="viewcode-block" id="adjustmodel"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.adjustmodel">[docs]</a><span class="k">def</span> <span class="nf">adjustmodel</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">stretch</span><span class="p">,</span><span class="n">translate</span><span class="p">,</span><span class="n">obs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Auxiliary method to read and normalize the BHBH simulation TS from Gold+14 </span>
+<span class="sd">to the observations. </span>
+<span class="sd">::</span>
+
+<span class="sd">    tmod,smod=adjustmodel(&#39;/Users/nemmen/work/projects/fermi/ngc1275/Gold paper/1,2nc mdot bin.csv&#39;,5.6,2008.6,y)</span>
+
+<span class="sd">obs is the data you want to normalize the model to.</span>
+
+<span class="sd">:returns: time in years, time in code units, signal</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">lsd</span>
+    <span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
+    <span class="kn">import</span> <span class="nn">scipy.signal</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">tmod</span><span class="p">,</span><span class="n">ymod</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span>
+
+    <span class="n">ymoddet</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">ymod</span><span class="p">)</span>
+    <span class="n">ymod</span><span class="o">=</span><span class="n">lsd</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ymoddet</span><span class="p">,</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">obs</span><span class="p">))</span>
+    
+    <span class="c1"># physical times (scaled to data)</span>
+    <span class="n">tphys</span><span class="o">=</span><span class="p">(</span><span class="n">tmod</span><span class="o">-</span><span class="n">tmod</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="n">stretch</span><span class="o">+</span><span class="n">translate</span>
+    
+    <span class="c1"># BH mass implied by the scaling, in solar masses</span>
+    <span class="c1"># Careful with units: CGS then converted to Msun</span>
+    <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="mf">4.04e38</span><span class="o">*</span><span class="p">(</span><span class="n">tphys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tphys</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">tmod</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tmod</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">31556926.</span><span class="o">/</span><span class="mf">1.99e33</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;M = &#39;</span><span class="p">,</span><span class="n">mass</span><span class="p">,</span><span class="s1">&#39; Msun&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">tphys</span><span class="p">,</span> <span class="n">ymod</span></div>
 </pre></div>
 
           </div>
