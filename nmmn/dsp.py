@@ -240,6 +240,35 @@ Example: Resamples the errors with 30 day averages:
 
 
 
+def sumts(t1,t2,y1,y2,n=1):
+    """
+Given two time series, this method returns their sum.
+
+n = number of points in the final TS, as a multiple of the sum of points
+in both TS.
+
+Steps:
+
+1. defines a uniform t-array with the number of total elements of the two arrays
+2. interpolates both TS in this new t-array
+3. sums their values
+    """
+    # new number of elements
+    points=int(n*(t1.size+t2.size)) 
+    # lower and upper ranges
+    tmin=numpy.min(numpy.hstack((t1,t2)))
+    tmax=numpy.max(numpy.hstack((t1,t2)))
+
+    # Defines the new array of interpolated times    
+    tnew=numpy.linspace(tmin,tmax,points)
+    # interpolates the two TS
+    y1new=numpy.interp(tnew,t1,y1)
+    y2new=numpy.interp(tnew,t2,y2)
+    # sums the two TS
+    ynew=y1new+y2new
+
+    return tnew,ynew
+
 
 
 

@@ -191,7 +191,9 @@ to draw the ellipses.
 
 
 
-
+# Methods related to datetime tuples
+# ====================================
+#
 def convertyear(y):
 	"""
 Converts from decimal year to a python datetime tuple.
@@ -281,6 +283,77 @@ Inspired on http://stackoverflow.com/a/6451892/793218.
 
 	return numpy.array(year)
 
+def uneven2even(t,y,dtres=None):
+	"""
+Given an uneven timeseries (TS) with multiple values defined at the same 
+time, this method will use Pandas to convert it into an evenly sampled
+timeseries with a dt as close as possible to the actual dt.
+
+Example: suppose you want to compute the CWT for an unevenly sampled
+time series. Since the CWT does not support uneven TS, you can first
+call this method to regularize your TS and then perform the TS.
+
+The trick here is that I will consider `t` as the time in seconds,
+and `t0` as an arbitrary time. I convert `t` to a datetime tuple 
+and then call Pandas for the resampling. 
+
+:param t: input times
+:param y: input value
+:param dt: string for pandas resample method ('1S' or equivalent). If provided, performs the resampling. Otherwise, suggests a value.
+	"""
+	import pandas
+	from . import fermi
+	import datetime
+
+	# If no dt is given, this will suggest the appropriate value
+	# to use as a Pandas resample string.
+	if (dtres is None):
+		# gets successive dt for all points
+		dt=[] 
+		for i in range(t.size):
+			if (i>0):
+				dt.append(t[i]-t[i-1])
+
+		# Find out optimal value of dt for the new, evenly sampled TS
+		# I am assuming there will be y-values defined at the same t, 
+		# so I compute the histogram and take the dt value from the
+		# histogram. This needs to be checked in the case when there
+		# are no repeated values.
+		temp,dt0=numpy.histogram(dt,30)
+		dt=dt0[-1] # this is the optimal dt
+
+		print("Try calling again this method using")
+		print("    uneven2even(t,y,\'"+str(dt)+"S\')")
+		print("or an equivalent Pandas string to regularize your timeseries.")
+		print("If dt<1, try using multiples of 1e-3 such as \'1ms\' or 1e-6 such as \'1us\'.")
+	else:
+		# Datetime tuple
+		tdate=fermi.converttime(t) 
+
+		# Pandas timeseries
+		d=pandas.Series(y,index=tdate)
+
+		# resample
+		dres=d.resample(dtres).mean()
+		dres.plot()		
+
+		# convert the pandas object back to float arrays, respecting
+		# the conventions of the input time array
+		tout,yout=[],[]
+		t0=datetime.datetime(2001,1,1) # because of fermi.converttime
+
+		# loops through datetime tuples
+		for i,tt in enumerate(dres.index.to_pydatetime()):
+			tnew=tt-t0
+			tout.append(tnew.microseconds/1e6)
+			yout.append(dres[i])
+
+		return numpy.array(tout),numpy.array(yout)
+
+
+
+
+
 
 
 
@@ -328,7 +401,7 @@ compare with the data.
 
     tphys12, t12, y12 = readmodel('Gold paper/1,2nc mdot bin.csv')
 
-:returns: physical times, ... INCOMPLETE
+:returns: time in years, time in code units, signal
     """
     from . import astro
     import astropy.io.ascii as ascii
@@ -345,3 +418,38 @@ compare with the data.
     tphys=tmod*1000*const.G*m*const.solarmass/const.c**3/const.year
     
     return tphys, tmod, ymoddet
+
+
+
+
+def adjustmodel(file,stretch,translate,obs):
+    """
+Auxiliary method to read and normalize the BHBH simulation TS from Gold+14 
+to the observations. 
+::
+
+    tmod,smod=adjustmodel('/Users/nemmen/work/projects/fermi/ngc1275/Gold paper/1,2nc mdot bin.csv',5.6,2008.6,y)
+
+obs is the data you want to normalize the model to.
+
+:returns: time in years, time in code units, signal
+    """
+    from . import lsd
+    import astropy.io.ascii as ascii
+    import scipy.signal
+
+    data = ascii.read(file)
+    tmod,ymod=data['col1'],data['col2']
+
+    ymoddet=scipy.signal.detrend(ymod)
+    ymod=lsd.norm(ymoddet,scipy.signal.detrend(obs))
+    
+    # physical times (scaled to data)
+    tphys=(tmod-tmod[0])*stretch+translate
+    
+    # BH mass implied by the scaling, in solar masses
+    # Careful with units: CGS then converted to Msun
+    mass=1e-3*4.04e38*(tphys[-1]-tphys[0])/(tmod[-1]-tmod[0])*31556926./1.99e33
+    print('M = ',mass,' Msun')
+    
+    return tphys, ymod
