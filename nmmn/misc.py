@@ -283,72 +283,59 @@ Inspired on http://stackoverflow.com/a/6451892/793218.
 
 	return numpy.array(year)
 
-def uneven2even(t,y,dtres=None):
+def uneven2even(t,y):
 	"""
 Given an uneven timeseries (TS) with multiple values defined at the same 
-time, this method will use Pandas to convert it into an evenly sampled
-timeseries with a dt as close as possible to the actual dt.
+time, this method will convert it into an evenly sampled
+timeseries with a dt as close as possible to the actual dt, removing
+duplicate-t values.
 
 Example: suppose you want to compute the CWT for an unevenly sampled
 time series. Since the CWT does not support uneven TS, you can first
 call this method to regularize your TS and then perform the TS.
 
-The trick here is that I will consider `t` as the time in seconds,
-and `t0` as an arbitrary time. I convert `t` to a datetime tuple 
-and then call Pandas for the resampling. 
+Algorithm:
+
+- REMOVE DUPLICATE times
+- CREATE REGULAR GRID USING BEST DT
+- INTERPOLATE NEW TS ON PREVIOUS ONE 
 
 :param t: input times
 :param y: input value
-:param dt: string for pandas resample method ('1S' or equivalent). If provided, performs the resampling. Otherwise, suggests a value.
 	"""
-	import pandas
-	from . import fermi
-	import datetime
+	import scipy.interpolate
 
-	# If no dt is given, this will suggest the appropriate value
-	# to use as a Pandas resample string.
-	if (dtres is None):
-		# gets successive dt for all points
-		dt=[] 
-		for i in range(t.size):
-			if (i>0):
-				dt.append(t[i]-t[i-1])
+	# remove items with same t
+	# ==========================
+	# gets successive dt for all points
+	dtarr=[] 
+	idel=[] # list of indexes for elements that  will be removed
+	for i in range(t.size):
+		if (i>0):
+			dt=t[i]-t[i-1]
+			if (dt==0):
+				idel.append(i)
+			else:
+				dtarr.append(dt) # stores only dt!=0
 
-		# Find out optimal value of dt for the new, evenly sampled TS
-		# I am assuming there will be y-values defined at the same t, 
-		# so I compute the histogram and take the dt value from the
-		# histogram. This needs to be checked in the case when there
-		# are no repeated values.
-		temp,dt0=numpy.histogram(dt,30)
-		dt=dt0[-1] # this is the optimal dt
+	# Find out optimal value of dt for the new
+	dt=numpy.mean(dtarr)
 
-		print("Try calling again this method using")
-		print("    uneven2even(t,y,\'"+str(dt)+"S\')")
-		print("or an equivalent Pandas string to regularize your timeseries.")
-		print("If dt<1, try using multiples of 1e-3 such as \'1ms\' or 1e-6 such as \'1us\'.")
-	else:
-		# Datetime tuple
-		tdate=fermi.converttime(t) 
+	# Removes elements with same t
+	tuniq=numpy.delete(t,idel)
+	yuniq=numpy.delete(y,idel)
 
-		# Pandas timeseries
-		d=pandas.Series(y,index=tdate)
+	# Does linear interpolation on new TS
+	# ======================================
+	# new regular grid, as close as possible to original one
+	tnew=numpy.arange(t[0],t[-1],dt)
 
-		# resample
-		dres=d.resample(dtres).mean()
-		dres.plot()		
+	# interpolation
+	f = scipy.interpolate.interp1d(tuniq, yuniq)
+	ynew = f(tnew)
 
-		# convert the pandas object back to float arrays, respecting
-		# the conventions of the input time array
-		tout,yout=[],[]
-		t0=datetime.datetime(2001,1,1) # because of fermi.converttime
+	return tnew,ynew
 
-		# loops through datetime tuples
-		for i,tt in enumerate(dres.index.to_pydatetime()):
-			tnew=tt-t0
-			tout.append(tnew.microseconds/1e6)
-			yout.append(dres[i])
-
-		return numpy.array(tout),numpy.array(yout)
 
 
 

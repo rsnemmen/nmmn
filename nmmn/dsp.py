@@ -271,6 +271,21 @@ Steps:
 
 
 
+def dt(t):
+    """
+Computes difference between consecutive points in the time series.
+
+:param t: input times
+:param y: input y-values
+    """
+    dtt=[]
+    for i in range(t.size):
+        if (i>0): 
+            dtt.append(t[i]-t[i-1])
+
+    return dtt
+
+
 
 
 
