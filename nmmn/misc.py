@@ -283,59 +283,6 @@ Inspired on http://stackoverflow.com/a/6451892/793218.
 
 	return numpy.array(year)
 
-def uneven2even(t,y):
-	"""
-Given an uneven timeseries (TS) with multiple values defined at the same 
-time, this method will convert it into an evenly sampled
-timeseries with a dt as close as possible to the actual dt, removing
-duplicate-t values.
-
-Example: suppose you want to compute the CWT for an unevenly sampled
-time series. Since the CWT does not support uneven TS, you can first
-call this method to regularize your TS and then perform the TS.
-
-Algorithm:
-
-- REMOVE DUPLICATE times
-- CREATE REGULAR GRID USING BEST DT
-- INTERPOLATE NEW TS ON PREVIOUS ONE 
-
-:param t: input times
-:param y: input value
-	"""
-	import scipy.interpolate
-
-	# remove items with same t
-	# ==========================
-	# gets successive dt for all points
-	dtarr=[] 
-	idel=[] # list of indexes for elements that  will be removed
-	for i in range(t.size):
-		if (i>0):
-			dt=t[i]-t[i-1]
-			if (dt==0):
-				idel.append(i)
-			else:
-				dtarr.append(dt) # stores only dt!=0
-
-	# Find out optimal value of dt for the new
-	dt=numpy.mean(dtarr)
-
-	# Removes elements with same t
-	tuniq=numpy.delete(t,idel)
-	yuniq=numpy.delete(y,idel)
-
-	# Does linear interpolation on new TS
-	# ======================================
-	# new regular grid, as close as possible to original one
-	tnew=numpy.arange(t[0],t[-1],dt)
-
-	# interpolation
-	f = scipy.interpolate.interp1d(tuniq, yuniq)
-	ynew = f(tnew)
-
-	return tnew,ynew
-
 
 
 
