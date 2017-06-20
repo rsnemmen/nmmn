@@ -312,16 +312,16 @@ Algorithm:
     # ==========================
     # gets successive dt for all points
     dtarr=[] 
-    idel=[] # list of indexes for elements that  will be removed
+    idel=[] # list of indexes for elements that will be removed
     for i in range(t.size):
         if (i>0):
             dt=t[i]-t[i-1]
-            if (dt==0):
+            if (dt==0): # if they have dt==0, store their index and later remove them
                 idel.append(i)
             else:
                 dtarr.append(dt) # stores only dt!=0
 
-    # Find out optimal value of dt for the new
+    # Find out optimal value of dt for the new TS
     dt=numpy.mean(dtarr)
 
     # Removes elements with same t
