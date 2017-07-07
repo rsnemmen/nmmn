@@ -4,7 +4,7 @@ Dealing with (GR)(R)(M)HD simulations
 
 - RAISHIN
 - Pluto
-- HARM (soon)
+- HARM
 
 See jupyter notebooks "grmhd*" for examples on how to use this
 module.
@@ -354,6 +354,96 @@ Saves data as an ASCII file with columns corresponding to variables:
 		self.by3d=self.byc.T[..., numpy.newaxis]
 		self.bz3d=self.bzc.T[..., numpy.newaxis]
 		self.b3d=self.bc.T[..., numpy.newaxis]
+
+
+
+
+
+
+
+
+
+
+class Harm:
+	"""
+Class that reads a HARM dump datafile and converts to numpy format
+for plotting with matplotlib, mayavi etc.
+
+Attributes of the object:
+
+TBD
+
+Reads data from a VTK file, new attributes rho, p, vx, bx etc:
+
+>>> o=nmmn.grmhd.Harm()
+>>> o.readdump("dump019")
+
+Saves data as an ASCII file with columns corresponding to variables:
+
+>>> o.savetxt("ok200.dat")
+	"""
+
+	def __init__(self):
+		rg("gdump")
+		rd("dump000")
+
+
+
+
+
+
+
+
+
+
+
+
+
+def pol2cart():
+	"""
+TBC!!!!!!!!!!!!!!!!!!!!!!
+Takes care of converting from polar to cartesian coordinates for HARM
+(and potentially other GRMHD codes). 
+
+Taken from `harm_script.py` at atchekho/harmpi.
+	"""
+	if np.abs(xy)==1:
+	    if xcoord is None: xcoord = r * np.sin(h)
+	    if ycoord is None: ycoord = r * np.cos(h)
+	    if mirrory: ycoord *= -1
+	    if mirrorx: xcoord *= -1
+	if xcoord is not None and ycoord is not None:
+	    xcoord = xcoord[:,:,None] if xcoord.ndim == 2 else xcoord[:,:,k:k+1]
+	    ycoord = ycoord[:,:,None] if ycoord.ndim == 2 else ycoord[:,:,k:k+1]
+	if np.abs(xy)==1 and symmx:
+	    if myvar.ndim == 2:
+	        myvar = myvar[:,:,None] if myvar.ndim == 2 else myvar[:,:,k:k+1]
+	        myvar=np.concatenate((myvar[:,::-1],myvar),axis=1)
+	        xcoord=np.concatenate((-xcoord[:,::-1],xcoord),axis=1)
+	        ycoord=np.concatenate((ycoord[:,::-1],ycoord),axis=1)
+	    else:
+	        if myvar.shape[-1] > 1: 
+	            symmk = (k+nz/2)%nz 
+	        else: 
+	            symmk = k
+	        myvar=np.concatenate((myvar[:,ny-1:ny,k:k+1],myvar[:,::-1,symmk:symmk+1],myvar[:,:,k:k+1]),axis=1)
+	        xcoord=np.concatenate((xcoord[:,ny-1:ny,k:k+1],-xcoord[:,::-1],xcoord),axis=1)
+	        ycoord=np.concatenate((ycoord[:,ny-1:ny,k:k+1],ycoord[:,::-1],ycoord),axis=1)
+	elif np.abs(xy) == 2 and symmx:
+	    #if fracphi == 0.5 done in a robust way
+	    if get_fracphi() < 0.75:
+	        r1 = np.concatenate((r,r,r[...,0:1]),axis=2)
+	        ph1 = np.concatenate((ph,ph+np.pi,ph[...,0:1]+2*np.pi),axis=2)
+	        myvar = np.concatenate((myvar,myvar,myvar[...,0:1]),axis=2)
+	    else:
+	        r1 = np.concatenate((r,r[...,0:1]),axis=2)
+	        ph1 = np.concatenate((ph,ph[...,0:1]+2*np.pi),axis=2)
+	        myvar = np.concatenate((myvar,myvar[...,0:1]),axis=2)
+	    xcoord=(r1*cos(ph1))[:,ny/2,:,None]
+	    ycoord=(r1*sin(ph1))[:,ny/2,:,None]
+	    myvar = myvar[:,ny/2,:,None]
+	else:
+	    myvar = myvar[:,:,None] if myvar.ndim == 2 else myvar[:,:,k:k+1]
 
 
 

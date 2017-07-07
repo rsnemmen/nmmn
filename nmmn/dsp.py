@@ -177,7 +177,7 @@ Returns arrays with periods and LS spectral power.
     return period,spower
 
 
-def ls_spectra(t,var,n=200,thres=0.1):
+def ls_spectra(t,var,n=200,thres=0.1,smooth=0):
     """
 Computes Lomb-Scargle power spectrum, find peaks, produces arrays for
 plotting images showing the spectral lines.
@@ -186,6 +186,7 @@ plotting images showing the spectral lines.
 :param var: array of signal
 :param n: number of vertical elements in image that will be created showing spectral lines
 :param thres: threshold parameter for finding peaks in time series
+:param smooth: number of points in the smoothing window. If 0, no smoothing
 
 Usage: ``N,P,l,pp,power=ls_spectra(t,y,thres=0.3)``
 
@@ -200,6 +201,11 @@ Returns the following variables:
     import peakutils 
 
     p,power=ls(t,var)
+
+    # smooth periodogram if requested
+    if (smooth!=0): 
+        p,power=smoothxy(p,power,smooth)
+
     T, P = numpy.meshgrid(range(n), p)
     
     # spectral lines

@@ -337,12 +337,15 @@ compare with the data.
 
 :returns: time in years, time in code units, signal
     """
-    from . import astro
+    from . import astro, dsp
     import astropy.io.ascii as ascii
     import scipy.signal
 
     data = ascii.read(file)
     tmod,ymod=data['col1'],data['col2']
+
+    # cleans TS (remove duplicate times, regular dt for CWT later)
+    tmod,ymod=dsp.uneven2even(tmod,ymod)
     
     # detrends data
     ymoddet=scipy.signal.detrend(ymod)
@@ -375,6 +378,7 @@ obs is the data you want to normalize the model to.
     data = ascii.read(file)
     tmod,ymod=data['col1'],data['col2']
 
+    # detrends and normalize data
     ymoddet=scipy.signal.detrend(ymod)
     ymod=lsd.norm(ymoddet,scipy.signal.detrend(obs))
     
