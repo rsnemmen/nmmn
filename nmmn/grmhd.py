@@ -394,7 +394,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 		if dump is not None:
 			# read grid information
-		    self.read_file(gdump,type="gdump")
+			self.read_file(gdump,type="gdump")
 
 			# read dump file
 			self.read_file(dump,type="dump")
@@ -407,9 +407,9 @@ Saves data as an ASCII file with columns corresponding to variables:
 		"""
 	High-level function that reads either MPI or serial gdump's
 		"""
-		import sys
+		import os,sys
 
-	    if type is None:
+		if type is None:
 			if dump.startswith("dump"):
 				type = "dump"
 				print("Reading a dump file %s ..." % dump)
@@ -431,12 +431,12 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 	    #normal dump
 		if os.path.isfile( "dumps/" + dump ):
-			headerline = read_header("dumps/" + dump, returnheaderline = True)
-		    gd = read_body("dumps/" + dump,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G,noround=1)
-		    if noround:
-				res = data_assign(         gd,type=type,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G)
+			headerline = self.read_header("dumps/" + dump, returnheaderline = True)
+			gd = self.read_body("dumps/" + dump,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G,noround=1)
+			if noround:
+				res = self.data_assign(         gd,type=type,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G)
 			else:
-				res = data_assign(myfloat(gd),type=type,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G)
+				res = self.data_assign(myfloat(gd),type=type,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G)
 			return res
 
 	    #MPI-type dump that is spread over many files
@@ -471,7 +471,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 					ltk = np.int64(ltk)
 					fgd[:,lti+N1G,ltj+N2G,ltk+N3G] = lgd[:,:,:,:]
 				else:
-				print(starti,startj,startk)
+					print(starti,startj,startk)
 					fgd[:,starti:starti+N1+2*N1G,startj:startj+N2+2*N2G,startk:startk+N3+2*N3G] = lgd[:,:,:,:]
 				del lgd
 				if i%dndot == 0:
@@ -661,38 +661,38 @@ Saves data as an ASCII file with columns corresponding to variables:
 		else:
 			return header
 	            
-	def read_body(dump,nx=None,ny=None,nz=None,noround=False):
+	def read_body(self,dump,nx=None,ny=None,nz=None,noround=False):
 		fin = open( dump, "rb" )
 		header = fin.readline()
 		if dump.startswith("dumps/rdump"):
 			dtype = np.float64
 			body = np.fromfile(fin,dtype=dtype,count=-1)
-			gd = body.view().reshape((nx,ny,nz,-1), order='C')
+			gd = body.view().reshape((self.nx,self.ny,self.nz,-1), order='C')
 			if noround:
 				gd=gd.transpose(3,0,1,2)
 			else:
 				gd=myfloat(gd.transpose(3,0,1,2))
-			elif dump.startswith("dumps/gdump2"):
-				dtype = np.float64
-				body = np.fromfile(fin,dtype=dtype,count=-1)
-				gd = body.view().reshape((nx,ny,nz,-1), order='C')
-				if noround:
-					gd=gd.transpose(3,0,1,2)
-				else:
-					gd=myfloat(gd.transpose(3,0,1,2))
-			elif dump.startswith("dumps/fdump"):
-				dtype = np.int64
-				body = np.fromfile(fin,dtype=dtype,count=-1)
-				gd = body.view().reshape((-1,nz,ny,nx), order='F')
-				gd=myfloat(gd.transpose(0,3,2,1))
+		elif dump.startswith("dumps/gdump2"):
+			dtype = np.float64
+			body = np.fromfile(fin,dtype=dtype,count=-1)
+			gd = body.view().reshape((self.nx,self.ny,self.nz,-1), order='C')
+			if noround:
+				gd=gd.transpose(3,0,1,2)
 			else:
-				dtype = np.float32
-				body = np.fromfile(fin,dtype=dtype,count=-1)
-				gd = body.view().reshape((-1,nz,ny,nx), order='F')
-				gd=myfloat(gd.transpose(0,3,2,1))
-			return gd
+				gd=myfloat(gd.transpose(3,0,1,2))
+		elif dump.startswith("dumps/fdump"):
+			dtype = np.int64
+			body = np.fromfile(fin,dtype=dtype,count=-1)
+			gd = body.view().reshape((-1,self.nz,self.ny,self.nx), order='F')
+			gd=myfloat(gd.transpose(0,3,2,1))
+		else:
+			dtype = np.float32
+			body = np.fromfile(fin,dtype=dtype,count=-1)
+			gd = body.view().reshape((-1,self.nz,self.ny,self.nx), order='F')
+			gd=myfloat(gd.transpose(0,3,2,1))
+		return gd
 
-	def data_assign(gd,type=None,**kwargs):
+	def data_assign(self,gd,type=None,**kwargs):
 		if type is None:
 			print("Please specify data type")
 			return
@@ -715,97 +715,98 @@ Saves data as an ASCII file with columns corresponding to variables:
 			print("Unknown data type: %s" % type)
 			return gd
 	    
-	def gdump_assign(gd,**kwargs):
-		global t,nx,ny,nz,N1,N2,N3,_dx1,_dx2,_dx3,a,gam,Rin,Rout,hslope,R0,ti,tj,tk,x1,x2,x3,r,h,ph,gcov,gcon,gdet,drdx,gn3,gv3,guu,gdd,dxdxp, games
-		nx = kwargs.pop("nx",nx)
-		ny = kwargs.pop("ny",ny)
-		nz = kwargs.pop("nz",nz)
-		ti,tj,tk,x1,x2,x3,r,h,ph = gd[0:9,:,:].view();  n = 9
-		gv3 = gd[n:n+16].view().reshape((4,4,nx,ny,nz),order='F').transpose(1,0,2,3,4); n+=16
-		gn3 = gd[n:n+16].view().reshape((4,4,nx,ny,nz),order='F').transpose(1,0,2,3,4); n+=16
-		gcov = gv3
-		gcon = gn3
-		guu = gn3
-		gdd = gv3
-		gdet = gd[n]; n+=1
-		drdx = gd[n:n+16].view().reshape((4,4,nx,ny,nz),order='F').transpose(1,0,2,3,4); n+=16
-		dxdxp = drdx
+	def gdump_assign(self,gd,**kwargs):
+		#global t,nx,ny,nz,N1,N2,N3,_dx1,_dx2,_dx3,a,gam,Rin,Rout,hslope,R0,ti,tj,tk,x1,x2,x3,r,h,ph,gcov,gcon,gdet,drdx,gn3,gv3,guu,gdd,dxdxp, games
+		self.nx = kwargs.pop("nx",self.nx)
+		self.ny = kwargs.pop("ny",self.ny)
+		self.nz = kwargs.pop("nz",self.nz)
+		self.ti,self.tj,self.tk,self.x1,self.x2,self.x3,self.r,self.h,self.ph = gd[0:9,:,:].view();  n = 9
+		self.gv3 = gd[n:n+16].view().reshape((4,4,self.nx,self.ny,self.nz),order='F').transpose(1,0,2,3,4); n+=16
+		self.gn3 = gd[n:n+16].view().reshape((4,4,self.nx,self.ny,self.nz),order='F').transpose(1,0,2,3,4); n+=16
+		self.gcov = self.gv3
+		self.gcon = self.gn3
+		self.guu = self.gn3
+		self.gdd = self.gv3
+		self.gdet = gd[n]; n+=1
+		self.drdx = gd[n:n+16].view().reshape((4,4,self.nx,self.ny,self.nz),order='F').transpose(1,0,2,3,4); n+=16
+		self.dxdxp = drdx
 		if n != gd.shape[0]:
 			print("rd: WARNING: nread = %d < ntot = %d: incorrect format?" % (n, gd.shape[0]) )
 			return 1
 		return 0
 
-	def gdump2_assign(gd,**kwargs):
-		global t,nx,ny,nz,N1,N2,N3,_dx1,_dx2,_dx3,a,gam,Rin,Rout,hslope,R0,ti,tj,tk,x1,x2,x3,gdet,games,rf1,hf1,phf1,rf2,hf2,phf2,rf3,hf3,phf3,rcorn,hcord,phcorn,re1,he1,phe1,re2,he2,phe2,re3,he3,phe3
-		nx = kwargs.pop("nx",nx)
-		ny = kwargs.pop("ny",ny)
-		nz = kwargs.pop("nz",nz)
-		ti,tj,tk,x1,x2,x3 = gd[0:6,:,:].view();  n = 6
-		rf1,hf1,phf1,rf2,hf2,phf2,rf3,hf3,phf3 = gd[0:9,:,:].view();  n += 9
-		rcorn,hcord,phcorn,rcent,hcent,phcen = gd[0:6,:,:].view();  n += 6
-		re1,he1,phe1,re2,he2,phe2,re3,he3,phe3 = gd[0:9,:,:].view();  n += 9
-		gdet = gd[n]; n+=1
+	def gdump2_assign(self,gd,**kwargs):
+		#global t,nx,ny,nz,N1,N2,N3,_dx1,_dx2,_dx3,a,gam,Rin,Rout,hslope,R0,ti,tj,tk,x1,x2,x3,gdet,games,rf1,hf1,phf1,rf2,hf2,phf2,rf3,hf3,phf3,rcorn,hcord,phcorn,re1,he1,phe1,re2,he2,phe2,re3,he3,phe3
+		self.nx = kwargs.pop("nx",self.nx)
+		self.ny = kwargs.pop("ny",self.ny)
+		self.nz = kwargs.pop("nz",self.nz)
+		self.ti,self.tj,self.tk,self.x1,self.x2,self.x3 = gd[0:6,:,:].view();  n = 6
+		self.rf1,self.hf1,self.phf1,self.rf2,self.hf2,self.phf2,self.rf3,self.hf3,self.phf3 = gd[0:9,:,:].view();  n += 9
+		self.rcorn,self.hcord,self.phcorn,self.rcent,self.hcent,self.phcen = gd[0:6,:,:].view();  n += 6
+		self.re1,self.he1,self.phe1,self.re2,self.he2,self.phe2,self.re3,self.he3,self.phe3 = gd[0:9,:,:].view();  n += 9
+		self.gdet = gd[n]; n+=1
 		if n != gd.shape[0]:
 			print("rd: WARNING: nread = %d < ntot = %d: incorrect format?" % (n, gd.shape[0]) )
 			return 1
 		return 0
 
 	#read in a dump file
-	def dump_assign(gd,**kwargs):
-		global t,nx,ny,nz,_dx1,_dx2,_dx3,gam,hslope,a,R0,Rin,Rout,ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug,vu,B,pg,cs2,Sden,U,gdetB,divb,uu,ud,bu,bd,v1m,v1p,v2m,v2p,gdet,bsq,gdet,alpha,rhor, ktot, pg
-		nx = kwargs.pop("nx",nx)
-		ny = kwargs.pop("ny",ny)
-		nz = kwargs.pop("nz",nz)
-		ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug = gd[0:11,:,:].view(); n = 11
-		pg = (gam-1)*ug
-		lrho=np.log10(rho)
-		vu=np.zeros_like(gd[0:4])
-		B=np.zeros_like(gd[0:4])
-		vu[1:4] = gd[n:n+3]; n+=3
-		B[1:4] = gd[n:n+3]; n+=3
+	def dump_assign(self,gd,**kwargs):
+		#global t,nx,ny,nz,_dx1,_dx2,_dx3,gam,hslope,a,R0,Rin,Rout,ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug,vu,B,pg,cs2,Sden,U,gdetB,divb,uu,ud,bu,bd,v1m,v1p,v2m,v2p,gdet,bsq,gdet,alpha,rhor, ktot, pg
+		self.nx = kwargs.pop("nx",self.nx)
+		self.ny = kwargs.pop("ny",self.ny)
+		self.nz = kwargs.pop("nz",self.nz)
+		self.ti,self.tj,self.tk,self.x1,self.x2,self.x3,self.r,self.h,self.ph,self.rho,self.ug = gd[0:11,:,:].view(); n = 11
+		self.pg = (self.gam-1)*self.ug
+		#lrho=np.log10(self.rho)
+		self.vu=np.zeros_like(gd[0:4])
+		self.B=np.zeros_like(gd[0:4])
+		self.vu[1:4] = gd[n:n+3]; n+=3
+		self.B[1:4] = gd[n:n+3]; n+=3
 		#if total entropy equation is evolved (on by default)
-		if DOKTOT == 1:
-			ktot = gd[n]; n+=1
-		divb = gd[n]; n+=1
-		uu = gd[n:n+4]; n+=4
-		ud = gd[n:n+4]; n+=4
-		bu = gd[n:n+4]; n+=4
-		bd = gd[n:n+4]; n+=4
-		bsq = mdot(bu,bd)
-		v1m,v1p,v2m,v2p,v3m,v3p=gd[n:n+6]; n+=6
-		gdet=gd[n]; n+=1
-		rhor = 1+(1-a**2)**0.5
-		if "guu" in globals():
+		if self.DOKTOT == 1:
+			self.ktot = gd[n]; n+=1
+		self.divb = gd[n]; n+=1
+		self.uu = gd[n:n+4]; n+=4
+		self.ud = gd[n:n+4]; n+=4
+		self.bu = gd[n:n+4]; n+=4
+		self.bd = gd[n:n+4]; n+=4
+		self.bsq = mdot(bu,bd)
+		self.v1m,self.v1p,self.v2m,self.v2p,self.v3m,self.v3p=gd[n:n+6]; n+=6
+		self.gdet=gd[n]; n+=1
+		self.rhor = 1+(1-a**2)**0.5
+		if hasattr(self, 'guu'):
+		#if "guu" in globals():
 			#lapse
-			alpha = (-guu[0,0])**(-0.5)
+			alpha = (-self.guu[0,0])**(-0.5)
 		if n != gd.shape[0]:
 			print("rd: WARNING: nread = %d < ntot = %d: incorrect format?" % (n, gd.shape[0]) )
 			return 1
 		return 0
 
-	def rdump_assign(gd,**kwargs):
-		global t,nx,ny,nz,_dx1,_dx2,_dx3,gam,hslope,a,R0,Rin,Rout,ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug,vu,B,pg,cs2,Sden,U,gdetB,divb,uu,ud,bu,bd,v1m,v1p,v2m,v2p,gdet,bsq,gdet,alpha,rhor, ktot, Ttot, game, qisosq, pflag, qisodotb, kel, uelvar, Tel4, Tel5,Teldis, Tels, kel4, kel5,ugel,ugeldis, ugcon, sel, ugscon, ugel4, ugel5,stot, uelvar, Telvar, Tsel, sel, ugels, games, phi, keldis, phihat,csphib,lrho
-		nx = kwargs.pop("nx",nx)
-		ny = kwargs.pop("ny",ny)
-		nz = kwargs.pop("nz",nz)
+	def rdump_assign(self,gd,**kwargs):
+		#global t,nx,ny,nz,_dx1,_dx2,_dx3,gam,hslope,a,R0,Rin,Rout,ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug,vu,B,pg,cs2,Sden,U,gdetB,divb,uu,ud,bu,bd,v1m,v1p,v2m,v2p,gdet,bsq,gdet,alpha,rhor, ktot, Ttot, game, qisosq, pflag, qisodotb, kel, uelvar, Tel4, Tel5,Teldis, Tels, kel4, kel5,ugel,ugeldis, ugcon, sel, ugscon, ugel4, ugel5,stot, uelvar, Telvar, Tsel, sel, ugels, games, phi, keldis, phihat,csphib,lrho
+		self.nx = kwargs.pop("nx",self.nx)
+		self.ny = kwargs.pop("ny",self.ny)
+		self.nz = kwargs.pop("nz",self.nz)
 		n = 0
-		rho = gd[n]; n+=1
-		ug = gd[n]; n+=1
-		vu=np.zeros_like(gd[0:4])
-		B=np.zeros_like(gd[0:4])
-		vu[1:4] = gd[n:n+3]; n+=3
-		B[1:4] = gd[n:n+3]; n+=3
+		self.rho = gd[n]; n+=1
+		self.ug = gd[n]; n+=1
+		self.vu=np.zeros_like(gd[0:4])
+		self.B=np.zeros_like(gd[0:4])
+		self.vu[1:4] = gd[n:n+3]; n+=3
+		self.B[1:4] = gd[n:n+3]; n+=3
 		# if n != gd.shape[0]:
 		#     print("rd: WARNING: nread = %d < ntot = %d: incorrect format?" % (n, gd.shape[0]) )
 		#     return 1
 		return gd
 
-	def fdump_assign(gd,**kwargs):
-		global t,nx,ny,nz,_dx1,_dx2,_dx3,gam,hslope,a,R0,Rin,Rout,ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug,vu,B,pg,cs2,Sden,U,gdetB,divb,uu,ud,bu,bd,v1m,v1p,v2m,v2p,gdet,bsq,gdet,alpha,rhor, ktot, Ttot, game, qisosq, pflag, qisodotb, kel, uelvar, Tel4, Tel5,Teldis, Tels, kel4, kel5,ugel,ugeldis, ugcon, sel, ugscon, ugel4, ugel5,stot, uelvar, Telvar, Tsel, sel, ugels, games, phi, keldis, phihat,csphib,lrho,fail
-		nx = kwargs.pop("nx",nx)
-		ny = kwargs.pop("ny",ny)
-		nz = kwargs.pop("nz",nz)
-		fail = gd
+	def fdump_assign(self,gd,**kwargs):
+		#global t,nx,ny,nz,_dx1,_dx2,_dx3,gam,hslope,a,R0,Rin,Rout,ti,tj,tk,x1,x2,x3,r,h,ph,rho,ug,vu,B,pg,cs2,Sden,U,gdetB,divb,uu,ud,bu,bd,v1m,v1p,v2m,v2p,gdet,bsq,gdet,alpha,rhor, ktot, Ttot, game, qisosq, pflag, qisodotb, kel, uelvar, Tel4, Tel5,Teldis, Tels, kel4, kel5,ugel,ugeldis, ugcon, sel, ugscon, ugel4, ugel5,stot, uelvar, Telvar, Tsel, sel, ugels, games, phi, keldis, phihat,csphib,lrho,fail
+		self.nx = kwargs.pop("nx",self.nx)
+		self.ny = kwargs.pop("ny",self.ny)
+		self.nz = kwargs.pop("nz",self.nz)
+		self.fail = gd
 		return gd
 
 
@@ -866,6 +867,14 @@ Taken from `harm_script.py` at atchekho/harmpi.
 
 
 
+
+
+def myfloat(f,acc=1): # Sasha
+	""" acc=1 means np.float32, acc=2 means np.float64 """
+	if acc==1:
+		return( np.float32(f) )
+	else:
+		return( np.float64(f) )
 
 
 				
