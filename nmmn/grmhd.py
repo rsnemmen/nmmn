@@ -432,11 +432,11 @@ Saves data as an ASCII file with columns corresponding to variables:
 	    #normal dump
 		if os.path.isfile( "dumps/" + dump ):
 			headerline = self.read_header("dumps/" + dump, returnheaderline = True)
-			gd = self.read_body("dumps/" + dump,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G,noround=1)
+			gd = self.read_body("dumps/" + dump,nx=self.N1+2*self.N1G,ny=self.N2+2*self.N2G,nz=self.N3+2*self.N3G,noround=1)
 			if noround:
-				res = self.data_assign(         gd,type=type,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G)
+				res = self.data_assign(         gd,type=type,nx=self.N1+2*self.N1G,ny=self.N2+2*self.N2G,nz=self.N3+2*self.N3G)
 			else:
-				res = self.data_assign(myfloat(gd),type=type,nx=N1+2*N1G,ny=N2+2*N2G,nz=N3+2*N3G)
+				res = self.data_assign(myfloat(gd),type=type,nx=self.N1+2*self.N1G,ny=self.N2+2*self.N2G,nz=self.N3+2*self.N3G)
 			return res
 
 	    #MPI-type dump that is spread over many files
@@ -522,136 +522,113 @@ Saves data as an ASCII file with columns corresponding to variables:
 		header = headerline.split()
 		nheadertot = len(header)
 		fin.close()
+		# Creates object attributes
 		if not dump.startswith("dumps/rdump"):
 			if not issilent: print( "dump header: len(header) = %d" % len(header) )
 			nheader = 45
 			n = 0
-			t = myfloat(np.float64(header[n])); n+=1
+			self.t = myfloat(np.float64(header[n])); n+=1
 			#per tile resolution
-			N1 = int(header[n]); n+=1
-			N2 = int(header[n]); n+=1
-			N3 = int(header[n]); n+=1
+			self.N1 = int(header[n]); n+=1
+			self.N2 = int(header[n]); n+=1
+			self.N3 = int(header[n]); n+=1
 			#total resolution
-			nx = int(header[n]); n+=1
-			ny = int(header[n]); n+=1
-			nz = int(header[n]); n+=1
+			self.nx = int(header[n]); n+=1
+			self.ny = int(header[n]); n+=1
+			self.nz = int(header[n]); n+=1
 			#numbers of ghost cells
-			N1G = int(header[n]); n+=1
-			N2G = int(header[n]); n+=1
-			N3G = int(header[n]); n+=1
-			startx1 = myfloat(float(header[n])); n+=1
-			startx2 = myfloat(float(header[n])); n+=1
-			startx3 = myfloat(float(header[n])); n+=1
-			_dx1=myfloat(float(header[n])); n+=1
-			_dx2=myfloat(float(header[n])); n+=1
-			_dx3=myfloat(float(header[n])); n+=1
-			tf=myfloat(float(header[n])); n+=1
-			nstep=myfloat(float(header[n])); n+=1
-			a=myfloat(float(header[n])); n+=1
-			gam=myfloat(float(header[n])); n+=1
-			cour=myfloat(float(header[n])); n+=1
-			DTd=myfloat(float(header[n])); n+=1
-			DTl=myfloat(float(header[n])); n+=1
-			DTi=myfloat(float(header[n])); n+=1
-			DTr=myfloat(float(header[n])); n+=1
-			DTr01=myfloat(float(header[n])); n+=1
-			dump_cnt=myfloat(float(header[n])); n+=1
-			image_cnt=myfloat(float(header[n])); n+=1
-			rdump_cnt=myfloat(float(header[n])); n+=1
-			rdump01_cnt=myfloat(float(header[n])); n+=1
-			dt=myfloat(float(header[n])); n+=1
-			lim=myfloat(float(header[n])); n+=1
-			failed=myfloat(float(header[n])); n+=1
-			Rin=myfloat(float(header[n])); n+=1
-			Rout=myfloat(float(header[n])); n+=1
-			hslope=myfloat(float(header[n])); n+=1
-			R0=myfloat(float(header[n])); n+=1
-			NPR=int(header[n]); n+=1
-			DOKTOT=int(header[n]); n+=1
-			fractheta = myfloat(header[n]); n+=1
-			fracphi   = myfloat(header[n]); n+=1
-			rbr       = myfloat(header[n]); n+=1
-			npow2     = myfloat(header[n]); n+=1
-			cpow2     = myfloat(header[n]); n+=1
-			BL = myfloat(header[n]); n+=1
+			self.N1G = int(header[n]); n+=1
+			self.N2G = int(header[n]); n+=1
+			self.N3G = int(header[n]); n+=1
+			self.startx1 = myfloat(float(header[n])); n+=1
+			self.startx2 = myfloat(float(header[n])); n+=1
+			self.startx3 = myfloat(float(header[n])); n+=1
+			self._dx1=myfloat(float(header[n])); n+=1
+			self._dx2=myfloat(float(header[n])); n+=1
+			self._dx3=myfloat(float(header[n])); n+=1
+			self.tf=myfloat(float(header[n])); n+=1
+			self.nstep=myfloat(float(header[n])); n+=1
+			self.a=myfloat(float(header[n])); n+=1
+			self.gam=myfloat(float(header[n])); n+=1
+			self.cour=myfloat(float(header[n])); n+=1
+			self.DTd=myfloat(float(header[n])); n+=1
+			self.DTl=myfloat(float(header[n])); n+=1
+			self.DTi=myfloat(float(header[n])); n+=1
+			self.DTr=myfloat(float(header[n])); n+=1
+			self.DTr01=myfloat(float(header[n])); n+=1
+			self.dump_cnt=myfloat(float(header[n])); n+=1
+			self.image_cnt=myfloat(float(header[n])); n+=1
+			self.rdump_cnt=myfloat(float(header[n])); n+=1
+			self.rdump01_cnt=myfloat(float(header[n])); n+=1
+			self.dt=myfloat(float(header[n])); n+=1
+			self.lim=myfloat(float(header[n])); n+=1
+			self.failed=myfloat(float(header[n])); n+=1
+			self.Rin=myfloat(float(header[n])); n+=1
+			self.Rout=myfloat(float(header[n])); n+=1
+			self.hslope=myfloat(float(header[n])); n+=1
+			self.R0=myfloat(float(header[n])); n+=1
+			self.NPR=int(header[n]); n+=1
+			self.DOKTOT=int(header[n]); n+=1
+			self.fractheta = myfloat(header[n]); n+=1
+			self.fracphi   = myfloat(header[n]); n+=1
+			self.rbr       = myfloat(header[n]); n+=1
+			self.npow2     = myfloat(header[n]); n+=1
+			self.cpow2     = myfloat(header[n]); n+=1
+			self.BL = myfloat(header[n]); n+=1
 		else:
 			print("rdump header")
 			nheader = 46
 			n = 0
 			#per tile resolution
-			N1 = int(header[n]); n+=1
-			N2 = int(header[n]); n+=1
-			N3 = int(header[n]); n+=1
+			self.N1 = int(header[n]); n+=1
+			self.N2 = int(header[n]); n+=1
+			self.N3 = int(header[n]); n+=1
 			#total resolution
-			nx = int(header[n]); n+=1
-			ny = int(header[n]); n+=1
-			nz = int(header[n]); n+=1
+			self.nx = int(header[n]); n+=1
+			self.ny = int(header[n]); n+=1
+			self.nz = int(header[n]); n+=1
 			#numbers of ghost cells
-			N1G = int(header[n]); n+=1
-			N2G = int(header[n]); n+=1
-			N3G = int(header[n]); n+=1
+			self.N1G = int(header[n]); n+=1
+			self.N2G = int(header[n]); n+=1
+			self.N3G = int(header[n]); n+=1
 			#starting indices
-			starti = int(header[n]); n+=1
-			startj = int(header[n]); n+=1
-			startk = int(header[n]); n+=1
-			t = myfloat(header[n]); n+=1
-			tf = myfloat(header[n]); n+=1
-			nstep = int(header[n]); n+=1
-			a = myfloat(header[n]); n+=1
-			gam = myfloat(header[n]); n+=1
-			game = myfloat(header[n]); n+=1
-			game4 = myfloat(header[n]); n+=1
-			game5 = myfloat(header[n]); n+=1
-			cour = myfloat(header[n]); n+=1
-			DTd = myfloat(header[n]); n+=1
-			DTl = myfloat(header[n]); n+=1
-			DTi = myfloat(header[n]); n+=1
-			DTr = myfloat(header[n]); n+=1
-			DTr01 = myfloat(header[n]); n+=1
-			dump_cnt = myfloat(header[n]); n+=1
-			image_cnt = myfloat(header[n]); n+=1
-			rdump_cnt = myfloat(header[n]); n+=1
-			rdump01_cnt=myfloat(float(header[n])); n+=1
-			dt = myfloat(header[n]); n+=1
-			lim = myfloat(header[n]); n+=1
-			failed = myfloat(header[n]); n+=1
-			Rin = myfloat(header[n]); n+=1
-			Rout = myfloat(header[n]); n+=1
-			hslope = myfloat(header[n]); n+=1
-			R0 = myfloat(header[n]); n+=1
-			fractheta = myfloat(header[n]); n+=1
-			fracphi = myfloat(header[n]); n+=1
-			rbr = myfloat(header[n]); n+=1
-			npow2 = myfloat(header[n]); n+=1
-			cpow2 = myfloat(header[n]); n+=1
-			tdump = myfloat(header[n]); n+=1
-			trdump = myfloat(header[n]); n+=1
-			timage = myfloat(header[n]); n+=1
-			tlog  = myfloat(header[n]); n+=1
-
-		# Creates object attributes
-		self.t,self.tf=t,tf
-		self.nx,self.ny,self.nz=nx,ny,nz
-		self.N1,self.N2,self.N3,self.N1G,self.N2G,self.N3G=N1,N2,N3,N1G,N2G,N3G
-		self.starti,self.startj,self.startk=starti,startj,startk
-		self._dx1,self._dx2,self._dx3
-		self.a=a
-		self.gam=gam
-		self.Rin,self.Rout,self.R0=Rin,Rout,R0
-		self.hslope=hslope
-		self.ti,self.tj,self.tk=ti,tj,tk
-		self.x1,self.x2,self.x3=x1,x2,x3
-		self.r,self.h,self.ph=r,h,ph
-		self.gcov,self.gcon,self.gdet=gcov,gcon,gdet
-		self.drdx,self.dxdxp=drdx,dxdxp
-		self.gn3,self.gv3,self.guu,self.gdd,self.games=gn3,gv3,guu,gdd,games
-		self.startx1,self.startx2, self.startx3=startx1, startx2, startx3
-		self.NPR=NPR
-		self.DOKTOT=DOKTOT
-		self.BL=BL
-		self.fractheta, self.fracphi=fractheta, fracphi
-		self.rbr=rbr
-		self.npow2, self.cpow2=npow2, cpow2
+			self.starti = int(header[n]); n+=1
+			self.startj = int(header[n]); n+=1
+			self.startk = int(header[n]); n+=1
+			self.t = myfloat(header[n]); n+=1
+			self.tf = myfloat(header[n]); n+=1
+			self.nstep = int(header[n]); n+=1
+			self.a = myfloat(header[n]); n+=1
+			self.gam = myfloat(header[n]); n+=1
+			self.game = myfloat(header[n]); n+=1
+			self.game4 = myfloat(header[n]); n+=1
+			self.game5 = myfloat(header[n]); n+=1
+			self.cour = myfloat(header[n]); n+=1
+			self.DTd = myfloat(header[n]); n+=1
+			self.DTl = myfloat(header[n]); n+=1
+			self.DTi = myfloat(header[n]); n+=1
+			self.DTr = myfloat(header[n]); n+=1
+			self.DTr01 = myfloat(header[n]); n+=1
+			self.dump_cnt = myfloat(header[n]); n+=1
+			self.image_cnt = myfloat(header[n]); n+=1
+			self.rdump_cnt = myfloat(header[n]); n+=1
+			self.rdump01_cnt=myfloat(float(header[n])); n+=1
+			self.dt = myfloat(header[n]); n+=1
+			self.lim = myfloat(header[n]); n+=1
+			self.failed = myfloat(header[n]); n+=1
+			self.Rin = myfloat(header[n]); n+=1
+			self.Rout = myfloat(header[n]); n+=1
+			self.hslope = myfloat(header[n]); n+=1
+			self.R0 = myfloat(header[n]); n+=1
+			self.fractheta = myfloat(header[n]); n+=1
+			self.fracphi = myfloat(header[n]); n+=1
+			self.rbr = myfloat(header[n]); n+=1
+			self.npow2 = myfloat(header[n]); n+=1
+			self.cpow2 = myfloat(header[n]); n+=1
+			self.tdump = myfloat(header[n]); n+=1
+			self.trdump = myfloat(header[n]); n+=1
+			self.timage = myfloat(header[n]); n+=1
+			self.tlog  = myfloat(header[n]); n+=1
 
 		if n != nheader or n != nheadertot:
 			print("Wrong number of elements in header: nread = %d, nexpected = %d, nototal = %d: incorrect format?"% (n, nheader, nheadertot) )
@@ -697,19 +674,19 @@ Saves data as an ASCII file with columns corresponding to variables:
 			print("Please specify data type")
 			return
 		if type == "gdump":
-			gdump_assign(gd,**kwargs)
+			self.gdump_assign(gd,**kwargs)
 			return None
 		elif type == "gdump2":
-			gdump2_assign(gd,**kwargs)
+			self.gdump2_assign(gd,**kwargs)
 			return None
 		elif type == "dump":
-			dump_assign(gd,**kwargs)
+			self.dump_assign(gd,**kwargs)
 			return None
 		elif type == "rdump":
-			gd = rdump_assign(gd,**kwargs)
+			gd = self.rdump_assign(gd,**kwargs)
 			return gd
 		elif type == "fdump":
-			gd = fdump_assign(gd,**kwargs)
+			gd = self.fdump_assign(gd,**kwargs)
 			return gd
 		else:
 			print("Unknown data type: %s" % type)
@@ -729,7 +706,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 		self.gdd = self.gv3
 		self.gdet = gd[n]; n+=1
 		self.drdx = gd[n:n+16].view().reshape((4,4,self.nx,self.ny,self.nz),order='F').transpose(1,0,2,3,4); n+=16
-		self.dxdxp = drdx
+		self.dxdxp = self.drdx
 		if n != gd.shape[0]:
 			print("rd: WARNING: nread = %d < ntot = %d: incorrect format?" % (n, gd.shape[0]) )
 			return 1
@@ -771,10 +748,10 @@ Saves data as an ASCII file with columns corresponding to variables:
 		self.ud = gd[n:n+4]; n+=4
 		self.bu = gd[n:n+4]; n+=4
 		self.bd = gd[n:n+4]; n+=4
-		self.bsq = mdot(bu,bd)
+		self.bsq = mdot(self.bu,self.bd)
 		self.v1m,self.v1p,self.v2m,self.v2p,self.v3m,self.v3p=gd[n:n+6]; n+=6
 		self.gdet=gd[n]; n+=1
-		self.rhor = 1+(1-a**2)**0.5
+		self.rhor = 1+(1-self.a**2)**0.5
 		if hasattr(self, 'guu'):
 		#if "guu" in globals():
 			#lapse
@@ -875,6 +852,37 @@ def myfloat(f,acc=1): # Sasha
 		return( np.float32(f) )
 	else:
 		return( np.float64(f) )
+
+def mdot(a,b):
+	"""
+    Computes a contraction of two tensors/vectors.  Assumes
+    the following structure: tensor[m,n,i,j,k] OR vector[m,i,j,k], 
+    where i,j,k are spatial indices and m,n are variable indices. 
+	"""
+	if (a.ndim == 3 and b.ndim == 3) or (a.ndim == 4 and b.ndim == 4):
+		c = (a*b).sum(0)
+	elif a.ndim == 5 and b.ndim == 4:
+		c = np.empty(np.maximum(a[:,0,:,:,:].shape,b.shape),dtype=b.dtype)
+		for i in range(a.shape[0]):
+			c[i,:,:,:] = (a[i,:,:,:,:]*b).sum(0)
+	elif a.ndim == 4 and b.ndim == 5:
+		c = np.empty(np.maximum(b[0,:,:,:,:].shape,a.shape),dtype=a.dtype)
+		for i in range(b.shape[1]):
+			c[i,:,:,:] = (a*b[:,i,:,:,:]).sum(0)
+	elif a.ndim == 5 and b.ndim == 5:
+		c = np.empty((a.shape[0],b.shape[1],a.shape[2],a.shape[3],max(a.shape[4],b.shape[4])),dtype=a.dtype)
+		for i in range(c.shape[0]):
+			for j in range(c.shape[1]):
+				c[i,j,:,:,:] = (a[i,:,:,:,:]*b[:,j,:,:,:]).sum(0)
+	elif a.ndim == 5 and b.ndim == 6:
+		c = np.empty((a.shape[0],b.shape[1],b.shape[2],max(a.shape[2],b.shape[3]),max(a.shape[3],b.shape[4]),max(a.shape[4],b.shape[5])),dtype=a.dtype)
+		for mu in range(c.shape[0]):
+			for k in range(c.shape[1]):
+				for l in range(c.shape[2]):
+					c[mu,k,l,:,:,:] = (a[mu,:,:,:,:]*b[:,k,l,:,:,:]).sum(0)
+	else:
+		raise Exception('mdot', 'wrong dimensions')
+	return c
 
 
 				
