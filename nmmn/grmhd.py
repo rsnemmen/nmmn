@@ -403,7 +403,7 @@ Saves data as an ASCII file with columns corresponding to variables:
 
 
 
-	def read_file(dump,type=None,savedump=True,saverdump=False,noround=False):
+	def read_file(self,dump,type=None,savedump=True,saverdump=False,noround=False):
 		"""
 	High-level function that reads either MPI or serial gdump's
 		"""
@@ -503,14 +503,19 @@ Saves data as an ASCII file with columns corresponding to variables:
 						return res
 			return res
 
-	#read in a header
-	def read_header(dump,issilent=True,returnheaderline=False):
+	def read_header(self,dump,issilent=True,returnheaderline=False):
+		"""Read the header for the dump file"""
+		# I am replacing all global variables below as attributes
+		# of the object
+		"""
 		global t,nx,ny,nz,N1,N2,N3,N1G,N2G,N3G,starti,startj,startk,_dx1,_dx2,_dx3,a,gam,Rin,Rout,hslope,R0,ti,tj,tk,x1,x2,x3,r,h,ph,gcov,gcon,gdet,drdx,gn3,gv3,guu,gdd,dxdxp, games, startx1, startx2, startx3, tf, NPR, DOKTOT, BL
 		global fractheta
 		global fracphi
 		global rbr
 		global npow2
 		global cpow2
+		"""
+
 		#read image
 		fin = open( dump, "rb" )
 		headerline = fin.readline()
@@ -623,9 +628,33 @@ Saves data as an ASCII file with columns corresponding to variables:
 			trdump = myfloat(header[n]); n+=1
 			timage = myfloat(header[n]); n+=1
 			tlog  = myfloat(header[n]); n+=1
+
+		# Creates object attributes
+		self.t,self.tf=t,tf
+		self.nx,self.ny,self.nz=nx,ny,nz
+		self.N1,self.N2,self.N3,self.N1G,self.N2G,self.N3G=N1,N2,N3,N1G,N2G,N3G
+		self.starti,self.startj,self.startk=starti,startj,startk
+		self._dx1,self._dx2,self._dx3
+		self.a=a
+		self.gam=gam
+		self.Rin,self.Rout,self.R0=Rin,Rout,R0
+		self.hslope=hslope
+		self.ti,self.tj,self.tk=ti,tj,tk
+		self.x1,self.x2,self.x3=x1,x2,x3
+		self.r,self.h,self.ph=r,h,ph
+		self.gcov,self.gcon,self.gdet=gcov,gcon,gdet
+		self.drdx,self.dxdxp=drdx,dxdxp
+		self.gn3,self.gv3,self.guu,self.gdd,self.games=gn3,gv3,guu,gdd,games
+		self.startx1,self.startx2, self.startx3=startx1, startx2, startx3
+		self.NPR=NPR
+		self.DOKTOT=DOKTOT
+		self.BL=BL
+		self.fractheta, self.fracphi=fractheta, fracphi
+		self.rbr=rbr
+		self.npow2, self.cpow2=npow2, cpow2
+
 		if n != nheader or n != nheadertot:
-			print("Wrong number of elements in header: nread = %d, nexpected = %d, nototal = %d: incorrect format?"
-				% (n, nheader, nheadertot) )
+			print("Wrong number of elements in header: nread = %d, nexpected = %d, nototal = %d: incorrect format?"% (n, nheader, nheadertot) )
 			return headerline
 		if returnheaderline:
 			return headerline
