@@ -235,7 +235,9 @@
 
 
 
-
+<span class="c1"># Methods related to datetime tuples</span>
+<span class="c1"># ====================================</span>
+<span class="c1">#</span>
 <div class="viewcode-block" id="convertyear"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.convertyear">[docs]</a><span class="k">def</span> <span class="nf">convertyear</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Converts from decimal year to a python datetime tuple.</span>
@@ -330,6 +332,11 @@
 
 
 
+
+
+
+
+
 <div class="viewcode-block" id="runsave"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.runsave">[docs]</a><span class="k">def</span> <span class="nf">runsave</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">log</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Executes command cmd and saves its standard output as log</span>
@@ -374,12 +381,15 @@
 
 <span class="sd">:returns: time in years, time in code units, signal</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">astro</span>
+    <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">astro</span><span class="p">,</span> <span class="n">dsp</span>
     <span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
     <span class="kn">import</span> <span class="nn">scipy.signal</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">tmod</span><span class="p">,</span><span class="n">ymod</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span>
+
+    <span class="c1"># cleans TS (remove duplicate times, regular dt for CWT later)</span>
+    <span class="n">tmod</span><span class="p">,</span><span class="n">ymod</span><span class="o">=</span><span class="n">dsp</span><span class="o">.</span><span class="n">uneven2even</span><span class="p">(</span><span class="n">tmod</span><span class="p">,</span><span class="n">ymod</span><span class="p">)</span>
     
     <span class="c1"># detrends data</span>
     <span class="n">ymoddet</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">ymod</span><span class="p">)</span>
@@ -412,6 +422,7 @@
     <span class="n">data</span> <span class="o">=</span> <span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">tmod</span><span class="p">,</span><span class="n">ymod</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">],</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span>
 
+    <span class="c1"># detrends and normalize data</span>
     <span class="n">ymoddet</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">ymod</span><span class="p">)</span>
     <span class="n">ymod</span><span class="o">=</span><span class="n">lsd</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">ymoddet</span><span class="p">,</span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">detrend</span><span class="p">(</span><span class="n">obs</span><span class="p">))</span>
     

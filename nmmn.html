@@ -222,6 +222,24 @@ version of a Fourier spectrum.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.dsp.dt">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">dt</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#dt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.dt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes difference between consecutive points in the time series.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t</strong> &#8211; input times</li>
+<li><strong>y</strong> &#8211; input y-values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.dsp.error_resampler">
 <code class="descclassname">nmmn.dsp.</code><code class="descname">error_resampler</code><span class="sig-paren">(</span><em>errors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#error_resampler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.error_resampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>For use with <code class="docutils literal"><span class="pre">pandas</span></code>.</p>
@@ -260,7 +278,7 @@ Returns arrays with periods and LS spectral power.</p>
 
 <dl class="function">
 <dt id="nmmn.dsp.ls_spectra">
-<code class="descclassname">nmmn.dsp.</code><code class="descname">ls_spectra</code><span class="sig-paren">(</span><em>t</em>, <em>var</em>, <em>n=200</em>, <em>thres=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls_spectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls_spectra" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nmmn.dsp.</code><code class="descname">ls_spectra</code><span class="sig-paren">(</span><em>t</em>, <em>var</em>, <em>n=200</em>, <em>thres=0.1</em>, <em>smooth=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#ls_spectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.ls_spectra" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes Lomb-Scargle power spectrum, find peaks, produces arrays for
 plotting images showing the spectral lines.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -272,6 +290,7 @@ plotting images showing the spectral lines.</p>
 <li><strong>var</strong> &#8211; array of signal</li>
 <li><strong>n</strong> &#8211; number of vertical elements in image that will be created showing spectral lines</li>
 <li><strong>thres</strong> &#8211; threshold parameter for finding peaks in time series</li>
+<li><strong>smooth</strong> &#8211; number of points in the smoothing window. If 0, no smoothing</li>
 </ul>
 </td>
 </tr>
@@ -422,6 +441,50 @@ in the begining and end part of the output signal.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">smoothed y and corresponding x arrays</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.sumts">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">sumts</code><span class="sig-paren">(</span><em>t1</em>, <em>t2</em>, <em>y1</em>, <em>y2</em>, <em>n=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#sumts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.sumts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two time series, this method returns their sum.</p>
+<p>n = number of points in the final TS, as a multiple of the sum of points
+in both TS.</p>
+<p>Steps:</p>
+<ol class="arabic simple">
+<li>defines a uniform t-array with the number of total elements of the two arrays</li>
+<li>interpolates both TS in this new t-array</li>
+<li>sums their values</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.dsp.uneven2even">
+<code class="descclassname">nmmn.dsp.</code><code class="descname">uneven2even</code><span class="sig-paren">(</span><em>t</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#uneven2even"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.dsp.uneven2even" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an uneven timeseries (TS) with multiple values defined at the same 
+time, this method will convert it into an evenly sampled
+timeseries with a dt as close as possible to the actual dt, removing
+duplicate-t values.</p>
+<p>Example: suppose you want to compute the CWT for an unevenly sampled
+time series. Since the CWT does not support uneven TS, you can first
+call this method to regularize your TS and then perform the TS.</p>
+<p>Algorithm:</p>
+<ul class="simple">
+<li>REMOVE DUPLICATE times</li>
+<li>CREATE REGULAR GRID USING BEST DT</li>
+<li>INTERPOLATE NEW TS ON PREVIOUS ONE</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>t</strong> &#8211; input times</li>
+<li><strong>y</strong> &#8211; input value</li>
+</ul>
 </td>
 </tr>
 </tbody>
@@ -584,10 +647,97 @@ your analysis coincides with t0 for LAT.</p>
 <ul class="simple">
 <li>RAISHIN</li>
 <li>Pluto</li>
-<li>HARM (soon)</li>
+<li>HARM</li>
 </ul>
 <p>See jupyter notebooks &#8220;grmhd*&#8221; for examples on how to use this
 module.</p>
+<p>TODO:</p>
+<ul class="simple">
+<li>[ ] incorporate Pluto class from pluto-tools</li>
+<li>[ ]</li>
+</ul>
+<dl class="class">
+<dt id="nmmn.grmhd.Harm">
+<em class="property">class </em><code class="descclassname">nmmn.grmhd.</code><code class="descname">Harm</code><span class="sig-paren">(</span><em>dump=None</em>, <em>gdump='gdump'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Class that reads a HARM dump datafile and converts to numpy format
+for plotting with matplotlib, mayavi etc. Heavily inspired/copied from
+harm_script.py.</p>
+<p>Reads data from a harm dump file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">grmhd</span><span class="o">.</span><span class="n">Harm</span><span class="p">(</span><span class="s2">&quot;dump019&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <cite>d</cite> object will then have several attributes related to the 
+dump physical fields, grid and coordinate information.</p>
+<p>Inspect densities:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">rho</span>
+</pre></div>
+</div>
+<p>Convert arrays to cartesian coordinates for plotting with matplotlib:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">rhonew</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">cartesian</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">rho</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">log10</span><span class="p">(</span><span class="n">rhonew</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.cartesian">
+<code class="descname">cartesian</code><span class="sig-paren">(</span><em>yourvar</em>, <em>k=0</em>, <em>xy=1</em>, <em>xcoord=None</em>, <em>ycoord=None</em>, <em>symmx=0</em>, <em>mirrorx=0</em>, <em>mirrory=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.cartesian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.cartesian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes care of converting from polar to cartesian coordinates for HARM
+(and potentially other GRMHD codes).</p>
+<p>Inspired on plc at <cite>harm_script.py</cite>, atchekho/harmpi.</p>
+<ul class="simple">
+<li>k: 3D slice (if applicable)</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.data_assign">
+<code class="descname">data_assign</code><span class="sig-paren">(</span><em>gd</em>, <em>type=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.data_assign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.data_assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.dump_assign">
+<code class="descname">dump_assign</code><span class="sig-paren">(</span><em>gd</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.dump_assign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.dump_assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.fdump_assign">
+<code class="descname">fdump_assign</code><span class="sig-paren">(</span><em>gd</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.fdump_assign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.fdump_assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.gdump2_assign">
+<code class="descname">gdump2_assign</code><span class="sig-paren">(</span><em>gd</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.gdump2_assign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.gdump2_assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.gdump_assign">
+<code class="descname">gdump_assign</code><span class="sig-paren">(</span><em>gd</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.gdump_assign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.gdump_assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.rdump_assign">
+<code class="descname">rdump_assign</code><span class="sig-paren">(</span><em>gd</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.rdump_assign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.rdump_assign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.read_body">
+<code class="descname">read_body</code><span class="sig-paren">(</span><em>dump</em>, <em>nx=None</em>, <em>ny=None</em>, <em>nz=None</em>, <em>noround=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.read_body"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.read_body" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.read_file">
+<code class="descname">read_file</code><span class="sig-paren">(</span><em>dump</em>, <em>type=None</em>, <em>savedump=True</em>, <em>saverdump=False</em>, <em>noround=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>High-level function that reads either MPI or serial gdump&#8217;s</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.read_header">
+<code class="descname">read_header</code><span class="sig-paren">(</span><em>dump</em>, <em>issilent=True</em>, <em>returnheaderline=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.read_header"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.read_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the header for the dump file</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="nmmn.grmhd.Raishin">
 <em class="property">class </em><code class="descclassname">nmmn.grmhd.</code><code class="descname">Raishin</code><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin" title="Permalink to this definition">¶</a></dt>
@@ -744,6 +894,20 @@ by the yt package. Make sure you used regridAll first.</p>
 <dd><p>Replace nonphysical, negative values in array <em>x</em> with the corresponding
 positive numerical values. Returns modified array. Does not 
 touch original array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.grmhd.mdot">
+<code class="descclassname">nmmn.grmhd.</code><code class="descname">mdot</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#mdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.mdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a contraction of two tensors/vectors.  Assumes
+the following structure: tensor[m,n,i,j,k] OR vector[m,i,j,k], 
+where i,j,k are spatial indices and m,n are variable indices.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.grmhd.myfloat">
+<code class="descclassname">nmmn.grmhd.</code><code class="descname">myfloat</code><span class="sig-paren">(</span><em>f</em>, <em>acc=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#myfloat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.myfloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>acc=1 means np.float32, acc=2 means np.float64</p>
 </dd></dl>
 
 <dl class="function">

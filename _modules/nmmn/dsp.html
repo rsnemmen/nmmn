@@ -221,7 +221,7 @@
     <span class="k">return</span> <span class="n">period</span><span class="p">,</span><span class="n">spower</span></div>
 
 
-<div class="viewcode-block" id="ls_spectra"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.ls_spectra">[docs]</a><span class="k">def</span> <span class="nf">ls_spectra</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span><span class="n">thres</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<div class="viewcode-block" id="ls_spectra"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.ls_spectra">[docs]</a><span class="k">def</span> <span class="nf">ls_spectra</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span><span class="n">thres</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">smooth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Computes Lomb-Scargle power spectrum, find peaks, produces arrays for</span>
 <span class="sd">plotting images showing the spectral lines.</span>
@@ -230,6 +230,7 @@
 <span class="sd">:param var: array of signal</span>
 <span class="sd">:param n: number of vertical elements in image that will be created showing spectral lines</span>
 <span class="sd">:param thres: threshold parameter for finding peaks in time series</span>
+<span class="sd">:param smooth: number of points in the smoothing window. If 0, no smoothing</span>
 
 <span class="sd">Usage: ``N,P,l,pp,power=ls_spectra(t,y,thres=0.3)``</span>
 
@@ -244,6 +245,11 @@
     <span class="kn">import</span> <span class="nn">peakutils</span> 
 
     <span class="n">p</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">ls</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">var</span><span class="p">)</span>
+
+    <span class="c1"># smooth periodogram if requested</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">smooth</span><span class="o">!=</span><span class="mi">0</span><span class="p">):</span> 
+        <span class="n">p</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">smoothxy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">power</span><span class="p">,</span><span class="n">smooth</span><span class="p">)</span>
+
     <span class="n">T</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">p</span><span class="p">)</span>
     
     <span class="c1"># spectral lines</span>
@@ -284,6 +290,104 @@
 
 
 
+<div class="viewcode-block" id="sumts"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.sumts">[docs]</a><span class="k">def</span> <span class="nf">sumts</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">y2</span><span class="p">,</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given two time series, this method returns their sum.</span>
+
+<span class="sd">n = number of points in the final TS, as a multiple of the sum of points</span>
+<span class="sd">in both TS.</span>
+
+<span class="sd">Steps:</span>
+
+<span class="sd">1. defines a uniform t-array with the number of total elements of the two arrays</span>
+<span class="sd">2. interpolates both TS in this new t-array</span>
+<span class="sd">3. sums their values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># new number of elements</span>
+    <span class="n">points</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">size</span><span class="o">+</span><span class="n">t2</span><span class="o">.</span><span class="n">size</span><span class="p">))</span> 
+    <span class="c1"># lower and upper ranges</span>
+    <span class="n">tmin</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)))</span>
+    <span class="n">tmax</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">)))</span>
+
+    <span class="c1"># Defines the new array of interpolated times    </span>
+    <span class="n">tnew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">tmin</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">points</span><span class="p">)</span>
+    <span class="c1"># interpolates the two TS</span>
+    <span class="n">y1new</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">tnew</span><span class="p">,</span><span class="n">t1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+    <span class="n">y2new</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">tnew</span><span class="p">,</span><span class="n">t2</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+    <span class="c1"># sums the two TS</span>
+    <span class="n">ynew</span><span class="o">=</span><span class="n">y1new</span><span class="o">+</span><span class="n">y2new</span>
+
+    <span class="k">return</span> <span class="n">tnew</span><span class="p">,</span><span class="n">ynew</span></div>
+
+
+
+<div class="viewcode-block" id="dt"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.dt">[docs]</a><span class="k">def</span> <span class="nf">dt</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Computes difference between consecutive points in the time series.</span>
+
+<span class="sd">:param t: input times</span>
+<span class="sd">:param y: input y-values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dtt</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span> 
+            <span class="n">dtt</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">dtt</span></div>
+
+
+<div class="viewcode-block" id="uneven2even"><a class="viewcode-back" href="../../nmmn.html#nmmn.dsp.uneven2even">[docs]</a><span class="k">def</span> <span class="nf">uneven2even</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given an uneven timeseries (TS) with multiple values defined at the same </span>
+<span class="sd">time, this method will convert it into an evenly sampled</span>
+<span class="sd">timeseries with a dt as close as possible to the actual dt, removing</span>
+<span class="sd">duplicate-t values.</span>
+
+<span class="sd">Example: suppose you want to compute the CWT for an unevenly sampled</span>
+<span class="sd">time series. Since the CWT does not support uneven TS, you can first</span>
+<span class="sd">call this method to regularize your TS and then perform the TS.</span>
+
+<span class="sd">Algorithm:</span>
+
+<span class="sd">- REMOVE DUPLICATE times</span>
+<span class="sd">- CREATE REGULAR GRID USING BEST DT</span>
+<span class="sd">- INTERPOLATE NEW TS ON PREVIOUS ONE </span>
+
+<span class="sd">:param t: input times</span>
+<span class="sd">:param y: input value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">scipy.interpolate</span>
+
+    <span class="c1"># remove items with same t</span>
+    <span class="c1"># ==========================</span>
+    <span class="c1"># gets successive dt for all points</span>
+    <span class="n">dtarr</span><span class="o">=</span><span class="p">[]</span> 
+    <span class="n">idel</span><span class="o">=</span><span class="p">[]</span> <span class="c1"># list of indexes for elements that will be removed</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+            <span class="n">dt</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dt</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span> <span class="c1"># if they have dt==0, store their index and later remove them</span>
+                <span class="n">idel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dtarr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dt</span><span class="p">)</span> <span class="c1"># stores only dt!=0</span>
+
+    <span class="c1"># Find out optimal value of dt for the new TS</span>
+    <span class="n">dt</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dtarr</span><span class="p">)</span>
+
+    <span class="c1"># Removes elements with same t</span>
+    <span class="n">tuniq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">idel</span><span class="p">)</span>
+    <span class="n">yuniq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">idel</span><span class="p">)</span>
+
+    <span class="c1"># Does linear interpolation on new TS</span>
+    <span class="c1"># ======================================</span>
+    <span class="c1"># new regular grid, as close as possible to original one</span>
+    <span class="n">tnew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">dt</span><span class="p">)</span>
+
+    <span class="c1"># interpolation</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">tuniq</span><span class="p">,</span> <span class="n">yuniq</span><span class="p">)</span>
+    <span class="n">ynew</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">tnew</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tnew</span><span class="p">,</span><span class="n">ynew</span></div>
 
 
 
