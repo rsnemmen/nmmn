@@ -10,7 +10,7 @@ from nmmn import sed
 def plot(param, show = 1):
 
 	"""Returns the plot of spectrum as a pyplot object or plot it on the screen
-	Keyword argments:
+	Keyword arguments:
 	
 	param -- Output spectrum file
 	show  -- Optional, plot the spectrum on the screen. Enabled by default.	
