@@ -1,6 +1,6 @@
 numpy
 scipy
-pylab
+matplotlib>=2.0.2
 uncertainties
 aplpy
 astropy

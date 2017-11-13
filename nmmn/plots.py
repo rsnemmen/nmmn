@@ -4,8 +4,25 @@ Fancy plots
 """
 
 import numpy
-import pylab
+from matplotlib import pylab
+from nmmn import sed
 
+def plot(param, show = 1):
+
+	"""Returns the plot of spectrum as a pyplot object or plot it on the screen
+	Keyword argments:
+	
+	param -- Output spectrum file
+	show  -- Optional, plot the spectrum on the screen. Enabled by default.	
+	"""
+
+	s = sed.SED()
+	s.grmonty(param)
+	plt = pylab.plot(s.lognu, s.ll)
+	if show == 1:
+		pylab.show()
+	else:
+		return plt
 
 
 def onehist(x,xlabel='',fontsize=12):
