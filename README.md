@@ -43,16 +43,18 @@ TBD
 
 # Installation
 
-The command line script can be installed via
+You have two options to install the module. 
+
+1. Install the module on the system’s python library path: 
 
     python setup.py install
 
-You may need to run the last command with `sudo`.
 
-Install the package with a symlink, so that changes to the source files will be immediately available:
+2. Install the package with a symlink, so that changes to the source files will be immediately available:
 
     python setup.py develop
 
+This last method is preferred to sync with changes in the repo. You may need to run the last command with `sudo`.
 
 # TODO
 

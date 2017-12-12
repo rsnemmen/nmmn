@@ -391,3 +391,25 @@ obs is the data you want to normalize the model to.
     print('M = ',mass,' Msun')
     
     return tphys, ymod
+
+
+
+
+
+
+
+def paperimpact(citations,dt,impactfactor):
+	"""
+Given a journal `impactfactor` and a given time interval `dt`, this
+computes the expected number of citations for a given paper 
+published in that journal over `dt`. It then gives the ratio of your
+paper's citation over the predicted value, to give you an idea
+whether your paper is above or below average.
+
+:param citations: number of citations for your paper
+:param dt: time since your paper was published in years
+:param impactfactor: impact factor for the journal where the paper was published
+	"""
+	print("Journal expected number of citations =",dt*impactfactor)
+
+	print("Actual citations/expected citations",citations/(dt*impactfactor))

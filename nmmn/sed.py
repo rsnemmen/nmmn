@@ -150,6 +150,28 @@ class SED:
 
 
 
+	def prieto(self, file, dist):
+		"""
+		Reads SEDs in the format provided by Hampadarath et al.:
+	nu(Hz) nu*F_nu(Jy Hz) 
+		
+		Adds the following attributes to the SED object:
+		- distance: distance to object in Mpc
+		"""
+		self.file=file
+		self.distance=dist
+		
+		self.lognu,nfn = numpy.loadtxt(file,unpack=True,usecols=(0,1),delimiter=',')
+		self.nu=10**self.lognu
+		nfn=10**nfn*1e-26*1e7*1e-4	# Jy to erg/s/cm^2
+		dist=dist*3.086e24	# Mpc to cm
+		self.ll=numpy.log10(4.*numpy.pi*dist**2*nfn)
+		self.lnu=10**self.ll/self.nu
+
+		# Checks if ll has NaN or Inf values
+		self.check()
+
+
 
 	def grmonty(self, file):
 		"""
