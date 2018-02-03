@@ -30,6 +30,22 @@ Converts from cartesian to polar coordinates.
 
 
 
+def vel_p2c(th,vr,vth):
+	"""
+Computes the cartesian components of a velocity vector which
+is expressed in polar coordinates. i.e. apply a change of 
+basis. See for example discussion after eq. 4 in 
+https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-07-dynamics-fall-2009/lecture-notes/MIT16_07F09_Lec05.pdf
+
+Returns: vx, vy
+	"""
+	vx=vr*numpy.cos(th)-vth*numpy.sin(th)
+	vy=vr*numpy.sin(th)+vth*numpy.cos(th)
+
+	return vx, vy
+
+
+
     
 	
 

@@ -250,7 +250,8 @@ Saves data as an ASCII file with columns corresponding to variables:
 	def regrid(self,var,nboost=5):
 		"""
 	Regrid one specific RAISHIN array to a nice cartesian grid for 
-	plotting with python.
+	plotting with python. Note that RAISHIN's output is already in
+	cartesian coordinates.
 
 	:param var: array to be regridded e.g. d.rho
 	:param nboost: factor of increase of number of grid points compared to 
