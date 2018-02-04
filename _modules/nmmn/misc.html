@@ -74,6 +74,22 @@
 
 
 
+<div class="viewcode-block" id="vel_p2c"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.vel_p2c">[docs]</a><span class="k">def</span> <span class="nf">vel_p2c</span><span class="p">(</span><span class="n">th</span><span class="p">,</span><span class="n">vr</span><span class="p">,</span><span class="n">vth</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Computes the cartesian components of a velocity vector which</span>
+<span class="sd">is expressed in polar coordinates. i.e. apply a change of </span>
+<span class="sd">basis. See for example discussion after eq. 4 in </span>
+<span class="sd">https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-07-dynamics-fall-2009/lecture-notes/MIT16_07F09_Lec05.pdf</span>
+
+<span class="sd">Returns: vx, vy</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">vx</span><span class="o">=</span><span class="n">vr</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">-</span><span class="n">vth</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+	<span class="n">vy</span><span class="o">=</span><span class="n">vr</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">+</span><span class="n">vth</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span></div>
+
+
+
     
 	
 
@@ -371,7 +387,7 @@
 
 
 
-<div class="viewcode-block" id="readmodel"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.readmodel">[docs]</a><span class="k">def</span> <span class="nf">readmodel</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="n">e8</span><span class="p">):</span>
+<div class="viewcode-block" id="readmodel"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.readmodel">[docs]</a><span class="k">def</span> <span class="nf">readmodel</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">m</span><span class="o">=</span><span class="mf">1e8</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Auxiliary method to rescale the BHBH simulation time series from Gold+14 and </span>
 <span class="sd">compare with the data.</span>
@@ -431,10 +447,32 @@
     
     <span class="c1"># BH mass implied by the scaling, in solar masses</span>
     <span class="c1"># Careful with units: CGS then converted to Msun</span>
-    <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="mf">4.04e38</span><span class="o">*</span><span class="p">(</span><span class="n">tphys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tphys</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">tmod</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tmod</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">31556926.</span><span class="o">/</span><span class="mf">1.99e33</span>
+    <span class="n">mass</span><span class="o">=</span><span class="mf">1e-3</span><span class="o">*</span><span class="mf">4.04e38</span><span class="o">*</span><span class="p">(</span><span class="n">tphys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tphys</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="n">tmod</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">tmod</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mf">31556926.</span><span class="o">/</span><span class="mf">1.99e33</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;M = &#39;</span><span class="p">,</span><span class="n">mass</span><span class="p">,</span><span class="s1">&#39; Msun&#39;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">tphys</span><span class="p">,</span> <span class="n">ymod</span></div>
+
+
+
+
+
+
+
+<div class="viewcode-block" id="paperimpact"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.paperimpact">[docs]</a><span class="k">def</span> <span class="nf">paperimpact</span><span class="p">(</span><span class="n">citations</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">impactfactor</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given a journal `impactfactor` and a given time interval `dt`, this</span>
+<span class="sd">computes the expected number of citations for a given paper </span>
+<span class="sd">published in that journal over `dt`. It then gives the ratio of your</span>
+<span class="sd">paper&#39;s citation over the predicted value, to give you an idea</span>
+<span class="sd">whether your paper is above or below average.</span>
+
+<span class="sd">:param citations: number of citations for your paper</span>
+<span class="sd">:param dt: time since your paper was published in years</span>
+<span class="sd">:param impactfactor: impact factor for the journal where the paper was published</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Journal expected number of citations =&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">impactfactor</span><span class="p">)</span>
+
+	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Actual citations/expected citations&quot;</span><span class="p">,</span><span class="n">citations</span><span class="o">/</span><span class="p">(</span><span class="n">dt</span><span class="o">*</span><span class="n">impactfactor</span><span class="p">))</span></div>
 </pre></div>
 
           </div>

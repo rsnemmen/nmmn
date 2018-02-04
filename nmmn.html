@@ -680,10 +680,19 @@ dump physical fields, grid and coordinate information.</p>
 </div>
 <dl class="method">
 <dt id="nmmn.grmhd.Harm.cartesian">
-<code class="descname">cartesian</code><span class="sig-paren">(</span><em>yourvar</em>, <em>k=0</em>, <em>xy=1</em>, <em>xcoord=None</em>, <em>ycoord=None</em>, <em>symmx=0</em>, <em>mirrorx=0</em>, <em>mirrory=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.cartesian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.cartesian" title="Permalink to this definition">¶</a></dt>
-<dd><p>Takes care of converting from polar to cartesian coordinates for HARM
-(and potentially other GRMHD codes).</p>
-<p>Inspired on plc at <cite>harm_script.py</cite>, atchekho/harmpi.</p>
+<code class="descname">cartesian</code><span class="sig-paren">(</span><em>myvar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.cartesian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.cartesian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes cartesian coordinates.</p>
+<p>Arguments:</p>
+<ul class="simple">
+<li>k: 3D slice (if applicable)</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.grmhd.Harm.cartesian_sasha">
+<code class="descname">cartesian_sasha</code><span class="sig-paren">(</span><em>yourvar</em>, <em>k=0</em>, <em>xy=1</em>, <em>xcoord=None</em>, <em>ycoord=None</em>, <em>symmx=0</em>, <em>mirrorx=0</em>, <em>mirrory=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm.cartesian_sasha"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Harm.cartesian_sasha" title="Permalink to this definition">¶</a></dt>
+<dd><p>This was adapted from <cite>plc</cite> at <cite>harm_script.py</cite>, atchekho/harmpi.
+Need to understand this better.</p>
 <ul class="simple">
 <li>k: 3D slice (if applicable)</li>
 </ul>
@@ -768,7 +777,8 @@ dump physical fields, grid and coordinate information.</p>
 <dt id="nmmn.grmhd.Raishin.regrid">
 <code class="descname">regrid</code><span class="sig-paren">(</span><em>var</em>, <em>nboost=5</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin.regrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.grmhd.Raishin.regrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Regrid one specific RAISHIN array to a nice cartesian grid for 
-plotting with python.</p>
+plotting with python. Note that RAISHIN&#8217;s output is already in
+cartesian coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1259,6 +1269,29 @@ to draw the ellipses.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.misc.paperimpact">
+<code class="descclassname">nmmn.misc.</code><code class="descname">paperimpact</code><span class="sig-paren">(</span><em>citations</em>, <em>dt</em>, <em>impactfactor</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#paperimpact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.paperimpact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a journal <cite>impactfactor</cite> and a given time interval <cite>dt</cite>, this
+computes the expected number of citations for a given paper 
+published in that journal over <cite>dt</cite>. It then gives the ratio of your
+paper&#8217;s citation over the predicted value, to give you an idea
+whether your paper is above or below average.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>citations</strong> &#8211; number of citations for your paper</li>
+<li><strong>dt</strong> &#8211; time since your paper was published in years</li>
+<li><strong>impactfactor</strong> &#8211; impact factor for the journal where the paper was published</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.misc.pol2cart">
 <code class="descclassname">nmmn.misc.</code><code class="descname">pol2cart</code><span class="sig-paren">(</span><em>r</em>, <em>phi</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#pol2cart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.pol2cart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts from polar to cartesian coordinates.</p>
@@ -1353,6 +1386,16 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 </tbody>
 </table>
 <p>Reference: <a class="reference external" href="https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.vel_p2c">
+<code class="descclassname">nmmn.misc.</code><code class="descname">vel_p2c</code><span class="sig-paren">(</span><em>th</em>, <em>vr</em>, <em>vth</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#vel_p2c"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.vel_p2c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the cartesian components of a velocity vector which
+is expressed in polar coordinates. i.e. apply a change of 
+basis. See for example discussion after eq. 4 in 
+<a class="reference external" href="https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-07-dynamics-fall-2009/lecture-notes/MIT16_07F09_Lec05.pdf">https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-07-dynamics-fall-2009/lecture-notes/MIT16_07F09_Lec05.pdf</a></p>
+<p>Returns: vx, vy</p>
 </dd></dl>
 
 <dl class="function">
@@ -1572,6 +1615,15 @@ Chris Slocum, Colorado State University</p>
 </pre></div>
 </div>
 <p>Code taken from <a class="reference external" href="https://github.com/BIDS/colormap/blob/master/parula.py">here</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.plots.plot">
+<code class="descclassname">nmmn.plots.</code><code class="descname">plot</code><span class="sig-paren">(</span><em>param</em>, <em>show=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.plots.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the plot of spectrum as a pyplot object or plot it on the screen
+Keyword arguments:</p>
+<p>param &#8211; Output spectrum file
+show  &#8211; Optional, plot the spectrum on the screen. Enabled by default.</p>
 </dd></dl>
 
 <dl class="function">
@@ -1861,13 +1913,13 @@ mean and &#8216;sd&#8217; is the object with the standard deviation.</p>
 the method normalizes the SEDs such that they have the same X-ray
 luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.
 nuref).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mf">1e40</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns mean &lt;- [lognu, &lt;s1,s2&gt;],
 where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common 
 units of frequency for the SEDs after interpolation.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns the mean after normalizing the SEDs to the X-ray lum.
@@ -1955,13 +2007,13 @@ and returns the list [mean,sd] where &#8216;mean&#8217; is SED object with the m
 the method normalizes the SEDs such that they have the same X-ray
 luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.
 nuref).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mf">1e40</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns mean &lt;- [lognu, &lt;s1,s2&gt;],
 where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common 
 units of frequency for the SEDs after interpolation.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns the mean after normalizing the SEDs to the X-ray lum.
@@ -1976,7 +2028,7 @@ SEDs (s.normalize) at the given nuref and refnlnu, calculates the average
 of their luminosities (log10(average nuLnu)) and returns the list [mean,sd] 
 where &#8216;mean&#8217; is SED object with the mean and &#8216;sd&#8217; is the object with the
 standard deviation.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">meanlin</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mean</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">meanlin</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mf">1e40</span><span class="p">)</span>
 <span class="go">returns mean &lt;- [lognu, &lt;s1,s2&gt;],</span>
 <span class="go">where &lt;s,s1,s2&gt; -&gt; log10[&lt;nuLnu(s),nuLnu(s1),nuLnu(s2)&gt;], lognu being the common </span>
 <span class="go">units of frequency for the SEDs after interpolation.</span>
@@ -1996,13 +2048,13 @@ and returns the list [mean,sd] where &#8216;mean&#8217; is SED object with the m
 the method normalizes the SEDs such that they have the same X-ray
 luminosity refnlnu in the range 2-10 keV (thus ignoring the arg.
 nuref).</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mi">1</span><span class="n">e40</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="mf">17.684</span><span class="p">,</span><span class="mf">1e40</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns median &lt;- [lognu, &lt;s1,s2&gt;],
 where &lt;s,s1,s2&gt; -&gt; &lt;log10[nuLnu(s),nuLnu(s1),nuLnu(s2)]&gt;, lognu being the common 
 units of frequency for the SEDs after interpolation.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">means</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">median</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns the mean after normalizing the SEDs to the X-ray lum.
@@ -2021,13 +2073,24 @@ they have the same X-ray luminosity refnlnu in the range 2-10 keV
 </pre></div>
 </div>
 <p>normalizes the SEDs in the object list at the same frequency and nuLnu</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">normalize</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">s3</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">normalize</span><span class="p">([</span><span class="n">s1</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">s3</span><span class="p">],</span><span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span><span class="n">xray</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>normalizes the SEDs such that they have the same X-ray luminosity 1e40 
 erg/s in the range 2-10 keV.</p>
 <p>The method is designed to automatically call the interp method (e.g., 
 s.interp([s1,s2])) if needed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nmmn.sed.SED.prieto">
+<code class="descname">prieto</code><span class="sig-paren">(</span><em>file</em>, <em>dist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED.prieto"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.sed.SED.prieto" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div>Reads SEDs in the format provided by Hampadarath et al.:</div></blockquote>
+<p>nu(Hz) nu*F_nu(Jy Hz)</p>
+<blockquote>
+<div>Adds the following attributes to the SED object:
+- distance: distance to object in Mpc</div></blockquote>
 </dd></dl>
 
 <dl class="method">

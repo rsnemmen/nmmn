@@ -115,8 +115,8 @@
 
 		<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
 			<span class="c1"># gets dimensions</span>
-			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;DIMENSIONS\s+\d+\s+\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
-				<span class="n">s</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\s*\d+\s*&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;DIMENSIONS\s+\d+\s+\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+				<span class="n">s</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s*\d+\s*&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">nx</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">ny</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">nz</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -154,28 +154,28 @@
 				<span class="n">boolby</span><span class="o">=</span><span class="kc">False</span>    
 				<span class="n">boolbz</span><span class="o">=</span><span class="kc">True</span>
 		    
-			<span class="k">if</span> <span class="n">boolxyz</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
-				<span class="n">s</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\s*-?\d+\.\d+E?[-+]?\d+\s*&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+			<span class="k">if</span> <span class="n">boolxyz</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+\s+-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+				<span class="n">s</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\s*-?\d+\.\d+E?[-+]?\d+\s*&#39;</span><span class="p">,</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
 				<span class="n">strx</span><span class="o">=</span><span class="n">strx</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 				<span class="n">stry</span><span class="o">=</span><span class="n">stry</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 				<span class="n">strz</span><span class="o">=</span><span class="n">strz</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-			<span class="k">if</span> <span class="n">boold</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boold</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strd</span><span class="o">=</span><span class="n">strd</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolp</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolp</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strp</span><span class="o">=</span><span class="n">strp</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolvx</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolvx</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strvx</span><span class="o">=</span><span class="n">strvx</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolvy</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolvy</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strvy</span><span class="o">=</span><span class="n">strvy</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolvz</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolvz</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strvz</span><span class="o">=</span><span class="n">strvz</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolb2</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolb2</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strb2</span><span class="o">=</span><span class="n">strb2</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolbx</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolbx</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strbx</span><span class="o">=</span><span class="n">strbx</span><span class="o">+</span><span class="n">line</span>		        
-			<span class="k">if</span> <span class="n">boolby</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolby</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strby</span><span class="o">=</span><span class="n">strby</span><span class="o">+</span><span class="n">line</span>
-			<span class="k">if</span> <span class="n">boolbz</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">boolbz</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-?\d+\.\d+E?[-+]?\d+&#39;</span><span class="p">,</span><span class="n">line</span><span class="p">):</span>
 				<span class="n">strbz</span><span class="o">=</span><span class="n">strbz</span><span class="o">+</span><span class="n">line</span>
 
 		<span class="c1"># gets numpy arrays finally</span>
@@ -294,7 +294,8 @@
 <div class="viewcode-block" id="Raishin.regrid"><a class="viewcode-back" href="../../nmmn.html#nmmn.grmhd.Raishin.regrid">[docs]</a>	<span class="k">def</span> <span class="nf">regrid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="n">nboost</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Regrid one specific RAISHIN array to a nice cartesian grid for </span>
-<span class="sd">	plotting with python.</span>
+<span class="sd">	plotting with python. Note that RAISHIN&#39;s output is already in</span>
+<span class="sd">	cartesian coordinates.</span>
 
 <span class="sd">	:param var: array to be regridded e.g. d.rho</span>
 <span class="sd">	:param nboost: factor of increase of number of grid points compared to </span>
@@ -461,6 +462,7 @@
 <span class="sd">	High-level function that reads either MPI or serial gdump&#39;s</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="nn">sys</span>
+		<span class="kn">import</span> <span class="nn">glob</span>
 
 		<span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">if</span> <span class="n">dump</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;dump&quot;</span><span class="p">):</span>
@@ -841,12 +843,10 @@
 
 
 
-<div class="viewcode-block" id="Harm.cartesian"><a class="viewcode-back" href="../../nmmn.html#nmmn.grmhd.Harm.cartesian">[docs]</a>	<span class="k">def</span> <span class="nf">cartesian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">yourvar</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">xcoord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ycoord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">symmx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">mirrorx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">mirrory</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="Harm.cartesian_sasha"><a class="viewcode-back" href="../../nmmn.html#nmmn.grmhd.Harm.cartesian_sasha">[docs]</a>	<span class="k">def</span> <span class="nf">cartesian_sasha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">yourvar</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">xy</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">xcoord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ycoord</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">symmx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">mirrorx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">mirrory</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Takes care of converting from polar to cartesian coordinates for HARM</span>
-<span class="sd">	(and potentially other GRMHD codes). </span>
-
-<span class="sd">	Inspired on plc at `harm_script.py`, atchekho/harmpi.</span>
+<span class="sd">	This was adapted from `plc` at `harm_script.py`, atchekho/harmpi.</span>
+<span class="sd">	Need to understand this better. </span>
 
 <span class="sd">	- k: 3D slice (if applicable)</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -893,11 +893,39 @@
 			<span class="n">ycoord</span><span class="o">=</span><span class="p">(</span><span class="n">r1</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">ph1</span><span class="p">))[:,</span><span class="bp">self</span><span class="o">.</span><span class="n">ny</span><span class="o">/</span><span class="mi">2</span><span class="p">,:,</span><span class="kc">None</span><span class="p">]</span>
 			<span class="n">myvar</span> <span class="o">=</span> <span class="n">myvar</span><span class="p">[:,</span><span class="bp">self</span><span class="o">.</span><span class="n">ny</span><span class="o">/</span><span class="mi">2</span><span class="p">,:,</span><span class="kc">None</span><span class="p">]</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="n">myvar</span> <span class="o">=</span> <span class="n">myvar</span><span class="p">[:,:,</span><span class="kc">None</span><span class="p">]</span> <span class="k">if</span> <span class="n">myvar</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">myvar</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+			<span class="k">if</span> <span class="n">myvar</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+				<span class="n">myvar</span> <span class="o">=</span> <span class="n">myvar</span><span class="p">[:,:,</span><span class="kc">None</span><span class="p">]</span>  
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">myvar</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">:</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
 
-		<span class="k">return</span> <span class="n">myvar</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">],</span><span class="n">xcoord</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">],</span><span class="n">ycoord</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">]</span></div></div>
+		<span class="k">return</span> <span class="n">myvar</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">],</span><span class="n">xcoord</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">],</span><span class="n">ycoord</span><span class="p">[:,:,</span><span class="n">k</span><span class="p">]</span></div>
 
 
+<div class="viewcode-block" id="Harm.cartesian"><a class="viewcode-back" href="../../nmmn.html#nmmn.grmhd.Harm.cartesian">[docs]</a>	<span class="k">def</span> <span class="nf">cartesian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">myvar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes cartesian coordinates.</span>
+
+<span class="sd">	Arguments:</span>
+
+<span class="sd">	- k: 3D slice (if applicable)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">r</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">r</span> 
+		<span class="n">th</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span>
+		<span class="n">phi</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ph</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># 3D</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span> <span class="c1"># 2D</span>
+			<span class="n">x</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+			<span class="n">y</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span>
+
+			<span class="k">if</span> <span class="n">myvar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="k">return</span> <span class="n">myvar</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span></div></div>
 
 
 

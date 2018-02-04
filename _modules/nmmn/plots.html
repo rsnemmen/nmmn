@@ -48,8 +48,25 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">pylab</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pylab</span>
+<span class="kn">from</span> <span class="nn">nmmn</span> <span class="k">import</span> <span class="n">sed</span>
 
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+
+	<span class="sd">&quot;&quot;&quot;Returns the plot of spectrum as a pyplot object or plot it on the screen</span>
+<span class="sd">	Keyword arguments:</span>
+<span class="sd">	</span>
+<span class="sd">	param -- Output spectrum file</span>
+<span class="sd">	show  -- Optional, plot the spectrum on the screen. Enabled by default.	</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="n">s</span> <span class="o">=</span> <span class="n">sed</span><span class="o">.</span><span class="n">SED</span><span class="p">()</span>
+	<span class="n">s</span><span class="o">.</span><span class="n">grmonty</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+	<span class="n">plt</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">show</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">plt</span></div>
 
 
 <div class="viewcode-block" id="onehist"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.onehist">[docs]</a><span class="k">def</span> <span class="nf">onehist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>

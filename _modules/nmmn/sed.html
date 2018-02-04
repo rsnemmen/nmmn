@@ -175,7 +175,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">=</span><span class="n">dist</span>
 		
 		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="n">flux</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ul</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-		<span class="n">flux</span><span class="o">=</span><span class="n">flux</span><span class="o">*</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">26</span><span class="o">*</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="mi">1</span><span class="n">e7</span><span class="o">*</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">4</span>	<span class="c1"># microJy to erg/s/cm^2/Hz</span>
+		<span class="n">flux</span><span class="o">=</span><span class="n">flux</span><span class="o">*</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">1e-6</span><span class="o">*</span><span class="mf">1e7</span><span class="o">*</span><span class="mf">1e-4</span>	<span class="c1"># microJy to erg/s/cm^2/Hz</span>
 		<span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.086e24</span>	<span class="c1"># Mpc to cm</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lnu</span><span class="o">=</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">flux</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">)</span>
@@ -194,6 +194,28 @@
 
 
 
+<div class="viewcode-block" id="SED.prieto"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.prieto">[docs]</a>	<span class="k">def</span> <span class="nf">prieto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Reads SEDs in the format provided by Hampadarath et al.:</span>
+<span class="sd">	nu(Hz) nu*F_nu(Jy Hz) </span>
+<span class="sd">		</span>
+<span class="sd">		Adds the following attributes to the SED object:</span>
+<span class="sd">		- distance: distance to object in Mpc</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">=</span><span class="n">dist</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">nfn</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span>
+		<span class="n">nfn</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">nfn</span><span class="o">*</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">1e7</span><span class="o">*</span><span class="mf">1e-4</span>	<span class="c1"># Jy to erg/s/cm^2</span>
+		<span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.086e24</span>	<span class="c1"># Mpc to cm</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">nfn</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lnu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span>
+
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
+
+
 
 <div class="viewcode-block" id="SED.grmonty"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.grmonty">[docs]</a>	<span class="k">def</span> <span class="nf">grmonty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -207,14 +229,14 @@
 		<span class="n">s</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">NoHeader</span><span class="p">)</span>
 
 		<span class="c1"># carries out array conversions</span>
-		<span class="n">small</span> <span class="o">=</span> <span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">12</span>
+		<span class="n">small</span> <span class="o">=</span> <span class="mf">1e-12</span>
 		<span class="n">ll0</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
 		<span class="n">ll1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col8&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
 		<span class="n">ll2</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col14&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
 		<span class="n">ll3</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col20&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
 		<span class="n">ll4</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col26&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
 		<span class="n">ll5</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s1">&#39;col32&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">small</span><span class="p">)</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">3.83e33</span><span class="p">)</span>
-		<span class="n">lw</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">9.1e-28</span><span class="o">*</span><span class="mi">3</span><span class="n">e10</span><span class="o">*</span><span class="mi">3</span><span class="n">e10</span><span class="o">/</span><span class="mf">6.626e-27</span><span class="p">)</span>
+		<span class="n">lw</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">9.1e-28</span><span class="o">*</span><span class="mf">3e10</span><span class="o">*</span><span class="mf">3e10</span><span class="o">/</span><span class="mf">6.626e-27</span><span class="p">)</span>
 
 		<span class="c1"># gets log(nu) and log(nuLnu)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">lw</span><span class="p">,</span> <span class="n">ll5</span>
@@ -388,7 +410,7 @@
 	
 	
 	
-<div class="viewcode-block" id="SED.normalize"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.normalize">[docs]</a>	<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SED.normalize"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.normalize">[docs]</a>	<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Normalizes a SED at the given frequency (lognu/Hz) and nuLnu (erg/s). </span>
 <span class="sd">	NOTE: this will modify the SED(s). Alternatively, if the user provides </span>
@@ -454,7 +476,7 @@
 		
 		
 		
-<div class="viewcode-block" id="SED.meanlin"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.meanlin">[docs]</a>	<span class="k">def</span> <span class="nf">meanlin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">):</span>
+<div class="viewcode-block" id="SED.meanlin"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.meanlin">[docs]</a>	<span class="k">def</span> <span class="nf">meanlin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
@@ -491,7 +513,7 @@
 
 
 		
-<div class="viewcode-block" id="SED.mean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.mean">[docs]</a>	<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SED.mean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.mean">[docs]</a>	<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
@@ -541,7 +563,7 @@
 
 
 
-<div class="viewcode-block" id="SED.median"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.median">[docs]</a>	<span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SED.median"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.median">[docs]</a>	<span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
@@ -600,7 +622,7 @@
 
 
 
-<div class="viewcode-block" id="SED.geomean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.geomean">[docs]</a>	<span class="k">def</span> <span class="nf">geomean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mi">1</span><span class="n">e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SED.geomean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.geomean">[docs]</a>	<span class="k">def</span> <span class="nf">geomean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the geometric</span>

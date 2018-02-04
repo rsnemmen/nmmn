@@ -96,13 +96,13 @@
     <span class="n">dist</span><span class="o">=</span><span class="n">dist</span><span class="o">*</span><span class="mf">3.085677581e24</span>	<span class="c1"># Mpc -&gt; cm</span>
 
     <span class="n">nu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lognu</span>
-    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mi">1</span><span class="n">e4</span> <span class="c1"># cm -&gt; micron</span>
+    <span class="n">lamb</span><span class="o">=</span><span class="n">c</span><span class="o">/</span><span class="n">nu</span><span class="o">*</span><span class="mf">1e4</span> <span class="c1"># cm -&gt; micron</span>
     <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
     	<span class="n">lllerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">uarray</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span><span class="n">llerr</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
     	<span class="n">lllerr</span><span class="o">=</span><span class="n">ll</span>
     <span class="n">lnuerr</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">lllerr</span><span class="o">/</span><span class="n">nu</span>  
-    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
+    <span class="n">fluxerr</span><span class="o">=</span><span class="n">lnuerr</span><span class="o">/</span><span class="p">(</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">4.</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Lnu (erg/s/Hz) -&gt; Fnu (mJy)</span>
     <span class="k">if</span> <span class="n">llerr</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
     	<span class="n">fluxerr</span><span class="o">=</span><span class="n">unumpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
     	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lamb</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">nominal_values</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">),</span><span class="n">unumpy</span><span class="o">.</span><span class="n">std_devs</span><span class="p">(</span><span class="n">fluxerr</span><span class="p">)</span>
@@ -127,7 +127,7 @@
 	<span class="c1"># convert arcsec to radians</span>
 	<span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="mf">4.848e-6</span>	
 	<span class="c1"># convert distance to pc instead of Mpc</span>
-	<span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="mi">1</span><span class="n">e6</span>
+	<span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">*</span><span class="mf">1e6</span>
 
 	<span class="k">return</span> <span class="n">d</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
 
