@@ -295,7 +295,7 @@ For the interpolation method, choose nearest, linear or cubic.
 
 
 
-def crop(cube, x,y, xmin, xmax, ymin, ymax):
+def crop(z, x,y, xmin, xmax, ymin, ymax, all=False):
 	"""
 Crops the image or 2D array, leaving only pixels inside the region
 you define.
@@ -303,6 +303,9 @@ you define.
 >>> Znew,Xnew,Ynew = crop(Z, X, Y, 0,10,-20,20)
 
 where X,Y,Z are 2D arrays.
+
+:param all: should I return cropped Z,X,Y or only Z?
+:returns: Z_cropped, X_cropped, Y_cropped
 	"""
 	# Index tuples with elements that will be selected along each dimension
 	i=numpy.where((x>=xmin) & (x<=xmax))	# x
@@ -312,13 +315,11 @@ where X,Y,Z are 2D arrays.
 	xnew,ynew=x[i],y[j]
 	
 	i,j=i[0],j[0]	# tuples -> arrays (for matrix slicing below)
-	znew=cube[j[0]:j[-1],i[0]:i[-1]]	# CAREFUL with the ordering of the indexes!
+	znew=z[j[0]:j[-1],i[0]:i[-1]]	# CAREFUL with the ordering of the indexes!
 	
-	return znew,xnew,ynew	
-
-
-
-
-
+	if all==False:
+		return znew	
+	else:
+		return znew,xnew,ynew
 
 
