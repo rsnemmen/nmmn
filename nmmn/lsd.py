@@ -304,18 +304,32 @@ you define.
 
 where X,Y,Z are 2D arrays.
 
+:param z: 2d array 
+:param x,y: 1d or 2d arrays. In the latter case, they should have the same shape as z
 :param all: should I return cropped Z,X,Y or only Z?
 :returns: Z_cropped, X_cropped, Y_cropped
 	"""
-	# Index tuples with elements that will be selected along each dimension
-	i=numpy.where((x>=xmin) & (x<=xmax))	# x
-	j=numpy.where((y>=ymin) & (y<=ymax))	# y
-	
-	# Defines new x and y arrays
-	xnew,ynew=x[i],y[j]
-	
-	i,j=i[0],j[0]	# tuples -> arrays (for matrix slicing below)
-	znew=z[j[0]:j[-1],i[0]:i[-1]]	# CAREFUL with the ordering of the indexes!
+	if x.ndim==1: # if x,y are 1D
+		# Index tuples with elements that will be selected along each dimension
+		i=numpy.where((x>=xmin) & (x<=xmax))	# x
+		j=numpy.where((y>=ymin) & (y<=ymax))	# y
+
+		# Defines new x and y arrays
+		xnew,ynew=x[i],y[j]
+		
+		i,j=i[0],j[0]	# tuples -> arrays (for matrix slicing below)
+		znew=z[j[0]:j[-1],i[0]:i[-1]]	# CAREFUL with the ordering of the indexes!
+	elif x.ndim==2: # if x,y are 2D
+		i=numpy.where((x[0,:]>=xmin) & (x[0,:]<=xmax))
+		j=numpy.where((y[:,0]>=ymin) & (y[:,0]<=ymax))
+		i,j=i[0],j[0]
+
+		xnew=x[j[0]:j[-1],i[0]:i[-1]]
+		ynew=y[j[0]:j[-1],i[0]:i[-1]]
+		znew=z[j[0]:j[-1],i[0]:i[-1]]
+	else: 
+		print("Dimensions of the input arrays are inconsistent")
+		return
 	
 	if all==False:
 		return znew	

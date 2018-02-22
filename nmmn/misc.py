@@ -46,6 +46,19 @@ Returns: vx, vy
 
 
 
+
+def vel_c2p(th,vx,vy):
+	"""
+Computes the polar components of a velocity vector which
+is expressed in cartesian coordinates. 
+
+Returns: vr, vth
+	"""
+	vr=vx*numpy.cos(th)+vy*numpy.sin(th)
+	vth=-vx*numpy.sin(th)+vy*numpy.cos(th)
+
+	return vr, vth
+
     
 	
 
