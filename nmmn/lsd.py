@@ -337,3 +337,34 @@ where X,Y,Z are 2D arrays.
 		return znew,xnew,ynew
 
 
+
+
+
+def arrAvg(alist):
+	"""
+	Given a list of 1D or 2D arrays, this method computes their average, 
+	returning an array with the same shape as the input.
+
+	:param alist: list of arrays 
+	:returns: average, std. dev. -- arrays with the same shape as the input arrays
+
+	Usage:
+
+	>>> avg=arrAvg([x,y,z])
+	"""
+	if alist[0].ndim==2:
+		# join arrays together, creating 3D arrays where the third dimension is e.g. time
+		# or whatever index for the different arrays you want to average
+		arr=numpy.stack(alist,axis=2)
+
+		# performs the average 
+		return numpy.mean(arr,axis=2), numpy.std(arr,axis=2)
+	elif alist[0].ndim==1:
+		arr=numpy.stack(alist,axis=1)
+		return numpy.mean(arr,axis=1), numpy.std(arr,axis=1)
+	else:
+		print("Dimensionality not supported")
+
+
+
+
