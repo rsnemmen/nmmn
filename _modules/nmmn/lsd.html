@@ -339,29 +339,75 @@
 
 
 
-<div class="viewcode-block" id="crop"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.crop">[docs]</a><span class="k">def</span> <span class="nf">crop</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">):</span>
+<div class="viewcode-block" id="crop"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.crop">[docs]</a><span class="k">def</span> <span class="nf">crop</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Crops the image or 2D array, leaving only pixels inside the region</span>
 <span class="sd">you define.</span>
 
 <span class="sd">&gt;&gt;&gt; Znew,Xnew,Ynew = crop(Z, X, Y, 0,10,-20,20)</span>
 
-<span class="sd">where X,Y,Z are 2D arrays.</span>
+<span class="sd">where X,Y are 1D or 2D arrays, and Z is a 2D array.</span>
+
+<span class="sd">:param z: 2d array </span>
+<span class="sd">:param x,y: 1d or 2d arrays. In the latter case, they should have the same shape as z</span>
+<span class="sd">:param all: should I return cropped Z,X,Y or only Z?</span>
+<span class="sd">:returns: Z_cropped, X_cropped, Y_cropped</span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c1"># Index tuples with elements that will be selected along each dimension</span>
-	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">xmin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;=</span><span class="n">xmax</span><span class="p">))</span>	<span class="c1"># x</span>
-	<span class="n">j</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y</span><span class="o">&gt;=</span><span class="n">ymin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">))</span>	<span class="c1"># y</span>
+	<span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span> <span class="c1"># if x,y are 1D</span>
+		<span class="c1"># Index tuples with elements that will be selected along each dimension</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span><span class="o">&gt;=</span><span class="n">xmin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;=</span><span class="n">xmax</span><span class="p">))</span>	<span class="c1"># x</span>
+		<span class="n">j</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y</span><span class="o">&gt;=</span><span class="n">ymin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">))</span>	<span class="c1"># y</span>
+
+		<span class="c1"># Defines new x and y arrays</span>
+		<span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+		
+		<span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>	<span class="c1"># tuples -&gt; arrays (for matrix slicing below)</span>
+		<span class="n">znew</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>	<span class="c1"># CAREFUL with the ordering of the indexes!</span>
+	<span class="k">elif</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> <span class="c1"># if x,y are 2D</span>
+		<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">&gt;=</span><span class="n">xmin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">&lt;=</span><span class="n">xmax</span><span class="p">))</span>
+		<span class="n">j</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">ymin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;=</span><span class="n">ymax</span><span class="p">))</span>
+		<span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+		<span class="n">xnew</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+		<span class="n">ynew</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+		<span class="n">znew</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+	<span class="k">else</span><span class="p">:</span> 
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dimensions of the input arrays are inconsistent&quot;</span><span class="p">)</span>
+		<span class="k">return</span>
 	
-	<span class="c1"># Defines new x and y arrays</span>
-	<span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-	
-	<span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>	<span class="c1"># tuples -&gt; arrays (for matrix slicing below)</span>
-	<span class="n">znew</span><span class="o">=</span><span class="n">cube</span><span class="p">[</span><span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">j</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">i</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>	<span class="c1"># CAREFUL with the ordering of the indexes!</span>
-	
-	<span class="k">return</span> <span class="n">znew</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span>	</div>
+	<span class="k">if</span> <span class="nb">all</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">znew</span>	
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">znew</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span></div>
 
 
 
+
+
+<div class="viewcode-block" id="arrAvg"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.arrAvg">[docs]</a><span class="k">def</span> <span class="nf">arrAvg</span><span class="p">(</span><span class="n">alist</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Given a list of 1D or 2D arrays, this method computes their average, </span>
+<span class="sd">	returning an array with the same shape as the input.</span>
+
+<span class="sd">	:param alist: list of arrays </span>
+<span class="sd">	:returns: average, std. dev. -- arrays with the same shape as the input arrays</span>
+
+<span class="sd">	Usage:</span>
+
+<span class="sd">	&gt;&gt;&gt; avg=arrAvg([x,y,z])</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">alist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+		<span class="c1"># join arrays together, creating 3D arrays where the third dimension is e.g. time</span>
+		<span class="c1"># or whatever index for the different arrays you want to average</span>
+		<span class="n">arr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+		<span class="c1"># performs the average </span>
+		<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+	<span class="k">elif</span> <span class="n">alist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ndim</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+		<span class="n">arr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">alist</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dimensionality not supported&quot;</span><span class="p">)</span></div>
 
 
 

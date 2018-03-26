@@ -90,6 +90,19 @@
 
 
 
+
+<div class="viewcode-block" id="vel_c2p"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.vel_c2p">[docs]</a><span class="k">def</span> <span class="nf">vel_c2p</span><span class="p">(</span><span class="n">th</span><span class="p">,</span><span class="n">vx</span><span class="p">,</span><span class="n">vy</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Computes the polar components of a velocity vector which</span>
+<span class="sd">is expressed in cartesian coordinates. </span>
+
+<span class="sd">Returns: vr, vth</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">vr</span><span class="o">=</span><span class="n">vx</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">+</span><span class="n">vy</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+	<span class="n">vth</span><span class="o">=-</span><span class="n">vx</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">)</span><span class="o">+</span><span class="n">vy</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">vr</span><span class="p">,</span> <span class="n">vth</span></div>
+
     
 	
 
@@ -473,6 +486,31 @@
 	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Journal expected number of citations =&quot;</span><span class="p">,</span><span class="n">dt</span><span class="o">*</span><span class="n">impactfactor</span><span class="p">)</span>
 
 	<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Actual citations/expected citations&quot;</span><span class="p">,</span><span class="n">citations</span><span class="o">/</span><span class="p">(</span><span class="n">dt</span><span class="o">*</span><span class="n">impactfactor</span><span class="p">))</span></div>
+
+
+
+
+<div class="viewcode-block" id="findPATH"><a class="viewcode-back" href="../../nmmn.html#nmmn.misc.findPATH">[docs]</a><span class="k">def</span> <span class="nf">findPATH</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">envVar</span><span class="o">=</span><span class="s2">&quot;PYTHONPATH&quot;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given a PATH or PYTHONPATH environment variable, find the full path of a file </span>
+<span class="sd">among different options. From https://stackoverflow.com/a/1124851/793218</span>
+
+<span class="sd">:param filename: file for which full path is desired</span>
+<span class="sd">:param envVar: environment variable with path to be searched</span>
+<span class="sd">:returns: string with full path to file</span>
+
+<span class="sd">Example:</span>
+
+<span class="sd">&gt;&gt;&gt; fullpath=findPATH(&quot;fastregrid.cl&quot;)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">os</span>
+
+	<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">envVar</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">):</span>
+	    <span class="k">for</span> <span class="n">r</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+	        <span class="k">for</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+	             <span class="k">if</span> <span class="n">files</span> <span class="o">==</span> <span class="n">filename</span><span class="p">:</span>
+	                 <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">files</span><span class="p">)</span></div>
+
 </pre></div>
 
           </div>

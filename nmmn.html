@@ -939,6 +939,27 @@ data using the Wolfram Language.</p>
 <div class="section" id="lsd-operations-lists-sets-dictionaries-and-arrays">
 <h3>LSD operations = lists, sets, dictionaries (and arrays)<a class="headerlink" href="#lsd-operations-lists-sets-dictionaries-and-arrays" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
+<dt id="nmmn.lsd.arrAvg">
+<code class="descclassname">nmmn.lsd.</code><code class="descname">arrAvg</code><span class="sig-paren">(</span><em>alist</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#arrAvg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.arrAvg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of 1D or 2D arrays, this method computes their average, 
+returning an array with the same shape as the input.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>alist</strong> &#8211; list of arrays</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">average, std. dev. &#8211; arrays with the same shape as the input arrays</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">avg</span><span class="o">=</span><span class="n">arrAvg</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.lsd.bootstrap">
 <code class="descclassname">nmmn.lsd.</code><code class="descname">bootstrap</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#bootstrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.bootstrap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs Monte Carlo simulated data set using the
@@ -1007,13 +1028,29 @@ not guaranteed that all elements would match in x[i] and y.</p>
 
 <dl class="function">
 <dt id="nmmn.lsd.crop">
-<code class="descclassname">nmmn.lsd.</code><code class="descname">crop</code><span class="sig-paren">(</span><em>cube</em>, <em>x</em>, <em>y</em>, <em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.crop" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">nmmn.lsd.</code><code class="descname">crop</code><span class="sig-paren">(</span><em>z</em>, <em>x</em>, <em>y</em>, <em>xmin</em>, <em>xmax</em>, <em>ymin</em>, <em>ymax</em>, <em>all=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#crop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.lsd.crop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Crops the image or 2D array, leaving only pixels inside the region
 you define.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Znew</span><span class="p">,</span><span class="n">Xnew</span><span class="p">,</span><span class="n">Ynew</span> <span class="o">=</span> <span class="n">crop</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>where X,Y,Z are 2D arrays.</p>
+<p>where X,Y are 1D or 2D arrays, and Z is a 2D array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>z</strong> &#8211; 2d array</li>
+<li><strong>x,y</strong> &#8211; 1d or 2d arrays. In the latter case, they should have the same shape as z</li>
+<li><strong>all</strong> &#8211; should I return cropped Z,X,Y or only Z?</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Z_cropped, X_cropped, Y_cropped</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -1242,6 +1279,32 @@ array with fun evaluated at x. See example below.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="nmmn.misc.findPATH">
+<code class="descclassname">nmmn.misc.</code><code class="descname">findPATH</code><span class="sig-paren">(</span><em>filename</em>, <em>envVar='PYTHONPATH'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#findPATH"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.findPATH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a PATH or PYTHONPATH environment variable, find the full path of a file 
+among different options. From <a class="reference external" href="https://stackoverflow.com/a/1124851/793218">https://stackoverflow.com/a/1124851/793218</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filename</strong> &#8211; file for which full path is desired</li>
+<li><strong>envVar</strong> &#8211; environment variable with path to be searched</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">string with full path to file</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fullpath</span><span class="o">=</span><span class="n">findPATH</span><span class="p">(</span><span class="s2">&quot;fastregrid.cl&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="nmmn.misc.lin2log">
 <code class="descclassname">nmmn.misc.</code><code class="descname">lin2log</code><span class="sig-paren">(</span><em>dyl</em>, <em>dyu</em>, <em>logy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#lin2log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.lin2log" title="Permalink to this definition">¶</a></dt>
 <dd><p>From a given uncertainty in linear space and the value of y, calculates the
@@ -1386,6 +1449,14 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 </tbody>
 </table>
 <p>Reference: <a class="reference external" href="https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior">https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nmmn.misc.vel_c2p">
+<code class="descclassname">nmmn.misc.</code><code class="descname">vel_c2p</code><span class="sig-paren">(</span><em>th</em>, <em>vx</em>, <em>vy</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#vel_c2p"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nmmn.misc.vel_c2p" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the polar components of a velocity vector which
+is expressed in cartesian coordinates.</p>
+<p>Returns: vr, vth</p>
 </dd></dl>
 
 <dl class="function">
@@ -2980,15 +3051,19 @@ the array ymod, tabulated exactly like ydata.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sd</span><span class="o">=</span><span class="n">scatterfitg</span><span class="p">(</span><span class="n">ydata</span><span class="p">,</span><span class="n">ymod</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
-<blockquote>
-<div>:param ydata : data
-:param ymod: model evaluated at xdata
-:param n: number of free parameters in the model</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float sd with the mean deviation.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ydata</strong> &#8211; data</li>
+<li><strong>ymod</strong> &#8211; model evaluated at xdata</li>
+<li><strong>n</strong> &#8211; number of free parameters in the model</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float sd with the mean deviation.</p>
+</td>
 </tr>
 </tbody>
 </table>
