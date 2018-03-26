@@ -302,7 +302,7 @@ you define.
 
 >>> Znew,Xnew,Ynew = crop(Z, X, Y, 0,10,-20,20)
 
-where X,Y,Z are 2D arrays.
+where X,Y are 1D or 2D arrays, and Z is a 2D array.
 
 :param z: 2d array 
 :param x,y: 1d or 2d arrays. In the latter case, they should have the same shape as z

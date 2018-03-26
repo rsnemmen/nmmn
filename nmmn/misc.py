@@ -442,3 +442,28 @@ whether your paper is above or below average.
 	print("Journal expected number of citations =",dt*impactfactor)
 
 	print("Actual citations/expected citations",citations/(dt*impactfactor))
+
+
+
+
+def findPATH(filename,envVar="PYTHONPATH"):
+	"""
+Given a PATH or PYTHONPATH environment variable, find the full path of a file 
+among different options. From https://stackoverflow.com/a/1124851/793218
+
+:param filename: file for which full path is desired
+:param envVar: environment variable with path to be searched
+:returns: string with full path to file
+
+Example:
+
+>>> fullpath=findPATH("fastregrid.cl")
+	"""
+	import os
+
+	for p in os.environ[envVar].split(":"):
+	    for r,d,f in os.walk(p):
+	        for files in f:
+	             if files == filename:
+	                 return os.path.join(r,files)
+

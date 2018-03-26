@@ -53,9 +53,9 @@ Usage:
 
 >>> sd=scatterfitg(ydata,ymod,n)
 
-  :param ydata : data
-  :param ymod: model evaluated at xdata
-  :param n: number of free parameters in the model
+:param ydata: data
+:param ymod: model evaluated at xdata
+:param n: number of free parameters in the model
   
 :type ydata,ymod: Numpy arrays
 :rtype: float sd with the mean deviation.
