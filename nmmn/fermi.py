@@ -6,8 +6,6 @@ Handle output of Fermi analysis.
 """
 
 import os, sys
-import astropy, astropy.io.fits, astropy.wcs
-import aplpy
 import pylab, numpy
 
 
@@ -53,6 +51,9 @@ distribution.
 where Enrico output files are located.
 :returns: image file SOURCE_Maps.png in the source folder.
     """
+    import astropy, astropy.io.fits, astropy.wcs
+    import aplpy
+
     config,c=getconfig(configfile)
 
     def set_hgps_style(f):
@@ -118,6 +119,8 @@ above.
 :param out: output filename and format
 :returns: image file 'tmp.png' in the source folder.
     """
+    import astropy, astropy.io.fits, astropy.wcs
+    import aplpy
 
     def set_hgps_style(f):
         """Set HGPS style for a f = aplpy.FITSFigure"""
