@@ -7,23 +7,21 @@ import numpy
 from matplotlib import pylab
 from nmmn import sed
 
-def plot(param, show = 1):
-
-	"""Returns the plot of spectrum as a pyplot object or plot it on the screen
-	Keyword arguments:
+def plot(spec):
+	"""
+Returns the plot of a grmonty spectrum as a pyplot object or plot it on 
+the screen
 	
-	param -- Output spectrum file
-	show  -- Optional, plot the spectrum on the screen. Enabled by default.	
+:param param: grmonty spectrum file
 	"""
 
 	s = sed.SED()
-	s.grmonty(param)
-	plt = pylab.plot(s.lognu, s.ll)
-	if show == 1:
-		pylab.show()
-	else:
-		return plt
+	s.grmonty(spec)
+	pylab.plot(s.lognu, s.ll)
+	pylab.show()
+	
 
+	
 
 def onehist(x,xlabel='',fontsize=12):
 	""" 
