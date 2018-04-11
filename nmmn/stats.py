@@ -448,6 +448,7 @@ References:
 3. see also my notebook
 	"""
 	import numdifftools
+	from . import misc
 	
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
@@ -461,11 +462,11 @@ References:
 	q=scipy.stats.t.ppf(1.-alpha/2.,n-2)
 
 	# Residual sum of squares		
-	rss=residual(yd, evalfun(fun,xd,par) )
+	rss=residual(yd, misc.evalfun(fun,xd,par) )
 	
 	grad,p=[],[]
 	i=0
-	y=evalfun(fun,x,par)
+	y=misc.evalfun(fun,x,par)
 	v=numpy.zeros_like(x)
 		
 	for i in range(x.size):

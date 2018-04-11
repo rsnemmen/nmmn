@@ -330,7 +330,7 @@ Inspired by http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_
 	
 
 	
-def fitconf(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',conf=0.683,confcolor='gray',xplot=None,front=False,**args):
+def fitconf(xdata,ydata,errx,erry,covxy,nboot=1000,bcesMethod='ort',linestyle='',conf=0.683,confcolor='gray',xplot=None,front=False,**args):
 	"""
 	This is a wrapper that given the input data performs the BCES
 	fit, get the orthogonal parameters and plot the best-fit line and
@@ -350,11 +350,15 @@ def fitconf(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',conf=
 	- front: if True, then will plot the confidence band in front of the data
 	points; otherwise, will plot it behind the points
 	"""	
+	import bces.bces
+	from . import stats
+	from . import misc	
+
 	# Selects the desired BCES method
-	i=whichbces(bces)
+	i=misc.whichbces(bcesMethod)
 		
 	# Performs the BCES fit
-	a,b,erra,errb,cov=bcesp(xdata,errx,ydata,erry,covxy,nboot)
+	a,b,erra,errb,cov=bces.bces.bcesp(xdata,errx,ydata,erry,covxy,nboot)
 	
 	# Plots best-fit
 	if xplot==None:
@@ -368,7 +372,7 @@ def fitconf(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',conf=
 	def func(x): return x[1]*x[0]+x[2]
 
 	# Plots confidence band
-	lcb,ucb,xcb=confbandnl(xdata,ydata,func,fitm,covm,2,conf,x)
+	lcb,ucb,xcb=stats.confbandnl(xdata,ydata,func,fitm,covm,2,conf,x)
 	if front==True:
 		zorder=10
 	else:

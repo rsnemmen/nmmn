@@ -182,6 +182,8 @@ location of the BCES fitting results in the arrays returned by
 the bces* methods.
 	"""
 	# Selects the appropriate BCES fitting method
+	import sys
+	
 	if bces=='ort':
 		i=3
 	elif bces=='y|x':
