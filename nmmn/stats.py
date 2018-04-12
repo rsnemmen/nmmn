@@ -389,7 +389,7 @@ E. Dallal, Ph.D. <http://www.JerryDallal.com/LHSP/slr.htm>`_
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x==None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x is None: x=numpy.linspace(xd.min(),xd.max(),100)
 
 	# Predicted values (best-fit model)
 	y=a*x+b
@@ -453,7 +453,7 @@ References:
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x==None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x is None: x=numpy.linspace(xd.min(),xd.max(),100)
 
 	# Gradient (needs to be evaluated)
 	dfun=numdifftools.Gradient(fun)
@@ -530,7 +530,7 @@ References:
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x==None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x is None: x=numpy.linspace(xd.min(),xd.max(),100)
 
 	# Gradient (needs to be evaluated)
 	dfun=numdifftools.Gradient(fun)
@@ -990,12 +990,12 @@ x,y,sd assumed to be Numpy arrays. a,b scalars. deg integer.
 Returns the float chisq/nu with the reduced chi-square statistic.
 	"""
 
-	if a==None:	
+	if a is None:	
 		# Performs linear regression
 		a, b, r, p, err = scipy.stats.linregress(x,y)
 	
 	# Chi-square statistic
-	if sd==None:
+	if sd is None:
 		chisq=numpy.sum((y-a*x-b)**2)
 	else:
 		chisq=numpy.sum( ((y-a*x-b)/sd)**2 )
@@ -1060,7 +1060,7 @@ where
 - sd : uncertainties in ydata
   	"""
 	# Chi-square statistic
-	if sd==None:
+	if sd is None:
 		chisq=numpy.sum((ydata-ymod)**2)
 	else:
 		chisq=numpy.sum( ((ydata-ymod)/sd)**2 )
