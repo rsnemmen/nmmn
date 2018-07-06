@@ -7,16 +7,31 @@ import numpy
 
 
 
-def pol2cart(r, phi):
+def pol2cart(r, th):
 	"""
 Converts from polar to cartesian coordinates.
 
 >>> x,y=pol2cart(r,phi)
 	"""
-	x = r * numpy.cos(phi)
-	y = r * numpy.sin(phi)
+	x = r * numpy.cos(th)
+	y = r * numpy.sin(th)
 	return x, y
-    
+
+
+def sph2cart(r, th):
+	"""
+Converts from spherical polar to cartesian coordinates.
+
+>>> x,y=pol2cart(r,phi)
+	"""
+	# spherical polar angle to polar
+	th=-(th-numpy.pi/2.) 
+
+	x = r * numpy.cos(th)
+	y = r * numpy.sin(th)
+	return x, y
+
+
 
 def cart2pol(x, y):
 	"""
@@ -27,6 +42,19 @@ Converts from cartesian to polar coordinates.
 	r = numpy.sqrt(x**2 + y**2)
 	t = numpy.arctan2(y, x)
 	return r, t
+
+
+def cart2sph(x, y):
+	"""
+Converts from cartesian to spherical polar coordinates,
+poles are at theta=0, equator at theta=90deg
+
+>>> r,t=cart2pol(x,y)
+	"""
+	r = numpy.sqrt(x**2 + y**2)
+	t = numpy.pi/2.-numpy.arctan2(y, x)
+	return r, t
+
 
 
 
