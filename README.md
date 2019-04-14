@@ -69,7 +69,7 @@ x=numpy.array([1,2,numpy.nan,numpy.inf])
 xok=nmmn.lsd.delweird(x)
 ```
 
-For more examples, please refer to the [examples doc](examples).
+For more examples, please refer to the [examples doc](examples.md).
 
 # TODO
 
