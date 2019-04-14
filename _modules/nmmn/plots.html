@@ -201,6 +201,12 @@
 <span class="sd">- line?: draws vertical solid lines at the positions indicated in each panel</span>
 <span class="sd">- line?b: draws vertical dashed lines at the positions indicated in each panel</span>
 
+<span class="sd">.. figure:: ../figures/fourhists.png</span>
+<span class="sd">	:scale: 100 %</span>
+<span class="sd">	:alt: Four histograms in the same figure</span>
+
+<span class="sd">	Four histograms in the same figure.</span>
+
 <span class="sd">Inspired by `Scipy &lt;http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label&gt;`_.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="n">fontsize</span><span class="p">})</span>
@@ -777,15 +783,21 @@
 
 <div class="viewcode-block" id="wolframcmap"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.wolframcmap">[docs]</a><span class="k">def</span> <span class="nf">wolframcmap</span><span class="p">():</span>
 	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Returns colormap that matches closely the one used by default</span>
-<span class="sd">	for images in Wolfram Mathematica 11 (dark blue to orange).</span>
+<span class="sd">Returns colormap that matches closely the one used by default</span>
+<span class="sd">for images in Wolfram Mathematica 11 (dark blue to orange).</span>
 
-<span class="sd">	I spent one hour playing around to reproduce it.</span>
+<span class="sd">I spent one hour playing around to reproduce it.</span>
 
-<span class="sd">	Usage:</span>
+<span class="sd">Usage:</span>
 
-<span class="sd">	&gt;&gt;&gt; mycmap=nmmn.plots.wolframcmap()</span>
-<span class="sd">	&gt;&gt;&gt; imshow(rho, cmap=mycmap)</span>
+<span class="sd">&gt;&gt;&gt; mycmap=nmmn.plots.wolframcmap()</span>
+<span class="sd">&gt;&gt;&gt; imshow(rho, cmap=mycmap)</span>
+
+<span class="sd">.. figure:: ../figures/wolframcmap.png</span>
+<span class="sd">	:scale: 100 %</span>
+<span class="sd">	:alt: Image plotted using Wolfram&#39;s colormap</span>
+
+<span class="sd">	Image plotted using Wolfram&#39;s colormap.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Create a list of RGB tuples, recreates Mathematica colormap</span>
 	<span class="n">colors3</span><span class="o">=</span><span class="p">[(</span><span class="mi">51</span><span class="p">,</span><span class="mi">91</span><span class="p">,</span><span class="mi">150</span><span class="p">),(</span><span class="mi">111</span><span class="p">,</span><span class="mi">116</span><span class="p">,</span><span class="mi">143</span><span class="p">),(</span><span class="mi">167</span><span class="p">,</span><span class="mi">136</span><span class="p">,</span><span class="mi">110</span><span class="p">),(</span><span class="mi">233</span><span class="p">,</span><span class="mi">167</span><span class="p">,</span><span class="mi">85</span><span class="p">),(</span><span class="mi">251</span><span class="p">,</span><span class="mi">212</span><span class="p">,</span><span class="mi">141</span><span class="p">),(</span><span class="mi">255</span><span class="p">,</span><span class="mi">247</span><span class="p">,</span><span class="mi">190</span><span class="p">)]</span>
