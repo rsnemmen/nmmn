@@ -166,6 +166,12 @@ or both histograms.
 - line?: draws vertical solid lines at the positions indicated in each panel
 - line?b: draws vertical dashed lines at the positions indicated in each panel
 
+.. figure:: ../figures/fourhists.png
+	:scale: 100 %
+	:alt: Four histograms in the same figure
+
+	Four histograms in the same figure.
+
 Inspired by `Scipy <http://www.scipy.org/Cookbook/Matplotlib/Multiple_Subplots_with_One_Axis_Label>`_.
 	"""
 	pylab.rcParams.update({'font.size': fontsize})
@@ -742,15 +748,21 @@ Creates pretty image. You need to specify:
 
 def wolframcmap():
 	"""
-	Returns colormap that matches closely the one used by default
-	for images in Wolfram Mathematica 11 (dark blue to orange).
+Returns colormap that matches closely the one used by default
+for images in Wolfram Mathematica 11 (dark blue to orange).
 
-	I spent one hour playing around to reproduce it.
+I spent one hour playing around to reproduce it.
 
-	Usage:
+Usage:
 
-	>>> mycmap=nmmn.plots.wolframcmap()
-	>>> imshow(rho, cmap=mycmap)
+>>> mycmap=nmmn.plots.wolframcmap()
+>>> imshow(rho, cmap=mycmap)
+
+.. figure:: ../figures/wolframcmap.png
+	:scale: 100 %
+	:alt: Image plotted using Wolfram's colormap
+
+	Image plotted using Wolfram's colormap.
 	"""
 	# Create a list of RGB tuples, recreates Mathematica colormap
 	colors3=[(51,91,150),(111,116,143),(167,136,110),(233,167,85),(251,212,141),(255,247,190)]
@@ -853,7 +865,7 @@ gives the following plot.
 
    Two-dimensional kernel density distribution, along with one-dimensional histograms of each distribution.
 	"""
-	import scipy
+	import scipy.stats
 
 	# Generates 2D histogram for image
 	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], normed=False)
