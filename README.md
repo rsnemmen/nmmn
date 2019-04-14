@@ -75,11 +75,23 @@ Now it is easy to compute the bolometric luminosity: `s.bol()`.
 Example 3: Make a 2D kernel density distribution plot, along with the 1D histograms.
 
 ```python
-nmmn.jointplot(X,Y,xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
+import nmmn.plots
+# define your 1D arrays X and Y with the points
+nmmn.plots.jointplot(X,Y,xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
 ```
 
 ![2D kernel density distribution](./figures/jointplot.png)
 
+Example 4: Use the colormap of Wolfram Mathematica for plotting images.
+
+```python
+import nmmn.plots
+wolframcmap=nmmn.plots.wolframcmap()
+# define var with the image
+imshow(var, cmap=wolframcmap)
+```
+
+![Image plotted with matplotlib and using Wolfram's colormap](./figures/wolfram-cmap.png)
 
 # TODO
 
