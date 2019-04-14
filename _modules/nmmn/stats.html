@@ -1,44 +1,35 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>nmmn.stats &#8212; nmmn  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="nmmn  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" />
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for nmmn.stats</h1><div class="highlight"><pre>
@@ -433,7 +424,7 @@
 	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
 	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
-	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
 	<span class="c1"># Predicted values (best-fit model)</span>
 	<span class="n">y</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">b</span>
@@ -492,11 +483,12 @@
 <span class="sd">3. see also my notebook</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">numdifftools</span>
+	<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">misc</span>
 	
 	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
 	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
-	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
 	<span class="c1"># Gradient (needs to be evaluated)</span>
 	<span class="n">dfun</span><span class="o">=</span><span class="n">numdifftools</span><span class="o">.</span><span class="n">Gradient</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span>
@@ -505,11 +497,11 @@
 	<span class="n">q</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
 
 	<span class="c1"># Residual sum of squares		</span>
-	<span class="n">rss</span><span class="o">=</span><span class="n">residual</span><span class="p">(</span><span class="n">yd</span><span class="p">,</span> <span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">xd</span><span class="p">,</span><span class="n">par</span><span class="p">)</span> <span class="p">)</span>
+	<span class="n">rss</span><span class="o">=</span><span class="n">residual</span><span class="p">(</span><span class="n">yd</span><span class="p">,</span> <span class="n">misc</span><span class="o">.</span><span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">xd</span><span class="p">,</span><span class="n">par</span><span class="p">)</span> <span class="p">)</span>
 	
 	<span class="n">grad</span><span class="p">,</span><span class="n">p</span><span class="o">=</span><span class="p">[],[]</span>
 	<span class="n">i</span><span class="o">=</span><span class="mi">0</span>
-	<span class="n">y</span><span class="o">=</span><span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">par</span><span class="p">)</span>
+	<span class="n">y</span><span class="o">=</span><span class="n">misc</span><span class="o">.</span><span class="n">evalfun</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">par</span><span class="p">)</span>
 	<span class="n">v</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 		
 	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
@@ -573,7 +565,7 @@
 	<span class="n">alpha</span><span class="o">=</span><span class="mf">1.</span><span class="o">-</span><span class="n">conf</span>	<span class="c1"># significance</span>
 	<span class="n">n</span><span class="o">=</span><span class="n">xd</span><span class="o">.</span><span class="n">size</span>	<span class="c1"># data sample size</span>
 
-	<span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xd</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span><span class="n">xd</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span><span class="mi">100</span><span class="p">)</span>
 
 	<span class="c1"># Gradient (needs to be evaluated)</span>
 	<span class="n">dfun</span><span class="o">=</span><span class="n">numdifftools</span><span class="o">.</span><span class="n">Gradient</span><span class="p">(</span><span class="n">fun</span><span class="p">)</span>
@@ -1033,12 +1025,12 @@
 <span class="sd">Returns the float chisq/nu with the reduced chi-square statistic.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-	<span class="k">if</span> <span class="n">a</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>	
+	<span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>	
 		<span class="c1"># Performs linear regression</span>
 		<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 	
 	<span class="c1"># Chi-square statistic</span>
-	<span class="k">if</span> <span class="n">sd</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+	<span class="k">if</span> <span class="n">sd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">x</span><span class="o">-</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">sd</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
@@ -1103,7 +1095,7 @@
 <span class="sd">- sd : uncertainties in ydata</span>
 <span class="sd">  	&quot;&quot;&quot;</span>
 	<span class="c1"># Chi-square statistic</span>
-	<span class="k">if</span> <span class="n">sd</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+	<span class="k">if</span> <span class="n">sd</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 	<span class="k">else</span><span class="p">:</span>
 		<span class="n">chisq</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span> <span class="p">((</span><span class="n">ydata</span><span class="o">-</span><span class="n">ymod</span><span class="p">)</span><span class="o">/</span><span class="n">sd</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
@@ -1523,10 +1515,26 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">nmmn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nmmn.html">nmmn package</a></li>
+</ul>
+
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
@@ -1537,14 +1545,24 @@
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -1553,8 +1571,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 

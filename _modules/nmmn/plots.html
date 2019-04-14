@@ -1,44 +1,35 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>nmmn.plots &#8212; nmmn  documentation</title>
-    
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     '',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="nmmn  documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" />
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
    
   <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for nmmn.plots</h1><div class="highlight"><pre>
@@ -51,23 +42,21 @@
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pylab</span>
 <span class="kn">from</span> <span class="nn">nmmn</span> <span class="k">import</span> <span class="n">sed</span>
 
-<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-
-	<span class="sd">&quot;&quot;&quot;Returns the plot of spectrum as a pyplot object or plot it on the screen</span>
-<span class="sd">	Keyword arguments:</span>
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Returns the plot of a grmonty spectrum as a pyplot object or plot it on </span>
+<span class="sd">the screen</span>
 <span class="sd">	</span>
-<span class="sd">	param -- Output spectrum file</span>
-<span class="sd">	show  -- Optional, plot the spectrum on the screen. Enabled by default.	</span>
+<span class="sd">:param param: grmonty spectrum file</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">s</span> <span class="o">=</span> <span class="n">sed</span><span class="o">.</span><span class="n">SED</span><span class="p">()</span>
-	<span class="n">s</span><span class="o">.</span><span class="n">grmonty</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
-	<span class="n">plt</span> <span class="o">=</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
-	<span class="k">if</span> <span class="n">show</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-		<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-	<span class="k">else</span><span class="p">:</span>
-		<span class="k">return</span> <span class="n">plt</span></div>
+	<span class="n">s</span><span class="o">.</span><span class="n">grmonty</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+	
 
+	
 
 <div class="viewcode-block" id="onehist"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.onehist">[docs]</a><span class="k">def</span> <span class="nf">onehist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot; </span>
@@ -376,7 +365,7 @@
 	
 
 	
-<div class="viewcode-block" id="fitconf"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fitconf">[docs]</a><span class="k">def</span> <span class="nf">fitconf</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bces</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.683</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="fitconf"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.fitconf">[docs]</a><span class="k">def</span> <span class="nf">fitconf</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">bcesMethod</span><span class="o">=</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span><span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="n">conf</span><span class="o">=</span><span class="mf">0.683</span><span class="p">,</span><span class="n">confcolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span><span class="n">xplot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">front</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
 	<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	This is a wrapper that given the input data performs the BCES</span>
 <span class="sd">	fit, get the orthogonal parameters and plot the best-fit line and</span>
@@ -396,11 +385,15 @@
 <span class="sd">	- front: if True, then will plot the confidence band in front of the data</span>
 <span class="sd">	points; otherwise, will plot it behind the points</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
+	<span class="kn">import</span> <span class="nn">bces.bces</span>
+	<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">stats</span>
+	<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">misc</span>	
+
 	<span class="c1"># Selects the desired BCES method</span>
-	<span class="n">i</span><span class="o">=</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bces</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">misc</span><span class="o">.</span><span class="n">whichbces</span><span class="p">(</span><span class="n">bcesMethod</span><span class="p">)</span>
 		
 	<span class="c1"># Performs the BCES fit</span>
-	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
+	<span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">erra</span><span class="p">,</span><span class="n">errb</span><span class="p">,</span><span class="n">cov</span><span class="o">=</span><span class="n">bces</span><span class="o">.</span><span class="n">bces</span><span class="o">.</span><span class="n">bcesp</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">errx</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">erry</span><span class="p">,</span><span class="n">covxy</span><span class="p">,</span><span class="n">nboot</span><span class="p">)</span>
 	
 	<span class="c1"># Plots best-fit</span>
 	<span class="k">if</span> <span class="n">xplot</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
@@ -414,7 +407,7 @@
 	<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
 	<span class="c1"># Plots confidence band</span>
-	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">xcb</span><span class="o">=</span><span class="n">confbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+	<span class="n">lcb</span><span class="p">,</span><span class="n">ucb</span><span class="p">,</span><span class="n">xcb</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">confbandnl</span><span class="p">(</span><span class="n">xdata</span><span class="p">,</span><span class="n">ydata</span><span class="p">,</span><span class="n">func</span><span class="p">,</span><span class="n">fitm</span><span class="p">,</span><span class="n">covm</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">conf</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
 	<span class="k">if</span> <span class="n">front</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
 		<span class="n">zorder</span><span class="o">=</span><span class="mi">10</span>
 	<span class="k">else</span><span class="p">:</span>
@@ -879,11 +872,21 @@
 
 <span class="sd">The work that went in creating this nice method is shown, step by step, in </span>
 <span class="sd">the ipython notebook &quot;error contours.ipynb&quot;. Sources of inspiration:</span>
+
 <span class="sd">- http://python4mpia.github.io/intro/quick-tour.html</span>
 <span class="sd">- http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals</span>
 
 <span class="sd">Usage:</span>
+
 <span class="sd">&gt;&gt;&gt; jointplot(M.rtr.trace(),M.mdot.trace(),xlabel=&#39;$\log \ r_{\\rm tr}$&#39;, ylabel=&#39;$\log \ \dot{m}$&#39;)</span>
+
+<span class="sd">gives the following plot.</span>
+
+<span class="sd">.. figure:: ../figures/jointplot.png</span>
+<span class="sd">   :scale: 100 %</span>
+<span class="sd">   :alt: Two-dimensional kernel density distribution.</span>
+
+<span class="sd">   Two-dimensional kernel density distribution, along with one-dimensional histograms of each distribution.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">scipy</span>
 
@@ -944,10 +947,26 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">nmmn</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../nmmn.html">nmmn package</a></li>
+</ul>
+
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../../index.html">Documentation overview</a><ul>
@@ -958,14 +977,24 @@
 </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -974,8 +1003,8 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
 
