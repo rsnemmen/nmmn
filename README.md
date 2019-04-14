@@ -91,7 +91,20 @@ wolframcmap=nmmn.plots.wolframcmap()
 imshow(var, cmap=wolframcmap)
 ```
 
-![Image plotted with matplotlib and using Wolfram's colormap](./figures/wolfram-cmap.png)
+![Image plotted with matplotlib and using Wolfram's colormap](./figures/wolframcmap.png)
+
+Note that there is also a method here for using MATLAB's parula colormap.
+
+Example 5: Plot four histograms in the same figure.
+
+```python
+import nmmn.plots
+# define your 4 variables x1, x2, x3 and x4 that will be plotted as histograms
+nemmen.fourhists(x1,x2,x3,x4,-3,0,'BL Lacs','FSRQs','Blazars','GRBs','$\log \epsilon_{\\rm rad}$',fig=2,fontsize=15,bins1=15,bins2=15,bins3=15,bins4=15)
+```
+
+![Four histograms in the same figure](./figures/fourhists.png)
+
 
 # TODO
 
