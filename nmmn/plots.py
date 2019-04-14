@@ -921,3 +921,25 @@ gives the following plot.
 
 
 
+def symlog(x, C=1./numpy.log(10.)):
+	"""
+Applies a modified logarithm function to x that handles negative 
+values while maintaining continuity across 
+zero. This function solves a very concrete problem: how to handle
+data that spans a huge range and has also negative values? log10
+will fail. This is the answer. 
+
+The transformation is defined in an article from the journal 
+Measurement Science and Technology (Webber, 2012): 
+
+y = sign(x)*(log10(1+abs(x)/(10^C))) 
+
+where the scaling constant C determines the resolution of the data 
+around zero. The smallest order of magnitude shown on either side of 
+zero will be 10^ceil(C).
+
+Reference: MATHWORKS symlog <https://www.mathworks.com/matlabcentral/fileexchange/57902-symlog>
+	"""
+	return numpy.sign(x)*(numpy.log10(1+numpy.abs(x)/(10**C)))
+
+
