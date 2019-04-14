@@ -7,6 +7,11 @@ import numpy
 
 
 
+# COORDINATE TRANSFORMATIONS
+# ===========================
+#
+#
+
 def pol2cart(r, th):
 	"""
 Converts from polar to cartesian coordinates.
@@ -86,6 +91,18 @@ Returns: vr, vth
 	vth=-vx*numpy.sin(th)+vy*numpy.cos(th)
 
 	return vr, vth
+
+    
+
+
+
+
+
+
+
+
+
+
 
     
 	

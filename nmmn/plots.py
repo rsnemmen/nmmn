@@ -837,11 +837,21 @@ histograms showing the median and standard deviations.
 
 The work that went in creating this nice method is shown, step by step, in 
 the ipython notebook "error contours.ipynb". Sources of inspiration:
+
 - http://python4mpia.github.io/intro/quick-tour.html
 - http://stackoverflow.com/questions/12301071/multidimensional-confidence-intervals
 
 Usage:
+
 >>> jointplot(M.rtr.trace(),M.mdot.trace(),xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
+
+gives the following plot.
+
+.. figure:: ../figures/jointplot.png
+   :scale: 100 %
+   :alt: Two-dimensional kernel density distribution.
+
+   Two-dimensional kernel density distribution, along with one-dimensional histograms of each distribution.
 	"""
 	import scipy
 

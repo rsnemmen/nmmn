@@ -72,12 +72,18 @@ plot(s.lognu, s.ll)
 
 Now it is easy to compute the bolometric luminosity: `s.bol()`.
 
+Example 3: Make a 2D kernel density distribution plot, along with the 1D histograms.
 
-TBD
+```python
+nmmn.jointplot(X,Y,xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
+```
+
+![2D kernel density distribution](./figures/jointplot.png)
+
 
 # TODO
 
-* [ ] need more examples of how to use the modules
+* [x] need more examples of how to use the modules
 * [ ] add IFU data cubes method
 
 # License
