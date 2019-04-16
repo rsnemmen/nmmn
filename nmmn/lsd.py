@@ -368,3 +368,26 @@ def arrAvg(alist):
 
 
 
+def string2float(s):
+	"""
+Converts from an array of strings to floats.
+
+>>> string2float('28122014')
+
+returns 28122014.0.
+
+:param s: a string or list/array of strings
+:returns: a numpy array of floats
+	"""
+	if numpy.size(s)==1:	# if input is a single string
+		out=numpy.float(s)
+	else:	# if input is list/array
+		out=[]
+
+		for i, si in enumerate(s): 
+			out.append(numpy.float(si))
+
+		out=numpy.array(out)
+
+	return out
+
