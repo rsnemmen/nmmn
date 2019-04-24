@@ -5,8 +5,9 @@ Spectral energy distributions
 Methods and classes for dealing with spectral energy distributions (SEDs).
 """
 
-import numpy
+import numpy, pylab, os, scipy
 from . import lsd # intrapackage reference
+
 
 class SED:
 	"""
@@ -178,8 +179,6 @@ class SED:
 		Reads SEDs in the format provided by grmonty. I ported the 
 		original SM script `plspec.m` provided by J. Dolence. 
 		"""
-		import astropy.io.ascii as ascii
-
 		# reads grmonty SED file
 		self.file=file
 		s=ascii.read(file, Reader=ascii.NoHeader)
@@ -976,4 +975,749 @@ quantities.
 	o.ll=numpy.concatenate([o.ll,x.ll])	
 
 	return o
+
+
+
+
+
+
+
+
+
+
+
+def modelsplot(pathm='/Users/nemmen/Dropbox/work/projects/adafjet/',
+	jetfile=None,showthin=True,showjet=True,showsum=True,showadaf=[True,True,True]):
+	"""
+Nice wrapper that plots 3 models computed with the ADAF Fortran code available at
+~/work/projects/adafjet/adaf.
+
+Useful when modeling a given SED.
+
+Input:
+  - *file : path to ASCII files containing the precomputed models
+  - showadaf : should I display the three ADAF models? (list or array of booleans, 
+  	e.g., [True,True,True])
+  - showthin : Include thin disk?
+  - showjet : Display jet?
+  - showsum : Show sum of components?
+	"""
+	if showjet==True:
+		if jetfile==None:
+			jet=nmmn.sed.SED(file=pathm+'jet/jet.dat',logfmt=1)
+		else:
+			jet=nmmn.sed.SED(file=jetfile,logfmt=1)	
+		pylab.plot(jet.lognu,jet.ll,'-.m')
+
+	if showadaf[0]==True:
+		adaf=nmmn.sed.SED(file=pathm+'adaf/perl/run01/spec_01',logfmt=1)
+		pylab.plot(adaf.lognu,adaf.ll,'--b',linewidth=1)
+		if showthin==True:
+			thin=nmmn.sed.SED(file=pathm+'adaf/perl/run01/spec_01_ssd',logfmt=1) 
+			#thin=nmmn.sed.SED(file=thinfile,logfmt=1) 
+			pylab.plot(thin.lognu,thin.ll,':r',linewidth=1)
+		if showjet and showthin: sum=nmmn.sed.sum([adaf,jet,thin])
+		if showjet==True and showthin==False: sum=nmmn.sed.sum([adaf,jet])
+		if showjet==False and showthin==True: sum=nmmn.sed.sum([adaf,thin])
+		if showsum==True: pylab.plot(sum.lognu,sum.ll,'k')
+
+	if showadaf[1]==True:
+		adaf=nmmn.sed.SED(file=pathm+'adaf/perl/run02/spec_02',logfmt=1)
+		pylab.plot(adaf.lognu,adaf.ll,'--b',linewidth=2)
+		if showthin==True:
+			thin=nmmn.sed.SED(file=pathm+'adaf/perl/run02/spec_02_ssd',logfmt=1) 
+			#thin=nmmn.sed.SED(file=thinfile,logfmt=1) 
+			pylab.plot(thin.lognu,thin.ll,':r',linewidth=2)
+		if showjet and showthin: sum=nmmn.sed.sum([adaf,jet,thin])
+		if showjet==True and showthin==False: sum=nmmn.sed.sum([adaf,jet])
+		if showjet==False and showthin==True: sum=nmmn.sed.sum([adaf,thin])
+		if showsum==True: pylab.plot(sum.lognu,sum.ll,'k')
+
+	if showadaf[2]==True:
+		adaf=nmmn.sed.SED(file=pathm+'adaf/perl/run03/spec_03',logfmt=1)
+		pylab.plot(adaf.lognu,adaf.ll,'--b',linewidth=3)
+		if showthin==True:
+			thin=nmmn.sed.SED(file=pathm+'adaf/perl/run03/spec_03_ssd',logfmt=1) 
+			#thin=nmmn.sed.SED(file=thinfile,logfmt=1) 	
+			pylab.plot(thin.lognu,thin.ll,':r',linewidth=3)
+		if showjet and showthin: sum=nmmn.sed.sum([adaf,jet,thin])
+		if showjet==True and showthin==False: sum=nmmn.sed.sum([adaf,jet])
+		if showjet==False and showthin==True: sum=nmmn.sed.sum([adaf,thin])
+		if showsum==True: pylab.plot(sum.lognu,sum.ll,'k')
+
+
+
+
+
+def modelplot(ssdf,adaff,jetf,sumf,**args):
+	"""
+Plots the model components.
+
+Arguments: The filenames of each model component.
+	"""
+	# Reads model SEDs, checking first if the data files exist
+	if os.path.isfile(sumf): msum=nmmn.sed.SED(file=sumf,logfmt=1) 
+	else: msum=None
+	if os.path.isfile(adaff): adaf=nmmn.sed.SED(file=adaff,logfmt=1) 
+	else: adaf=None
+	if os.path.isfile(jetf): jet=nmmn.sed.SED(file=jetf,logfmt=1) 
+	else: jet=None
+	if os.path.isfile(ssdf): ssd=nmmn.sed.SED(file=ssdf,logfmt=1) 
+	else: ssd=None
+	
+	# Groups the model components in a dictionary
+	m=groupmodel(sum=msum,ssd=ssd,adaf=adaf,jet=jet)
+
+	if 'sum' in m: pylab.plot(m['sum'].lognu,m['sum'].ll,'k',**args)
+	if 'adaf' in m: pylab.plot(m['adaf'].lognu,m['adaf'].ll,'--',**args)
+	if 'jet' in m: pylab.plot(m['jet'].lognu,m['jet'].ll,'-.',**args)
+	#if 'ssd' in m: pylab.plot(m['ssd'].lognu,m['ssd'].ll,':',**args)
+	if 'ssd' in m: pylab.plot(m['ssd'].lognu,m['ssd'].ll,':',linewidth=2,**args)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def obsplot(source,
+	  table='/Users/nemmen/Dropbox/work/projects/finished/liners/tables/models.csv',
+	  patho='/Users/nemmen/Dropbox/work/projects/finished/liners/seds/obsdata/',
+	  ext='0'
+	  ):
+	"""
+Plots the observed SED taken from the Eracleous et al. sample. Includes arrows 
+for upper limits and the nice bow tie. 
+
+Extinction corrections represented as either "error bars" or "circle + error bar".
+
+:param source: source name e.g. 'NGC1097' or 'ngc1097' or 'NGC 1097'. Must have four numbers.
+:param table: path of ASCII table models.csv with the required SED parameters gammax, error in gammax, X-ray luminosity and distratio
+:param patho: path to observed SED data files
+:param ext: 0 for showing extinction corrections as "error bars"; 1 for "circle + error bar"
+:returns: SED object with distance-corrected luminosities
+	"""
+	# Reads the ASCII table models.csv
+	t=ascii.read(table,Reader=ascii.CommentedHeader,delimiter='\t')
+	tname,tmodel,tdistratio,tgammax,tegammal,tegammau,tlumx=t['Object'],t['Model'],t['distratio'],t['gammax'],t['egammal'],t['egammau'],t['lumx']
+
+	# Finds the required parameters to plot the data for the specified source.
+	# First converts the source name to uppercase, no spaces
+	source=source.upper()
+	source=source.replace(' ', '')
+	# Finds the first occurrence of the source in the table
+	i=numpy.where(tname==source)
+	i=i[0][0]
+	# Retrieves the required parameters
+	distratio=tdistratio[i]
+	gammax=tgammax[i]
+	egammal=tegammal[i]
+	egammau=tegammau[i]
+	lumx=tlumx[i]
+
+	# Reads observed SED
+	ofile=patho+source+'.dat'
+	o=nmmn.sed.SED()
+	o.erac(ofile)	
+	
+	# Corrects SED data points for new distance
+	o.nlnu=o.nlnu*(distratio)**2
+	o.nlnuex=o.nlnuex*(distratio)**2
+	o.ll=numpy.log10(o.nlnu)
+	o.llex=numpy.log10(o.nlnuex)
+	lumx=lumx*(distratio)**2
+		
+	# Separates the observed SED in the different bands and uses a different recipe
+	# to plot each region
+
+	## Radio and IR as filled points
+	rir=numpy.where(o.lognu<14.46)
+	pylab.plot(o.lognu[rir],o.ll[rir],'ko')
+
+	## Optical and UV (extinction uncertainty)
+	ouv=numpy.where((o.lognu>=14.46) & (o.lognu<=16.))
+	if (numpy.size(ouv)==1) and (o.llex[ouv]-o.ll[ouv]>2.):
+		# if the uncertainty in the UV due to extinction is too big (NGC 3169, NGC3226 and NGC4548), replace the "error bar" with an upper limit
+		pylab.plot(o.lognu[ouv],o.llex[ouv],'ko')
+		pylab.quiver(o.lognu[ouv],o.llex[ouv],0,-1,scale=30,width=3e-3)
+	else:
+		if ext==0: 
+			pylab.errorbar(o.lognu[ouv],(o.ll[ouv]+o.llex[ouv])/2.,yerr=o.llex[ouv]-(o.ll[ouv]+o.llex[ouv])/2.,fmt=None,ecolor='k',label='_nolegend_')
+		else:
+			pylab.plot(o.lognu[ouv],o.ll[ouv],'ko')
+			pylab.errorbar(o.lognu[ouv],(o.ll[ouv]+o.llex[ouv])/2.,yerr=o.llex[ouv]-(o.ll[ouv]+o.llex[ouv])/2.,fmt=None,ecolor='k',label='_nolegend_')
+	
+	## X-rays as bow tie
+	xray(lumx,gammax,egammal,egammau)	
+	
+	# Upper limits with arrows
+	u=numpy.where(o.ul==1)	# index of upper limits
+	pylab.quiver(o.lognu[u],o.ll[u],0,-1,scale=30,width=3e-3)	# careful with the arrow parameters	
+
+	# Dummy plot just to include the name of the source with legend later
+	pylab.plot(o.lognu+50,o.ll,'w',label=source)
+
+	return o
+
+	
+
+
+
+
+
+
+def haydenobs(source, patho='/Users/nemmen/work/projects/hayden/all/', info='/Users/nemmen/work/projects/hayden/info.dat'):
+	"""
+Plots the observed SED from the Hayden et al. sample. Includes arrows 
+for upper limits and the nice bow tie. 
+
+Extinction corrections represented as either "error bars" or "circle + error bar".
+
+:param source: source name e.g. 'NGC1097' or 'ngc1097' or 'NGC 1097'. Must have four numbers.
+:param patho: path to observed SED data files
+:param info: path to information datafile with distances and masses
+:returns: SED object 
+	"""
+	# Finds the required parameters to plot the data for the specified source.
+	# First converts the source name to uppercase, no spaces
+	source=source.upper()
+	source=source.replace(' ', '')
+
+	# Reads information table and gets required info
+	t=ascii.read(info)
+	names=t['name'].tolist()
+	# finds location of source in the arrays
+	i=names.index(source)
+	# gets distance 
+	dist=t['distance/Mpc'][i]
+
+	# Reads observed SED (which is given in weird units)
+	ofile=patho+source+'_sed.txt'
+	o=nmmn.sed.SED()
+	o.hayden(ofile,dist)	
+	
+	#########################################################	
+	# Separates the observed SED in the different bands and uses a different recipe
+	# to plot each region
+	#########################################################	
+
+	pylab.plot(o.lognu,o.ll,'ko')
+	
+	## X-rays as bow tie
+	#xray(lumx,gammax,egammal,egammau)	
+	# Reads Panessa's X-ray SED
+	xfile=patho+source+'_x.txt'
+	x=nmmn.sed.SED()
+	x.haydenx(xfile)	
+	pylab.plot(x.lognu,x.ll,'k.')
+	pylab.errorbar(x.lognu,x.ll,yerr=x.llerr,fmt="none",label='_nolegend_',alpha=0.5)
+
+
+
+	
+	# Upper limits with arrows
+	u=numpy.where(o.ul==1)	# index of upper limits
+	pylab.quiver(o.lognu[u],o.ll[u],0,-1,scale=30,width=3e-3)	# careful with the arrow parameters	
+
+	# Dummy plot just to include the name of the source with legend later
+	pylab.plot(o.lognu+50,o.ll,'w',label=source)
+
+	return o
+
+
+# ====================================
+#
+# Code below imported from sedplot.py
+#
+# ====================================
+ 
+
+
+
+def plotprops(labelfontsize=18, legend=True):
+	"""
+Define other properties of the SED plot: additional axis, font size etc.
+	"""
+	# Increase the size of the fonts
+	pylab.rcParams.update({'font.size': 15})
+
+	# Defines general properties of the plot
+	#pylab.xlim(8,20) # Nemmen et al. 2014 plots
+	#pylab.ylim(35,44) # Nemmen et al. 2014 plots
+	#pylab.ylim(34,40) # Hayden plots
+	#pylab.xlim(8,19)
+	pylab.xlabel('log($\\nu$ / Hz)',fontsize=labelfontsize)
+	pylab.ylabel('log($\\nu L_\\nu$ / erg s$^{-1}$)',fontsize=labelfontsize)
+	pylab.minorticks_on()
+	if legend is True:
+		pylab.legend(loc='upper right', frameon=False)
+
+	# Add second X axis with common units of wavelength
+	ax1=pylab.subplot(111)
+	ax1.set_xlim(8,20)	
+	ax2=pylab.twiny()
+	ax2.set_xlim(8,20)	# set this to match the lower X axis
+	ax2.set_xticks([8.477,9.477,10.477,11.477,12.477,13.477,14.477,15.4768,16.383,17.383,18.383,19.383])
+	ax2.set_xticklabels(['1m','10cm','1cm','1mm','100$\mu$m','10$\mu$m','1$\mu$m','1000$\AA$','.1keV','1keV','10keV','100keV'],size=10.5)
+	pylab.minorticks_on()
+
+
+
+
+
+
+
+
+
+
+
+
+
+def plot(source,o,m,table):
+	"""
+DEPRECATED. Split these method in separate units: modelplot, obsplot, plotprops.
+Main method to create the SED plot.
+
+Arguments:
+- source: source name e.g. 'NGC1097' or 'ngc1097' or 'NGC 1097'. Must have four 
+	numbers.
+- o: observed SED data points imported using the SED class and the erac method.
+- m: dictionary with the different model components created with the method
+	groupmodel below.
+- table: path of ASCII table models.csv with the required SED parameters gammax, 
+	error in gammax, X-ray luminosity and distratio.
+	"""
+	# Reads the ASCII table models.csv
+	t=ascii.read(table,Reader=ascii.CommentedHeader,delimiter='\t')
+	tname,tmodel,tdistratio,tgammax,tegammal,tegammau,tlumx=t['Object'],t['Model'],t['distratio'],t['gammax'],t['egammal'],t['egammau'],t['lumx']
+
+	# Finds the required parameters to plot the data for the specified source.
+	# First converts the source name to uppercase, no spaces
+	source=source.upper()
+	source=source.replace(' ', '')
+	# Finds the first occurrence of the source in the table
+	i=numpy.where(tname==source)
+	i=i[0][0]
+	# Retrieves the required parameters
+	distratio=tdistratio[i]
+	gammax=tgammax[i]
+	egammal=tegammal[i]
+	egammau=tegammau[i]
+	lumx=tlumx[i]
+
+	# Precaution to avoid modifying unintentionally the obs SED
+	o=o.copy()
+	
+	
+
+
+	pylab.clf()
+	
+
+	
+	
+	# Plots OBSERVED SED
+	# ====================
+	# Corrects SED data points for new distance
+	o.nlnu=o.nlnu*(distratio)**2
+	o.nlnuex=o.nlnuex*(distratio)**2
+	o.ll=numpy.log10(o.nlnu)
+	o.llex=numpy.log10(o.nlnuex)
+	lumx=lumx*(distratio)**2
+		
+	# Separates the observed SED in the different bands and uses a different recipe
+	# to plot each region
+	## Radio and IR as filled points
+	rir=numpy.where(o.lognu<14.46)
+	pylab.plot(o.lognu[rir],o.ll[rir],'ko')
+	## Optical and UV as error bars (extinction uncertainty)
+	ouv=numpy.where((o.lognu>=14.46) & (o.lognu<=16.))
+	if (numpy.size(ouv)==1) and (o.llex[ouv]-o.ll[ouv]>2.):
+		# if the uncertainty in the UV due to extinction is too big (NGC 3169, NGC3226 and NGC4548), replace the "error bar" with an upper limit
+		pylab.plot(o.lognu[ouv],o.llex[ouv],'ko')
+		pylab.quiver(o.lognu[ouv],o.llex[ouv],0,-1,scale=30,width=3e-3)
+	else:
+		pylab.errorbar(o.lognu[ouv],(o.ll[ouv]+o.llex[ouv])/2.,yerr=o.llex[ouv]-(o.ll[ouv]+o.llex[ouv])/2.,fmt=None,ecolor='k',label='_nolegend_')
+	## X-rays as bow tie
+	xray(lumx,gammax,egammal,egammau)	
+	
+	# Upper limits with arrows
+	u=numpy.where(o.ul==1)	# index of upper limits
+	pylab.quiver(o.lognu[u],o.ll[u],0,-1,scale=30,width=3e-3)	# careful with the arrow parameters	
+
+	# Dummy plot just to include the name of the source with legend later
+	pylab.plot(o.lognu+50,o.ll,'w',label=source)
+
+	
+	
+
+	# Plots MODEL SEDs
+	# ==================
+	# Please be sure that m was created with the groupmodel method
+	
+	if 'sum' in m: pylab.plot(m['sum'].lognu,m['sum'].ll,'k')
+	if 'adaf' in m: pylab.plot(m['adaf'].lognu,m['adaf'].ll,'--')
+	if 'jet' in m: pylab.plot(m['jet'].lognu,m['jet'].ll,'-.')
+	if 'ssd' in m: pylab.plot(m['ssd'].lognu,m['ssd'].ll,':')
+
+
+
+	
+	# Defines general properties of the plot
+	pylab.xlim(8,20)
+	pylab.ylim(35,44)
+	pylab.xlabel('log($\\nu$ / Hz)')
+	pylab.ylabel('log($\\nu L_\\nu$ / erg s$^{-1}$)')
+	pylab.legend(loc='best')
+	pylab.minorticks_on()
+	pylab.legend(loc='upper right', frameon=False)
+
+	# Add second X axis with common units of wavelength
+	ax1=pylab.subplot(111)
+	ax2=pylab.twiny()
+	ax2.set_xlim(8,20)	# set this to match the lower X axis
+	ax2.set_xticks([8.477,9.477,10.477,11.477,12.477,13.477,14.477,15.4768,16.383,17.383,18.383,19.383])
+	ax2.set_xticklabels(['1m','10cm','1cm','1mm','100$\mu$m','10$\mu$m','1$\mu$m','1000$\AA$','.1keV','1keV','10keV','100keV'],size=10.5)
+	pylab.minorticks_on()
+
+	pylab.draw()
+	#pylab.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def groupmodel(sum=None,ssd=None,jet=None,adaf=None):
+	"""
+Groups the different components of a SED model into one dictionary for convenient
+access. The model component SEDs are assumed to have been imported using the
+nmmn.sed.py class. This method is used in the plot method.
+
+Example:
+
+Imports the model SEDs:
+>>> s=nmmn.sed.SED(file='sum.dat', logfmt=1)
+>>> disk=nmmn.sed.SED(file='disk.dat', logfmt=1)
+>>> a=nmmn.sed.SED(file='adaf.dat', logfmt=1)
+
+Groups them together in a dictionary d:
+>>> d=groupmodel(sum=s,ssd=disk,adaf=a)
+returning {'sum':s,'ssd':disk,'adaf':a}. 
+	"""
+	m={}	# empty dictionary
+	
+	if sum!=None: m['sum']=sum
+	if ssd!=None: m['ssd']=ssd
+	if jet!=None: m['jet']=jet
+	if adaf!=None: m['adaf']=adaf
+	
+	return m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def obsplot1097(source,o,table):
+	"""
+Modification of the plot method to handle the nice data of NGC 1097.
+
+:param source: source name e.g. 'NGC1097' or 'ngc1097' or 'NGC 1097'. Must have four numbers.
+:param o: observed SED data points imported using the SED class and the erac method.
+:param table: path of ASCII table models.csv with the required SED parameters gammax, error in gammax, X-ray luminosity and distratio.
+:returns: SED object with distance-corrected luminosities
+	"""
+	# Reads the ASCII table models.csv
+	t=ascii.read(table,Reader=ascii.CommentedHeader,delimiter='\t')
+	tname,tmodel,tdistratio,tgammax,tegammal,tegammau,tlumx=t['Object'],t['Model'],t['distratio'],t['gammax'],t['egammal'],t['egammau'],t['lumx']
+
+	# Finds the required parameters to plot the data for the specified source.
+	# First converts the source name to uppercase, no spaces
+	source=source.upper()
+	source=source.replace(' ', '')
+	# Finds the first occurrence of the source in the table
+	i=numpy.where(tname==source)
+	i=i[0][0]
+	# Retrieves the required parameters
+	distratio=tdistratio[i]
+	gammax=tgammax[i]
+	egammal=tegammal[i]
+	egammau=tegammau[i]
+	lumx=tlumx[i]
+
+	# Precaution to avoid modifying unintentionally the obs SED
+	#o=o.copy()
+	
+	
+
+
+	pylab.clf()
+	
+
+	
+	
+	# Plots OBSERVED SED
+	# ====================
+	# Corrects SED data points for new distance
+	#o.nlnu=o.nlnu*(distratio)**2
+	#o.ll=numpy.log10(o.nlnu)
+	#lumx=lumx*(distratio)**2
+		
+	# Separates the observed SED in the different bands and uses a different recipe
+	# to plot each region
+	# Radio and IR as filled points
+	rir=numpy.where(o.lognu<14.46)
+	pylab.plot(o.lognu[rir],o.ll[rir],'ko')
+	
+	# Optical and UV as solid line
+	ouv=numpy.where((o.lognu>=14.46) & (o.lognu<=16.))	
+	pylab.plot(o.lognu[ouv],o.ll[ouv],'k')
+	
+	pylab.plot()
+	
+	# X-rays as bow tie
+	xray(lumx,gammax,egammal,egammau)	
+	
+	# Upper limits with arrows
+	u=numpy.where((o.lognu>=10) & (o.lognu<=14.46))	# index of IR upper limits
+	pylab.quiver(o.lognu[u],o.ll[u],0,-1,scale=30,width=3e-3)	# careful with the arrow parameters	
+
+	# Dummy plot just to include the name of the source with legend later
+	pylab.plot(o.lognu+50,o.ll,'w',label=source)
+
+	return o
+
+	
+
+
+
+
+
+
+
+def xray(L2_10, gammax, gammaerru, gammaerrl, nurange=[2.,10.], **args):
+	"""
+Plots X-ray "bow tie", provided the X-ray luminosity in the 2-10 keV range,
+the best-fit photon index and the error in this index.
+
+Arguments:
+- L2_10: X-ray luminosity in the 2-10 keV range, erg/s
+- gammax: best-fit photon index
+- gammaerru, gammaerrl: upper and lower 1sigma error bars on the value of
+  gammax
+ - nurange: two-element list or array with range of frequencies to plot, 
+  in keV. e.g. [2,10]
+	"""
+	# Retrieves current axis limits
+	xy=pylab.axis()
+
+	# Creates vectors containing the X-ray powerlaws and plots them
+	lognu,nuLbest=powerlaw(gammax-1.,L2_10,nurange)	# best-fit
+	lognu,nuLlow=powerlaw(gammax-gammaerrl-1.,L2_10,nurange)	# lower
+	lognu,nuLup=powerlaw(gammax+gammaerru-1.,L2_10,nurange)	# upper
+
+	pylab.fill_between(lognu, nuLlow, nuLup, alpha=0.5, facecolor='gray')
+	pylab.plot(lognu, nuLbest,'k', linewidth=2.5, **args)
+	
+
+
+
+
+def powerlaw(alpha,Lx,nurange):
+	""" 
+Calculates the X-ray powerlaw variables. 
+
+Arguments:
+- alpha: spectral power-law index
+- Lx: total luminosity in X-rays in the nurange
+ - nurange: two-element list or array with range of frequencies to plot, 
+  in keV. e.g. [2,10]
+
+Returns the sequence of arrays log10(nu),log10(nu*Lnu) for plotting.
+	"""
+	h=0.6626e-26 # Planck constant (CGS)
+	conv=1.602171e-9/h # conversion factor keV -> Hz
+	nu0=nurange[0]*conv # nu_i from keV -> Hz
+		
+	# Creates a vector of frequencies
+	points,nui,nuf = 10,nu0,nurange[1]*conv	# e.g. 2 keV - 10 keV
+	nu=numpy.linspace(nui,nuf,points)
+	
+	# Takes into account the possibility of alpha=1 which changes the way you
+	# calculate (integrate) the total X-ray luminosity from the power-law
+	if round(alpha,2)!=1. :
+		L0=nu0**(-alpha)*Lx*(1.-alpha)/(nuf**(1.-alpha)-nui**(1.-alpha))
+	else:
+		L0=nu0**(-alpha)*Lx/numpy.log(nuf/nui)
+		
+	Lnu=L0*(nu/nu0)**(-alpha)
+
+	return numpy.log10(nu), numpy.log10(nu*Lnu)
+
+
+
+
+
+def xrayinset(source,ssdf,adaff,jetf,sumf,
+	table='/Users/nemmen/Dropbox/work/projects/finished/liners/tables/models.csv',
+	**args
+	):
+	"""
+Plots an inset with the zoomed-in X-ray spectra.
+	"""
+	# This piece of code was quickly and dirty copied from the obsplot method,
+	# in order to plot the X-ray bowtie
+	# ========================= BEGIN
+
+	# Reads the ASCII table models.csv
+	t=ascii.read(table,Reader=ascii.CommentedHeader,delimiter='\t')
+	tname,tmodel,tdistratio,tgammax,tegammal,tegammau,tlumx=t['Object'],t['Model'],t['distratio'],t['gammax'],t['egammal'],t['egammau'],t['lumx']
+
+	# Finds the required parameters to plot the data for the specified source.
+	# First converts the source name to uppercase, no spaces
+	source=source.upper()
+	source=source.replace(' ', '')
+	# Finds the first occurrence of the source in the table
+	i=numpy.where(tname==source)
+	i=i[0][0]
+	# Retrieves the required parameters
+	distratio=tdistratio[i]
+	gammax=tgammax[i]
+	egammal=tegammal[i]
+	egammau=tegammau[i]
+	lumx=tlumx[i]
+
+	# Corrects Lx for new distance
+	lumx=lumx*(distratio)**2
+	# ========================= END
+
+	# Gets central Lx
+	lognu,y=powerlaw(gammax-egammal-1.,lumx)
+
+	# Creates the inset
+	if numpy.median(y)<38.:
+		# precaution for NGC 3379, which has a very low Lx and hence the inset hides the main plot
+		pylab.axes([0.7,0.6,0.17,0.17])
+	else:
+		pylab.axes([0.7,0.15,0.17,0.17])
+	pylab.xlim(17.65,18.4)
+	pylab.ylim(y.min()-0.1,y.max()+0.1)
+	pylab.xticks([])
+	pylab.yticks([])
+
+	## X-rays as bow tie
+	xray(lumx,gammax,egammal,egammau,**args)
+
+
+	# Now the piece of code below was copied from the modelplot method.
+	# Plots the model components.
+	# ========================= BEGIN
+
+
+	# Reads model SEDs, checking first if the data files exist
+	if os.path.isfile(sumf): msum=nmmn.sed.SED(file=sumf,logfmt=1) 
+	else: msum=None
+	if os.path.isfile(adaff): adaf=nmmn.sed.SED(file=adaff,logfmt=1) 
+	else: adaf=None
+	if os.path.isfile(jetf): jet=nmmn.sed.SED(file=jetf,logfmt=1) 
+	else: jet=None
+	if os.path.isfile(ssdf): ssd=nmmn.sed.SED(file=ssdf,logfmt=1) 
+	else: ssd=None
+	
+	# Groups the model components in a dictionary
+	m=groupmodel(sum=msum,ssd=ssd,adaf=adaf,jet=jet)
+
+	if 'sum' in m: pylab.plot(m['sum'].lognu,m['sum'].ll,'k')
+	if 'adaf' in m: pylab.plot(m['adaf'].lognu,m['adaf'].ll,'--')
+	if 'jet' in m: pylab.plot(m['jet'].lognu,m['jet'].ll,'-.')
+	if 'ssd' in m: pylab.plot(m['ssd'].lognu,m['ssd'].ll,':')
+	# ========================= END
+
+
+
+
+
+
+
+def popstar(o):
+	"""
+Fits the stellar population spectrum, finds the required mass and plots its
+nmmn.sed.
+
+:param o: object containing the observed SED
+:returns: fitted stellar population mass
+	"""
+	# Gets the optical-UV points (SELECT THE FREQUENCY RANGE)
+	ouv=numpy.where((o.lognu>=14.46) & (o.lognu<=14.87) & (o.ul==0))
+	#pylab.plot(o.lognu[ouv],o.ll[ouv],'ro')
+
+	# Reads stellar population sed
+	#xx,yy = numpy.loadtxt('/Users/nemmen/Dropbox/work/projects/finished/liners/seds/popstar/bruzual/bc2003_hr_m62_salp_ssp_181.spec',unpack=True,usecols=(0,1))
+	xx,yy = numpy.loadtxt('/Users/nemmen/Dropbox/work/projects/finished/liners/seds/popstar/bruzual/Sed_Mar05_Z_0.02_Age_10.00000000.dat',unpack=True,usecols=(0,1))
+	xpop=numpy.log10(29979245800./(xx*1e-8)) # AA to cm to Hz
+	ypop=numpy.log10(xx*yy*3.826e33)	# Lsun/AA -> erg/s
+
+	# Fits popstar to OUV data
+	# only fits if number of OUV points > 0
+	ff=lambda x,a: f(xpop,ypop,x)+a # function definition
+	if numpy.size(ouv)>0:
+		fit,cov = scipy.optimize.curve_fit(ff, o.lognu[ouv], o.ll[ouv], p0=8.)
+		m=fit[0]
+		print('popstar mass = '+str(m))
+
+		pylab.plot(xpop,ypop+m,'-',alpha=0.7,color='gray')
+
+		return m
+
+
+
+
+
+
+def f(xpop,ypop,x):
+    """
+Given the spectrum of a popstar and an array of frequencies 'x',
+this outputs the values of ypop for each x.
+
+:param x: frequencies
+:param xpop,ypop: spectrum from stellar population
+:returns: returns y=a*L where L is the stellar pop. luminosity
+    """
+    i=nmmn.lsd.search(x,xpop)
+    
+    return ypop[i]
+
+
+
 
