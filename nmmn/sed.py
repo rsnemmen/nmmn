@@ -7,6 +7,8 @@ Methods and classes for dealing with spectral energy distributions (SEDs).
 
 import numpy, pylab, os, scipy
 from . import lsd # intrapackage reference
+import astropy.io.ascii as ascii
+
 
 
 class SED:
@@ -939,7 +941,6 @@ quantities.
 
 :returns: SED object 
 	"""
-	import astropy.io.ascii as ascii
 	# READS SEDS
 	# =============
 	# Finds the required parameters to plot the data for the specified source.
@@ -1004,45 +1005,45 @@ Input:
 	"""
 	if showjet==True:
 		if jetfile==None:
-			jet=nmmn.sed.SED(file=pathm+'jet/jet.dat',logfmt=1)
+			jet=SED(file=pathm+'jet/jet.dat',logfmt=1)
 		else:
-			jet=nmmn.sed.SED(file=jetfile,logfmt=1)	
+			jet=SED(file=jetfile,logfmt=1)	
 		pylab.plot(jet.lognu,jet.ll,'-.m')
 
 	if showadaf[0]==True:
-		adaf=nmmn.sed.SED(file=pathm+'adaf/perl/run01/spec_01',logfmt=1)
+		adaf=SED(file=pathm+'adaf/perl/run01/spec_01',logfmt=1)
 		pylab.plot(adaf.lognu,adaf.ll,'--b',linewidth=1)
 		if showthin==True:
-			thin=nmmn.sed.SED(file=pathm+'adaf/perl/run01/spec_01_ssd',logfmt=1) 
-			#thin=nmmn.sed.SED(file=thinfile,logfmt=1) 
+			thin=SED(file=pathm+'adaf/perl/run01/spec_01_ssd',logfmt=1) 
+			#thin=SED(file=thinfile,logfmt=1) 
 			pylab.plot(thin.lognu,thin.ll,':r',linewidth=1)
-		if showjet and showthin: sum=nmmn.sed.sum([adaf,jet,thin])
-		if showjet==True and showthin==False: sum=nmmn.sed.sum([adaf,jet])
-		if showjet==False and showthin==True: sum=nmmn.sed.sum([adaf,thin])
+		if showjet and showthin: sum=sum([adaf,jet,thin])
+		if showjet==True and showthin==False: sum=sum([adaf,jet])
+		if showjet==False and showthin==True: sum=sum([adaf,thin])
 		if showsum==True: pylab.plot(sum.lognu,sum.ll,'k')
 
 	if showadaf[1]==True:
-		adaf=nmmn.sed.SED(file=pathm+'adaf/perl/run02/spec_02',logfmt=1)
+		adaf=SED(file=pathm+'adaf/perl/run02/spec_02',logfmt=1)
 		pylab.plot(adaf.lognu,adaf.ll,'--b',linewidth=2)
 		if showthin==True:
-			thin=nmmn.sed.SED(file=pathm+'adaf/perl/run02/spec_02_ssd',logfmt=1) 
-			#thin=nmmn.sed.SED(file=thinfile,logfmt=1) 
+			thin=SED(file=pathm+'adaf/perl/run02/spec_02_ssd',logfmt=1) 
+			#thin=SED(file=thinfile,logfmt=1) 
 			pylab.plot(thin.lognu,thin.ll,':r',linewidth=2)
-		if showjet and showthin: sum=nmmn.sed.sum([adaf,jet,thin])
-		if showjet==True and showthin==False: sum=nmmn.sed.sum([adaf,jet])
-		if showjet==False and showthin==True: sum=nmmn.sed.sum([adaf,thin])
+		if showjet and showthin: sum=sum([adaf,jet,thin])
+		if showjet==True and showthin==False: sum=sum([adaf,jet])
+		if showjet==False and showthin==True: sum=sum([adaf,thin])
 		if showsum==True: pylab.plot(sum.lognu,sum.ll,'k')
 
 	if showadaf[2]==True:
-		adaf=nmmn.sed.SED(file=pathm+'adaf/perl/run03/spec_03',logfmt=1)
+		adaf=SED(file=pathm+'adaf/perl/run03/spec_03',logfmt=1)
 		pylab.plot(adaf.lognu,adaf.ll,'--b',linewidth=3)
 		if showthin==True:
-			thin=nmmn.sed.SED(file=pathm+'adaf/perl/run03/spec_03_ssd',logfmt=1) 
-			#thin=nmmn.sed.SED(file=thinfile,logfmt=1) 	
+			thin=SED(file=pathm+'adaf/perl/run03/spec_03_ssd',logfmt=1) 
+			#thin=SED(file=thinfile,logfmt=1) 	
 			pylab.plot(thin.lognu,thin.ll,':r',linewidth=3)
-		if showjet and showthin: sum=nmmn.sed.sum([adaf,jet,thin])
-		if showjet==True and showthin==False: sum=nmmn.sed.sum([adaf,jet])
-		if showjet==False and showthin==True: sum=nmmn.sed.sum([adaf,thin])
+		if showjet and showthin: sum=sum([adaf,jet,thin])
+		if showjet==True and showthin==False: sum=sum([adaf,jet])
+		if showjet==False and showthin==True: sum=sum([adaf,thin])
 		if showsum==True: pylab.plot(sum.lognu,sum.ll,'k')
 
 
@@ -1056,13 +1057,13 @@ Plots the model components.
 Arguments: The filenames of each model component.
 	"""
 	# Reads model SEDs, checking first if the data files exist
-	if os.path.isfile(sumf): msum=nmmn.sed.SED(file=sumf,logfmt=1) 
+	if os.path.isfile(sumf): msum=SED(file=sumf,logfmt=1) 
 	else: msum=None
-	if os.path.isfile(adaff): adaf=nmmn.sed.SED(file=adaff,logfmt=1) 
+	if os.path.isfile(adaff): adaf=SED(file=adaff,logfmt=1) 
 	else: adaf=None
-	if os.path.isfile(jetf): jet=nmmn.sed.SED(file=jetf,logfmt=1) 
+	if os.path.isfile(jetf): jet=SED(file=jetf,logfmt=1) 
 	else: jet=None
-	if os.path.isfile(ssdf): ssd=nmmn.sed.SED(file=ssdf,logfmt=1) 
+	if os.path.isfile(ssdf): ssd=SED(file=ssdf,logfmt=1) 
 	else: ssd=None
 	
 	# Groups the model components in a dictionary
@@ -1123,7 +1124,7 @@ Extinction corrections represented as either "error bars" or "circle + error bar
 
 	# Reads observed SED
 	ofile=patho+source+'.dat'
-	o=nmmn.sed.SED()
+	o=SED()
 	o.erac(ofile)	
 	
 	# Corrects SED data points for new distance
@@ -1199,7 +1200,7 @@ Extinction corrections represented as either "error bars" or "circle + error bar
 
 	# Reads observed SED (which is given in weird units)
 	ofile=patho+source+'_sed.txt'
-	o=nmmn.sed.SED()
+	o=SED()
 	o.hayden(ofile,dist)	
 	
 	#########################################################	
@@ -1213,7 +1214,7 @@ Extinction corrections represented as either "error bars" or "circle + error bar
 	#xray(lumx,gammax,egammal,egammau)	
 	# Reads Panessa's X-ray SED
 	xfile=patho+source+'_x.txt'
-	x=nmmn.sed.SED()
+	x=SED()
 	x.haydenx(xfile)	
 	pylab.plot(x.lognu,x.ll,'k.')
 	pylab.errorbar(x.lognu,x.ll,yerr=x.llerr,fmt="none",label='_nolegend_',alpha=0.5)
@@ -1231,14 +1232,17 @@ Extinction corrections represented as either "error bars" or "circle + error bar
 	return o
 
 
+
+
+
+
+
+
 # ====================================
 #
 # Code below imported from sedplot.py
 #
 # ====================================
- 
-
-
 
 def plotprops(labelfontsize=18, legend=True):
 	"""
@@ -1266,14 +1270,6 @@ Define other properties of the SED plot: additional axis, font size etc.
 	ax2.set_xticks([8.477,9.477,10.477,11.477,12.477,13.477,14.477,15.4768,16.383,17.383,18.383,19.383])
 	ax2.set_xticklabels(['1m','10cm','1cm','1mm','100$\mu$m','10$\mu$m','1$\mu$m','1000$\AA$','.1keV','1keV','10keV','100keV'],size=10.5)
 	pylab.minorticks_on()
-
-
-
-
-
-
-
-
 
 
 
@@ -1392,36 +1388,18 @@ Arguments:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def groupmodel(sum=None,ssd=None,jet=None,adaf=None):
 	"""
 Groups the different components of a SED model into one dictionary for convenient
 access. The model component SEDs are assumed to have been imported using the
-nmmn.sed.py class. This method is used in the plot method.
+SED class. This method is used in the plot method.
 
 Example:
 
 Imports the model SEDs:
->>> s=nmmn.sed.SED(file='sum.dat', logfmt=1)
->>> disk=nmmn.sed.SED(file='disk.dat', logfmt=1)
->>> a=nmmn.sed.SED(file='adaf.dat', logfmt=1)
+>>> s=SED(file='sum.dat', logfmt=1)
+>>> disk=SED(file='disk.dat', logfmt=1)
+>>> a=SED(file='adaf.dat', logfmt=1)
 
 Groups them together in a dictionary d:
 >>> d=groupmodel(sum=s,ssd=disk,adaf=a)
@@ -1435,16 +1413,6 @@ returning {'sum':s,'ssd':disk,'adaf':a}.
 	if adaf!=None: m['adaf']=adaf
 	
 	return m
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1478,14 +1446,8 @@ Modification of the plot method to handle the nice data of NGC 1097.
 
 	# Precaution to avoid modifying unintentionally the obs SED
 	#o=o.copy()
-	
-	
-
 
 	pylab.clf()
-	
-
-	
 	
 	# Plots OBSERVED SED
 	# ====================
@@ -1519,11 +1481,6 @@ Modification of the plot method to handle the nice data of NGC 1097.
 	return o
 
 	
-
-
-
-
-
 
 
 def xray(L2_10, gammax, gammaerru, gammaerrl, nurange=[2.,10.], **args):
@@ -1646,13 +1603,13 @@ Plots an inset with the zoomed-in X-ray spectra.
 
 
 	# Reads model SEDs, checking first if the data files exist
-	if os.path.isfile(sumf): msum=nmmn.sed.SED(file=sumf,logfmt=1) 
+	if os.path.isfile(sumf): msum=SED(file=sumf,logfmt=1) 
 	else: msum=None
-	if os.path.isfile(adaff): adaf=nmmn.sed.SED(file=adaff,logfmt=1) 
+	if os.path.isfile(adaff): adaf=SED(file=adaff,logfmt=1) 
 	else: adaf=None
-	if os.path.isfile(jetf): jet=nmmn.sed.SED(file=jetf,logfmt=1) 
+	if os.path.isfile(jetf): jet=SED(file=jetf,logfmt=1) 
 	else: jet=None
-	if os.path.isfile(ssdf): ssd=nmmn.sed.SED(file=ssdf,logfmt=1) 
+	if os.path.isfile(ssdf): ssd=SED(file=ssdf,logfmt=1) 
 	else: ssd=None
 	
 	# Groups the model components in a dictionary
@@ -1673,7 +1630,7 @@ Plots an inset with the zoomed-in X-ray spectra.
 def popstar(o):
 	"""
 Fits the stellar population spectrum, finds the required mass and plots its
-nmmn.sed.
+SED.
 
 :param o: object containing the observed SED
 :returns: fitted stellar population mass
@@ -1714,7 +1671,7 @@ this outputs the values of ypop for each x.
 :param xpop,ypop: spectrum from stellar population
 :returns: returns y=a*L where L is the stellar pop. luminosity
     """
-    i=nmmn.lsd.search(x,xpop)
+    i=lsd.search(x,xpop)
     
     return ypop[i]
 
