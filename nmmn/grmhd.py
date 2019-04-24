@@ -441,9 +441,9 @@ Convert arrays to cartesian coordinates for plotting with matplotlib:
 				type = "dump"
 
 	    #normal dump
-		if os.path.isfile( "dumps/" + dump ):
-			headerline = self.read_header("dumps/" + dump, returnheaderline = True)
-			gd = self.read_body("dumps/" + dump,nx=self.N1+2*self.N1G,ny=self.N2+2*self.N2G,nz=self.N3+2*self.N3G,noround=1)
+		if os.path.isfile(dump):
+			headerline = self.read_header(dump, returnheaderline = True)
+			gd = self.read_body(dump,nx=self.N1+2*self.N1G,ny=self.N2+2*self.N2G,nz=self.N3+2*self.N3G,noround=1)
 			if noround:
 				res = self.data_assign(         gd,type=type,nx=self.N1+2*self.N1G,ny=self.N2+2*self.N2G,nz=self.N3+2*self.N3G)
 			else:
@@ -452,7 +452,7 @@ Convert arrays to cartesian coordinates for plotting with matplotlib:
 
 	    #MPI-type dump that is spread over many files
 		else:
-			flist = np.sort(glob.glob( "dumps/" + dump + "_[0-9][0-9][0-9][0-9]" ))
+			flist = np.sort(glob.glob(dump + "_[0-9][0-9][0-9][0-9]" ))
 			if len(flist) == 0:
 				print( "Could not find %s or its MPI counterpart" % dump )
 				return
@@ -491,7 +491,7 @@ Convert arrays to cartesian coordinates for plotting with matplotlib:
 			res = data_assign(fgd,type=type,nx=nx+2*N1G,ny=ny+2*N2G,nz=nz+2*N3G)
 			if savedump:
 				#if the full dump file does not exist, create it
-				dumpfullname = "dumps/" + dump
+				dumpfullname = dump
 				if (type == "dump" or type == "gdump") and not os.path.isfile(dumpfullname):
 					sys.stdout.write("Saving full dump to %s..." % dumpfullname)
 					sys.stdout.flush()
@@ -536,7 +536,7 @@ Convert arrays to cartesian coordinates for plotting with matplotlib:
 		# Creates object attributes
 		if not dump.startswith("dumps/rdump"):
 			if not issilent: print( "dump header: len(header) = %d" % len(header) )
-			nheader = 45
+			nheader = 57
 			n = 0
 			self.t = myfloat(np.float64(header[n])); n+=1
 			#per tile resolution
@@ -963,5 +963,95 @@ Make sure you point to the appropriate Wolfram script.
 	import subprocess
 	cmd="wolframscript -script "+script+" "+infile+" "+outfile
 	subprocess.call(cmd.split())
+
+
+
+
+def regridFast(self, n=None, xlim = None):
+	"""
+Transforms a mesh in arbitrary coordinates (e.g. nonuniform elements)
+into a uniform grid in the same coordinates. Uses a C function to 
+speed things up. 
+
+One has to be particularly careful below about using a polar angle
+(-pi/2<theta<pi/2) vs a spherical polar angle (0<theta_sph<pi). The
+choice can affect some specific transformations.
+
+:param n: New number of elements n^2. If None, figures out by itself
+:param xlim: Boundary for the plot and the grid
+	"""
+	import nmmn.lsd, nmmn.misc
+
+	# C function for fast regridding. Make sure you compile it first
+	# with make
+	import fastregrid
+
+	# creates copy of current object which will have the new
+	# coordinates
+	obj=Pluto() # empty pluto object
+
+	# r, theta
+	r=self.x1
+	th=-(self.x2-numpy.pi/2.) # spherical angle => polar angle
+	if(xlim == None):
+			xlim = self.x1.max()
+	gmtry = self.pp.geometry
+
+	# figures out optimal size of cartesian grid
+	if n is None:
+		n=self.optimalgrid()
+
+		# let's avoid dealing with arrays which are too large
+		if n>3000:
+			n=3000
+
+	if(gmtry == "SPHERICAL" or gmtry == "CYLINRICAL"):
+		xnew=numpy.linspace(0, xlim, n)
+		ynew=numpy.linspace(-xlim, xlim, n)
+	else:
+		xnew=numpy.linspace(-xlim, xlim, n)
+		ynew=numpy.linspace(-xlim, xlim, n)
+
+	rho=numpy.zeros((n,n))
+	vx=numpy.zeros((n,n))
+	vy=numpy.zeros((n,n))
+	vz=numpy.zeros((n,n)) # vphi
+	p=rho.copy()
+
+	if(gmtry == "SPHERICAL"):
+		fastregrid.regrid(xnew, ynew, r, th, self.rho, self.p, self.v1, self.v2, self.v3, rho, p, vx, vy, vz)		
+	else: #polar case for bondi
+		print("Geometry not supported. Improve the method.")
+
+	# coordinate arrays
+	obj.x1,obj.x2=xnew,ynew # cartesian coords, 1D
+	obj.X1,obj.X2=numpy.meshgrid(xnew,ynew) # cartesian coords, 2D
+	obj.r, obj.th = nmmn.misc.cart2pol(xnew, ynew) # polar coords, 1D
+	obj.R, obj.TH = numpy.meshgrid(obj.r,obj.th) # polar coords, 2D
+	obj.rsp, obj.thsp = obj.r, numpy.pi/2.-obj.th # spherical polar angle, 1D
+	obj.RSP, obj.THSP = numpy.meshgrid(obj.rsp,obj.thsp) # spherical polar coords, 2D
+
+	# velocities
+	obj.v1,obj.v2,obj.v3 = vx.T,vy.T,vz.T # Cartesian components
+	obj.vr, obj.vth = nmmn.misc.vel_c2p(obj.TH,obj.v1,obj.v2) # polar components
+	obj.speed = numpy.sqrt(obj.v1**2+obj.v2**2+obj.v3**3)
+
+	# fluid variables
+	obj.gamma=self.gamma
+	obj.rho,obj.p=rho.T,p.T
+	obj.entropy=numpy.log(obj.p/obj.rho**obj.gamma)
+	obj.am=obj.v3*obj.R*numpy.sin(obj.THSP) # specific a. m., vphi*r*sin(theta)
+	obj.Be=obj.speed**2/2.+obj.gamma*obj.p/((obj.gamma-1.)*obj.rho)-1./obj.R	# Bernoulli function
+	obj.Omega=obj.v3/obj.R	# angular velocity
+
+	# misc info
+	obj.regridded=True # flag to tell whether the object was previously regridded
+	obj.t=self.t
+	obj.frame=self.frame
+	obj.mdot=self.mdot
+	obj.mass=self.mass
+
+	return obj
+
 
 

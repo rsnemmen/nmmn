@@ -394,7 +394,8 @@ Displays a number in scientific notation.
 :param n: number of significant digits to display
 	"""
 	import decimal
-	s='%.'+str(n)+'E' % decimal.Decimal(str(x))
+	fmt='%.'+str(n)+'E'
+	s= fmt % decimal.Decimal(str(x))
 
 	return s
 
@@ -514,3 +515,14 @@ Example:
 	             if files == filename:
 	                 return os.path.join(r,files)
 
+
+
+def mario():
+	"""
+Displays a nice Super Mario. :)
+
+Analogous to \mario in LaTeX.
+	"""
+	from IPython.display import Image
+	from IPython.core.display import HTML 
+	Image(url= "https://banner2.kisspng.com/20180410/kye/kisspng-new-super-mario-bros-u-super-mario-64-8-bit-5acd5c8ba05651.6908995015234080116568.jpg")
