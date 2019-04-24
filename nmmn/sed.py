@@ -1286,7 +1286,7 @@ Extinction corrections represented as either "error bars" or "circle + error bar
 #
 # ====================================
 
-def plotprops(labelfontsize=18, legend=True):
+def plotprops(labelfontsize=18, legend=True, option=1, loc='upper right'):
 	"""
 Define other properties of the SED plot: additional axis, font size etc.
 	"""
@@ -1294,24 +1294,40 @@ Define other properties of the SED plot: additional axis, font size etc.
 	pylab.rcParams.update({'font.size': 15})
 
 	# Defines general properties of the plot
-	#pylab.xlim(8,20) # Nemmen et al. 2014 plots
-	#pylab.ylim(35,44) # Nemmen et al. 2014 plots
-	#pylab.ylim(34,40) # Hayden plots
-	#pylab.xlim(8,19)
+	if option==1:
+		pylab.xlim(8,20) # Nemmen et al. 2014 plots
+		pylab.ylim(35,44) # Nemmen et al. 2014 plots
+
+	if option==2: 
+		pylab.ylim(34,40) # Hayden plots
+		pylab.xlim(8,19)
+
+	if option==3:
+		pylab.xlim(8,27)	# with Fermi data (large x-axis!)
+
 	pylab.xlabel('log($\\nu$ / Hz)',fontsize=labelfontsize)
 	pylab.ylabel('log($\\nu L_\\nu$ / erg s$^{-1}$)',fontsize=labelfontsize)
 	pylab.minorticks_on()
 	if legend is True:
-		pylab.legend(loc='upper right', frameon=False)
+		pylab.legend(loc=loc, frameon=False)
 
 	# Add second X axis with common units of wavelength
 	ax1=pylab.subplot(111)
-	ax1.set_xlim(8,20)	
 	ax2=pylab.twiny()
-	ax2.set_xlim(8,20)	# set this to match the lower X axis
-	ax2.set_xticks([8.477,9.477,10.477,11.477,12.477,13.477,14.477,15.4768,16.383,17.383,18.383,19.383])
-	ax2.set_xticklabels(['1m','10cm','1cm','1mm','100$\mu$m','10$\mu$m','1$\mu$m','1000$\AA$','.1keV','1keV','10keV','100keV'],size=10.5)
 	pylab.minorticks_on()
+
+	if option==1 or option==2:
+		ax1.set_xlim(8,20)	
+		ax2.set_xlim(8,20)	# set this to match the lower X axis
+		ax2.set_xticks([8.477,9.477,10.477,11.477,12.477,13.477,14.477,15.4768,16.383,17.383,18.383,19.383])
+		ax2.set_xticklabels(['1m','10cm','1cm','1mm','100$\mu$m','10$\mu$m','1$\mu$m','1000$\AA$','.1keV','1keV','10keV','100keV'],size=10.5)
+
+	if option==3:
+		ax1.set_xlim(8,27)	
+		ax2.set_xlim(8,27)	# set this to match the lower X axis
+		ax2.set_xticks([8.477,10.477,12.477,14.477,16.383,18.383,20.383,22.383,24.383,26.383])
+		ax2.set_xticklabels(['1m','1cm','100$\mu$m','1$\mu$m','0.1keV','10keV','1MeV','100MeV','10GeV','1TeV'],size=10.5)
+
 
 
 
