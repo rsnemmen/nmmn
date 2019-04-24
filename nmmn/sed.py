@@ -163,7 +163,7 @@ class SED:
 		"""
 		self.file=file
 		self.distance=dist
-		
+
 		self.lognu,nfn = numpy.loadtxt(file,unpack=True,usecols=(0,1),delimiter=',')
 		self.nu=10**self.lognu
 		nfn=10**nfn*1e-26*1e7*1e-4	# Jy to erg/s/cm^2
@@ -199,6 +199,50 @@ class SED:
 		self.lognu, self.ll = lw, ll5
 		self.nu,self.nlnu = 10**self.lognu,10**self.ll
 		
+		# Checks if ll has NaN or Inf values
+		self.check()
+
+
+	def raniere(self, file, dist):
+		"""
+		Reads SEDs in the format provided by Hampadarath et al.:
+		nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]
+
+		:param file: file with SED data
+		:param dist: distance in Mpc
+
+		:returns: SED object in units of Hz vs erg/s
+
+		Adds the following attributes to the SED object:
+		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not
+		- distance: distance to object in Mpc
+		"""
+		self.file=file
+		self.distance=dist
+
+		f=ascii.read(file)  
+		
+		nu=f['col3']	# GHz 
+		flux=f['col4']	# v*F(v)(flux) [W.m-2]
+		fluxerr=f['col5']	# flux error, if 999999 then this is an upper limit with 95 confidence
+		self.observatories=f['col2']
+		self.references=f['col1']
+		
+		# preprocessing
+		dist=self.distance*3.086e24	# Mpc to cm
+		self.nu=nu*1e9 # GHz => Hz		
+		self.nlnu=flux*4*numpy.pi*dist**2*1000	# to erg/s
+		self.nlnuerr=fluxerr*4*numpy.pi*dist**2*1000	# to erg/s
+
+		self.lognu=numpy.log10(self.nu)
+		self.ll=numpy.log10(self.nlnu)
+		self.llerr=numpy.abs(self.ll-numpy.log10(self.nlnuerr))
+		
+		# inverts the convention for upper limits, to be consistent with my
+		# previous one (Hayden adopts the inverse convention)
+		self.ul=numpy.zeros_like(self.nu)
+		self.ul[fluxerr==999999] = 1
+
 		# Checks if ll has NaN or Inf values
 		self.check()
 
@@ -1692,6 +1736,16 @@ RIAF computed by my semi-analytical model.
 :param photon_energy: array of photon energies for SED. If None, taken as the same as proton_energy. In astropy.units
 
 :returns: SED object in units of Hz vs erg/s
+
+Example:
+
+Computes gamma-ray SED with default particle DF options and power-law index. Issue
+the command below in the directory with model datafiles.
+
+.. code-block:: python
+
+    m=nmmn.sed.pionDecay('out_01','in.dat')
+    plot(m.lognu,m.ll)
 
 
 Based on the jupyter notebook "gamma-rays RIAF". 
