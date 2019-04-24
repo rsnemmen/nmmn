@@ -70,7 +70,7 @@ class SED:
 		self.ll=ll
 
 		# If the SED is imported from a file...
-		if file!=None:
+		if file is not None:
 			if logfmt==0:
 				# Reads SED from datafile
 				self.nu,self.nlnu = numpy.loadtxt(file,unpack=True,usecols=(0,1))
@@ -82,7 +82,7 @@ class SED:
 				self.nu,self.nlnu = 10.**self.lognu, 10.**self.ll
 
 		# If the SED is created from the arrays
-		if file==None and lognu!=None:
+		if file is None and lognu is not None:
 			if logfmt==1:
 				self.lognu, self.ll = lognu, ll
 				self.nu,self.nlnu = 10.**self.lognu, 10.**self.ll
@@ -91,7 +91,7 @@ class SED:
 				self.lognu,self.ll = numpy.log10(self.lognu), numpy.log10(self.ll)
 		
 		# Checks if ll has NaN or Inf values
-		if file!=None or lognu!=None:
+		if file is not None or lognu is not None:
 			self.check()
 
 
@@ -1012,10 +1012,10 @@ naima model:
 	"""
 	import naima
 	from naima.models import (ExponentialCutoffPowerLaw, Synchrotron,
-	                          InverseCompton)
+							  InverseCompton)
 	import astropy.units as u
 	from . import misc # intrapackage reference
-	import tqdm
+	import tqdm, re
 
 
 	# Preliminaries
@@ -1028,7 +1028,7 @@ naima model:
 	mev = 1.6e-6 # 1 MeV in erg
 	G = 6.673e-8 
 	solarmass = 1.99e33
-	h=6.62607e-27	# Planck constant 
+	planck=6.62607e-27	# Planck constant 
 
 	# Input from RIAF model
 	# ======================
@@ -1053,9 +1053,9 @@ naima model:
 	f = open("in.dat","r")
 
 	for line in f:
-	    if re.search(r'm=\d+\.\d+d', line):
-	        m=re.search(r'\d+\.\d+d0', line).group()
-	        m=float(re.sub(r"d", "e", m)) # replaces d with e in the number for use in python
+		if re.search(r'm=\d+\.\d+d', line):
+			m=re.search(r'\d+\.\d+d0', line).group()
+			m=float(re.sub(r"d", "e", m)) # replaces d with e in the number for use in python
 
 	f.close()
 
@@ -1080,10 +1080,10 @@ naima model:
 	dr=numpy.zeros(nshells-1)
 
 	for i in range(nshells-1):
-	    dr[i]=r[i]-r[i+1]
+		dr[i]=r[i]-r[i+1]
 
 	# repeats last element to ensure that r and dr have same number of elements and avoid headaches
-	dr=append(dr,dr[-1])
+	dr=numpy.append(dr,dr[-1])
 
 	# distances in physical units
 	rphys=r*length	# cylindrical radius
@@ -1094,7 +1094,7 @@ naima model:
 	np=ne # proton number density
 	thetap=k*Tp/(mp*c**2)	# k Tp/(mp c^2)
 	#kTp=k*Tp # k Tp
-	dV=4*pi*rphys*hphys*drphys 	# volume of shells
+	dV=4*numpy.pi*rphys*hphys*drphys 	# volume of shells
 
 	# Spectrum
 	# =============
@@ -1115,7 +1115,7 @@ naima model:
 	PL=[]
 
 	for i in range(nshells):
-	    PL.append(naima.models.PowerLaw(amplitude[i], E0, alpha))
+		PL.append(naima.models.PowerLaw(amplitude[i], E0, alpha))
 
 	# ## pion decay
 	#
@@ -1123,7 +1123,7 @@ naima model:
 	pion=[]
 
 	for i in range(nshells):
-	    pion.append( naima.models.PionDecay(PL[i], nh=np[i] * u.cm ** -3) )
+		pion.append( naima.models.PionDecay(PL[i], nh=np[i] * u.cm ** -3) )
 
 	# ## SED
 	if photon_energy is None:
@@ -1133,22 +1133,22 @@ naima model:
 	seds=[]
 
 	for i in tqdm.tqdm(range(nshells), "Computing gamma-ray spectrum"):
-	    seds.append( pion[i].sed(photon_energy, distance=0) )
+		seds.append( pion[i].sed(photon_energy, distance=0) )
 
 	# sums up all shells in "The SED"
 	for i in range(nshells):
-	    if i==0: 
-	        thesed=seds[0]
-	    else:
-	        thesed=thesed+seds[i]
+		if i==0: 
+			thesed=seds[0]
+		else:
+			thesed=thesed+seds[i]
 
-    # frequency in Hz
-    nu=photon_energy.to(u.erg).value/h
-    # luminosity in erg/s
-    nuLnu=thesed.value
+	# frequency in Hz
+	nu=photon_energy.to(u.erg).value/planck
+	# luminosity in erg/s
+	nuLnu=thesed.value
 
-    # returns SED object 
-    return SED(lognu=numpy.log10(nu), ll=numpy.log10(nuLnu))
+	# returns SED object 
+	return SED(lognu=numpy.log10(nu), ll=numpy.log10(nuLnu), logfmt=1)
 
 
 
