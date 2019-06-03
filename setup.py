@@ -11,6 +11,7 @@ setup(
     version='0.8.6',
     description='Miscellaneous methods for astronomy, dealing with arrays, statistical distributions and computing goodness-of-fit',
     long_description=readme,
+    long_description_content_type='text/markdown',
     author='Rodrigo Nemmen',
     author_email='rodrigo.nemmen@iag.usp.br',
     url='https://github.com/rsnemmen/nmmn',
