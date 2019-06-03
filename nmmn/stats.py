@@ -1195,11 +1195,13 @@ Finds the mode of a distribution, i.e. the value where the PDF peaks.
 
 :param x: input list/array with the distribution
 	"""
+	from . import lsd
+
 	yh,xh=numpy.histogram(x,50,normed=True,**kwargs)
 	dxh=(xh[1]-xh[0])/2.
 	xh=xh+dxh
 
-	return xh[ search(yh.max(),yh) ]
+	return xh[ lsd.search(yh.max(),yh) ]
 
 
 
@@ -1416,12 +1418,13 @@ points.
 
 :returns: p-value of the null hypothesis.
 	"""
+	import scipy.special
 	df = n-2
 	if abs(r) == 1.0:
 		prob = 0.0
 	else:
 		t_squared = r*r * (df / ((1.0 - r) * (1.0 + r)))
-		prob = scipy.stats.betai(0.5*df, 0.5, df / (df + t_squared))
+		prob = scipy.special.betainc(0.5*df, 0.5, df / (df + t_squared))
         
 	return prob
 
