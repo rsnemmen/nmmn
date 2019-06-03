@@ -11,6 +11,12 @@ x=numpy.array([1,2,numpy.nan,numpy.inf])
 xok=nmmn.lsd.delweird(x)
 ```
 
+=> propagate errors
+
+=> propagate complex error distributions (e.g. asymmetric error bars)
+
+
+
 Spectral energy distributions
 ===============================
 
@@ -24,6 +30,8 @@ plot(s.lognu, s.ll)
 ```
 
 Now it is easy to compute the bolometric luminosity: `s.bol()`.
+
+=> plot SED with pretty axis
 
 # Plots
 
@@ -60,3 +68,5 @@ nemmen.fourhists(x1,x2,x3,x4,-3,0,'BL Lacs','FSRQs','Blazars','GRBs','$\log \eps
 ```
 
 ![Four histograms in the same figure](./figures/fourhists.png)
+
+=> plot linear fit with confidence band
