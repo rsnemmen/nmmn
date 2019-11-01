@@ -45,7 +45,7 @@ nmmn.plots.jointplot(X,Y,xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$
 ![2D kernel density distribution](./figures/jointplot.png)
 
 
-Example 2: Use the colormap of Wolfram Mathematica for plotting images.
+Example 2: Use the colormap of Wolfram Mathematica for plotting images. `var` constains a 2D array.
 
 ```python
 import nmmn.plots
@@ -56,7 +56,7 @@ imshow(var, cmap=wolframcmap)
 
 ![Image plotted with matplotlib and using Wolfram's colormap](./figures/wolframcmap.png)
 
-Note that there is also a method here for using MATLAB's parula colormap.
+Note that there is also a method here for using MATLAB's parula colormap. For more examples of colormaps including Turbo, check out [this notebook](https://gist.github.com/rsnemmen/5c451783db51489ae10d0992babd06ba).
 
 Example 3: Plot four histograms in the same figure.
 
