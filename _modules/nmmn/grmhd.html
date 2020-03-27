@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>nmmn.grmhd &#8212; nmmn  documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +11,8 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -476,9 +475,9 @@
 				<span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;dump&quot;</span>
 
 	    <span class="c1">#normal dump</span>
-		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span> <span class="s2">&quot;dumps/&quot;</span> <span class="o">+</span> <span class="n">dump</span> <span class="p">):</span>
-			<span class="n">headerline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_header</span><span class="p">(</span><span class="s2">&quot;dumps/&quot;</span> <span class="o">+</span> <span class="n">dump</span><span class="p">,</span> <span class="n">returnheaderline</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-			<span class="n">gd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_body</span><span class="p">(</span><span class="s2">&quot;dumps/&quot;</span> <span class="o">+</span> <span class="n">dump</span><span class="p">,</span><span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N1G</span><span class="p">,</span><span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N2G</span><span class="p">,</span><span class="n">nz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N3</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N3G</span><span class="p">,</span><span class="n">noround</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">dump</span><span class="p">):</span>
+			<span class="n">headerline</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_header</span><span class="p">(</span><span class="n">dump</span><span class="p">,</span> <span class="n">returnheaderline</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+			<span class="n">gd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_body</span><span class="p">(</span><span class="n">dump</span><span class="p">,</span><span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N1G</span><span class="p">,</span><span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N2G</span><span class="p">,</span><span class="n">nz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N3</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N3G</span><span class="p">,</span><span class="n">noround</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 			<span class="k">if</span> <span class="n">noround</span><span class="p">:</span>
 				<span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_assign</span><span class="p">(</span>         <span class="n">gd</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span><span class="n">nx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N1G</span><span class="p">,</span><span class="n">ny</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N2</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N2G</span><span class="p">,</span><span class="n">nz</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">N3</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">N3G</span><span class="p">)</span>
 			<span class="k">else</span><span class="p">:</span>
@@ -487,7 +486,7 @@
 
 	    <span class="c1">#MPI-type dump that is spread over many files</span>
 		<span class="k">else</span><span class="p">:</span>
-			<span class="n">flist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span> <span class="s2">&quot;dumps/&quot;</span> <span class="o">+</span> <span class="n">dump</span> <span class="o">+</span> <span class="s2">&quot;_[0-9][0-9][0-9][0-9]&quot;</span> <span class="p">))</span>
+			<span class="n">flist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">dump</span> <span class="o">+</span> <span class="s2">&quot;_[0-9][0-9][0-9][0-9]&quot;</span> <span class="p">))</span>
 			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">flist</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
 				<span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;Could not find </span><span class="si">%s</span><span class="s2"> or its MPI counterpart&quot;</span> <span class="o">%</span> <span class="n">dump</span> <span class="p">)</span>
 				<span class="k">return</span>
@@ -526,7 +525,7 @@
 			<span class="n">res</span> <span class="o">=</span> <span class="n">data_assign</span><span class="p">(</span><span class="n">fgd</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span><span class="n">nx</span><span class="o">=</span><span class="n">nx</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">N1G</span><span class="p">,</span><span class="n">ny</span><span class="o">=</span><span class="n">ny</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">N2G</span><span class="p">,</span><span class="n">nz</span><span class="o">=</span><span class="n">nz</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">N3G</span><span class="p">)</span>
 			<span class="k">if</span> <span class="n">savedump</span><span class="p">:</span>
 				<span class="c1">#if the full dump file does not exist, create it</span>
-				<span class="n">dumpfullname</span> <span class="o">=</span> <span class="s2">&quot;dumps/&quot;</span> <span class="o">+</span> <span class="n">dump</span>
+				<span class="n">dumpfullname</span> <span class="o">=</span> <span class="n">dump</span>
 				<span class="k">if</span> <span class="p">(</span><span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;dump&quot;</span> <span class="ow">or</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;gdump&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">dumpfullname</span><span class="p">):</span>
 					<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Saving full dump to </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">dumpfullname</span><span class="p">)</span>
 					<span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
@@ -571,7 +570,7 @@
 		<span class="c1"># Creates object attributes</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="n">dump</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;dumps/rdump&quot;</span><span class="p">):</span>
 			<span class="k">if</span> <span class="ow">not</span> <span class="n">issilent</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;dump header: len(header) = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">header</span><span class="p">)</span> <span class="p">)</span>
-			<span class="n">nheader</span> <span class="o">=</span> <span class="mi">45</span>
+			<span class="n">nheader</span> <span class="o">=</span> <span class="mi">57</span>
 			<span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">myfloat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">header</span><span class="p">[</span><span class="n">n</span><span class="p">]));</span> <span class="n">n</span><span class="o">+=</span><span class="mi">1</span>
 			<span class="c1">#per tile resolution</span>
@@ -1000,6 +999,96 @@
 	<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">())</span></div>
 
 
+
+
+<div class="viewcode-block" id="regridFast"><a class="viewcode-back" href="../../nmmn.html#nmmn.grmhd.regridFast">[docs]</a><span class="k">def</span> <span class="nf">regridFast</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlim</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Transforms a mesh in arbitrary coordinates (e.g. nonuniform elements)</span>
+<span class="sd">into a uniform grid in the same coordinates. Uses a C function to </span>
+<span class="sd">speed things up. </span>
+
+<span class="sd">One has to be particularly careful below about using a polar angle</span>
+<span class="sd">(-pi/2&lt;theta&lt;pi/2) vs a spherical polar angle (0&lt;theta_sph&lt;pi). The</span>
+<span class="sd">choice can affect some specific transformations.</span>
+
+<span class="sd">:param n: New number of elements n^2. If None, figures out by itself</span>
+<span class="sd">:param xlim: Boundary for the plot and the grid</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">nmmn.lsd</span><span class="o">,</span> <span class="nn">nmmn.misc</span>
+
+	<span class="c1"># C function for fast regridding. Make sure you compile it first</span>
+	<span class="c1"># with make</span>
+	<span class="kn">import</span> <span class="nn">fastregrid</span>
+
+	<span class="c1"># creates copy of current object which will have the new</span>
+	<span class="c1"># coordinates</span>
+	<span class="n">obj</span><span class="o">=</span><span class="n">Pluto</span><span class="p">()</span> <span class="c1"># empty pluto object</span>
+
+	<span class="c1"># r, theta</span>
+	<span class="n">r</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">x1</span>
+	<span class="n">th</span><span class="o">=-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span> <span class="c1"># spherical angle =&gt; polar angle</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">xlim</span> <span class="o">==</span> <span class="kc">None</span><span class="p">):</span>
+			<span class="n">xlim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x1</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+	<span class="n">gmtry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">geometry</span>
+
+	<span class="c1"># figures out optimal size of cartesian grid</span>
+	<span class="k">if</span> <span class="n">n</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">n</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">optimalgrid</span><span class="p">()</span>
+
+		<span class="c1"># let&#39;s avoid dealing with arrays which are too large</span>
+		<span class="k">if</span> <span class="n">n</span><span class="o">&gt;</span><span class="mi">3000</span><span class="p">:</span>
+			<span class="n">n</span><span class="o">=</span><span class="mi">3000</span>
+
+	<span class="k">if</span><span class="p">(</span><span class="n">gmtry</span> <span class="o">==</span> <span class="s2">&quot;SPHERICAL&quot;</span> <span class="ow">or</span> <span class="n">gmtry</span> <span class="o">==</span> <span class="s2">&quot;CYLINRICAL&quot;</span><span class="p">):</span>
+		<span class="n">xnew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+		<span class="n">ynew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">xlim</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">xnew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">xlim</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+		<span class="n">ynew</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">xlim</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+	<span class="n">rho</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+	<span class="n">vx</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+	<span class="n">vy</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+	<span class="n">vz</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span> <span class="c1"># vphi</span>
+	<span class="n">p</span><span class="o">=</span><span class="n">rho</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+	<span class="k">if</span><span class="p">(</span><span class="n">gmtry</span> <span class="o">==</span> <span class="s2">&quot;SPHERICAL&quot;</span><span class="p">):</span>
+		<span class="n">fastregrid</span><span class="o">.</span><span class="n">regrid</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span> <span class="n">ynew</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">th</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">v3</span><span class="p">,</span> <span class="n">rho</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">)</span>		
+	<span class="k">else</span><span class="p">:</span> <span class="c1">#polar case for bondi</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Geometry not supported. Improve the method.&quot;</span><span class="p">)</span>
+
+	<span class="c1"># coordinate arrays</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">x1</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">x2</span><span class="o">=</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span> <span class="c1"># cartesian coords, 1D</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">X1</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">X2</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">)</span> <span class="c1"># cartesian coords, 2D</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">th</span> <span class="o">=</span> <span class="n">nmmn</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">cart2pol</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span> <span class="n">ynew</span><span class="p">)</span> <span class="c1"># polar coords, 1D</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">TH</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">r</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">th</span><span class="p">)</span> <span class="c1"># polar coords, 2D</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">rsp</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">thsp</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.</span><span class="o">-</span><span class="n">obj</span><span class="o">.</span><span class="n">th</span> <span class="c1"># spherical polar angle, 1D</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">RSP</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">THSP</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">rsp</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">thsp</span><span class="p">)</span> <span class="c1"># spherical polar coords, 2D</span>
+
+	<span class="c1"># velocities</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">v1</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">v2</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">v3</span> <span class="o">=</span> <span class="n">vx</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">vy</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">vz</span><span class="o">.</span><span class="n">T</span> <span class="c1"># Cartesian components</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">vr</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">vth</span> <span class="o">=</span> <span class="n">nmmn</span><span class="o">.</span><span class="n">misc</span><span class="o">.</span><span class="n">vel_c2p</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">TH</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">v1</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">v2</span><span class="p">)</span> <span class="c1"># polar components</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">v1</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">obj</span><span class="o">.</span><span class="n">v2</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">obj</span><span class="o">.</span><span class="n">v3</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+	<span class="c1"># fluid variables</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">gamma</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">rho</span><span class="p">,</span><span class="n">obj</span><span class="o">.</span><span class="n">p</span><span class="o">=</span><span class="n">rho</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">p</span><span class="o">.</span><span class="n">T</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">entropy</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">p</span><span class="o">/</span><span class="n">obj</span><span class="o">.</span><span class="n">rho</span><span class="o">**</span><span class="n">obj</span><span class="o">.</span><span class="n">gamma</span><span class="p">)</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">am</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">v3</span><span class="o">*</span><span class="n">obj</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">THSP</span><span class="p">)</span> <span class="c1"># specific a. m., vphi*r*sin(theta)</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">Be</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">speed</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">obj</span><span class="o">.</span><span class="n">gamma</span><span class="o">*</span><span class="n">obj</span><span class="o">.</span><span class="n">p</span><span class="o">/</span><span class="p">((</span><span class="n">obj</span><span class="o">.</span><span class="n">gamma</span><span class="o">-</span><span class="mf">1.</span><span class="p">)</span><span class="o">*</span><span class="n">obj</span><span class="o">.</span><span class="n">rho</span><span class="p">)</span><span class="o">-</span><span class="mf">1.</span><span class="o">/</span><span class="n">obj</span><span class="o">.</span><span class="n">R</span>	<span class="c1"># Bernoulli function</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">Omega</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">v3</span><span class="o">/</span><span class="n">obj</span><span class="o">.</span><span class="n">R</span>	<span class="c1"># angular velocity</span>
+
+	<span class="c1"># misc info</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">regridded</span><span class="o">=</span><span class="kc">True</span> <span class="c1"># flag to tell whether the object was previously regridded</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">t</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">frame</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">mdot</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mdot</span>
+	<span class="n">obj</span><span class="o">.</span><span class="n">mass</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mass</span>
+
+	<span class="k">return</span> <span class="n">obj</span></div>
+
+
+
 </pre></div>
 
           </div>
@@ -1032,13 +1121,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -1059,7 +1146,7 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

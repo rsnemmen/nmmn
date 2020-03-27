@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>nmmn.sed &#8212; nmmn  documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -13,7 +11,8 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -40,8 +39,11 @@
 <span class="sd">Methods and classes for dealing with spectral energy distributions (SEDs).</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">pylab</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">scipy</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">lsd</span> <span class="c1"># intrapackage reference</span>
+<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
+
+
 
 <div class="viewcode-block" id="SED"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED">[docs]</a><span class="k">class</span> <span class="nc">SED</span><span class="p">:</span>
 	<span class="sd">&quot;&quot;&quot;</span>
@@ -105,7 +107,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">ll</span>
 
 		<span class="c1"># If the SED is imported from a file...</span>
-		<span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">if</span> <span class="n">logfmt</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
 				<span class="c1"># Reads SED from datafile</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -117,7 +119,7 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
 
 		<span class="c1"># If the SED is created from the arrays</span>
-		<span class="k">if</span> <span class="n">file</span><span class="o">==</span><span class="kc">None</span> <span class="ow">and</span> <span class="n">lognu</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">lognu</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">if</span> <span class="n">logfmt</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">lognu</span><span class="p">,</span> <span class="n">ll</span>
 				<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="mf">10.</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
@@ -126,7 +128,7 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="p">)</span>
 		
 		<span class="c1"># Checks if ll has NaN or Inf values</span>
-		<span class="k">if</span> <span class="n">file</span><span class="o">!=</span><span class="kc">None</span> <span class="ow">or</span> <span class="n">lognu</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">lognu</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
 
 
@@ -195,7 +197,7 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">=</span><span class="n">dist</span>
-		
+
 		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">nfn</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span>
 		<span class="n">nfn</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">nfn</span><span class="o">*</span><span class="mf">1e-26</span><span class="o">*</span><span class="mf">1e7</span><span class="o">*</span><span class="mf">1e-4</span>	<span class="c1"># Jy to erg/s/cm^2</span>
@@ -213,8 +215,6 @@
 <span class="sd">		Reads SEDs in the format provided by grmonty. I ported the </span>
 <span class="sd">		original SM script `plspec.m` provided by J. Dolence. </span>
 <span class="sd">		&quot;&quot;&quot;</span>
-		<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
-
 		<span class="c1"># reads grmonty SED file</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
 		<span class="n">s</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">NoHeader</span><span class="p">)</span>
@@ -233,6 +233,50 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ll</span> <span class="o">=</span> <span class="n">lw</span><span class="p">,</span> <span class="n">ll5</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="mi">10</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span>
 		
+		<span class="c1"># Checks if ll has NaN or Inf values</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SED.raniere"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.raniere">[docs]</a>	<span class="k">def</span> <span class="nf">raniere</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Reads SEDs in the format provided by Hampadarath et al.:</span>
+<span class="sd">		nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]</span>
+
+<span class="sd">		:param file: file with SED data</span>
+<span class="sd">		:param dist: distance in Mpc</span>
+
+<span class="sd">		:returns: SED object in units of Hz vs erg/s</span>
+
+<span class="sd">		Adds the following attributes to the SED object:</span>
+<span class="sd">		- ul: is the datapoint an upper limit (arrow)? 1 if yes, 0 if not</span>
+<span class="sd">		- distance: distance to object in Mpc</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">=</span><span class="n">file</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">=</span><span class="n">dist</span>
+
+		<span class="n">f</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>  
+		
+		<span class="n">nu</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;col3&#39;</span><span class="p">]</span>	<span class="c1"># GHz </span>
+		<span class="n">flux</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;col4&#39;</span><span class="p">]</span>	<span class="c1"># v*F(v)(flux) [W.m-2]</span>
+		<span class="n">fluxerr</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;col5&#39;</span><span class="p">]</span>	<span class="c1"># flux error, if 999999 then this is an upper limit with 95 confidence</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">observatories</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">]</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">]</span>
+		
+		<span class="c1"># preprocessing</span>
+		<span class="n">dist</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">distance</span><span class="o">*</span><span class="mf">3.086e24</span>	<span class="c1"># Mpc to cm</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="o">*</span><span class="mf">1e9</span> <span class="c1"># GHz =&gt; Hz		</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="n">flux</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="mi">1000</span>	<span class="c1"># to erg/s</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">nlnuerr</span><span class="o">=</span><span class="n">fluxerr</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">dist</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="mi">1000</span>	<span class="c1"># to erg/s</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">lognu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">llerr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ll</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nlnuerr</span><span class="p">))</span>
+		
+		<span class="c1"># inverts the convention for upper limits, to be consistent with my</span>
+		<span class="c1"># previous one (Hayden adopts the inverse convention)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nu</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ul</span><span class="p">[</span><span class="n">fluxerr</span><span class="o">==</span><span class="mi">999999</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
 		<span class="c1"># Checks if ll has NaN or Inf values</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">()</span></div>
 
@@ -975,7 +1019,6 @@
 
 <span class="sd">:returns: SED object </span>
 <span class="sd">	&quot;&quot;&quot;</span>
-	<span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
 	<span class="c1"># READS SEDS</span>
 	<span class="c1"># =============</span>
 	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
@@ -1012,6 +1055,908 @@
 
 	<span class="k">return</span> <span class="n">o</span></div>
 
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="modelsplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.modelsplot">[docs]</a><span class="k">def</span> <span class="nf">modelsplot</span><span class="p">(</span><span class="n">pathm</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/adafjet/&#39;</span><span class="p">,</span>
+	<span class="n">jetfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">showthin</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">showjet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">showsum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">showadaf</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">]):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Nice wrapper that plots 3 models computed with the ADAF Fortran code available at</span>
+<span class="sd">~/work/projects/adafjet/adaf.</span>
+
+<span class="sd">Useful when modeling a given SED.</span>
+
+<span class="sd">Input:</span>
+<span class="sd">  - *file : path to ASCII files containing the precomputed models</span>
+<span class="sd">  - showadaf : should I display the three ADAF models? (list or array of booleans, </span>
+<span class="sd">  	e.g., [True,True,True])</span>
+<span class="sd">  - showthin : Include thin disk?</span>
+<span class="sd">  - showjet : Display jet?</span>
+<span class="sd">  - showsum : Show sum of components?</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">jetfile</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+			<span class="n">jet</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;jet/jet.dat&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">jet</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">jetfile</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>	
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">jet</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">jet</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;-.m&#39;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">showadaf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+		<span class="n">adaf</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;adaf/perl/run01/spec_01&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">adaf</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">adaf</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;--b&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+			<span class="n">thin</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;adaf/perl/run01/spec_01_ssd&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+			<span class="c1">#thin=SED(file=thinfile,logfmt=1) </span>
+			<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thin</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">thin</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;:r&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">showjet</span> <span class="ow">and</span> <span class="n">showthin</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="p">,</span><span class="n">thin</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">False</span> <span class="ow">and</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">thin</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showsum</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">sum</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="nb">sum</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">showadaf</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+		<span class="n">adaf</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;adaf/perl/run02/spec_02&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">adaf</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">adaf</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;--b&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+			<span class="n">thin</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;adaf/perl/run02/spec_02_ssd&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+			<span class="c1">#thin=SED(file=thinfile,logfmt=1) </span>
+			<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thin</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">thin</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;:r&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">showjet</span> <span class="ow">and</span> <span class="n">showthin</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="p">,</span><span class="n">thin</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">False</span> <span class="ow">and</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">thin</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showsum</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">sum</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="nb">sum</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">showadaf</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+		<span class="n">adaf</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;adaf/perl/run03/spec_03&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">adaf</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">adaf</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;--b&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+			<span class="n">thin</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">pathm</span><span class="o">+</span><span class="s1">&#39;adaf/perl/run03/spec_03_ssd&#39;</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+			<span class="c1">#thin=SED(file=thinfile,logfmt=1) 	</span>
+			<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">thin</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">thin</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;:r&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">showjet</span> <span class="ow">and</span> <span class="n">showthin</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="p">,</span><span class="n">thin</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">True</span> <span class="ow">and</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">False</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showjet</span><span class="o">==</span><span class="kc">False</span> <span class="ow">and</span> <span class="n">showthin</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="nb">sum</span><span class="o">=</span><span class="nb">sum</span><span class="p">([</span><span class="n">adaf</span><span class="p">,</span><span class="n">thin</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">showsum</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">sum</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="nb">sum</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="modelplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.modelplot">[docs]</a><span class="k">def</span> <span class="nf">modelplot</span><span class="p">(</span><span class="n">ssdf</span><span class="p">,</span><span class="n">adaff</span><span class="p">,</span><span class="n">jetf</span><span class="p">,</span><span class="n">sumf</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plots the model components.</span>
+
+<span class="sd">Arguments: The filenames of each model component.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Reads model SEDs, checking first if the data files exist</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sumf</span><span class="p">):</span> <span class="n">msum</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sumf</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">msum</span><span class="o">=</span><span class="kc">None</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">adaff</span><span class="p">):</span> <span class="n">adaf</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">adaff</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">adaf</span><span class="o">=</span><span class="kc">None</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">jetf</span><span class="p">):</span> <span class="n">jet</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">jetf</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">jet</span><span class="o">=</span><span class="kc">None</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">ssdf</span><span class="p">):</span> <span class="n">ssd</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">ssdf</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">ssd</span><span class="o">=</span><span class="kc">None</span>
+	
+	<span class="c1"># Groups the model components in a dictionary</span>
+	<span class="n">m</span><span class="o">=</span><span class="n">groupmodel</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="n">msum</span><span class="p">,</span><span class="n">ssd</span><span class="o">=</span><span class="n">ssd</span><span class="p">,</span><span class="n">adaf</span><span class="o">=</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="o">=</span><span class="n">jet</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="s1">&#39;sum&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;adaf&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;jet&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+	<span class="c1">#if &#39;ssd&#39; in m: pylab.plot(m[&#39;ssd&#39;].lognu,m[&#39;ssd&#39;].ll,&#39;:&#39;,**args)</span>
+	<span class="k">if</span> <span class="s1">&#39;ssd&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="obsplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.obsplot">[docs]</a><span class="k">def</span> <span class="nf">obsplot</span><span class="p">(</span><span class="n">source</span><span class="p">,</span>
+	  <span class="n">table</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/tables/models.csv&#39;</span><span class="p">,</span>
+	  <span class="n">patho</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/seds/obsdata/&#39;</span><span class="p">,</span>
+	  <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;0&#39;</span>
+	  <span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plots the observed SED taken from the Eracleous et al. sample. Includes arrows </span>
+<span class="sd">for upper limits and the nice bow tie. </span>
+
+<span class="sd">Extinction corrections represented as either &quot;error bars&quot; or &quot;circle + error bar&quot;.</span>
+
+<span class="sd">:param source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four numbers.</span>
+<span class="sd">:param table: path of ASCII table models.csv with the required SED parameters gammax, error in gammax, X-ray luminosity and distratio</span>
+<span class="sd">:param patho: path to observed SED data files</span>
+<span class="sd">:param ext: 0 for showing extinction corrections as &quot;error bars&quot;; 1 for &quot;circle + error bar&quot;</span>
+<span class="sd">:returns: SED object with distance-corrected luminosities</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Reads the ASCII table models.csv</span>
+	<span class="n">t</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">CommentedHeader</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+	<span class="n">tname</span><span class="p">,</span><span class="n">tmodel</span><span class="p">,</span><span class="n">tdistratio</span><span class="p">,</span><span class="n">tgammax</span><span class="p">,</span><span class="n">tegammal</span><span class="p">,</span><span class="n">tegammau</span><span class="p">,</span><span class="n">tlumx</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Object&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distratio&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;gammax&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammal&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammau&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;lumx&#39;</span><span class="p">]</span>
+
+	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
+	<span class="c1"># First converts the source name to uppercase, no spaces</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+	<span class="c1"># Finds the first occurrence of the source in the table</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tname</span><span class="o">==</span><span class="n">source</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+	<span class="c1"># Retrieves the required parameters</span>
+	<span class="n">distratio</span><span class="o">=</span><span class="n">tdistratio</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">gammax</span><span class="o">=</span><span class="n">tgammax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammal</span><span class="o">=</span><span class="n">tegammal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammau</span><span class="o">=</span><span class="n">tegammau</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">tlumx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># Reads observed SED</span>
+	<span class="n">ofile</span><span class="o">=</span><span class="n">patho</span><span class="o">+</span><span class="n">source</span><span class="o">+</span><span class="s1">&#39;.dat&#39;</span>
+	<span class="n">o</span><span class="o">=</span><span class="n">SED</span><span class="p">()</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">erac</span><span class="p">(</span><span class="n">ofile</span><span class="p">)</span>	
+	
+	<span class="c1"># Corrects SED data points for new distance</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">nlnu</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">nlnuex</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">nlnuex</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">nlnuex</span><span class="p">)</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">lumx</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+		
+	<span class="c1"># Separates the observed SED in the different bands and uses a different recipe</span>
+	<span class="c1"># to plot each region</span>
+
+	<span class="c1">## Radio and IR as filled points</span>
+	<span class="n">rir</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;</span><span class="mf">14.46</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">rir</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">rir</span><span class="p">],</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+
+	<span class="c1">## Optical and UV (extinction uncertainty)</span>
+	<span class="n">ouv</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&gt;=</span><span class="mf">14.46</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;=</span><span class="mf">16.</span><span class="p">))</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">ouv</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">2.</span><span class="p">):</span>
+		<span class="c1"># if the uncertainty in the UV due to extinction is too big (NGC 3169, NGC3226 and NGC4548), replace the &quot;error bar&quot; with an upper limit</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">ext</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> 
+			<span class="n">pylab</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],(</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;_nolegend_&#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+			<span class="n">pylab</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],(</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;_nolegend_&#39;</span><span class="p">)</span>
+	
+	<span class="c1">## X-rays as bow tie</span>
+	<span class="n">xray</span><span class="p">(</span><span class="n">lumx</span><span class="p">,</span><span class="n">gammax</span><span class="p">,</span><span class="n">egammal</span><span class="p">,</span><span class="n">egammau</span><span class="p">)</span>	
+	
+	<span class="c1"># Upper limits with arrows</span>
+	<span class="n">u</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>	<span class="c1"># index of upper limits</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>	<span class="c1"># careful with the arrow parameters	</span>
+
+	<span class="c1"># Dummy plot just to include the name of the source with legend later</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">o</span></div>
+
+	
+
+
+
+
+
+
+<div class="viewcode-block" id="haydenobs"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.haydenobs">[docs]</a><span class="k">def</span> <span class="nf">haydenobs</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">patho</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/all/&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/info.dat&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plots the observed SED from the Hayden et al. sample. Includes arrows </span>
+<span class="sd">for upper limits and the nice bow tie. </span>
+
+<span class="sd">Extinction corrections represented as either &quot;error bars&quot; or &quot;circle + error bar&quot;.</span>
+
+<span class="sd">:param source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four numbers.</span>
+<span class="sd">:param patho: path to observed SED data files</span>
+<span class="sd">:param info: path to information datafile with distances and masses</span>
+<span class="sd">:returns: SED object </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
+	<span class="c1"># First converts the source name to uppercase, no spaces</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+	<span class="c1"># Reads information table and gets required info</span>
+	<span class="n">t</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+	<span class="n">names</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+	<span class="c1"># finds location of source in the arrays</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+	<span class="c1"># gets distance </span>
+	<span class="n">dist</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distance/Mpc&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># Reads observed SED (which is given in weird units)</span>
+	<span class="n">ofile</span><span class="o">=</span><span class="n">patho</span><span class="o">+</span><span class="n">source</span><span class="o">+</span><span class="s1">&#39;_sed.txt&#39;</span>
+	<span class="n">o</span><span class="o">=</span><span class="n">SED</span><span class="p">()</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">hayden</span><span class="p">(</span><span class="n">ofile</span><span class="p">,</span><span class="n">dist</span><span class="p">)</span>	
+	
+	<span class="c1">#########################################################	</span>
+	<span class="c1"># Separates the observed SED in the different bands and uses a different recipe</span>
+	<span class="c1"># to plot each region</span>
+	<span class="c1">#########################################################	</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+	
+	<span class="c1">## X-rays as bow tie</span>
+	<span class="c1">#xray(lumx,gammax,egammal,egammau)	</span>
+	<span class="c1"># Reads Panessa&#39;s X-ray SED</span>
+	<span class="n">xfile</span><span class="o">=</span><span class="n">patho</span><span class="o">+</span><span class="n">source</span><span class="o">+</span><span class="s1">&#39;_x.txt&#39;</span>
+	<span class="n">x</span><span class="o">=</span><span class="n">SED</span><span class="p">()</span>
+	<span class="n">x</span><span class="o">.</span><span class="n">haydenx</span><span class="p">(</span><span class="n">xfile</span><span class="p">)</span>	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k.&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">llerr</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;_nolegend_&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+
+	
+	<span class="c1"># Upper limits with arrows</span>
+	<span class="n">u</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>	<span class="c1"># index of upper limits</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>	<span class="c1"># careful with the arrow parameters	</span>
+
+	<span class="c1"># Dummy plot just to include the name of the source with legend later</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">o</span></div>
+
+
+
+
+
+
+
+
+<span class="c1"># ====================================</span>
+<span class="c1">#</span>
+<span class="c1"># Code below imported from sedplot.py</span>
+<span class="c1">#</span>
+<span class="c1"># ====================================</span>
+
+<div class="viewcode-block" id="plotprops"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.plotprops">[docs]</a><span class="k">def</span> <span class="nf">plotprops</span><span class="p">(</span><span class="n">labelfontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Define other properties of the SED plot: additional axis, font size etc.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Increase the size of the fonts</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">})</span>
+
+	<span class="c1"># Defines general properties of the plot</span>
+	<span class="k">if</span> <span class="n">option</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># Nemmen et al. 2014 plots</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span><span class="mi">44</span><span class="p">)</span> <span class="c1"># Nemmen et al. 2014 plots</span>
+
+	<span class="k">if</span> <span class="n">option</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span> 
+		<span class="n">pylab</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span> <span class="c1"># Hayden plots</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">19</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">option</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">27</span><span class="p">)</span>	<span class="c1"># with Fermi data (large x-axis!)</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;log($</span><span class="se">\\</span><span class="s1">nu$ / Hz)&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">labelfontsize</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;log($</span><span class="se">\\</span><span class="s1">nu L_</span><span class="se">\\</span><span class="s1">nu$ / erg s$^{-1}$)&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="n">labelfontsize</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="k">if</span> <span class="n">legend</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+	<span class="c1"># Add second X axis with common units of wavelength</span>
+	<span class="n">ax1</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+	<span class="n">ax2</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+
+	<span class="k">if</span> <span class="n">option</span><span class="o">==</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">option</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+		<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>	
+		<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>	<span class="c1"># set this to match the lower X axis</span>
+		<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mf">8.477</span><span class="p">,</span><span class="mf">9.477</span><span class="p">,</span><span class="mf">10.477</span><span class="p">,</span><span class="mf">11.477</span><span class="p">,</span><span class="mf">12.477</span><span class="p">,</span><span class="mf">13.477</span><span class="p">,</span><span class="mf">14.477</span><span class="p">,</span><span class="mf">15.4768</span><span class="p">,</span><span class="mf">16.383</span><span class="p">,</span><span class="mf">17.383</span><span class="p">,</span><span class="mf">18.383</span><span class="p">,</span><span class="mf">19.383</span><span class="p">])</span>
+		<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span><span class="s1">&#39;10cm&#39;</span><span class="p">,</span><span class="s1">&#39;1cm&#39;</span><span class="p">,</span><span class="s1">&#39;1mm&#39;</span><span class="p">,</span><span class="s1">&#39;100$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;10$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;1$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;1000$\AA$&#39;</span><span class="p">,</span><span class="s1">&#39;.1keV&#39;</span><span class="p">,</span><span class="s1">&#39;1keV&#39;</span><span class="p">,</span><span class="s1">&#39;10keV&#39;</span><span class="p">,</span><span class="s1">&#39;100keV&#39;</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">option</span><span class="o">==</span><span class="mi">3</span><span class="p">:</span>
+		<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">27</span><span class="p">)</span>	
+		<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">27</span><span class="p">)</span>	<span class="c1"># set this to match the lower X axis</span>
+		<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mf">8.477</span><span class="p">,</span><span class="mf">10.477</span><span class="p">,</span><span class="mf">12.477</span><span class="p">,</span><span class="mf">14.477</span><span class="p">,</span><span class="mf">16.383</span><span class="p">,</span><span class="mf">18.383</span><span class="p">,</span><span class="mf">20.383</span><span class="p">,</span><span class="mf">22.383</span><span class="p">,</span><span class="mf">24.383</span><span class="p">,</span><span class="mf">26.383</span><span class="p">])</span>
+		<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span><span class="s1">&#39;1cm&#39;</span><span class="p">,</span><span class="s1">&#39;100$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;1$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;0.1keV&#39;</span><span class="p">,</span><span class="s1">&#39;10keV&#39;</span><span class="p">,</span><span class="s1">&#39;1MeV&#39;</span><span class="p">,</span><span class="s1">&#39;100MeV&#39;</span><span class="p">,</span><span class="s1">&#39;10GeV&#39;</span><span class="p">,</span><span class="s1">&#39;1TeV&#39;</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">table</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">DEPRECATED. Split these method in separate units: modelplot, obsplot, plotprops.</span>
+<span class="sd">Main method to create the SED plot.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">- source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four </span>
+<span class="sd">	numbers.</span>
+<span class="sd">- o: observed SED data points imported using the SED class and the erac method.</span>
+<span class="sd">- m: dictionary with the different model components created with the method</span>
+<span class="sd">	groupmodel below.</span>
+<span class="sd">- table: path of ASCII table models.csv with the required SED parameters gammax, </span>
+<span class="sd">	error in gammax, X-ray luminosity and distratio.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Reads the ASCII table models.csv</span>
+	<span class="n">t</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">CommentedHeader</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+	<span class="n">tname</span><span class="p">,</span><span class="n">tmodel</span><span class="p">,</span><span class="n">tdistratio</span><span class="p">,</span><span class="n">tgammax</span><span class="p">,</span><span class="n">tegammal</span><span class="p">,</span><span class="n">tegammau</span><span class="p">,</span><span class="n">tlumx</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Object&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distratio&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;gammax&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammal&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammau&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;lumx&#39;</span><span class="p">]</span>
+
+	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
+	<span class="c1"># First converts the source name to uppercase, no spaces</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+	<span class="c1"># Finds the first occurrence of the source in the table</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tname</span><span class="o">==</span><span class="n">source</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+	<span class="c1"># Retrieves the required parameters</span>
+	<span class="n">distratio</span><span class="o">=</span><span class="n">tdistratio</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">gammax</span><span class="o">=</span><span class="n">tgammax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammal</span><span class="o">=</span><span class="n">tegammal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammau</span><span class="o">=</span><span class="n">tegammau</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">tlumx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># Precaution to avoid modifying unintentionally the obs SED</span>
+	<span class="n">o</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+	
+	
+
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+
+	
+	
+	<span class="c1"># Plots OBSERVED SED</span>
+	<span class="c1"># ====================</span>
+	<span class="c1"># Corrects SED data points for new distance</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">nlnu</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">nlnu</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">nlnuex</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">nlnuex</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">nlnu</span><span class="p">)</span>
+	<span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">nlnuex</span><span class="p">)</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">lumx</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+		
+	<span class="c1"># Separates the observed SED in the different bands and uses a different recipe</span>
+	<span class="c1"># to plot each region</span>
+	<span class="c1">## Radio and IR as filled points</span>
+	<span class="n">rir</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;</span><span class="mf">14.46</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">rir</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">rir</span><span class="p">],</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+	<span class="c1">## Optical and UV as error bars (extinction uncertainty)</span>
+	<span class="n">ouv</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&gt;=</span><span class="mf">14.46</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;=</span><span class="mf">16.</span><span class="p">))</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">ouv</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">-</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">&gt;</span><span class="mf">2.</span><span class="p">):</span>
+		<span class="c1"># if the uncertainty in the UV due to extinction is too big (NGC 3169, NGC3226 and NGC4548), replace the &quot;error bar&quot; with an upper limit</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],(</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">yerr</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">]</span><span class="o">+</span><span class="n">o</span><span class="o">.</span><span class="n">llex</span><span class="p">[</span><span class="n">ouv</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span><span class="n">fmt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ecolor</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;_nolegend_&#39;</span><span class="p">)</span>
+	<span class="c1">## X-rays as bow tie</span>
+	<span class="n">xray</span><span class="p">(</span><span class="n">lumx</span><span class="p">,</span><span class="n">gammax</span><span class="p">,</span><span class="n">egammal</span><span class="p">,</span><span class="n">egammau</span><span class="p">)</span>	
+	
+	<span class="c1"># Upper limits with arrows</span>
+	<span class="n">u</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span>	<span class="c1"># index of upper limits</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>	<span class="c1"># careful with the arrow parameters	</span>
+
+	<span class="c1"># Dummy plot just to include the name of the source with legend later</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+	
+	
+
+	<span class="c1"># Plots MODEL SEDs</span>
+	<span class="c1"># ==================</span>
+	<span class="c1"># Please be sure that m was created with the groupmodel method</span>
+	
+	<span class="k">if</span> <span class="s1">&#39;sum&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;adaf&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;jet&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;ssd&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+
+
+
+	
+	<span class="c1"># Defines general properties of the plot</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span><span class="mi">44</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;log($</span><span class="se">\\</span><span class="s1">nu$ / Hz)&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;log($</span><span class="se">\\</span><span class="s1">nu L_</span><span class="se">\\</span><span class="s1">nu$ / erg s$^{-1}$)&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+	<span class="c1"># Add second X axis with common units of wavelength</span>
+	<span class="n">ax1</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+	<span class="n">ax2</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>
+	<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>	<span class="c1"># set this to match the lower X axis</span>
+	<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mf">8.477</span><span class="p">,</span><span class="mf">9.477</span><span class="p">,</span><span class="mf">10.477</span><span class="p">,</span><span class="mf">11.477</span><span class="p">,</span><span class="mf">12.477</span><span class="p">,</span><span class="mf">13.477</span><span class="p">,</span><span class="mf">14.477</span><span class="p">,</span><span class="mf">15.4768</span><span class="p">,</span><span class="mf">16.383</span><span class="p">,</span><span class="mf">17.383</span><span class="p">,</span><span class="mf">18.383</span><span class="p">,</span><span class="mf">19.383</span><span class="p">])</span>
+	<span class="n">ax2</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;1m&#39;</span><span class="p">,</span><span class="s1">&#39;10cm&#39;</span><span class="p">,</span><span class="s1">&#39;1cm&#39;</span><span class="p">,</span><span class="s1">&#39;1mm&#39;</span><span class="p">,</span><span class="s1">&#39;100$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;10$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;1$\mu$m&#39;</span><span class="p">,</span><span class="s1">&#39;1000$\AA$&#39;</span><span class="p">,</span><span class="s1">&#39;.1keV&#39;</span><span class="p">,</span><span class="s1">&#39;1keV&#39;</span><span class="p">,</span><span class="s1">&#39;10keV&#39;</span><span class="p">,</span><span class="s1">&#39;100keV&#39;</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">minorticks_on</span><span class="p">()</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span></div>
+	<span class="c1">#pylab.show()</span>
+
+
+
+
+<div class="viewcode-block" id="groupmodel"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.groupmodel">[docs]</a><span class="k">def</span> <span class="nf">groupmodel</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ssd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">jet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">adaf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Groups the different components of a SED model into one dictionary for convenient</span>
+<span class="sd">access. The model component SEDs are assumed to have been imported using the</span>
+<span class="sd">SED class. This method is used in the plot method.</span>
+
+<span class="sd">Example:</span>
+
+<span class="sd">Imports the model SEDs:</span>
+<span class="sd">&gt;&gt;&gt; s=SED(file=&#39;sum.dat&#39;, logfmt=1)</span>
+<span class="sd">&gt;&gt;&gt; disk=SED(file=&#39;disk.dat&#39;, logfmt=1)</span>
+<span class="sd">&gt;&gt;&gt; a=SED(file=&#39;adaf.dat&#39;, logfmt=1)</span>
+
+<span class="sd">Groups them together in a dictionary d:</span>
+<span class="sd">&gt;&gt;&gt; d=groupmodel(sum=s,ssd=disk,adaf=a)</span>
+<span class="sd">returning {&#39;sum&#39;:s,&#39;ssd&#39;:disk,&#39;adaf&#39;:a}. </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">m</span><span class="o">=</span><span class="p">{}</span>	<span class="c1"># empty dictionary</span>
+	
+	<span class="k">if</span> <span class="nb">sum</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">=</span><span class="nb">sum</span>
+	<span class="k">if</span> <span class="n">ssd</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">ssd</span>
+	<span class="k">if</span> <span class="n">jet</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">jet</span>
+	<span class="k">if</span> <span class="n">adaf</span><span class="o">!=</span><span class="kc">None</span><span class="p">:</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">adaf</span>
+	
+	<span class="k">return</span> <span class="n">m</span></div>
+
+
+
+
+<div class="viewcode-block" id="obsplot1097"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.obsplot1097">[docs]</a><span class="k">def</span> <span class="nf">obsplot1097</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">table</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Modification of the plot method to handle the nice data of NGC 1097.</span>
+
+<span class="sd">:param source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four numbers.</span>
+<span class="sd">:param o: observed SED data points imported using the SED class and the erac method.</span>
+<span class="sd">:param table: path of ASCII table models.csv with the required SED parameters gammax, error in gammax, X-ray luminosity and distratio.</span>
+<span class="sd">:returns: SED object with distance-corrected luminosities</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Reads the ASCII table models.csv</span>
+	<span class="n">t</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">CommentedHeader</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+	<span class="n">tname</span><span class="p">,</span><span class="n">tmodel</span><span class="p">,</span><span class="n">tdistratio</span><span class="p">,</span><span class="n">tgammax</span><span class="p">,</span><span class="n">tegammal</span><span class="p">,</span><span class="n">tegammau</span><span class="p">,</span><span class="n">tlumx</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Object&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distratio&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;gammax&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammal&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammau&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;lumx&#39;</span><span class="p">]</span>
+
+	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
+	<span class="c1"># First converts the source name to uppercase, no spaces</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+	<span class="c1"># Finds the first occurrence of the source in the table</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tname</span><span class="o">==</span><span class="n">source</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+	<span class="c1"># Retrieves the required parameters</span>
+	<span class="n">distratio</span><span class="o">=</span><span class="n">tdistratio</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">gammax</span><span class="o">=</span><span class="n">tgammax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammal</span><span class="o">=</span><span class="n">tegammal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammau</span><span class="o">=</span><span class="n">tegammau</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">tlumx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># Precaution to avoid modifying unintentionally the obs SED</span>
+	<span class="c1">#o=o.copy()</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+	
+	<span class="c1"># Plots OBSERVED SED</span>
+	<span class="c1"># ====================</span>
+	<span class="c1"># Corrects SED data points for new distance</span>
+	<span class="c1">#o.nlnu=o.nlnu*(distratio)**2</span>
+	<span class="c1">#o.ll=numpy.log10(o.nlnu)</span>
+	<span class="c1">#lumx=lumx*(distratio)**2</span>
+		
+	<span class="c1"># Separates the observed SED in the different bands and uses a different recipe</span>
+	<span class="c1"># to plot each region</span>
+	<span class="c1"># Radio and IR as filled points</span>
+	<span class="n">rir</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;</span><span class="mf">14.46</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">rir</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">rir</span><span class="p">],</span><span class="s1">&#39;ko&#39;</span><span class="p">)</span>
+	
+	<span class="c1"># Optical and UV as solid line</span>
+	<span class="n">ouv</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&gt;=</span><span class="mf">14.46</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;=</span><span class="mf">16.</span><span class="p">))</span>	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+	
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+	
+	<span class="c1"># X-rays as bow tie</span>
+	<span class="n">xray</span><span class="p">(</span><span class="n">lumx</span><span class="p">,</span><span class="n">gammax</span><span class="p">,</span><span class="n">egammal</span><span class="p">,</span><span class="n">egammau</span><span class="p">)</span>	
+	
+	<span class="c1"># Upper limits with arrows</span>
+	<span class="n">u</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&gt;=</span><span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;=</span><span class="mf">14.46</span><span class="p">))</span>	<span class="c1"># index of IR upper limits</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">u</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">)</span>	<span class="c1"># careful with the arrow parameters	</span>
+
+	<span class="c1"># Dummy plot just to include the name of the source with legend later</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">+</span><span class="mi">50</span><span class="p">,</span><span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">o</span></div>
+
+	
+
+
+<div class="viewcode-block" id="xray"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.xray">[docs]</a><span class="k">def</span> <span class="nf">xray</span><span class="p">(</span><span class="n">L2_10</span><span class="p">,</span> <span class="n">gammax</span><span class="p">,</span> <span class="n">gammaerru</span><span class="p">,</span> <span class="n">gammaerrl</span><span class="p">,</span> <span class="n">nurange</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">10.</span><span class="p">],</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plots X-ray &quot;bow tie&quot;, provided the X-ray luminosity in the 2-10 keV range,</span>
+<span class="sd">the best-fit photon index and the error in this index.</span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">- L2_10: X-ray luminosity in the 2-10 keV range, erg/s</span>
+<span class="sd">- gammax: best-fit photon index</span>
+<span class="sd">- gammaerru, gammaerrl: upper and lower 1sigma error bars on the value of</span>
+<span class="sd">  gammax</span>
+<span class="sd"> - nurange: two-element list or array with range of frequencies to plot, </span>
+<span class="sd">  in keV. e.g. [2,10]</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Retrieves current axis limits</span>
+	<span class="n">xy</span><span class="o">=</span><span class="n">pylab</span><span class="o">.</span><span class="n">axis</span><span class="p">()</span>
+
+	<span class="c1"># Creates vectors containing the X-ray powerlaws and plots them</span>
+	<span class="n">lognu</span><span class="p">,</span><span class="n">nuLbest</span><span class="o">=</span><span class="n">powerlaw</span><span class="p">(</span><span class="n">gammax</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="n">L2_10</span><span class="p">,</span><span class="n">nurange</span><span class="p">)</span>	<span class="c1"># best-fit</span>
+	<span class="n">lognu</span><span class="p">,</span><span class="n">nuLlow</span><span class="o">=</span><span class="n">powerlaw</span><span class="p">(</span><span class="n">gammax</span><span class="o">-</span><span class="n">gammaerrl</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="n">L2_10</span><span class="p">,</span><span class="n">nurange</span><span class="p">)</span>	<span class="c1"># lower</span>
+	<span class="n">lognu</span><span class="p">,</span><span class="n">nuLup</span><span class="o">=</span><span class="n">powerlaw</span><span class="p">(</span><span class="n">gammax</span><span class="o">+</span><span class="n">gammaerru</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="n">L2_10</span><span class="p">,</span><span class="n">nurange</span><span class="p">)</span>	<span class="c1"># upper</span>
+
+	<span class="n">pylab</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">lognu</span><span class="p">,</span> <span class="n">nuLlow</span><span class="p">,</span> <span class="n">nuLup</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lognu</span><span class="p">,</span> <span class="n">nuLbest</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+	
+
+
+
+
+<div class="viewcode-block" id="powerlaw"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.powerlaw">[docs]</a><span class="k">def</span> <span class="nf">powerlaw</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">Lx</span><span class="p">,</span><span class="n">nurange</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">Calculates the X-ray powerlaw variables. </span>
+
+<span class="sd">Arguments:</span>
+<span class="sd">- alpha: spectral power-law index</span>
+<span class="sd">- Lx: total luminosity in X-rays in the nurange</span>
+<span class="sd"> - nurange: two-element list or array with range of frequencies to plot, </span>
+<span class="sd">  in keV. e.g. [2,10]</span>
+
+<span class="sd">Returns the sequence of arrays log10(nu),log10(nu*Lnu) for plotting.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">h</span><span class="o">=</span><span class="mf">0.6626e-26</span> <span class="c1"># Planck constant (CGS)</span>
+	<span class="n">conv</span><span class="o">=</span><span class="mf">1.602171e-9</span><span class="o">/</span><span class="n">h</span> <span class="c1"># conversion factor keV -&gt; Hz</span>
+	<span class="n">nu0</span><span class="o">=</span><span class="n">nurange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">conv</span> <span class="c1"># nu_i from keV -&gt; Hz</span>
+		
+	<span class="c1"># Creates a vector of frequencies</span>
+	<span class="n">points</span><span class="p">,</span><span class="n">nui</span><span class="p">,</span><span class="n">nuf</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="n">nu0</span><span class="p">,</span><span class="n">nurange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">conv</span>	<span class="c1"># e.g. 2 keV - 10 keV</span>
+	<span class="n">nu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">nui</span><span class="p">,</span><span class="n">nuf</span><span class="p">,</span><span class="n">points</span><span class="p">)</span>
+	
+	<span class="c1"># Takes into account the possibility of alpha=1 which changes the way you</span>
+	<span class="c1"># calculate (integrate) the total X-ray luminosity from the power-law</span>
+	<span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">!=</span><span class="mf">1.</span> <span class="p">:</span>
+		<span class="n">L0</span><span class="o">=</span><span class="n">nu0</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="n">Lx</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">nuf</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">-</span><span class="n">nui</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">-</span><span class="n">alpha</span><span class="p">))</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">L0</span><span class="o">=</span><span class="n">nu0</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="n">Lx</span><span class="o">/</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">nuf</span><span class="o">/</span><span class="n">nui</span><span class="p">)</span>
+		
+	<span class="n">Lnu</span><span class="o">=</span><span class="n">L0</span><span class="o">*</span><span class="p">(</span><span class="n">nu</span><span class="o">/</span><span class="n">nu0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">nu</span><span class="p">),</span> <span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">nu</span><span class="o">*</span><span class="n">Lnu</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="xrayinset"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.xrayinset">[docs]</a><span class="k">def</span> <span class="nf">xrayinset</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="n">ssdf</span><span class="p">,</span><span class="n">adaff</span><span class="p">,</span><span class="n">jetf</span><span class="p">,</span><span class="n">sumf</span><span class="p">,</span>
+	<span class="n">table</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/tables/models.csv&#39;</span><span class="p">,</span>
+	<span class="o">**</span><span class="n">args</span>
+	<span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Plots an inset with the zoomed-in X-ray spectra.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># This piece of code was quickly and dirty copied from the obsplot method,</span>
+	<span class="c1"># in order to plot the X-ray bowtie</span>
+	<span class="c1"># ========================= BEGIN</span>
+
+	<span class="c1"># Reads the ASCII table models.csv</span>
+	<span class="n">t</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">table</span><span class="p">,</span><span class="n">Reader</span><span class="o">=</span><span class="n">ascii</span><span class="o">.</span><span class="n">CommentedHeader</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+	<span class="n">tname</span><span class="p">,</span><span class="n">tmodel</span><span class="p">,</span><span class="n">tdistratio</span><span class="p">,</span><span class="n">tgammax</span><span class="p">,</span><span class="n">tegammal</span><span class="p">,</span><span class="n">tegammau</span><span class="p">,</span><span class="n">tlumx</span><span class="o">=</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Object&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;distratio&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;gammax&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammal&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;egammau&#39;</span><span class="p">],</span><span class="n">t</span><span class="p">[</span><span class="s1">&#39;lumx&#39;</span><span class="p">]</span>
+
+	<span class="c1"># Finds the required parameters to plot the data for the specified source.</span>
+	<span class="c1"># First converts the source name to uppercase, no spaces</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+	<span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+	<span class="c1"># Finds the first occurrence of the source in the table</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tname</span><span class="o">==</span><span class="n">source</span><span class="p">)</span>
+	<span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+	<span class="c1"># Retrieves the required parameters</span>
+	<span class="n">distratio</span><span class="o">=</span><span class="n">tdistratio</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">gammax</span><span class="o">=</span><span class="n">tgammax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammal</span><span class="o">=</span><span class="n">tegammal</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">egammau</span><span class="o">=</span><span class="n">tegammau</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">tlumx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># Corrects Lx for new distance</span>
+	<span class="n">lumx</span><span class="o">=</span><span class="n">lumx</span><span class="o">*</span><span class="p">(</span><span class="n">distratio</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+	<span class="c1"># ========================= END</span>
+
+	<span class="c1"># Gets central Lx</span>
+	<span class="n">lognu</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">powerlaw</span><span class="p">(</span><span class="n">gammax</span><span class="o">-</span><span class="n">egammal</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span><span class="n">lumx</span><span class="p">)</span>
+
+	<span class="c1"># Creates the inset</span>
+	<span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">38.</span><span class="p">:</span>
+		<span class="c1"># precaution for NGC 3379, which has a very low Lx and hence the inset hides the main plot</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.17</span><span class="p">,</span><span class="mf">0.17</span><span class="p">])</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">pylab</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.17</span><span class="p">,</span><span class="mf">0.17</span><span class="p">])</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mf">17.65</span><span class="p">,</span><span class="mf">18.4</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+	<span class="n">pylab</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+
+	<span class="c1">## X-rays as bow tie</span>
+	<span class="n">xray</span><span class="p">(</span><span class="n">lumx</span><span class="p">,</span><span class="n">gammax</span><span class="p">,</span><span class="n">egammal</span><span class="p">,</span><span class="n">egammau</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+
+	<span class="c1"># Now the piece of code below was copied from the modelplot method.</span>
+	<span class="c1"># Plots the model components.</span>
+	<span class="c1"># ========================= BEGIN</span>
+
+
+	<span class="c1"># Reads model SEDs, checking first if the data files exist</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">sumf</span><span class="p">):</span> <span class="n">msum</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">sumf</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">msum</span><span class="o">=</span><span class="kc">None</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">adaff</span><span class="p">):</span> <span class="n">adaf</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">adaff</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">adaf</span><span class="o">=</span><span class="kc">None</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">jetf</span><span class="p">):</span> <span class="n">jet</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">jetf</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">jet</span><span class="o">=</span><span class="kc">None</span>
+	<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">ssdf</span><span class="p">):</span> <span class="n">ssd</span><span class="o">=</span><span class="n">SED</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">ssdf</span><span class="p">,</span><span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+	<span class="k">else</span><span class="p">:</span> <span class="n">ssd</span><span class="o">=</span><span class="kc">None</span>
+	
+	<span class="c1"># Groups the model components in a dictionary</span>
+	<span class="n">m</span><span class="o">=</span><span class="n">groupmodel</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="n">msum</span><span class="p">,</span><span class="n">ssd</span><span class="o">=</span><span class="n">ssd</span><span class="p">,</span><span class="n">adaf</span><span class="o">=</span><span class="n">adaf</span><span class="p">,</span><span class="n">jet</span><span class="o">=</span><span class="n">jet</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="s1">&#39;sum&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;adaf&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;adaf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;jet&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;jet&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;ssd&#39;</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span> <span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">lognu</span><span class="p">,</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;ssd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ll</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">)</span></div>
+	<span class="c1"># ========================= END</span>
+
+
+
+
+
+
+
+<div class="viewcode-block" id="popstar"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.popstar">[docs]</a><span class="k">def</span> <span class="nf">popstar</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Fits the stellar population spectrum, finds the required mass and plots its</span>
+<span class="sd">SED.</span>
+
+<span class="sd">:param o: object containing the observed SED</span>
+<span class="sd">:returns: fitted stellar population mass</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="c1"># Gets the optical-UV points (SELECT THE FREQUENCY RANGE)</span>
+	<span class="n">ouv</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&gt;=</span><span class="mf">14.46</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="o">&lt;=</span><span class="mf">14.87</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">ul</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+	<span class="c1">#pylab.plot(o.lognu[ouv],o.ll[ouv],&#39;ro&#39;)</span>
+
+	<span class="c1"># Reads stellar population sed</span>
+	<span class="c1">#xx,yy = numpy.loadtxt(&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/seds/popstar/bruzual/bc2003_hr_m62_salp_ssp_181.spec&#39;,unpack=True,usecols=(0,1))</span>
+	<span class="n">xx</span><span class="p">,</span><span class="n">yy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/seds/popstar/bruzual/Sed_Mar05_Z_0.02_Age_10.00000000.dat&#39;</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+	<span class="n">xpop</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">29979245800.</span><span class="o">/</span><span class="p">(</span><span class="n">xx</span><span class="o">*</span><span class="mf">1e-8</span><span class="p">))</span> <span class="c1"># AA to cm to Hz</span>
+	<span class="n">ypop</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">xx</span><span class="o">*</span><span class="n">yy</span><span class="o">*</span><span class="mf">3.826e33</span><span class="p">)</span>	<span class="c1"># Lsun/AA -&gt; erg/s</span>
+
+	<span class="c1"># Fits popstar to OUV data</span>
+	<span class="c1"># only fits if number of OUV points &gt; 0</span>
+	<span class="n">ff</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">xpop</span><span class="p">,</span><span class="n">ypop</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">a</span> <span class="c1"># function definition</span>
+	<span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">ouv</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+		<span class="n">fit</span><span class="p">,</span><span class="n">cov</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">optimize</span><span class="o">.</span><span class="n">curve_fit</span><span class="p">(</span><span class="n">ff</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">lognu</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span> <span class="n">o</span><span class="o">.</span><span class="n">ll</span><span class="p">[</span><span class="n">ouv</span><span class="p">],</span> <span class="n">p0</span><span class="o">=</span><span class="mf">8.</span><span class="p">)</span>
+		<span class="n">m</span><span class="o">=</span><span class="n">fit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;popstar mass = &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+
+		<span class="n">pylab</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xpop</span><span class="p">,</span><span class="n">ypop</span><span class="o">+</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">m</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="f"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.f">[docs]</a><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">xpop</span><span class="p">,</span><span class="n">ypop</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Given the spectrum of a popstar and an array of frequencies &#39;x&#39;,</span>
+<span class="sd">this outputs the values of ypop for each x.</span>
+
+<span class="sd">:param x: frequencies</span>
+<span class="sd">:param xpop,ypop: spectrum from stellar population</span>
+<span class="sd">:returns: returns y=a*L where L is the stellar pop. luminosity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">i</span><span class="o">=</span><span class="n">lsd</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">xpop</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">ypop</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="pionDecay"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.pionDecay">[docs]</a><span class="k">def</span> <span class="nf">pionDecay</span><span class="p">(</span><span class="n">logfile</span><span class="p">,</span> <span class="n">parfile</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="n">E0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">proton_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">photon_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Gamma-ray spectrum from a RIAF, pion 0 decay</span>
+<span class="sd">=============================================</span>
+<span class="sd">Computes the gamma-ray spectrum from pp collisions followed by pion decay for the full </span>
+<span class="sd">RIAF computed by my semi-analytical model. </span>
+
+<span class="sd">:param logfile: log file generated by the semi-analytical RIAF model, containing the electron number density and ion temperature. e.g. &#39;cd ~/science/projects/adafjet/adaf/perl/run01/out_01&#39;</span>
+<span class="sd">:param parfile: parameter file used as input by the semi-analytical RIAF model, containing the black hole mass and other model parameters. e.g. &#39;cd ~/science/projects/adafjet/adaf/perl/run01/in.dat&#39;</span>
+<span class="sd">:param alpha: power-law index</span>
+<span class="sd">:param E0: reference energy. Default = proton_mass*c^2 ~ 1 GeV</span>
+<span class="sd">:param proton_energy: array of proton energies, e.g. logspace(0, 6, 50) * astropy.units.MeV</span>
+<span class="sd">:param photon_energy: array of photon energies for SED. If None, taken as the same as proton_energy. In astropy.units</span>
+
+<span class="sd">:returns: SED object in units of Hz vs erg/s</span>
+
+<span class="sd">Example:</span>
+
+<span class="sd">Computes gamma-ray SED with default particle DF options and power-law index. Issue</span>
+<span class="sd">the command below in the directory with model datafiles.</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    m=nmmn.sed.pionDecay(&#39;out_01&#39;,&#39;in.dat&#39;)</span>
+<span class="sd">    plot(m.lognu,m.ll)</span>
+
+
+<span class="sd">Based on the jupyter notebook &quot;gamma-rays RIAF&quot;. </span>
+
+<span class="sd">References about pion decay physics:</span>
+<span class="sd">• Oka &amp; Manmoto 2003: overview of calculation</span>
+<span class="sd">• Fatuzzo &amp; Melia 2003: overview of calculation</span>
+<span class="sd">• Dermer 1986: formulas</span>
+
+<span class="sd">naima model:</span>
+<span class="sd">• Kafexhiu, E., Aharonian, F., Taylor, A.M., &amp; Vila, G.S. 2014, Physical Review D, 90, 123014</span>
+<span class="sd">• Zabalza 2015</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">import</span> <span class="nn">naima</span>
+	<span class="kn">from</span> <span class="nn">naima.models</span> <span class="k">import</span> <span class="p">(</span><span class="n">ExponentialCutoffPowerLaw</span><span class="p">,</span> <span class="n">Synchrotron</span><span class="p">,</span>
+							  <span class="n">InverseCompton</span><span class="p">)</span>
+	<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+	<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">misc</span> <span class="c1"># intrapackage reference</span>
+	<span class="kn">import</span> <span class="nn">tqdm</span><span class="o">,</span> <span class="nn">re</span>
+
+
+	<span class="c1"># Preliminaries</span>
+	<span class="c1"># ==============</span>
+
+	<span class="c1"># constants in CGS (everything in CGS unless otherwise noted)</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="mf">1.38065e-16</span> <span class="c1"># Boltzmann</span>
+	<span class="n">mp</span><span class="o">=</span><span class="mf">1.67e-24</span> <span class="c1"># proton mass</span>
+	<span class="n">c</span> <span class="o">=</span> <span class="mi">29979245800</span>
+	<span class="n">mev</span> <span class="o">=</span> <span class="mf">1.6e-6</span> <span class="c1"># 1 MeV in erg</span>
+	<span class="n">G</span> <span class="o">=</span> <span class="mf">6.673e-8</span> 
+	<span class="n">solarmass</span> <span class="o">=</span> <span class="mf">1.99e33</span>
+	<span class="n">planck</span><span class="o">=</span><span class="mf">6.62607e-27</span>	<span class="c1"># Planck constant </span>
+
+	<span class="c1"># Input from RIAF model</span>
+	<span class="c1"># ======================</span>
+
+	<span class="c1"># ## reads files</span>
+	<span class="c1">#</span>
+	<span class="c1"># The RIAF model gives us the following variables:</span>
+	<span class="c1"># </span>
+	<span class="c1"># - electron number density $n_e(R)$ where $R$ is the cylindrical radius </span>
+	<span class="c1"># - proton temperature $T_p(R)$</span>
+	<span class="c1"># - scale height $H(R)$</span>
+	<span class="n">r</span><span class="p">,</span><span class="n">ti</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">ne</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">logfile</span><span class="p">,</span><span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+
+	<span class="c1"># proton temperature</span>
+	<span class="n">Tp</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">ti</span>
+	<span class="c1"># electron number density</span>
+	<span class="n">ne</span><span class="o">=</span><span class="mi">10</span><span class="o">**</span><span class="n">ne</span>
+	<span class="c1"># number of cylindrical shells in RIAF</span>
+	<span class="n">nshells</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">size</span>
+
+	<span class="c1"># ## gets BH mass from parameter file</span>
+	<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">parfile</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+		<span class="c1"># if m=7.9d0 in the file</span>
+		<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;m=\d+\.d&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+			<span class="n">m</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+\.\d+d0&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+			<span class="n">m</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span> <span class="c1"># replaces d with e in the number for use in python</span>
+		<span class="k">else</span><span class="p">:</span> 
+			<span class="c1"># if m=7.9</span>
+			<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;m=\d+\.&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+				<span class="n">m</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+\.\d+&#39;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">()</span>
+				<span class="n">m</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="c1"># replaces d with e in the number for use in python</span>
+
+	<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+	<span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="o">*</span><span class="mf">1e6</span> <span class="c1"># in solar masses</span>
+
+	<span class="c1"># The quantity below is useful for converting from geometrized to physical units. Example: to convert radius `r` from geometrized units to physical units: </span>
+	<span class="c1"># </span>
+	<span class="c1">#     rphys=length*r</span>
+	<span class="n">length</span><span class="o">=</span><span class="n">G</span><span class="o">*</span><span class="n">m</span><span class="o">*</span><span class="n">solarmass</span><span class="o">/</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span>
+
+	<span class="c1"># ## compute shells</span>
+	<span class="c1"># </span>
+	<span class="c1"># We need to convert the RIAF variables to:</span>
+	<span class="c1"># </span>
+	<span class="c1"># - proton number density $n_p$: assume $n_p(R)=n_e(R)$</span>
+	<span class="c1"># - proton dimensionless temperature $\theta_p$</span>
+	<span class="c1"># - volume of each shell $\Delta V (R)=4\pi R H \Delta R$ </span>
+	<span class="c1"># </span>
+	<span class="c1"># Everything in CGS unless otherwise noted.</span>
+
+	<span class="c1"># thickness of each shell</span>
+	<span class="n">dr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nshells</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nshells</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+		<span class="n">dr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+	<span class="c1"># repeats last element to ensure that r and dr have same number of elements and avoid headaches</span>
+	<span class="n">dr</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dr</span><span class="p">,</span><span class="n">dr</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+	<span class="c1"># distances in physical units</span>
+	<span class="n">rphys</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">length</span>	<span class="c1"># cylindrical radius</span>
+	<span class="n">drphys</span><span class="o">=</span><span class="n">dr</span><span class="o">*</span><span class="n">length</span> <span class="c1"># thickness of each shell</span>
+	<span class="n">hphys</span><span class="o">=</span><span class="n">h</span><span class="o">*</span><span class="n">length</span>	<span class="c1"># scale height</span>
+
+	<span class="c1"># ## gets RIAF proton parameters</span>
+	<span class="n">np</span><span class="o">=</span><span class="n">ne</span> <span class="c1"># proton number density</span>
+	<span class="n">thetap</span><span class="o">=</span><span class="n">k</span><span class="o">*</span><span class="n">Tp</span><span class="o">/</span><span class="p">(</span><span class="n">mp</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>	<span class="c1"># k Tp/(mp c^2)</span>
+	<span class="c1">#kTp=k*Tp # k Tp</span>
+	<span class="n">dV</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rphys</span><span class="o">*</span><span class="n">hphys</span><span class="o">*</span><span class="n">drphys</span> 	<span class="c1"># volume of shells</span>
+
+	<span class="c1"># Spectrum</span>
+	<span class="c1"># =============</span>
+	<span class="c1"># </span>
+	<span class="c1"># ## particle distribution function</span>
+	<span class="c1"># </span>
+	<span class="c1"># Spectral parameters for the [Power Law model](https://naima.readthedocs.io/en/latest/api-models.html#naima.models.PowerLaw) </span>
+	<span class="c1"># this is a list of amplitudes</span>
+	<span class="n">amplitude</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">*</span><span class="p">(</span><span class="n">alpha</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">alpha</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">*</span><span class="n">thetap</span><span class="o">*</span><span class="n">dV</span><span class="o">/</span><span class="p">(</span><span class="n">mp</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">erg</span>
+	<span class="c1">#e_cutoff = 80 * u.TeV</span>
+	<span class="k">if</span> <span class="n">E0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">E0</span><span class="o">=</span><span class="n">mp</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">erg</span>
+
+	<span class="k">if</span> <span class="n">proton_energy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">proton_energy</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">MeV</span>
+
+	<span class="c1"># proton energy DF for each shell</span>
+	<span class="n">PL</span><span class="o">=</span><span class="p">[]</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nshells</span><span class="p">):</span>
+		<span class="n">PL</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">naima</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">PowerLaw</span><span class="p">(</span><span class="n">amplitude</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">E0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">))</span>
+
+	<span class="c1"># ## pion decay</span>
+	<span class="c1">#</span>
+	<span class="c1"># computes pion decay model at each shell</span>
+	<span class="n">pion</span><span class="o">=</span><span class="p">[]</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nshells</span><span class="p">):</span>
+		<span class="n">pion</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">naima</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">PionDecay</span><span class="p">(</span><span class="n">PL</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">nh</span><span class="o">=</span><span class="n">np</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">cm</span> <span class="o">**</span> <span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="p">)</span>
+
+	<span class="c1"># ## SED</span>
+	<span class="k">if</span> <span class="n">photon_energy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">photon_energy</span> <span class="o">=</span> <span class="n">proton_energy</span>
+
+	<span class="c1"># compute the radiative contribution of each shell</span>
+	<span class="n">seds</span><span class="o">=</span><span class="p">[]</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nshells</span><span class="p">),</span> <span class="s2">&quot;Computing gamma-ray spectrum&quot;</span><span class="p">):</span>
+		<span class="n">seds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">pion</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sed</span><span class="p">(</span><span class="n">photon_energy</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="p">)</span>
+
+	<span class="c1"># sums up all shells in &quot;The SED&quot;</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nshells</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span> 
+			<span class="n">thesed</span><span class="o">=</span><span class="n">seds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">thesed</span><span class="o">=</span><span class="n">thesed</span><span class="o">+</span><span class="n">seds</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="c1"># frequency in Hz</span>
+	<span class="n">nu</span><span class="o">=</span><span class="n">photon_energy</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">erg</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="o">/</span><span class="n">planck</span>
+	<span class="c1"># luminosity in erg/s</span>
+	<span class="n">nuLnu</span><span class="o">=</span><span class="n">thesed</span><span class="o">.</span><span class="n">value</span>
+
+	<span class="c1"># returns SED object </span>
+	<span class="k">return</span> <span class="n">SED</span><span class="p">(</span><span class="n">lognu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">nu</span><span class="p">),</span> <span class="n">ll</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">nuLnu</span><span class="p">),</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
 </pre></div>
 
           </div>
@@ -1044,13 +1989,11 @@
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
@@ -1071,7 +2014,7 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
