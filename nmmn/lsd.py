@@ -132,6 +132,19 @@ Remove nan or inf elements from the array.
 	return numpy.delete(x,i)
 
 
+
+def findnan(x):
+	"""
+Return index of nan elements in the array.
+	"""
+	# Index of nan elements
+	i=numpy.where(numpy.isnan(x)==True)
+	
+	return i
+
+
+
+
 	
 def replacevals(x,minval):
 	"""
