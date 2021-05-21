@@ -391,7 +391,7 @@ def fitconf(xdata,ydata,errx,erry,covxy,nboot=1000,bcesMethod='ort',linestyle=''
 
 
 
-def fitconfmc(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',conf=1.,confcolor='gray',xplot=None,front=False,**args):
+def fitconfmc(xdata,ydata,errx,erry,covxy,nboot=1000,bcesMethod='ort',linestyle='',conf=1.,confcolor='gray',xplot=None,front=False,**args):
 	"""
 	This is a wrapper that given the input data performs the BCES
 	fit, get the orthogonal parameters and plot the best-fit line and
@@ -413,11 +413,14 @@ def fitconfmc(xdata,ydata,errx,erry,covxy,nboot=1000,bces='ort',linestyle='',con
 	points; otherwise, will plot it behind the points
 	- conf: size of confidence band to be plotted in standard deviations
 	"""	
+	import bces.bces
+	from . import misc	
+
 	# Selects the desired BCES method
-	i=whichbces(bces)
+	i=misc.whichbces(bcesMethod)
 		
 	# Performs the BCES fit
-	a,b,erra,errb,cov=bcesp(xdata,errx,ydata,erry,covxy,nboot)
+	a,b,erra,errb,cov=bces.bces.bcesp(xdata,errx,ydata,erry,covxy,nboot)
 	
 	# Plots best-fit
 	if xplot==None:
