@@ -9,7 +9,7 @@ List of modules available ([more info here](http://rsnemmen.github.io/nmmn/)):
 * `dsp`: signal processing
 * `lsd`: misc. operations on arrays, lists, dictionaries and sets
 * `stats`: statistical methods
-* `sed`: spectral energy distributions
+* [`sed`: spectral energy distributions](./docs/SEDs.ipynb)
 * `plots`: custom plots
 * `fermi`: Fermi LAT analysis methods
 * `bayes`: Bayesian tools for dealing with posterior distributions
