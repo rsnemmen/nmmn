@@ -77,11 +77,11 @@ def returns(ticker,dt='ytd',t0=None):
     from datetime import date
 
     if t0 is None:
-        data=yf.download(tickers=ticker, period=dt, interval='1d')
+        data=yf.download(tickers=ticker, period=dt, interval='1d', progress=False)
     else:
         today = date.today()
-        data=yf.download(tickers=ticker, start=t0, end=today.strftime("%Y-%m-%d"))
-  
+        data=yf.download(tickers=ticker, start=t0, end=today.strftime("%Y-%m-%d"), progress=False)
+
     r=(data['Close'][-1]/data['Close'][0]-1)*100
     
     return round(r,1)
