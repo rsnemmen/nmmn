@@ -1,6 +1,6 @@
 """
 Financial market methods
-=============================
+=========================
 """
 
 import numpy as np
@@ -33,16 +33,46 @@ def candle(fig,data,legend=None):
 
 def normalize(x1,x2):
     """
-    Given two tickers of the same company in different exchanges, this method normalizes them such
-    that you can plot them together.
+    Given two tickers, this method normalizes them such that you can 
+    plot them together. One possible usage of this method is to compare
+    the stock price of the same company in different exchanges—e.g. NASDAQ
+    and B3—and see how they compare.
+
+    :param x1: yfinance stock time series #1
+	:param x2: yfinance stock time series #2
+	:returns: x2 stock data normalized to the same scale as x1
+
+    Example:
+
+    >>> adbe=yf.download(tickers='ADBE', period='3mo', interval='1d')
+    >>> adbeBR=yf.download(tickers='ADBE34.SA', period='3mo', interval='1d')
+    >>> adbe['Close'].plot(label='US')
+    >>> x=normalize(adbe,adbeBR)
+    >>> x.plot(label='BR')
+    >>> legend()
+    >>> title('Adobe')
+    >>> grid()
     """
     return x2['Close']/x2['Close'][0]*x1['Close'][0]
 
 def returns(ticker,dt='ytd',t0=None):
     """
     Convenient method for retrieving the returns of a stock.
-    
-    t0 in the format '2021-03-17'
+
+    :param ticker: the stock ticker
+    :param dt: the period covered ending at "now". Possible options: 11d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max. OPTIONAL, default is year to date.
+    :param t0: the initial date in the format '2021-03-17'. If t0 is specified, then dt should not be.
+    :returns: the percentage return of the stock in the specified period
+
+    # Examples: 
+
+	Returns from Small Cap BR ETF since July 11th 2014:
+
+    >>> returns('SMAL11.SA',t0='2014-07-11')
+
+	Returns from VALE3 in the last two years:
+
+    >>> returns('VALE3.SA','2y')
     """
     from datetime import date
 
@@ -50,8 +80,8 @@ def returns(ticker,dt='ytd',t0=None):
         data=yf.download(tickers=ticker, period=dt, interval='1d')
     else:
         today = date.today()
-        data=yf.download(tickers=ticker, start=t0, end=today.strftime("%Y-%m-%d"))        
-​
+        data=yf.download(tickers=ticker, start=t0, end=today.strftime("%Y-%m-%d"))
+  
     r=(data['Close'][-1]/data['Close'][0]-1)*100
     
     return round(r,1)
