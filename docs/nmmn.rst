@@ -76,6 +76,15 @@ nmmn.stats module
     :undoc-members:
     :show-inheritance:
 
+nmmn.finance module
+-----------------
+
+.. automodule:: nmmn.finance
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 
 Module contents
 ---------------
