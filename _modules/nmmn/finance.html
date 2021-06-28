@@ -46,18 +46,18 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convenient function to plot candle sticks.</span>
 
-<span class="sd">	:param fig: figure object created with plotly (cf. example below)</span>
-<span class="sd">	:param data: stock time series imported with yfinance (Pandas)</span>
-<span class="sd">	:param legend: plot title</span>
+<span class="sd">    :param fig: figure object created with plotly (cf. example below)</span>
+<span class="sd">    :param data: stock time series imported with yfinance (Pandas)</span>
+<span class="sd">    :param legend: plot title</span>
 
-<span class="sd">	Example: Candle stick plot for Microsoft stocks</span>
+<span class="sd">    Example: Candle stick plot for Microsoft stocks</span>
 
-<span class="sd">	&gt;&gt;&gt; import plotly.graph_objs as go</span>
-<span class="sd">	&gt;&gt;&gt; import yfinance</span>
-<span class="sd">	&gt;&gt;&gt; fig=go.Figure()</span>
-<span class="sd">	&gt;&gt;&gt; msft=yfinance.download(tickers=&#39;MSFT&#39;, period=&#39;1y&#39;, interval=&#39;1d&#39;)</span>
-<span class="sd">	&gt;&gt;&gt; candle(fig,msft)</span>
-<span class="sd">	&gt;&gt;&gt; fig.show()</span>
+<span class="sd">    &gt;&gt;&gt; import plotly.graph_objs as go</span>
+<span class="sd">    &gt;&gt;&gt; import yfinance</span>
+<span class="sd">    &gt;&gt;&gt; fig=go.Figure()</span>
+<span class="sd">    &gt;&gt;&gt; msft=yfinance.download(tickers=&#39;MSFT&#39;, period=&#39;1y&#39;, interval=&#39;1d&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; candle(fig,msft)</span>
+<span class="sd">    &gt;&gt;&gt; fig.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
 
@@ -72,8 +72,8 @@
 <span class="sd">    and B3—and see how they compare.</span>
 
 <span class="sd">    :param x1: yfinance stock time series #1</span>
-<span class="sd">	:param x2: yfinance stock time series #2</span>
-<span class="sd">	:returns: x2 stock data normalized to the same scale as x1</span>
+<span class="sd">    :param x2: yfinance stock time series #2</span>
+<span class="sd">    :returns: x2 stock data normalized to the same scale as x1</span>
 
 <span class="sd">    Example:</span>
 
@@ -100,11 +100,11 @@
 
 <span class="sd">    # Examples: </span>
 
-<span class="sd">	Returns from Small Cap BR ETF since July 11th 2014:</span>
+<span class="sd">    Returns from Small Cap BR ETF since July 11th 2014:</span>
 
 <span class="sd">    &gt;&gt;&gt; returns(&#39;SMAL11.SA&#39;,t0=&#39;2014-07-11&#39;)</span>
 
-<span class="sd">	Returns from VALE3 in the last two years:</span>
+<span class="sd">    Returns from VALE3 in the last two years:</span>
 
 <span class="sd">    &gt;&gt;&gt; returns(&#39;VALE3.SA&#39;,&#39;2y&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -127,7 +127,7 @@
 <span class="sd">    Given a stock, this method returns the stock percentage returns as a time series.</span>
 
 <span class="sd">    :param x: yfinance stock time series</span>
-<span class="sd">	:returns: stock time series of percentage returns</span>
+<span class="sd">    :returns: stock time series of percentage returns</span>
 
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span> </div>

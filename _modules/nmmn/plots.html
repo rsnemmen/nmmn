@@ -1009,16 +1009,26 @@
 
 <div class="viewcode-block" id="lineWidth"><a class="viewcode-back" href="../../nmmn.html#nmmn.plots.lineWidth">[docs]</a><span class="k">def</span> <span class="nf">lineWidth</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">lw_min</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">lw_max</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Ascribes a linewidth based on the input value. Useful for</span>
-<span class="sd">    plots where the linewidth changes depending on some weight.</span>
+<span class="sd">Ascribes a linewidth based on the input value. Useful for</span>
+<span class="sd">plots where the linewidth changes depending on some weight.</span>
 
-<span class="sd">    :param value:</span>
+<span class="sd">:param value: value that will be used to get the line width</span>
+<span class="sd">:param max: maximum value for normalization</span>
+<span class="sd">:param lw_min: minimum line width</span>
+<span class="sd">:param lw_max: max line width</span>
+<span class="sd">:returns: line width for plotting</span>
 
-<span class="sd">    &gt;&gt;&gt; a=[]</span>
-<span class="sd">    &gt;&gt;&gt; for i in tqdm.tqdm(range(size(acoes))): </span>
-<span class="sd">    &gt;&gt;&gt;    a.append(yf.download(tickers=acoes[&#39;col2&#39;][i]+&quot;.SA&quot;, period=periodo, interval=dt, progress=False))</span>
+<span class="sd">Example: get a sequence of stock price time series and plot them according</span>
+<span class="sd">to their relative importance in your portfolio.</span>
+
+<span class="sd">&gt;&gt;&gt; a=[]</span>
+<span class="sd">&gt;&gt;&gt; for i in tqdm.tqdm(range(size(acoes))): </span>
+<span class="sd">&gt;&gt;&gt;    a.append(yf.download(tickers=acoes[&#39;col2&#39;][i]+&quot;.SA&quot;, period=periodo, interval=dt, progress=False))</span>
+<span class="sd">&gt;&gt;&gt; for i, acao in enumerate(a): </span>
+<span class="sd">&gt;&gt;&gt;    ar=nf.returnsTS(acao)</span>
+<span class="sd">&gt;&gt;&gt;    ar.plot(label=nome[i],lw=lineWidth(fracao[i],max(fracao)), alpha=lineWidth(fracao[i],max(fracao),0.3,1)) </span>
 <span class="sd">    </span>
-<span class="sd">    ref: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html</span>
+<span class="sd">ref: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">value</span><span class="o">/</span><span class="nb">max</span><span class="o">*</span><span class="p">(</span><span class="n">lw_max</span> <span class="o">-</span> <span class="n">lw_min</span><span class="p">)</span> <span class="o">+</span> <span class="n">lw_min</span></div>
 </pre></div>

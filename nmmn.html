@@ -1635,12 +1635,25 @@ the ipython notebook “error contours.ipynb”. Sources of inspiration:</p>
 plots where the linewidth changes depending on some weight.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – value that will be used to get the line width</p></li>
+<li><p><strong>max</strong> – maximum value for normalization</p></li>
+<li><p><strong>lw_min</strong> – minimum line width</p></li>
+<li><p><strong>lw_max</strong> – max line width</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>line width for plotting</p>
 </dd>
 </dl>
+<p>Example: get a sequence of stock price time series and plot them according
+to their relative importance in your portfolio.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">acoes</span><span class="p">))):</span> 
 <span class="gp">&gt;&gt;&gt; </span>   <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">tickers</span><span class="o">=</span><span class="n">acoes</span><span class="p">[</span><span class="s1">&#39;col2&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;.SA&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">periodo</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="n">dt</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">acao</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">):</span> 
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">ar</span><span class="o">=</span><span class="n">nf</span><span class="o">.</span><span class="n">returnsTS</span><span class="p">(</span><span class="n">acao</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">ar</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">nome</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">lw</span><span class="o">=</span><span class="n">lineWidth</span><span class="p">(</span><span class="n">fracao</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="nb">max</span><span class="p">(</span><span class="n">fracao</span><span class="p">)),</span> <span class="n">alpha</span><span class="o">=</span><span class="n">lineWidth</span><span class="p">(</span><span class="n">fracao</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="nb">max</span><span class="p">(</span><span class="n">fracao</span><span class="p">),</span><span class="mf">0.3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> 
 </pre></div>
 </div>
 <p>ref: <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html">https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html</a></p>
@@ -3438,16 +3451,13 @@ intensive minimization involved when fitting a function.</p>
 <dt class="sig sig-object py" id="nmmn.finance.candle">
 <span class="sig-prename descclassname"><span class="pre">nmmn.finance.</span></span><span class="sig-name descname"><span class="pre">candle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/finance.html#candle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.finance.candle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convenient function to plot candle sticks.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param fig</dt>
-<dd class="field-odd"><p>figure object created with plotly (cf. example below)</p>
-</dd>
-<dt class="field-even">param data</dt>
-<dd class="field-even"><p>stock time series imported with yfinance (Pandas)</p>
-</dd>
-<dt class="field-odd">param legend</dt>
-<dd class="field-odd"><p>plot title</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> – figure object created with plotly (cf. example below)</p></li>
+<li><p><strong>data</strong> – stock time series imported with yfinance (Pandas)</p></li>
+<li><p><strong>legend</strong> – plot title</p></li>
+</ul>
 </dd>
 </dl>
 <p>Example: Candle stick plot for Microsoft stocks</p>
@@ -3459,7 +3469,6 @@ intensive minimization involved when fitting a function.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
@@ -3471,9 +3480,13 @@ the stock price of the same company in different exchanges—e.g. NASDAQ
 and B3—and see how they compare.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x1</strong> – yfinance stock time series #1
-:param x2: yfinance stock time series #2
-:returns: x2 stock data normalized to the same scale as x1</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x1</strong> – yfinance stock time series #1</p></li>
+<li><p><strong>x2</strong> – yfinance stock time series #2</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>x2 stock data normalized to the same scale as x1</p>
 </dd>
 </dl>
 <p>Example:</p>
@@ -3507,15 +3520,11 @@ time period.</p>
 </dd>
 </dl>
 <p># Examples:</p>
-<blockquote>
-<div><p>Returns from Small Cap BR ETF since July 11th 2014:</p>
-</div></blockquote>
+<p>Returns from Small Cap BR ETF since July 11th 2014:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">returns</span><span class="p">(</span><span class="s1">&#39;SMAL11.SA&#39;</span><span class="p">,</span><span class="n">t0</span><span class="o">=</span><span class="s1">&#39;2014-07-11&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<blockquote>
-<div><p>Returns from VALE3 in the last two years:</p>
-</div></blockquote>
+<p>Returns from VALE3 in the last two years:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">returns</span><span class="p">(</span><span class="s1">&#39;VALE3.SA&#39;</span><span class="p">,</span><span class="s1">&#39;2y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -3527,8 +3536,10 @@ time period.</p>
 <dd><p>Given a stock, this method returns the stock percentage returns as a time series.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> – yfinance stock time series
-:returns: stock time series of percentage returns</p>
+<dd class="field-odd"><p><strong>x</strong> – yfinance stock time series</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>stock time series of percentage returns</p>
 </dd>
 </dl>
 </dd></dl>
