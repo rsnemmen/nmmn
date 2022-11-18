@@ -972,3 +972,33 @@ Reference: MATHWORKS symlog <https://www.mathworks.com/matlabcentral/fileexchang
 	return numpy.sign(x)*(numpy.log10(1+numpy.abs(x)/(10**C)))
 
 
+
+
+def lineWidth(value,max=1,lw_min=0.5,lw_max=10):
+    """
+Ascribes a linewidth based on the input value. Useful for
+plots where the linewidth changes depending on some weight.
+
+:param value: value that will be used to get the line width
+:param max: maximum value for normalization
+:param lw_min: minimum line width
+:param lw_max: max line width
+:returns: line width for plotting
+
+Example: get a sequence of stock price time series and plot them according
+to their relative importance in your portfolio.
+
+>>> a=[]
+>>> for i in tqdm.tqdm(range(size(acoes))): 
+>>>    a.append(yf.download(tickers=acoes['col2'][i]+".SA", period=periodo, interval=dt, progress=False))
+>>> for i, acao in enumerate(a): 
+>>>    ar=nf.returnsTS(acao)
+>>>    ar.plot(label=nome[i],lw=lineWidth(fracao[i],max(fracao)), alpha=lineWidth(fracao[i],max(fracao),0.3,1)) 
+
+.. figure:: ../figures/lineWidth-example.png
+   :scale: 100 %
+   :alt: Illustrating lineWidth method.
+    
+ref: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html
+    """
+    return value/max*(lw_max - lw_min) + lw_min

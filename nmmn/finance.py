@@ -13,18 +13,18 @@ def candle(fig,data,legend=None):
     """
     Convenient function to plot candle sticks.
 
-	:param fig: figure object created with plotly (cf. example below)
-	:param data: stock time series imported with yfinance (Pandas)
-	:param legend: plot title
+    :param fig: figure object created with plotly (cf. example below)
+    :param data: stock time series imported with yfinance (Pandas)
+    :param legend: plot title
 
-	Example: Candle stick plot for Microsoft stocks
+    Example: Candle stick plot for Microsoft stocks
 
-	>>> import plotly.graph_objs as go
-	>>> import yfinance
-	>>> fig=go.Figure()
-	>>> msft=yfinance.download(tickers='MSFT', period='1y', interval='1d')
-	>>> candle(fig,msft)
-	>>> fig.show()
+    >>> import plotly.graph_objs as go
+    >>> import yfinance
+    >>> fig=go.Figure()
+    >>> msft=yfinance.download(tickers='MSFT', period='1y', interval='1d')
+    >>> candle(fig,msft)
+    >>> fig.show()
     """
     import plotly.graph_objs as go
 
@@ -39,8 +39,8 @@ def normalize(x1,x2):
     and B3—and see how they compare.
 
     :param x1: yfinance stock time series #1
-	:param x2: yfinance stock time series #2
-	:returns: x2 stock data normalized to the same scale as x1
+    :param x2: yfinance stock time series #2
+    :returns: x2 stock data normalized to the same scale as x1
 
     Example:
 
@@ -57,7 +57,8 @@ def normalize(x1,x2):
 
 def returns(ticker,dt='ytd',t0=None):
     """
-    Convenient method for retrieving the returns of a stock.
+    Convenient method for retrieving the returns of a stock over a given
+    time period.
 
     :param ticker: the stock ticker
     :param dt: the period covered ending at "now". Possible options: 11d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max. OPTIONAL, default is year to date.
@@ -66,11 +67,11 @@ def returns(ticker,dt='ytd',t0=None):
 
     # Examples: 
 
-	Returns from Small Cap BR ETF since July 11th 2014:
+    Returns from Small Cap BR ETF since July 11th 2014:
 
     >>> returns('SMAL11.SA',t0='2014-07-11')
 
-	Returns from VALE3 in the last two years:
+    Returns from VALE3 in the last two years:
 
     >>> returns('VALE3.SA','2y')
     """
@@ -85,3 +86,16 @@ def returns(ticker,dt='ytd',t0=None):
     r=(data['Close'][-1]/data['Close'][0]-1)*100
     
     return round(r,1)
+
+
+
+def returnsTS(x):
+	"""
+    Given a stock, this method returns the stock percentage returns as a time series.
+
+    :param x: yfinance stock time series
+    :returns: stock time series of percentage returns
+
+	"""
+	return (x['Close']/x['Close'][0]-1)*100 
+

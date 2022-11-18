@@ -21,8 +21,7 @@ Detects the peaks in the time series given by Y (and X if provided).
 :param what: select what you want -- max/0 or min/1 peaks returned
 :returns: xmax,ymax -- arrays with max peaks in the data.
 	"""
-	from . import peakdetect	# py 3
-	#import peakdetect
+	from . import peakdetect
 	
 	peaks=peakdetect.peakdetect(y,x,**args)
 
