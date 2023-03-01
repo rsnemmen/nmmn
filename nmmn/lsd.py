@@ -5,6 +5,7 @@ LSD operations = lists, sets, dictionaries (and arrays)
 
 import numpy
 import scipy
+import scipy.stats
 
 
 def cmset_and(x,y):
@@ -273,11 +274,11 @@ Rodrigo Nemmen, http://goo.gl/8S1Oo
 	if type(v)==list:
 		vboot=[]	# list of boostrapped arrays
 		n=v[0].size
-		iran=scipy.random.randint(0,n,n)	# Array of random indexes
+		iran=scipy.stats.randint.rvs(0,n,size=n)	# Array of random indexes		
 		for x in v:	vboot.append(x[iran])
 	else:	# if v is an array, not a list of arrays
 		n=v.size
-		iran=scipy.random.randint(0,n,n)	# Array of random indexes
+		iran=scipy.stats.randint.rvs(0,n,size=n)	# Array of random indexes		
 		vboot=v[iran]
 	
 	return vboot

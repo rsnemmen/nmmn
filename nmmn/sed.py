@@ -1569,7 +1569,7 @@ Arguments:
 
 
 
-def powerlaw(alpha,Lx,nurange):
+def powerlaw(alpha,Lx,nurange,npoints=10):
 	""" 
 Calculates the X-ray powerlaw variables. 
 
@@ -1586,7 +1586,7 @@ Returns the sequence of arrays log10(nu),log10(nu*Lnu) for plotting.
 	nu0=nurange[0]*conv # nu_i from keV -> Hz
 		
 	# Creates a vector of frequencies
-	points,nui,nuf = 10,nu0,nurange[1]*conv	# e.g. 2 keV - 10 keV
+	points,nui,nuf = npoints,nu0,nurange[1]*conv	# e.g. 2 keV - 10 keV
 	nu=numpy.linspace(nui,nuf,points)
 	
 	# Takes into account the possibility of alpha=1 which changes the way you
