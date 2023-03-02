@@ -15,7 +15,7 @@ setup(
     author='Rodrigo Nemmen',
     author_email='rodrigo.nemmen@iag.usp.br',
     url='https://github.com/rsnemmen/nmmn',
-    download_url = 'https://github.com/rsnemmen/nmmn/archive/1.1.tar.gz', # I'll explain this in a second
+    download_url = 'https://github.com/rsnemmen/nmmn/archive/1.2.tar.gz', # I'll explain this in a second
     license="MIT License",
     keywords = ['science', 'statistics', 'signal-processing', 'numerical-methods', 'astronomy', 'numerical-simulations', 'astrophysics', 'mhd', 'grmhd'], # arbitrary keywords
     packages=find_packages(exclude=('tests', 'docs'))

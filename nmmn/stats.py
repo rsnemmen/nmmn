@@ -10,7 +10,8 @@ Statistical methods
 - p-values and significance
 """
 
-import numpy,scipy
+import numpy as np
+import scipy
 import scipy.stats
 from . import misc
 
@@ -39,9 +40,9 @@ the best-fit line.
 		a, b, r, p, err = scipy.stats.linregress(x,y)
 	
 	# Std. deviation of an individual measurement (Bevington, eq. 6.15)
-	N=numpy.size(x)
-	sd=1./(N-2.)* numpy.sum((y-a*x-b)**2)
-	sd=numpy.sqrt(sd)
+	N=np.size(x)
+	sd=1./(N-2.)* np.sum((y-a*x-b)**2)
+	sd=np.sqrt(sd)
 	
 	return sd
 	
@@ -63,9 +64,9 @@ Usage:
 :rtype: float sd with the mean deviation.
 	"""	
 	# Std. deviation of an individual measurement (Bevington, eq. 6.15)
-	N=numpy.size(ydata)
-	sd=1./(N-deg)* numpy.sum((ydata-ymod)**2)
-	sd=numpy.sqrt(sd)
+	N=np.size(ydata)
+	sd=1./(N-deg)* np.sum((ydata-ymod)**2)
+	sd=np.sqrt(sd)
 	
 	return sd
 
@@ -93,16 +94,16 @@ Usage:
 
 v1 Mar 20 2012
 	"""
-	N=numpy.size(x)
+	N=np.size(x)
 	
 	# Equation 4 from Pratt et al. 2009
 	sdsq=erry**2+a**2*errx**2
-	wden=1./N*numpy.sum(1./sdsq)	# Denominator of w
+	wden=1./N*np.sum(1./sdsq)	# Denominator of w
 	w=1./sdsq/wden
 	
 	# Equation 3 from Pratt et al. 2009
-	sdrawsq=1./(N-2.)*numpy.sum(w*(y-a*x-b)**2)
-	sdraw=numpy.sqrt(sdrawsq)
+	sdrawsq=1./(N-2.)*np.sum(w*(y-a*x-b)**2)
+	sdraw=np.sqrt(sdrawsq)
 	
 	return sdraw
 
@@ -127,8 +128,8 @@ Returns the float rss with the mean deviation.
 Dec. 2011
 	"""	
 	# Std. deviation of an individual measurement (Bevington, eq. 6.15)
-	N=numpy.size(ydata)
-	rss=numpy.sum((ydata-ymod)**2)
+	N=np.size(ydata)
+	rss=np.sum((ydata-ymod)**2)
 	
 	return rss
 
@@ -155,9 +156,9 @@ Returns the float chisq with the chi-square statistic.
 	
 	# Chi-square statistic (Bevington, eq. 6.9)
 	if sd==None:
-		chisq=numpy.sum((y-a*x-b)**2)
+		chisq=np.sum((y-a*x-b)**2)
 	else:
-		chisq=numpy.sum( ((y-a*x-b)/sd)**2 )
+		chisq=np.sum( ((y-a*x-b)/sd)**2 )
 	
 	return chisq
 
@@ -177,9 +178,9 @@ Returns the float chisq with the chi-square statistic.
 	"""
 	# Chi-square statistic (Bevington, eq. 6.9)
 	if sd==None:
-		chisq=numpy.sum((ydata-ymod)**2)
+		chisq=np.sum((ydata-ymod)**2)
 	else:
-		chisq=numpy.sum( ((ydata-ymod)/sd)**2 )
+		chisq=np.sum( ((ydata-ymod)/sd)**2 )
 	
 	return chisq
 
@@ -206,7 +207,7 @@ where
 - a,b : slope and intercept of the best-fit linear regression model
 	"""
 	sdsq=erry**2+a**2*errx**2
-	chisq=numpy.sum( (y-a*x-b)**2/sdsq )
+	chisq=np.sum( (y-a*x-b)**2/sdsq )
 	
 	return chisq
 
@@ -242,9 +243,9 @@ v1 Apr 9th 2012
 	sdsq=erry**2+a**2*errx**2
 	
 	# Intrinsic scatter for each data point
-	intscati=numpy.sqrt( numpy.abs(sdsq-sdrawsq) )
+	intscati=np.sqrt( np.abs(sdsq-sdrawsq) )
 	
-	return numpy.mean(intscati)
+	return np.mean(intscati)
 	
 	
 
@@ -262,13 +263,13 @@ Returns the sequence sigma_a, sigma_b with the standard deviations in A and B.
 	a, b, r, p, err = scipy.stats.linregress(x,y)
 	
 	# Std. deviation of an individual measurement (Bevington, eq. 6.15)
-	N=numpy.size(x)
-	sd=1./(N-2.)* numpy.sum((y-a*x-b)**2);	sd=numpy.sqrt(sd)
+	N=np.size(x)
+	sd=1./(N-2.)* np.sum((y-a*x-b)**2);	sd=np.sqrt(sd)
 	
 	# Std. deviation in parameters
-	Delta=N*numpy.sum(x**2)-(numpy.sum(x))**2	# Bevington, eq. 6.13
-	sdb=sd**2/Delta*numpy.sum(x**2);	sdb=numpy.sqrt(sdb)	# Bevington, eq. 6.23
-	sda=N*sd**2/Delta;	sda=numpy.sqrt(sda)
+	Delta=N*np.sum(x**2)-(np.sum(x))**2	# Bevington, eq. 6.13
+	sdb=sd**2/Delta*np.sum(x**2);	sdb=np.sqrt(sdb)	# Bevington, eq. 6.23
+	sda=N*sd**2/Delta;	sda=np.sqrt(sda)
 	
 	return sda,sdb
 		
@@ -328,21 +329,21 @@ v2 Jun. 2012: corrected bug in computing dy
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x==None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x==None: x=np.linspace(xd.min(),xd.max(),100)
 
 	# Predicted values (best-fit model)
 	y=a*x+b
 
 	# Auxiliary definitions
 	sd=scatterfit(xd,yd,a,b)	# Scatter of data about the model
-	sxd=numpy.sum((xd-xd.mean())**2)
+	sxd=np.sum((xd-xd.mean())**2)
 	sx=(x-xd.mean())**2	# array
 
 	# Quantile of Student's t distribution for p=1-alpha/2
 	q=scipy.stats.t.ppf(1.-alpha/2.,n-2)
 
 	# Confidence band
-	dy=q*sd*numpy.sqrt( 1./n + sx/sxd )
+	dy=q*sd*np.sqrt( 1./n + sx/sxd )
 	ucb=y+dy	# Upper confidence band
 	lcb=y-dy	# Lower confidence band
 
@@ -391,21 +392,21 @@ E. Dallal, Ph.D. <http://www.JerryDallal.com/LHSP/slr.htm>`_
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x is None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x is None: x=np.linspace(xd.min(),xd.max(),100)
 
 	# Predicted values (best-fit model)
 	y=a*x+b
 
 	# Auxiliary definitions
 	sd=scatterfit(xd,yd,a,b)	# Scatter of data about the model
-	sxd=numpy.sum((xd-xd.mean())**2)
+	sxd=np.sum((xd-xd.mean())**2)
 	sx=(x-xd.mean())**2	# array
 
 	# Quantile of Student's t distribution for p=1-alpha/2
 	q=scipy.stats.t.ppf(1.-alpha/2.,n-2)
 
 	# Prediction band
-	dy=q*sd*numpy.sqrt( 1.+1./n + sx/sxd )
+	dy=q*sd*np.sqrt( 1.+1./n + sx/sxd )
 	upb=y+dy	# Upper prediction band
 	lpb=y-dy	# Lower prediction band
 
@@ -454,7 +455,7 @@ References:
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x is None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x is None: x=np.linspace(xd.min(),xd.max(),100)
 
 	# Gradient (needs to be evaluated)
 	dfun=numdifftools.Gradient(fun)
@@ -468,21 +469,21 @@ References:
 	grad,p=[],[]
 	i=0
 	y=misc.evalfun(fun,x,par)
-	v=numpy.zeros_like(x)
+	v=np.zeros_like(x)
 		
 	for i in range(x.size):
 		# List: arrays consisting of [x[i], par1, par2, ...]
-		p.append( numpy.concatenate(([x[i]],par)) )
+		p.append( np.concatenate(([x[i]],par)) )
 	
 		# List: each element -> gradient evaluated at each xi
 		grad.append(dfun(p[i]))
 				
 		# Before processing the grad array, eliminates the first element
-		temp=numpy.dot(numpy.transpose(grad[i][1:]), varcov)
-		v[i]=numpy.dot(temp, grad[i][1:])
+		temp=np.dot(np.transpose(grad[i][1:]), varcov)
+		v[i]=np.dot(temp, grad[i][1:])
 		
 	# Confidence band
-	dy=q*numpy.sqrt( v*rss/(n-deg) )
+	dy=q*np.sqrt( v*rss/(n-deg) )
 	ucb=y+dy	# Upper confidence band
 	lcb=y-dy	# Lower confidence band
 
@@ -531,7 +532,7 @@ References:
 	alpha=1.-conf	# significance
 	n=xd.size	# data sample size
 
-	if x is None: x=numpy.linspace(xd.min(),xd.max(),100)
+	if x is None: x=np.linspace(xd.min(),xd.max(),100)
 
 	# Gradient (needs to be evaluated)
 	dfun=numdifftools.Gradient(fun)
@@ -545,21 +546,21 @@ References:
 	grad,p=[],[]
 	i=0
 	y=misc.evalfun(fun,x,par)
-	v=numpy.zeros_like(x)
+	v=np.zeros_like(x)
 		
 	for i in range(x.size):
 		# List: arrays consisting of [x[i], par1, par2, ...]
-		p.append( numpy.concatenate(([x[i]],par)) )
+		p.append( np.concatenate(([x[i]],par)) )
 	
 		# List: each element -> gradient evaluated at each xi
 		grad.append(dfun(p[i]))
 				
 		# Before processing the grad array, eliminates the first element
-		temp=numpy.dot(numpy.transpose(grad[i][1:]), varcov)
-		v[i]=numpy.dot(temp, grad[i][1:])
+		temp=np.dot(np.transpose(grad[i][1:]), varcov)
+		v[i]=np.dot(temp, grad[i][1:])
 		
 	# Confidence band
-	dy=q*numpy.sqrt( (1.+v)*rss/(n-deg) )
+	dy=q*np.sqrt( (1.+v)*rss/(n-deg) )
 	upb=y+dy	# Upper prediction band
 	lpb=y-dy	# Lower prediction band
 
@@ -599,7 +600,7 @@ calculates the prediction bands for the given input arrays
 plots a shaded area containing the prediction band
 	"""
 	# Generates many realizations of a and b from the multinormal distribution
-	ar,br = numpy.random.multivariate_normal(par,varcov,n).T
+	ar,br = np.random.multivariate_normal(par,varcov,n).T
 	
 	erry=[]	# will contain the std deviation in y
 	y=[]	# values of y for each x
@@ -609,8 +610,8 @@ plots a shaded area containing the prediction band
 		erry.append( yr.std() )
 		y.append( yr.mean() )	
 	
-	erry=numpy.array(erry)
-	y=numpy.array(y)
+	erry=np.array(erry)
+	y=np.array(y)
 
 	ucb=y+sigmas*erry	# Upper confidence band
 	lcb=y-sigmas*erry	# Lower confidence band
@@ -653,9 +654,9 @@ v1 Jun. 2012: inspired by private communication with B. Kelly.
 	a,b = slope,inter
 	
 	# Define the confidence/credibility interval
-	conf=1.-scipy.special.erf(sigmas/numpy.sqrt(2.))
+	conf=1.-scipy.special.erf(sigmas/np.sqrt(2.))
 	
-	lcb,ucb,ym=numpy.zeros_like(x),numpy.zeros_like(x),numpy.zeros_like(x)
+	lcb,ucb,ym=np.zeros_like(x),np.zeros_like(x),np.zeros_like(x)
 	
 	for i, xi in enumerate(x): 
 		# Distribution of y for each x
@@ -666,15 +667,53 @@ v1 Jun. 2012: inspired by private communication with B. Kelly.
 		# Upper confidence band
 		ucb[i]=scipy.stats.scoreatpercentile(yp,100.*(1-conf/2.))
 		
-		ym[i]=numpy.median(yp)	
+		ym[i]=np.median(yp)	
 		
 
 	return lcb,ucb,ym
 	
 	
-	
 
+def confband_linboot(x,a,b,n):
+	"""
+	Computes information for plotting confidence band ("bow tie" plot) around
+	best-fit. Run this after running `linboot` below.
 
+	Usage:
+
+	Plot confidence band and best-fit given data x,y
+
+	>>> n=1000
+	>>> a,b=nmmn.stats.linboot(x,y,n)
+	>>> xMock,yBest,yStd=nmmn.stats.confband_linboot(x,a,b,n)
+	>>> plt.plot(x,y,'o')
+	>>> plt.plot(xMock,amed*xMock+bmed)
+	>>> plt.fill_between(xMock,yBest-yStd,yBest+yStd,alpha=0.3, facecolor='gray')		
+
+:param x: array of x data values
+:param a: array of slopes from bootstrapped fits
+:param b: array of intercepts from bootstrapped fits
+:param n: number of bootstrapping resamples that will be generated
+:returns: arrays x (mock x-values with same interval as data),yStd (confidence band)
+	"""
+	xsim=np.linspace(x.min(),x.max(),50)
+
+	for i in range(n):
+	    if i==0: 
+	        yarr=a[i]*xsim+b[i]
+	    else:
+	        yarr2=a[i]*xsim+b[i]
+	        yarr=np.vstack((yarr,yarr2))
+
+	# best-fit values
+	amed=np.median(a)
+	bmed=np.median(b)
+	yBest=amed*xsim+bmed
+	# confidence band
+	yStd=np.std(yarr,axis=0)
+
+	# confidence band
+	return xsim,yBest,yStd
 
 
 
@@ -718,19 +757,19 @@ Usage:
 v1 Apr. 2012
 	"""
 	# Generates many realizations of a and b from the multinormal distribution
-	x,y = numpy.random.multivariate_normal(par,varcov,n).T
+	x,y = np.random.multivariate_normal(par,varcov,n).T
 	
 	# Best-fit values
 	x0,y0 = par[0], par[1]
 	
 	dx,dy = x-x0,y-y0
-	sigx,sigy=numpy.sqrt(varcov[0,0]),numpy.sqrt(varcov[1,1])
+	sigx,sigy=np.sqrt(varcov[0,0]),np.sqrt(varcov[1,1])
 	cov=varcov[0,1]
 	rho=cov/sigx*sigy
 	
 	numchisq=(dx/sigx)**2+(dy/sigy)**2-2.*rho*(dx/sigx)*(dy/sigy)
 	chisq=numchisq/(1.-rho**2)
-	prob=numpy.exp(-chisq/2.)
+	prob=np.exp(-chisq/2.)
 	
 	return x,y,prob
 
@@ -765,13 +804,13 @@ performs 100000 bootstrapping realizations on the arrays x and y.
 		rhosim=scipy.stats.spearmanr(xsim,ysim)
 		rho.append(rhosim[0])
 
-	r,rho=numpy.array(r),numpy.array(rho)
+	r,rho=np.array(r),np.array(rho)
 
-	results=numpy.array([ numpy.median(r), r.std(), numpy.median(rho), rho.std() ])
+	results=np.array([ np.median(r), r.std(), np.median(rho), rho.std() ])
 	print("<r>    err_r <rho> errrho")
-	print(numpy.round(results, 2))
+	print(np.round(results, 2))
 
-	results=numpy.array([ r2p(numpy.median(r)-numpy.abs(r.std()),x.size), r2p(numpy.median(r),x.size), r2p(numpy.median(r)+numpy.abs(r.std()),x.size) ])
+	results=np.array([ r2p(np.median(r)-np.abs(r.std()),x.size), r2p(np.median(r),x.size), r2p(np.median(r)+np.abs(r.std()),x.size) ])
 	print("Prob. <- <r>-std,  <r>,    <r>+std")
 	print(results)
 
@@ -796,26 +835,17 @@ array contains a simulated TS.
 :param zeropad: are y-values<0 not allowed? `True` will make any values<0 into 0
 :returns: `n x size(t)` array. Each row of this array contains a simulated TS
     """
-    ysim=numpy.empty((n,y.size))
+    ysim=np.empty((n,y.size))
     
     for i in range(y.size):
         # generate new points given normal distribution
-        ysim[:,i]=numpy.random.normal(y[i],erry[i],n)   
+        ysim[:,i]=np.random.normal(y[i],erry[i],n)   
         
     # makes sure no value is smaller than zero
     ysim[ysim<0]=0.
     
     return ysim
 
-
-def random_normal(mean,std,n):
-	"""
-Returns an array of n elements of random variables, following a normal 
-distribution with the supplied mean and standard deviation.
-
-.. warning:: this is superseded. Use `numpy.random.normal <https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html>`_ instead.
-	"""
-	return std*scipy.random.standard_normal(n)+mean
 
 
 def random(a,b,n=None):
@@ -829,6 +859,45 @@ interval *[x0,x1)*.
 
 
 
+
+def linboot(x,y,n):
+	"""
+Performs the usual linear regression *with bootstrapping*. 
+
+Usage:
+
+>>> a,b=lincorr(x,y,10000)
+
+performs 10000 bootstrapped fits on the arrays x and y. 
+
+Plot the best-fit with
+
+>>> amed=np.median(a)
+>>> bmed=np.median(b)
+>>> plt.plot(x,y,'o')
+>>> plt.plot(x,amed*x+bmed)
+
+:param x: array of x data values
+:param y: array of y data values
+:param n: number of bootstrapping resamples that will be generated
+:returns: arrays `a` and `b`, each element is a different bootstrapped fit
+	"""
+	from . import lsd
+
+	# y = A*x + B
+	a, b=[],[]
+
+	for i in range(n):
+	    [xsim,ysim]=lsd.bootstrap([x,y])
+	    
+	    # Linear fit
+	    asim, bsim, rsim, p, err = scipy.stats.linregress(xsim,ysim)
+	    a.append(asim)
+	    b.append(bsim)
+
+	a,b=np.array(a),np.array(b)
+
+	return a,b
 
 
 
@@ -882,7 +951,7 @@ v2 Jan 16 2012: added comment regarding y-errors
 """
 	fstat=scipy.stats.f_value(rss1,rss2,n-p1,n-p2)
 	pvalue=1.-scipy.stats.f.cdf(fstat,p2-p1,n-p2)
-	conf=numpy.sqrt(2.)*scipy.special.erfinv(1.-pvalue)
+	conf=np.sqrt(2.)*scipy.special.erfinv(1.-pvalue)
 	
 	return fstat, pvalue, conf
 	
@@ -917,7 +986,7 @@ v1 Dec 2011
 	if errors==False:
 		# AIC assuming the errors are identical and given the residual sum of squares,
 		# see http://en.wikipedia.org/wiki/Akaike_information_criterion#Relevance_to_chi-squared_fitting
-		aicstat=n*numpy.log(rss/n)+2.*k
+		aicstat=n*np.log(rss/n)+2.*k
 	else:
 		# If you have different errors for the data points, it will assume rss=chisq
 		aicstat=rss+2.*k
@@ -964,10 +1033,10 @@ v1 Apr 2012
 	if errors==False:
 		# BIC assuming the errors are identical and given the residual sum of squares,
 		# using the unbiased variance
-		bicstat=n*numpy.log(rss/(n-1.))+k*numpy.log(n)
+		bicstat=n*np.log(rss/(n-1.))+k*np.log(n)
 	else:
 		# If you have different errors for the data points, it will assume rss=chisq
-		bicstat=rss+k*numpy.log(n)
+		bicstat=rss+k*np.log(n)
 	
 	return bicstat
 	
@@ -997,9 +1066,9 @@ Returns the float chisq/nu with the reduced chi-square statistic.
 	
 	# Chi-square statistic
 	if sd is None:
-		chisq=numpy.sum((y-a*x-b)**2)
+		chisq=np.sum((y-a*x-b)**2)
 	else:
-		chisq=numpy.sum( ((y-a*x-b)/sd)**2 )
+		chisq=np.sum( ((y-a*x-b)/sd)**2 )
 		
 	# Number of degrees of freedom assuming 2 free parameters
 	nu=x.size-3
@@ -1028,7 +1097,7 @@ where
 - a,b : slope and intercept of the best-fit linear regression model
 	"""
 	sdsq=erry**2+a**2*errx**2
-	chisq=numpy.sum( (y-a*x-b)**2/sdsq )
+	chisq=np.sum( (y-a*x-b)**2/sdsq )
 		
 	# Number of degrees of freedom assuming 2 free parameters
 	nu=x.size-3
@@ -1062,9 +1131,9 @@ where
   	"""
 	# Chi-square statistic
 	if sd is None:
-		chisq=numpy.sum((ydata-ymod)**2)
+		chisq=np.sum((ydata-ymod)**2)
 	else:
-		chisq=numpy.sum( ((ydata-ymod)/sd)**2 )
+		chisq=np.sum( ((ydata-ymod)/sd)**2 )
 		
 	# Number of degrees of freedom assuming 2 free parameters
 	nu=ydata.size-1-deg
@@ -1087,8 +1156,8 @@ References:
 
 v1 Apr 18th 2012
 	"""
-	ss_tot = numpy.sum( (ydata-ydata.mean())**2 )
-	ss_err = numpy.sum( (ydata-ymod)**2 )
+	ss_tot = np.sum( (ydata-ydata.mean())**2 )
+	ss_err = np.sum( (ydata-ymod)**2 )
 	
 	return 1.-ss_err/ss_tot
 
@@ -1177,13 +1246,13 @@ Algorithm:
 	#med=median(x)
 	med=mode(x)
 
-	x1=x[ numpy.where(x<med) ] # left side
-	x1mirror=x1+2.*numpy.abs(x1-med) # mirror side
-	x1new=numpy.concatenate((x1,x1mirror))
+	x1=x[ np.where(x<med) ] # left side
+	x1mirror=x1+2.*np.abs(x1-med) # mirror side
+	x1new=np.concatenate((x1,x1mirror))
 
-	x2=x[ numpy.where(x>=med) ] # right side
-	x2mirror=x2-2.*numpy.abs(x2-med) # mirror side
-	x2new=numpy.concatenate((x2,x2mirror))
+	x2=x[ np.where(x>=med) ] # right side
+	x2mirror=x2-2.*np.abs(x2-med) # mirror side
+	x2new=np.concatenate((x2,x2mirror))
 
 	return x1new.std(), x2new.std()
 
@@ -1198,7 +1267,7 @@ Finds the mode of a distribution, i.e. the value where the PDF peaks.
 	"""
 	from . import lsd
 
-	yh,xh=numpy.histogram(x,50,normed=True,**kwargs)
+	yh,xh=np.histogram(x,50,normed=True,**kwargs)
 	dxh=(xh[1]-xh[0])/2.
 	xh=xh+dxh
 
@@ -1255,7 +1324,7 @@ v1 Nov. 2011
 	# Calculates the minimal and maximum values of the PDF in the desired
 	# interval. The rejection method needs these values in order to work
 	# properly.
-	x=numpy.linspace(xmin,xmax,1000)
+	x=np.linspace(xmin,xmax,1000)
 	y=pdf(x)
 	pmin=0.
 	pmax=y.max()
@@ -1267,15 +1336,15 @@ v1 Nov. 2011
 	# Keeps generating numbers until we achieve the desired n
 	ran=[]	# output list of random numbers
 	while naccept<n:
-		x=numpy.random.uniform(xmin,xmax)	# x'
-		y=numpy.random.uniform(pmin,pmax)	# y'
+		x=np.random.uniform(xmin,xmax)	# x'
+		y=np.random.uniform(pmin,pmax)	# y'
 
 		if y<pdf(x):
 			ran.append(x)
 			naccept=naccept+1
 		ntrial=ntrial+1
 	
-	ran=numpy.asarray(ran)
+	ran=np.asarray(ran)
 	
 	return ran,ntrial
 
@@ -1296,11 +1365,11 @@ See http://en.wikipedia.org/wiki/Split_normal_distribution.
 :param mu: mode
 :returns: probability distribution function for the array x
 	"""
-	const=numpy.sqrt(2./numpy.pi)/(sig1 + sig2)
+	const=np.sqrt(2./np.pi)/(sig1 + sig2)
     
-	p=numpy.where(x<mu, 
-		numpy.exp(-((x-mu)**2/(2.*sig1**2)))*const, 
-		numpy.exp(-((x-mu)**2/(2.*sig2**2)))*const)
+	p=np.where(x<mu, 
+		np.exp(-((x-mu)**2/(2.*sig1**2)))*const, 
+		np.exp(-((x-mu)**2/(2.*sig2**2)))*const)
     
 	return p
 
@@ -1324,7 +1393,7 @@ Defines distribution with sig1=1, sig2=3, mu=0:
 
 >>> split = splitnorm_gen(name='splitnorm', shapes='sig1, sig2, mu')
 >>> s=split(1,3,0.0001)
->>> x=numpy.linspace(-10,10,100)
+>>> x=np.linspace(-10,10,100)
 
 Computes PDF:
 
@@ -1341,20 +1410,20 @@ Generates 100 random numbers:
 .. warning:: for some reason, this fails if mu=0.
     """
     def _pdf(self, x, sig1, sig2, mu):
-        const=numpy.sqrt(2./numpy.pi)/(sig1 + sig2)
+        const=np.sqrt(2./np.pi)/(sig1 + sig2)
             
-        p=numpy.where(x<=mu, 
-                numpy.exp(-((x-mu)**2/(2.*sig1**2)))*const, 
-                numpy.exp(-((x-mu)**2/(2.*sig2**2)))*const)
+        p=np.where(x<=mu, 
+                np.exp(-((x-mu)**2/(2.*sig1**2)))*const, 
+                np.exp(-((x-mu)**2/(2.*sig2**2)))*const)
                       
         return p
     
     def _cdf(self, x, sig1, sig2, mu):
         const=1./(sig1+sig2)
         
-        c=numpy.where(x<=mu, 
-                sig1*const*(1.+scipy.special.erf((x-mu)/(numpy.sqrt(2.)*sig1))), 
-                const*(sig1+sig2*scipy.special.erf((x-mu)/(numpy.sqrt(2.)*sig2)))
+        c=np.where(x<=mu, 
+                sig1*const*(1.+scipy.special.erf((x-mu)/(np.sqrt(2.)*sig1))), 
+                const*(sig1+sig2*scipy.special.erf((x-mu)/(np.sqrt(2.)*sig2)))
                 )
         
         return c
@@ -1362,17 +1431,17 @@ Generates 100 random numbers:
     def _ppf(self,q,sig1,sig2,mu):
         nu=sig1/(sig1 + sig2)
         
-        pf=numpy.where(q<=nu, 
-                numpy.sqrt(2.)*sig1*scipy.special.erfinv((sig1 + sig2)/sig1*q - 1.) + mu, 
-                numpy.sqrt(2)*sig2*scipy.special.erfinv(((sig1 + sig2)*q - sig1)/sig2) + mu
+        pf=np.where(q<=nu, 
+                np.sqrt(2.)*sig1*scipy.special.erfinv((sig1 + sig2)/sig1*q - 1.) + mu, 
+                np.sqrt(2)*sig2*scipy.special.erfinv(((sig1 + sig2)*q - sig1)/sig2) + mu
                 )
         
         return pf     
     
     def _stats(self, sig1, sig2, mu):
-        mean=mu+numpy.sqrt(2./numpy.pi)*(sig2 - sig1)
-        var=(1.-2./numpy.pi)*(sig2-sig1)**2 + sig1*sig2
-        skew=numpy.sqrt(2./numpy.pi)*(sig2-sig1)*( (4./numpy.pi-1.)*(sig2-sig1)**2+sig1*sig2 )
+        mean=mu+np.sqrt(2./np.pi)*(sig2 - sig1)
+        var=(1.-2./np.pi)*(sig2-sig1)**2 + sig1*sig2
+        skew=np.sqrt(2./np.pi)*(sig2-sig1)*( (4./np.pi-1.)*(sig2-sig1)**2+sig1*sig2 )
         kurt=None
         
         return mean, var, skew, kurt
@@ -1443,7 +1512,7 @@ Usage:
 
 >>> s=p2sig(0.001)
 	"""
-	sig=numpy.sqrt(2.)*scipy.special.erfinv(1.-p)
+	sig=np.sqrt(2.)*scipy.special.erfinv(1.-p)
 	
 	return sig
 
@@ -1460,7 +1529,7 @@ Usage:
 
 >>> s=conf2sig(0.683)
 	"""
-	sig=numpy.sqrt(2.)*scipy.special.erfinv(p)
+	sig=np.sqrt(2.)*scipy.special.erfinv(p)
 	
 	return sig
 
@@ -1477,7 +1546,7 @@ Usage:
 
 >>> s=sig2conf(5.)
 	"""
-	return scipy.special.erf(sig/numpy.sqrt(2.))
+	return scipy.special.erf(sig/np.sqrt(2.))
 	
 
 	
