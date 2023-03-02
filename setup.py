@@ -8,7 +8,7 @@ with open('README.md') as f:
 
 setup(
     name='nmmn',
-    version='1.1',
+    version='1.2',
     description='Miscellaneous methods for astronomy, dealing with arrays, statistical distributions and computing goodness-of-fit',
     long_description=readme,
     long_description_content_type='text/markdown',
