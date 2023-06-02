@@ -1,18 +1,18 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nmmn.sed &#8212; nmmn  documentation</title>
-    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
    
@@ -40,13 +40,13 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span><span class="o">,</span> <span class="nn">pylab</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">lsd</span> <span class="c1"># intrapackage reference</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">lsd</span> <span class="c1"># intrapackage reference</span>
 <span class="kn">import</span> <span class="nn">astropy.io.ascii</span> <span class="k">as</span> <span class="nn">ascii</span>
 
 
 
 <div class="viewcode-block" id="SED"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED">[docs]</a><span class="k">class</span> <span class="nc">SED</span><span class="p">:</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Class that defines objects storing Spectral energy distributions (SEDs). </span>
 <span class="sd">	The SEDs can be imported either from datafiles with the observations/models,</span>
 <span class="sd">	or from arrays with the values of log(nu) and log(nuLnu).</span>
@@ -86,8 +86,8 @@
 <span class="sd">	after which the value will be stored in s.lumbol	</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 		
-	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lognu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logfmt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">lognu</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ll</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	To import a SED from an ASCII file:</span>
 <span class="sd">	&gt;&gt;&gt; s=sed.SED(file=XX, logfmt=XX)</span>
 <span class="sd">	where logfmt is 1 if the data is already in logarithm or 0 otherwise.</span>
@@ -134,7 +134,7 @@
 
 
 <div class="viewcode-block" id="SED.erac"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.erac">[docs]</a>	<span class="k">def</span> <span class="nf">erac</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Reads SEDs in the format provided by Eracleous et al. LINER SEDs:</span>
 <span class="sd">		nu	nuLnu	nuLnu(extinction)	error	upperLimit?(0/1)</span>
 <span class="sd">		</span>
@@ -156,7 +156,7 @@
 
 
 <div class="viewcode-block" id="SED.hayden"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.hayden">[docs]</a>	<span class="k">def</span> <span class="nf">hayden</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Reads SEDs in the format provided by Hampadarath et al.:</span>
 <span class="sd">	nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]</span>
 <span class="sd">		</span>
@@ -188,7 +188,7 @@
 
 
 <div class="viewcode-block" id="SED.prieto"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.prieto">[docs]</a>	<span class="k">def</span> <span class="nf">prieto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Reads SEDs in the format provided by Hampadarath et al.:</span>
 <span class="sd">	nu(Hz) nu*F_nu(Jy Hz) </span>
 <span class="sd">		</span>
@@ -211,7 +211,7 @@
 
 
 <div class="viewcode-block" id="SED.grmonty"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.grmonty">[docs]</a>	<span class="k">def</span> <span class="nf">grmonty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Reads SEDs in the format provided by grmonty. I ported the </span>
 <span class="sd">		original SM script `plspec.m` provided by J. Dolence. </span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -238,7 +238,7 @@
 
 
 <div class="viewcode-block" id="SED.raniere"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.raniere">[docs]</a>	<span class="k">def</span> <span class="nf">raniere</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">dist</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Reads SEDs in the format provided by Hampadarath et al.:</span>
 <span class="sd">		nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]</span>
 
@@ -288,7 +288,7 @@
 
 
 <div class="viewcode-block" id="SED.haydenx"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.haydenx">[docs]</a>	<span class="k">def</span> <span class="nf">haydenx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Reads X-ray data in the format provided by F. Panessa:</span>
 <span class="sd">		nu	error_nu nuLnu	error	?</span>
 <span class="sd">		</span>
@@ -315,7 +315,7 @@
 
 
 <div class="viewcode-block" id="SED.check"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.check">[docs]</a>	<span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Checks whether there are NaN or Inf values in the array log10(nuLnu).</span>
 <span class="sd">	If so, displays a warning to the user and the corresponding filename.</span>
 <span class="sd">	Method called by initialization methods init and erac.</span>
@@ -338,7 +338,7 @@
 
 
 <div class="viewcode-block" id="SED.sort"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.sort">[docs]</a>	<span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	&gt;&gt;&gt; s.sort()</span>
 
 <span class="sd">	Sorts the SED in ascending order of frequencies.</span>
@@ -356,7 +356,7 @@
 
 		
 <div class="viewcode-block" id="SED.unit"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.unit">[docs]</a>	<span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;Normalizes the spectrum to one.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;Normalizes the spectrum to one.&quot;&quot;&quot;</span>
 
 		<span class="c1"># Precaution in case the user did not use the interp method</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;nlnui&#39;</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">interp</span><span class="p">()</span>
@@ -374,7 +374,7 @@
 
 
 <div class="viewcode-block" id="SED.write"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.write">[docs]</a>	<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Exports the SED as an ASCII file with the structure:</span>
 <span class="sd">		col1=log10(nu/Hz), col2=log10(nu Lnu / erg per sec)</span>
 <span class="sd">		</span>
@@ -390,7 +390,7 @@
 
 
 <div class="viewcode-block" id="SED.interp"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.interp">[docs]</a>	<span class="k">def</span> <span class="nf">interp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">xrange</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">22</span><span class="p">]):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Interpolates the SED and a list of SEDs (optional) in the given range</span>
 <span class="sd">	of values of log(nu) and for the given number of points.</span>
 <span class="sd">	</span>
@@ -446,7 +446,7 @@
 	
 	
 <div class="viewcode-block" id="SED.normalize"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.normalize">[docs]</a>	<span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Normalizes a SED at the given frequency (lognu/Hz) and nuLnu (erg/s). </span>
 <span class="sd">	NOTE: this will modify the SED(s). Alternatively, if the user provides </span>
 <span class="sd">	the argument xray=True, then the method normalizes the SEDs such that </span>
@@ -512,7 +512,7 @@
 		
 		
 <div class="viewcode-block" id="SED.meanlin"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.meanlin">[docs]</a>	<span class="k">def</span> <span class="nf">meanlin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
 <span class="sd">	of their luminosities (log10(average nuLnu)) and returns the list [mean,sd] </span>
@@ -549,7 +549,7 @@
 
 		
 <div class="viewcode-block" id="SED.mean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.mean">[docs]</a>	<span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
 <span class="sd">	of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) </span>
@@ -599,7 +599,7 @@
 
 
 <div class="viewcode-block" id="SED.median"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.median">[docs]</a>	<span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the average </span>
 <span class="sd">	of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) </span>
@@ -658,7 +658,7 @@
 
 
 <div class="viewcode-block" id="SED.geomean"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.geomean">[docs]</a>	<span class="k">def</span> <span class="nf">geomean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seds</span><span class="p">,</span> <span class="n">nuref</span><span class="o">=</span><span class="mf">17.684</span><span class="p">,</span> <span class="n">refnlnu</span><span class="o">=</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">xray</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of SEDs and a reference value of log10(nu), normalizes the </span>
 <span class="sd">	SEDs (s.normalize) at the given nuref and refnlnu, calculates the geometric</span>
 <span class="sd">	mean of their luminosities (average(log10(nuLnu)), like Eracleous et al. 2010 does) </span>
@@ -712,7 +712,7 @@
 	
 	
 <div class="viewcode-block" id="SED.bol"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.bol">[docs]</a>	<span class="k">def</span> <span class="nf">bol</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lognu0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lognu1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xrange</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">22</span><span class="p">]):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Calculates the bolometric luminosity of the SED. Performs the integration </span>
 <span class="sd">	using the trapezoidal rule. Adds the attribute lumbol to the object with</span>
 <span class="sd">	the result.</span>
@@ -758,7 +758,7 @@
 
 
 <div class="viewcode-block" id="SED.edd"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.edd">[docs]</a>	<span class="k">def</span> <span class="nf">edd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">mass</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Computes the Eddington ratio :math:`L_{\\rm bol}/L_{\\rm} Edd}`.</span>
 <span class="sd">	First computes the bolometric luminosity via interpolation and </span>
 <span class="sd">	then calculates the Eddington ratio.</span>
@@ -783,7 +783,7 @@
 
 
 <div class="viewcode-block" id="SED.xrays"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.xrays">[docs]</a>	<span class="k">def</span> <span class="nf">xrays</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Calculates the photon index of the X-ray spectrum and Lx (2-10 keV). </span>
 <span class="sd">	Stores the new attributes gammax and lumx in the object.</span>
 <span class="sd">	</span>
@@ -822,7 +822,7 @@
 		
 	
 <div class="viewcode-block" id="SED.findlum"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.findlum">[docs]</a>	<span class="k">def</span> <span class="nf">findlum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given the input frequency in units of log(nu/Hz), returns the list [log(nu),</span>
 <span class="sd">	Lnu] with the frequency and luminosity closest to the specified value.</span>
 <span class="sd">	</span>
@@ -844,7 +844,7 @@
 	
 	
 <div class="viewcode-block" id="SED.radioloud"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.radioloud">[docs]</a>	<span class="k">def</span> <span class="nf">radioloud</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Computes the radio-loudness for the SED. Adds the attribute rl to the </span>
 <span class="sd">	object with	the result. If Ro&gt;=10. we have a RL AGN, otherwise it is a</span>
 <span class="sd">	RQ one.</span>
@@ -867,7 +867,7 @@
 
 
 <div class="viewcode-block" id="SED.alphaox"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.alphaox">[docs]</a>	<span class="k">def</span> <span class="nf">alphaox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Computes the alpha_ox index.</span>
 
 <span class="sd">	&gt;&gt;&gt; alphaox=s.alphaox()</span>
@@ -885,7 +885,7 @@
 
 
 <div class="viewcode-block" id="SED.ion"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.ion">[docs]</a>	<span class="k">def</span> <span class="nf">ion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Calculates the rate of ionizing photons in the SED.</span>
 <span class="sd">	</span>
 <span class="sd">	&gt;&gt;&gt; q=s.ion()</span>
@@ -917,7 +917,7 @@
 	
 	
 <div class="viewcode-block" id="SED.chisq"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.chisq">[docs]</a>	<span class="k">def</span> <span class="nf">chisq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">npars</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Computes the goodness of fit between the observed SED (assumed to be &quot;self&quot;) </span>
 <span class="sd">	and the given model. If you don&#39;t provide the number of free </span>
 <span class="sd">	parameters in the model, it returns a modified chi squared (modified in </span>
@@ -958,7 +958,7 @@
 	
 	
 <div class="viewcode-block" id="SED.copy"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.SED.copy">[docs]</a>	<span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Returns a copy of the current SED object. Use this in the same way you would use</span>
 <span class="sd">	the numpy copy() method to avoid changing the attributes of a SED</span>
 <span class="sd">	unintentionally.</span>
@@ -977,7 +977,7 @@
 
 
 <div class="viewcode-block" id="sum"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.sum">[docs]</a><span class="k">def</span> <span class="nf">sum</span><span class="p">(</span><span class="n">seds</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Given a list of SEDs previously interpolated in the same binning, </span>
 <span class="sd">sums their luminosities and returns a SED object with the sum.</span>
 <span class="sd">	</span>
@@ -1009,7 +1009,7 @@
 
 
 <div class="viewcode-block" id="haydensed"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.haydensed">[docs]</a><span class="k">def</span> <span class="nf">haydensed</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">patho</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/all/&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/info.dat&#39;</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Reads an observed SED from the Hayden et al. sample. Computes useful </span>
 <span class="sd">quantities.</span>
 
@@ -1065,7 +1065,7 @@
 
 <div class="viewcode-block" id="modelsplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.modelsplot">[docs]</a><span class="k">def</span> <span class="nf">modelsplot</span><span class="p">(</span><span class="n">pathm</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/adafjet/&#39;</span><span class="p">,</span>
 	<span class="n">jetfile</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">showthin</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">showjet</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">showsum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">showadaf</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">]):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Nice wrapper that plots 3 models computed with the ADAF Fortran code available at</span>
 <span class="sd">~/work/projects/adafjet/adaf.</span>
 
@@ -1127,7 +1127,7 @@
 
 
 <div class="viewcode-block" id="modelplot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.modelplot">[docs]</a><span class="k">def</span> <span class="nf">modelplot</span><span class="p">(</span><span class="n">ssdf</span><span class="p">,</span><span class="n">adaff</span><span class="p">,</span><span class="n">jetf</span><span class="p">,</span><span class="n">sumf</span><span class="p">,</span><span class="o">**</span><span class="n">args</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots the model components.</span>
 
 <span class="sd">Arguments: The filenames of each model component.</span>
@@ -1168,7 +1168,7 @@
 	  <span class="n">patho</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/seds/obsdata/&#39;</span><span class="p">,</span>
 	  <span class="n">ext</span><span class="o">=</span><span class="s1">&#39;0&#39;</span>
 	  <span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots the observed SED taken from the Eracleous et al. sample. Includes arrows </span>
 <span class="sd">for upper limits and the nice bow tie. </span>
 
@@ -1250,7 +1250,7 @@
 
 
 <div class="viewcode-block" id="haydenobs"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.haydenobs">[docs]</a><span class="k">def</span> <span class="nf">haydenobs</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">patho</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/all/&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/work/projects/hayden/info.dat&#39;</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots the observed SED from the Hayden et al. sample. Includes arrows </span>
 <span class="sd">for upper limits and the nice bow tie. </span>
 
@@ -1321,7 +1321,7 @@
 <span class="c1"># ====================================</span>
 
 <div class="viewcode-block" id="plotprops"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.plotprops">[docs]</a><span class="k">def</span> <span class="nf">plotprops</span><span class="p">(</span><span class="n">labelfontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">option</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Define other properties of the SED plot: additional axis, font size etc.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Increase the size of the fonts</span>
@@ -1368,7 +1368,7 @@
 
 
 <div class="viewcode-block" id="plot"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.plot">[docs]</a><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">table</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">DEPRECATED. Split these method in separate units: modelplot, obsplot, plotprops.</span>
 <span class="sd">Main method to create the SED plot.</span>
 
@@ -1481,7 +1481,7 @@
 
 
 <div class="viewcode-block" id="groupmodel"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.groupmodel">[docs]</a><span class="k">def</span> <span class="nf">groupmodel</span><span class="p">(</span><span class="nb">sum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ssd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">jet</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">adaf</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Groups the different components of a SED model into one dictionary for convenient</span>
 <span class="sd">access. The model component SEDs are assumed to have been imported using the</span>
 <span class="sd">SED class. This method is used in the plot method.</span>
@@ -1510,7 +1510,7 @@
 
 
 <div class="viewcode-block" id="obsplot1097"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.obsplot1097">[docs]</a><span class="k">def</span> <span class="nf">obsplot1097</span><span class="p">(</span><span class="n">source</span><span class="p">,</span><span class="n">o</span><span class="p">,</span><span class="n">table</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Modification of the plot method to handle the nice data of NGC 1097.</span>
 
 <span class="sd">:param source: source name e.g. &#39;NGC1097&#39; or &#39;ngc1097&#39; or &#39;NGC 1097&#39;. Must have four numbers.</span>
@@ -1576,7 +1576,7 @@
 
 
 <div class="viewcode-block" id="xray"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.xray">[docs]</a><span class="k">def</span> <span class="nf">xray</span><span class="p">(</span><span class="n">L2_10</span><span class="p">,</span> <span class="n">gammax</span><span class="p">,</span> <span class="n">gammaerru</span><span class="p">,</span> <span class="n">gammaerrl</span><span class="p">,</span> <span class="n">nurange</span><span class="o">=</span><span class="p">[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">10.</span><span class="p">],</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots X-ray &quot;bow tie&quot;, provided the X-ray luminosity in the 2-10 keV range,</span>
 <span class="sd">the best-fit photon index and the error in this index.</span>
 
@@ -1603,8 +1603,8 @@
 
 
 
-<div class="viewcode-block" id="powerlaw"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.powerlaw">[docs]</a><span class="k">def</span> <span class="nf">powerlaw</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">Lx</span><span class="p">,</span><span class="n">nurange</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot; </span>
+<div class="viewcode-block" id="powerlaw"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.powerlaw">[docs]</a><span class="k">def</span> <span class="nf">powerlaw</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span><span class="n">Lx</span><span class="p">,</span><span class="n">nurange</span><span class="p">,</span><span class="n">npoints</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">Calculates the X-ray powerlaw variables. </span>
 
 <span class="sd">Arguments:</span>
@@ -1620,7 +1620,7 @@
 	<span class="n">nu0</span><span class="o">=</span><span class="n">nurange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">conv</span> <span class="c1"># nu_i from keV -&gt; Hz</span>
 		
 	<span class="c1"># Creates a vector of frequencies</span>
-	<span class="n">points</span><span class="p">,</span><span class="n">nui</span><span class="p">,</span><span class="n">nuf</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="n">nu0</span><span class="p">,</span><span class="n">nurange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">conv</span>	<span class="c1"># e.g. 2 keV - 10 keV</span>
+	<span class="n">points</span><span class="p">,</span><span class="n">nui</span><span class="p">,</span><span class="n">nuf</span> <span class="o">=</span> <span class="n">npoints</span><span class="p">,</span><span class="n">nu0</span><span class="p">,</span><span class="n">nurange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">conv</span>	<span class="c1"># e.g. 2 keV - 10 keV</span>
 	<span class="n">nu</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">nui</span><span class="p">,</span><span class="n">nuf</span><span class="p">,</span><span class="n">points</span><span class="p">)</span>
 	
 	<span class="c1"># Takes into account the possibility of alpha=1 which changes the way you</span>
@@ -1642,7 +1642,7 @@
 	<span class="n">table</span><span class="o">=</span><span class="s1">&#39;/Users/nemmen/Dropbox/work/projects/finished/liners/tables/models.csv&#39;</span><span class="p">,</span>
 	<span class="o">**</span><span class="n">args</span>
 	<span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Plots an inset with the zoomed-in X-ray spectra.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># This piece of code was quickly and dirty copied from the obsplot method,</span>
@@ -1720,7 +1720,7 @@
 
 
 <div class="viewcode-block" id="popstar"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.popstar">[docs]</a><span class="k">def</span> <span class="nf">popstar</span><span class="p">(</span><span class="n">o</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Fits the stellar population spectrum, finds the required mass and plots its</span>
 <span class="sd">SED.</span>
 
@@ -1755,7 +1755,7 @@
 
 
 <div class="viewcode-block" id="f"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.f">[docs]</a><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">xpop</span><span class="p">,</span><span class="n">ypop</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Given the spectrum of a popstar and an array of frequencies &#39;x&#39;,</span>
 <span class="sd">this outputs the values of ypop for each x.</span>
 
@@ -1772,7 +1772,7 @@
 
 
 <div class="viewcode-block" id="pionDecay"><a class="viewcode-back" href="../../nmmn.html#nmmn.sed.pionDecay">[docs]</a><span class="k">def</span> <span class="nf">pionDecay</span><span class="p">(</span><span class="n">logfile</span><span class="p">,</span> <span class="n">parfile</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">2.3</span><span class="p">,</span> <span class="n">E0</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">proton_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">photon_energy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Gamma-ray spectrum from a RIAF, pion 0 decay</span>
 <span class="sd">=============================================</span>
 <span class="sd">Computes the gamma-ray spectrum from pp collisions followed by pion decay for the full </span>
@@ -1810,10 +1810,10 @@
 <span class="sd">• Zabalza 2015</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">import</span> <span class="nn">naima</span>
-	<span class="kn">from</span> <span class="nn">naima.models</span> <span class="k">import</span> <span class="p">(</span><span class="n">ExponentialCutoffPowerLaw</span><span class="p">,</span> <span class="n">Synchrotron</span><span class="p">,</span>
+	<span class="kn">from</span> <span class="nn">naima.models</span> <span class="kn">import</span> <span class="p">(</span><span class="n">ExponentialCutoffPowerLaw</span><span class="p">,</span> <span class="n">Synchrotron</span><span class="p">,</span>
 							  <span class="n">InverseCompton</span><span class="p">)</span>
 	<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
-	<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">misc</span> <span class="c1"># intrapackage reference</span>
+	<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">misc</span> <span class="c1"># intrapackage reference</span>
 	<span class="kn">import</span> <span class="nn">tqdm</span><span class="o">,</span> <span class="nn">re</span>
 
 
@@ -1992,12 +1992,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -2014,7 +2014,7 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

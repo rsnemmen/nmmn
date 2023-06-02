@@ -11,6 +11,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -38,10 +39,11 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
 
 
 <div class="viewcode-block" id="cmset_and"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.cmset_and">[docs]</a><span class="k">def</span> <span class="nf">cmset_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Usage:</span>
 
 <span class="sd">&gt;&gt;&gt; cmset_and(x,y)</span>
@@ -68,7 +70,7 @@
 
 
 <div class="viewcode-block" id="cmsetsort_and"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.cmsetsort_and">[docs]</a><span class="k">def</span> <span class="nf">cmsetsort_and</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Usage:</span>
 
 <span class="sd">&gt;&gt;&gt; cmsetsort_and(x,y)</span>
@@ -100,7 +102,7 @@
 
 
 <div class="viewcode-block" id="cmset_not"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.cmset_not">[docs]</a><span class="k">def</span> <span class="nf">cmset_not</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Usage:</span>
 
 <span class="sd">&gt;&gt;&gt; cmset_not(x,y)</span>
@@ -125,7 +127,7 @@
 
 	
 <div class="viewcode-block" id="nanzero"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.nanzero">[docs]</a><span class="k">def</span> <span class="nf">nanzero</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Set nan elements to zero in the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
@@ -142,7 +144,7 @@
 
 
 <div class="viewcode-block" id="delnan"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.delnan">[docs]</a><span class="k">def</span> <span class="nf">delnan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Remove nan elements from the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
@@ -155,7 +157,7 @@
 
 
 <div class="viewcode-block" id="delweird"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.delweird">[docs]</a><span class="k">def</span> <span class="nf">delweird</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Remove nan or inf elements from the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
@@ -167,7 +169,7 @@
 
 
 <div class="viewcode-block" id="findnan"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.findnan">[docs]</a><span class="k">def</span> <span class="nf">findnan</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Return index of nan elements in the array.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="c1"># Index of nan elements</span>
@@ -180,7 +182,7 @@
 
 	
 <div class="viewcode-block" id="replacevals"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.replacevals">[docs]</a><span class="k">def</span> <span class="nf">replacevals</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">minval</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Replace all values in array x for which abs(x)&lt;=minval with x=sign(x)*minval.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">i</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">&lt;=</span><span class="n">minval</span><span class="p">)</span>
@@ -193,7 +195,7 @@
 
 	
 <div class="viewcode-block" id="search"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.search">[docs]</a><span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">xref</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Search for the element in an array x with the value nearest xref.</span>
 <span class="sd">Piece of code based on http://stackoverflow.com/questions/2566412/find-nearest-value-in-numpy-array</span>
 
@@ -216,7 +218,7 @@
 
 
 <div class="viewcode-block" id="sortindex"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.sortindex">[docs]</a><span class="k">def</span> <span class="nf">sortindex</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Returns the list of indexes, ordered according to the numerical value of each </span>
 <span class="sd">element of x.</span>
 
@@ -231,7 +233,7 @@
 
 
 <div class="viewcode-block" id="norm"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.norm">[docs]</a><span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Normalizes x1. If also given as input x2, then normalizes x1 to x2.</span>
 
 <span class="sd">:param x1: input array</span>
@@ -248,7 +250,7 @@
 
 
 <div class="viewcode-block" id="uarray"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.uarray">[docs]</a><span class="k">def</span> <span class="nf">uarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">errx</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">With the new releases of the uncertainties and astropy.io.ascii (0.2.3, the</span>
 <span class="sd">replacement of asciitable), if I try to create an uncertainties array with</span>
 <span class="sd">the column of a table imported with ascii I run into trouble. For instance, </span>
@@ -288,7 +290,7 @@
 
 	
 <div class="viewcode-block" id="bootstrap"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.bootstrap">[docs]</a><span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Constructs Monte Carlo simulated data set using the</span>
 <span class="sd">Bootstrap algorithm.                                                                                   </span>
 
@@ -306,11 +308,11 @@
 	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">==</span><span class="nb">list</span><span class="p">:</span>
 		<span class="n">vboot</span><span class="o">=</span><span class="p">[]</span>	<span class="c1"># list of boostrapped arrays</span>
 		<span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">size</span>
-		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes</span>
+		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">randint</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes		</span>
 		<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>	<span class="n">vboot</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">iran</span><span class="p">])</span>
 	<span class="k">else</span><span class="p">:</span>	<span class="c1"># if v is an array, not a list of arrays</span>
 		<span class="n">n</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">size</span>
-		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes</span>
+		<span class="n">iran</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">randint</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>	<span class="c1"># Array of random indexes		</span>
 		<span class="n">vboot</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="n">iran</span><span class="p">]</span>
 	
 	<span class="k">return</span> <span class="n">vboot</span></div>
@@ -319,7 +321,7 @@
 
 
 <div class="viewcode-block" id="regrid"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.regrid">[docs]</a><span class="k">def</span> <span class="nf">regrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">xnew</span><span class="p">,</span><span class="n">ynew</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Regrid 1D arrays (x,y,z) -- where z is some scalar field mapped at positions</span>
 <span class="sd">x,y -- to a 2d array Z defined in the cartesian grids xnew,ynew (1D arrays with </span>
 <span class="sd">new grid).</span>
@@ -342,7 +344,7 @@
 
 
 <div class="viewcode-block" id="crop"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.crop">[docs]</a><span class="k">def</span> <span class="nf">crop</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Crops the image or 2D array, leaving only pixels inside the region</span>
 <span class="sd">you define.</span>
 
@@ -387,7 +389,7 @@
 
 
 <div class="viewcode-block" id="arrAvg"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.arrAvg">[docs]</a><span class="k">def</span> <span class="nf">arrAvg</span><span class="p">(</span><span class="n">alist</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Given a list of 1D or 2D arrays, this method computes their average, </span>
 <span class="sd">	returning an array with the same shape as the input.</span>
 
@@ -415,7 +417,7 @@
 
 
 <div class="viewcode-block" id="string2float"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.string2float">[docs]</a><span class="k">def</span> <span class="nf">string2float</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Converts from an array of strings to floats.</span>
 
 <span class="sd">&gt;&gt;&gt; string2float(&#39;28122014&#39;)</span>
@@ -437,6 +439,18 @@
 
 	<span class="k">return</span> <span class="n">out</span></div>
 
+
+
+
+<div class="viewcode-block" id="allEqual"><a class="viewcode-back" href="../../nmmn.html#nmmn.lsd.allEqual">[docs]</a><span class="k">def</span> <span class="nf">allEqual</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Check if all elements in an array are equal.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">groupby</span>
+
+	<span class="n">g</span> <span class="o">=</span> <span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">next</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 </pre></div>
 
           </div>
@@ -472,12 +486,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -494,7 +508,7 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

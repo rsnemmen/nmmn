@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>nmmn package &#8212; nmmn  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -12,6 +12,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -34,17 +35,17 @@
           <div class="body" role="main">
             
   <section id="nmmn-package">
-<h1>nmmn package<a class="headerlink" href="#nmmn-package" title="Permalink to this headline">¶</a></h1>
+<h1>nmmn package<a class="headerlink" href="#nmmn-package" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-nmmn.astro">
-<span id="nmmn-astro-module"></span><h2>nmmn.astro module<a class="headerlink" href="#module-nmmn.astro" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-astro-module"></span><h2>nmmn.astro module<a class="headerlink" href="#module-nmmn.astro" title="Permalink to this heading">¶</a></h2>
 <section id="astrophysical-routines">
-<h3>Astrophysical routines<a class="headerlink" href="#astrophysical-routines" title="Permalink to this headline">¶</a></h3>
+<h3>Astrophysical routines<a class="headerlink" href="#astrophysical-routines" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="nmmn.astro.Constants">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nmmn.astro.</span></span><span class="sig-name descname"><span class="pre">Constants</span></span><a class="reference internal" href="_modules/nmmn/astro.html#Constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.astro.Constants" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nmmn.astro.</span></span><span class="sig-name descname"><span class="pre">Constants</span></span><a class="reference internal" href="_modules/nmmn/astro.html#Constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.astro.Constants" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines a set of useful constants in CGS.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">astro</span><span class="o">.</span><span class="n">Constants</span><span class="p">()</span>
@@ -59,13 +60,13 @@
 <dd><p>Given the input angular size and distance to the object, computes
 the corresponding linear size in pc.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>d</strong> – distance in Mpc</p></li>
 <li><p><strong>a</strong> – angular size in arcsec</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>linear size in pc</p>
 </dd>
 </dl>
@@ -101,7 +102,7 @@ If you have errors in the flux:</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>dist</strong> – distance in Mpc</p>
 </dd>
 </dl>
@@ -116,9 +117,9 @@ If you have errors in the flux:</p>
 </section>
 </section>
 <section id="module-nmmn.bayes">
-<span id="nmmn-bayes-module"></span><h2>nmmn.bayes module<a class="headerlink" href="#module-nmmn.bayes" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-bayes-module"></span><h2>nmmn.bayes module<a class="headerlink" href="#module-nmmn.bayes" title="Permalink to this heading">¶</a></h2>
 <section id="methods-for-dealing-with-bayesian-statistics">
-<h3>Methods for dealing with Bayesian statistics<a class="headerlink" href="#methods-for-dealing-with-bayesian-statistics" title="Permalink to this headline">¶</a></h3>
+<h3>Methods for dealing with Bayesian statistics<a class="headerlink" href="#methods-for-dealing-with-bayesian-statistics" title="Permalink to this heading">¶</a></h3>
 <p>e.g. priors, posteriors, joint density plots.</p>
 <p>Right now the module is focused around PyMC, but I am migrating
 to emcee.</p>
@@ -159,9 +160,9 @@ the ipython notebook “error contours.ipynb”. Sources of inspiration:
 </section>
 </section>
 <section id="module-nmmn.dsp">
-<span id="nmmn-dsp-module"></span><h2>nmmn.dsp module<a class="headerlink" href="#module-nmmn.dsp" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-dsp-module"></span><h2>nmmn.dsp module<a class="headerlink" href="#module-nmmn.dsp" title="Permalink to this heading">¶</a></h2>
 <section id="signal-processing">
-<h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h3>
+<h3>Signal processing<a class="headerlink" href="#signal-processing" title="Permalink to this heading">¶</a></h3>
 <p>Mostly time series.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nmmn.dsp.cwt">
@@ -182,7 +183,7 @@ plotting images showing the spectral lines. Note that the CWT power spectrum
 is an average from the CWT power array. Therefore, they are a smoothed out 
 version of a Fourier spectrum.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> – array of times</p></li>
 <li><p><strong>var</strong> – array of signal</p></li>
@@ -207,7 +208,7 @@ version of a Fourier spectrum.</p>
 <span class="sig-prename descclassname"><span class="pre">nmmn.dsp.</span></span><span class="sig-name descname"><span class="pre">dt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#dt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.dsp.dt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes difference between consecutive points in the time series.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> – input times</p></li>
 <li><p><strong>y</strong> – input y-values</p></li>
@@ -244,7 +245,7 @@ Returns arrays with periods and LS spectral power.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>periods, spectral power</p>
 </dd>
 </dl>
@@ -256,7 +257,7 @@ Returns arrays with periods and LS spectral power.</p>
 <dd><p>Computes Lomb-Scargle power spectrum, find peaks, produces arrays for
 plotting images showing the spectral lines.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> – array of times</p></li>
 <li><p><strong>var</strong> – array of signal</p></li>
@@ -282,13 +283,13 @@ plotting images showing the spectral lines.</p>
 <span class="sig-prename descclassname"><span class="pre">nmmn.dsp.</span></span><span class="sig-name descname"><span class="pre">peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">what</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.dsp.peaks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Detects the peaks in the time series given by Y (and X if provided).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong><strong>,</strong><strong>y</strong> – time series input arrays</p></li>
 <li><p><strong>what</strong> – select what you want – max/0 or min/1 peaks returned</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>xmax,ymax – arrays with max peaks in the data.</p>
 </dd>
 </dl>
@@ -299,13 +300,13 @@ plotting images showing the spectral lines.</p>
 <span class="sig-prename descclassname"><span class="pre">nmmn.dsp.</span></span><span class="sig-name descname"><span class="pre">reconstruct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#reconstruct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.dsp.reconstruct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to reconstruct a time series (TS) signal based on its CWT.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>wa</strong> – wavelet object generated with <cite>wavelets</cite> module</p></li>
 <li><p><strong>i</strong> – index array containing only the elements that will be excluded from the signal reconstruction. i.e. the elements indicated by <code class="docutils literal notranslate"><span class="pre">i</span></code> will zeroed in the CWT complex array.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>full reconstructed TS, reconstructed CWT power array, reconstructed CWT complex array, detrended reconstructed TS</p>
 </dd>
 </dl>
@@ -354,14 +355,14 @@ The signal is prepared by introducing reflected copies of the signal
 (with the window size) in both ends so that transient parts are minimized
 in the begining and end part of the output signal.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – the input signal</p></li>
 <li><p><strong>window_len</strong> – the dimension of the smoothing window; should be an odd integer</p></li>
 <li><p><strong>window</strong> – the type of window from ‘flat’, ‘hanning’, ‘hamming’, ‘bartlett’, ‘blackman’     flat window will produce a moving average smoothing.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the smoothed signal</p>
 </dd>
 </dl>
@@ -389,13 +390,13 @@ in the begining and end part of the output signal.</p>
 <dt class="sig sig-object py" id="nmmn.dsp.smoothxy">
 <span class="sig-prename descclassname"><span class="pre">nmmn.dsp.</span></span><span class="sig-name descname"><span class="pre">smoothxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/dsp.html#smoothxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.dsp.smoothxy" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – “time” in the time series</p></li>
 <li><p><strong>y</strong> – y variable</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>smoothed y and corresponding x arrays</p>
 </dd>
 </dl>
@@ -432,7 +433,7 @@ call this method to regularize your TS and then perform the TS.</p>
 <li><p>INTERPOLATE NEW TS ON PREVIOUS ONE</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>t</strong> – input times</p></li>
 <li><p><strong>y</strong> – input value</p></li>
@@ -473,9 +474,9 @@ interval in gray:</p>
 </section>
 </section>
 <section id="module-nmmn.fermi">
-<span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-fermi-module"></span><h2>nmmn.fermi module<a class="headerlink" href="#module-nmmn.fermi" title="Permalink to this heading">¶</a></h2>
 <section id="methods-to-handle-fermi-lat-data">
-<h3>Methods to handle Fermi LAT data<a class="headerlink" href="#methods-to-handle-fermi-lat-data" title="Permalink to this headline">¶</a></h3>
+<h3>Methods to handle Fermi LAT data<a class="headerlink" href="#methods-to-handle-fermi-lat-data" title="Permalink to this heading">¶</a></h3>
 <p>Handle output of Fermi analysis.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="nmmn.fermi.PixelFile">
@@ -494,10 +495,10 @@ evaluation will be stored</p>
 </div>
 <p>returns datetime.datetime(2013, 4, 5, 1, 23, 48).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>y</strong> – a float or array of floats</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a datetime structure (or list) with the date corresponding to the input float or array</p>
 </dd>
 </dl>
@@ -522,7 +523,7 @@ may assume that all years have 365 days.</p>
 <dd><p>This method plots some count map. Inherited from the method plotMaps
 above.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>counts</strong> – FITS file with counts to be plotted</p></li>
 <li><p><strong>cmap</strong> – desired colormap for image</p></li>
@@ -530,7 +531,7 @@ above.</p>
 <li><p><strong>out</strong> – output filename and format</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>image file ‘tmp.png’ in the source folder.</p>
 </dd>
 </dl>
@@ -545,7 +546,7 @@ located (enrico_sed), this method plots the different count maps
 <p>This is the fixed version of the script plotMaps.py from the Enrico
 distribution.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>configdir</strong> – directory with “/” at the end that points to the place</p>
 </dd>
 </dl>
@@ -568,10 +569,10 @@ each pixel and fill a fits file</p>
 time array in your light curve is in days already, and the beginning of
 your analysis coincides with t0 for LAT.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>t</strong> – array with input times given in days, with t0 coinciding with the beginning of LAT</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>t (days), t (years)</p>
 </dd>
 </dl>
@@ -580,9 +581,9 @@ your analysis coincides with t0 for LAT.</p>
 </section>
 </section>
 <section id="module-nmmn.grmhd">
-<span id="nmmn-grmhd-module"></span><h2>nmmn.grmhd module<a class="headerlink" href="#module-nmmn.grmhd" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-grmhd-module"></span><h2>nmmn.grmhd module<a class="headerlink" href="#module-nmmn.grmhd" title="Permalink to this heading">¶</a></h2>
 <section id="dealing-with-gr-r-m-hd-simulations">
-<h3>Dealing with (GR)(R)(M)HD simulations<a class="headerlink" href="#dealing-with-gr-r-m-hd-simulations" title="Permalink to this headline">¶</a></h3>
+<h3>Dealing with (GR)(R)(M)HD simulations<a class="headerlink" href="#dealing-with-gr-r-m-hd-simulations" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>RAISHIN</p></li>
 <li><p>Pluto</p></li>
@@ -597,7 +598,7 @@ module.</p>
 </ul>
 <dl class="py class">
 <dt class="sig sig-object py" id="nmmn.grmhd.Harm">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nmmn.grmhd.</span></span><span class="sig-name descname"><span class="pre">Harm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gdump'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.grmhd.Harm" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nmmn.grmhd.</span></span><span class="sig-name descname"><span class="pre">Harm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gdump</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gdump'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/grmhd.html#Harm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.grmhd.Harm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that reads a HARM dump datafile and converts to numpy format
 for plotting with matplotlib, mayavi etc. Heavily inspired/copied from
@@ -688,7 +689,7 @@ Need to understand this better.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="nmmn.grmhd.Raishin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nmmn.grmhd.</span></span><span class="sig-name descname"><span class="pre">Raishin</span></span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.grmhd.Raishin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nmmn.grmhd.</span></span><span class="sig-name descname"><span class="pre">Raishin</span></span><a class="reference internal" href="_modules/nmmn/grmhd.html#Raishin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.grmhd.Raishin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that reads a RAISHIN VTK datafile and converts to numpy format.</p>
 <p>Attributes of the object:</p>
@@ -719,7 +720,7 @@ Need to understand this better.</p>
 plotting with python. Note that RAISHIN’s output is already in
 cartesian coordinates.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>var</strong> – array to be regridded e.g. d.rho</p></li>
 <li><p><strong>nboost</strong> – factor of increase of number of grid points compared to 
@@ -744,7 +745,7 @@ previous grid</p></li>
 <dd><p>Regrid all RAISHIN data to a nice cartesian grid for plotting with
 python.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>nboost</strong> – factor of increase of number of grid points compared to 
 previous grid</p>
 </dd>
@@ -771,7 +772,7 @@ previous grid</p>
 grid for plotting with python. Regridding only some of the arrays
 will, of course, speed up things.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>listarr</strong> – list of strings specifying the arrays to be regridded.
 Options are: rho, p, v, b</p></li>
@@ -858,7 +859,7 @@ speed things up.</p>
 (-pi/2&lt;theta&lt;pi/2) vs a spherical polar angle (0&lt;theta_sph&lt;pi). The
 choice can affect some specific transformations.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>n</strong> – New number of elements n^2. If None, figures out by itself</p></li>
 <li><p><strong>xlim</strong> – Boundary for the plot and the grid</p></li>
@@ -882,19 +883,25 @@ data using the Wolfram Language.</p>
 </section>
 </section>
 <section id="module-nmmn.lsd">
-<span id="nmmn-lsd-module"></span><h2>nmmn.lsd module<a class="headerlink" href="#module-nmmn.lsd" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-lsd-module"></span><h2>nmmn.lsd module<a class="headerlink" href="#module-nmmn.lsd" title="Permalink to this heading">¶</a></h2>
 <section id="lsd-operations-lists-sets-dictionaries-and-arrays">
-<h3>LSD operations = lists, sets, dictionaries (and arrays)<a class="headerlink" href="#lsd-operations-lists-sets-dictionaries-and-arrays" title="Permalink to this headline">¶</a></h3>
+<h3>LSD operations = lists, sets, dictionaries (and arrays)<a class="headerlink" href="#lsd-operations-lists-sets-dictionaries-and-arrays" title="Permalink to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="nmmn.lsd.allEqual">
+<span class="sig-prename descclassname"><span class="pre">nmmn.lsd.</span></span><span class="sig-name descname"><span class="pre">allEqual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#allEqual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.lsd.allEqual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if all elements in an array are equal.</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="nmmn.lsd.arrAvg">
 <span class="sig-prename descclassname"><span class="pre">nmmn.lsd.</span></span><span class="sig-name descname"><span class="pre">arrAvg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#arrAvg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.lsd.arrAvg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a list of 1D or 2D arrays, this method computes their average, 
 returning an array with the same shape as the input.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>alist</strong> – list of arrays</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>average, std. dev. – arrays with the same shape as the input arrays</p>
 </dd>
 </dl>
@@ -981,14 +988,14 @@ you define.</p>
 </div>
 <p>where X,Y are 1D or 2D arrays, and Z is a 2D array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>z</strong> – 2d array</p></li>
 <li><p><strong>x</strong><strong>,</strong><strong>y</strong> – 1d or 2d arrays. In the latter case, they should have the same shape as z</p></li>
 <li><p><strong>all</strong> – should I return cropped Z,X,Y or only Z?</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Z_cropped, X_cropped, Y_cropped</p>
 </dd>
 </dl>
@@ -1023,13 +1030,13 @@ you define.</p>
 <span class="sig-prename descclassname"><span class="pre">nmmn.lsd.</span></span><span class="sig-name descname"><span class="pre">norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/lsd.html#norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.lsd.norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalizes x1. If also given as input x2, then normalizes x1 to x2.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x1</strong> – input array</p></li>
 <li><p><strong>x2</strong> – optional</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>normalized x1</p>
 </dd>
 </dl>
@@ -1066,13 +1073,13 @@ Piece of code based on <a class="reference external" href="http://stackoverflow.
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>xref</strong> – input number, array or list of reference values</p></li>
 <li><p><strong>x</strong> – input array</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>index of the x-elements with values nearest to xref:</p>
 </dd>
 </dl>
@@ -1084,10 +1091,10 @@ Piece of code based on <a class="reference external" href="http://stackoverflow.
 <dd><p>Returns the list of indexes, ordered according to the numerical value of each 
 element of x.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> – input array or list.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of element indexes.</p>
 </dd>
 </dl>
@@ -1102,10 +1109,10 @@ element of x.</p>
 </div>
 <p>returns 28122014.0.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>s</strong> – a string or list/array of strings</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a numpy array of floats</p>
 </dd>
 </dl>
@@ -1134,7 +1141,7 @@ if I use the sequence of commands below:</p>
 the tables created with astropy.io.ascii.</p>
 <p>Usage is the same as uncertainties.unumpy.uarray.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>uncertainties array.</p>
 </dd>
 </dl>
@@ -1143,9 +1150,9 @@ the tables created with astropy.io.ascii.</p>
 </section>
 </section>
 <section id="module-nmmn.misc">
-<span id="nmmn-misc-module"></span><h2>nmmn.misc module<a class="headerlink" href="#module-nmmn.misc" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-misc-module"></span><h2>nmmn.misc module<a class="headerlink" href="#module-nmmn.misc" title="Permalink to this heading">¶</a></h2>
 <section id="miscelaneous-methods">
-<h3>Miscelaneous methods<a class="headerlink" href="#miscelaneous-methods" title="Permalink to this headline">¶</a></h3>
+<h3>Miscelaneous methods<a class="headerlink" href="#miscelaneous-methods" title="Permalink to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="nmmn.misc.adjustmodel">
 <span class="sig-prename descclassname"><span class="pre">nmmn.misc.</span></span><span class="sig-name descname"><span class="pre">adjustmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stretch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#adjustmodel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.misc.adjustmodel" title="Permalink to this definition">¶</a></dt>
@@ -1156,7 +1163,7 @@ to the observations.</p>
 </div>
 <p>obs is the data you want to normalize the model to.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>time in years, time in code units, signal</p>
 </dd>
 </dl>
@@ -1190,10 +1197,10 @@ poles are at theta=0, equator at theta=90deg</p>
 </div>
 <p>returns datetime.datetime(2012, 11, 24, 12, 0, 0, 3).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>y</strong> – a float or array of floats</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a datetime structure (or list) with the date corresponding to the input float or array</p>
 </dd>
 </dl>
@@ -1244,13 +1251,13 @@ array with fun evaluated at x. See example below.</p>
 <dd><p>Given a PATH or PYTHONPATH environment variable, find the full path of a file 
 among different options. From <a class="reference external" href="https://stackoverflow.com/a/1124851/793218">https://stackoverflow.com/a/1124851/793218</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> – file for which full path is desired</p></li>
 <li><p><strong>envVar</strong> – environment variable with path to be searched</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>string with full path to file</p>
 </dd>
 </dl>
@@ -1266,6 +1273,17 @@ among different options. From <a class="reference external" href="https://stacko
 <dd><p>From a given uncertainty in linear space and the value of y, calculates the
 error in log space.</p>
 <p>Returns a sequence with the lower and upper arrays with errors.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nmmn.misc.linefrompoints">
+<span class="sig-prename descclassname"><span class="pre">nmmn.misc.</span></span><span class="sig-name descname"><span class="pre">linefrompoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#linefrompoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.misc.linefrompoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the values of two points, outputs the regression line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>values of A,B such that y=A*x+B</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1303,7 +1321,7 @@ published in that journal over <cite>dt</cite>. It then gives the ratio of your
 paper’s citation over the predicted value, to give you an idea
 whether your paper is above or below average.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>citations</strong> – number of citations for your paper</p></li>
 <li><p><strong>dt</strong> – time since your paper was published in years</p></li>
@@ -1331,7 +1349,7 @@ compare with the data.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>time in years, time in code units, signal</p>
 </dd>
 </dl>
@@ -1373,7 +1391,7 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 <span class="sig-prename descclassname"><span class="pre">nmmn.misc.</span></span><span class="sig-name descname"><span class="pre">scinotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/misc.html#scinotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.misc.scinotation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays a number in scientific notation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – number</p></li>
 <li><p><strong>n</strong> – number of significant digits to display</p></li>
@@ -1400,10 +1418,10 @@ available and 0 if there is only an upper limit i.e. censored data.</p>
 </div>
 <p>returns datetime.datetime(2014, 12, 22, 0, 0).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>y</strong> – a string or list of strings</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>a datetime structure (or list) with the date corresponding to the input float or array</p>
 </dd>
 </dl>
@@ -1439,9 +1457,9 @@ the bces* methods.</p>
 </section>
 </section>
 <section id="module-nmmn.plots">
-<span id="nmmn-plots-module"></span><h2>nmmn.plots module<a class="headerlink" href="#module-nmmn.plots" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-plots-module"></span><h2>nmmn.plots module<a class="headerlink" href="#module-nmmn.plots" title="Permalink to this heading">¶</a></h2>
 <section id="fancy-plots">
-<h3>Fancy plots<a class="headerlink" href="#fancy-plots" title="Permalink to this headline">¶</a></h3>
+<h3>Fancy plots<a class="headerlink" href="#fancy-plots" title="Permalink to this heading">¶</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="nmmn.plots.fitconf">
 <span class="sig-prename descclassname"><span class="pre">nmmn.plots.</span></span><span class="sig-name descname"><span class="pre">fitconf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xdata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ydata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">erry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">covxy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nboot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcesMethod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ort'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linestyle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.683</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confcolor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gray'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xplot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">front</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/plots.html#fitconf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.plots.fitconf" title="Permalink to this definition">¶</a></dt>
@@ -1593,7 +1611,7 @@ my AGN-GRB plot. Inherited from method fitconf.</p>
 <p>where y are the line points, lcb and ucb are the lower and upper confidence band
 points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>xplot</strong> – if provided, will compute the confidence band in the X-values provided
 with xplot</p></li>
@@ -1634,7 +1652,7 @@ the ipython notebook “error contours.ipynb”. Sources of inspiration:</p>
 <dd><p>Ascribes a linewidth based on the input value. Useful for
 plots where the linewidth changes depending on some weight.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>value</strong> – value that will be used to get the line width</p></li>
 <li><p><strong>max</strong> – maximum value for normalization</p></li>
@@ -1642,7 +1660,7 @@ plots where the linewidth changes depending on some weight.</p>
 <li><p><strong>lw_max</strong> – max line width</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>line width for plotting</p>
 </dd>
 </dl>
@@ -1700,7 +1718,7 @@ Chris Slocum, Colorado State University</p>
 <dd><p>Returns the plot of a grmonty spectrum as a pyplot object or plot it on 
 the screen</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>param</strong> – grmonty spectrum file</p>
 </dd>
 </dl>
@@ -1817,7 +1835,7 @@ Author: Anton Mikhailov</p>
 <dd><p>Script that plots two histograms of quantities x1 and x2
 sharing the same X-axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x1</strong><strong>,</strong><strong>x2</strong> – arrays with data to be plotted</p></li>
 <li><p><strong>xmin</strong><strong>,</strong><strong>xmax</strong> – lower and upper range of plotted values, will be used to set a consistent x-range
@@ -1869,13 +1887,13 @@ for images in Wolfram Mathematica 11 (dark blue to orange).</p>
 </section>
 </section>
 <section id="module-nmmn.sed">
-<span id="nmmn-sed-module"></span><h2>nmmn.sed module<a class="headerlink" href="#module-nmmn.sed" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-sed-module"></span><h2>nmmn.sed module<a class="headerlink" href="#module-nmmn.sed" title="Permalink to this heading">¶</a></h2>
 <section id="spectral-energy-distributions">
-<h3>Spectral energy distributions<a class="headerlink" href="#spectral-energy-distributions" title="Permalink to this headline">¶</a></h3>
+<h3>Spectral energy distributions<a class="headerlink" href="#spectral-energy-distributions" title="Permalink to this heading">¶</a></h3>
 <p>Methods and classes for dealing with spectral energy distributions (SEDs).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="nmmn.sed.SED">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nmmn.sed.</span></span><span class="sig-name descname"><span class="pre">SED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logfmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.sed.SED" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nmmn.sed.</span></span><span class="sig-name descname"><span class="pre">SED</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logfmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lognu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#SED"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.sed.SED" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that defines objects storing Spectral energy distributions (SEDs). 
 The SEDs can be imported either from datafiles with the observations/models,
@@ -1989,7 +2007,7 @@ unintentionally.</p>
 First computes the bolometric luminosity via interpolation and 
 then calculates the Eddington ratio.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>mass</strong> – log10(BH mass in solar masses)</p>
 </dd>
 </dl>
@@ -2086,7 +2104,7 @@ of values of log(nu) and for the given number of points.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>seds</strong> – list of SED objects to interpolate</p></li>
 <li><p><strong>points</strong> – number of interpolated points</p></li>
@@ -2227,13 +2245,13 @@ RQ one.</p>
 <dd><p>Reads SEDs in the format provided by Hampadarath et al.:
 nu(GHz) flux(microJy) error(microJy) Detection[1]orUpperlimit[0]</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> – file with SED data</p></li>
 <li><p><strong>dist</strong> – distance in Mpc</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SED object in units of Hz vs erg/s</p>
 </dd>
 </dl>
@@ -2287,13 +2305,13 @@ Stores the new attributes gammax and lumx in the object.</p>
 <dd><p>Given the spectrum of a popstar and an array of frequencies ‘x’,
 this outputs the values of ypop for each x.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – frequencies</p></li>
 <li><p><strong>xpop</strong><strong>,</strong><strong>ypop</strong> – spectrum from stellar population</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>returns y=a*L where L is the stellar pop. luminosity</p>
 </dd>
 </dl>
@@ -2322,14 +2340,14 @@ returning {‘sum’:s,’ssd’:disk,’adaf’:a}.</p>
 for upper limits and the nice bow tie.</p>
 <p>Extinction corrections represented as either “error bars” or “circle + error bar”.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>source</strong> – source name e.g. ‘NGC1097’ or ‘ngc1097’ or ‘NGC 1097’. Must have four numbers.</p></li>
 <li><p><strong>patho</strong> – path to observed SED data files</p></li>
 <li><p><strong>info</strong> – path to information datafile with distances and masses</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SED object</p>
 </dd>
 </dl>
@@ -2341,14 +2359,14 @@ for upper limits and the nice bow tie.</p>
 <dd><p>Reads an observed SED from the Hayden et al. sample. Computes useful 
 quantities.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>source</strong> – source name e.g. ‘NGC1097’ or ‘ngc1097’ or ‘NGC 1097’. Must have four numbers.</p></li>
 <li><p><strong>patho</strong> – path to observed SED data files</p></li>
 <li><p><strong>info</strong> – path to information datafile with distances and masses</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SED object</p>
 </dd>
 </dl>
@@ -2390,7 +2408,7 @@ quantities.</p>
 for upper limits and the nice bow tie.</p>
 <p>Extinction corrections represented as either “error bars” or “circle + error bar”.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>source</strong> – source name e.g. ‘NGC1097’ or ‘ngc1097’ or ‘NGC 1097’. Must have four numbers.</p></li>
 <li><p><strong>table</strong> – path of ASCII table models.csv with the required SED parameters gammax, error in gammax, X-ray luminosity and distratio</p></li>
@@ -2398,7 +2416,7 @@ for upper limits and the nice bow tie.</p>
 <li><p><strong>ext</strong> – 0 for showing extinction corrections as “error bars”; 1 for “circle + error bar”</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SED object with distance-corrected luminosities</p>
 </dd>
 </dl>
@@ -2409,14 +2427,14 @@ for upper limits and the nice bow tie.</p>
 <span class="sig-prename descclassname"><span class="pre">nmmn.sed.</span></span><span class="sig-name descname"><span class="pre">obsplot1097</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#obsplot1097"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.sed.obsplot1097" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modification of the plot method to handle the nice data of NGC 1097.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>source</strong> – source name e.g. ‘NGC1097’ or ‘ngc1097’ or ‘NGC 1097’. Must have four numbers.</p></li>
 <li><p><strong>o</strong> – observed SED data points imported using the SED class and the erac method.</p></li>
 <li><p><strong>table</strong> – path of ASCII table models.csv with the required SED parameters gammax, error in gammax, X-ray luminosity and distratio.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SED object with distance-corrected luminosities</p>
 </dd>
 </dl>
@@ -2428,7 +2446,7 @@ for upper limits and the nice bow tie.</p>
 <dd><p>Computes the gamma-ray spectrum from pp collisions followed by pion decay for the full 
 RIAF computed by my semi-analytical model.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>logfile</strong> – log file generated by the semi-analytical RIAF model, containing the electron number density and ion temperature. e.g. ‘cd ~/science/projects/adafjet/adaf/perl/run01/out_01’</p></li>
 <li><p><strong>parfile</strong> – parameter file used as input by the semi-analytical RIAF model, containing the black hole mass and other model parameters. e.g. ‘cd ~/science/projects/adafjet/adaf/perl/run01/in.dat’</p></li>
@@ -2438,7 +2456,7 @@ RIAF computed by my semi-analytical model.</p>
 <li><p><strong>photon_energy</strong> – array of photon energies for SED. If None, taken as the same as proton_energy. In astropy.units</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>SED object in units of Hz vs erg/s</p>
 </dd>
 </dl>
@@ -2496,10 +2514,10 @@ Main method to create the SED plot.</p>
 <dd><p>Fits the stellar population spectrum, finds the required mass and plots its
 SED.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>o</strong> – object containing the observed SED</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>fitted stellar population mass</p>
 </dd>
 </dl>
@@ -2507,7 +2525,7 @@ SED.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="nmmn.sed.powerlaw">
-<span class="sig-prename descclassname"><span class="pre">nmmn.sed.</span></span><span class="sig-name descname"><span class="pre">powerlaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nurange</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#powerlaw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.sed.powerlaw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">nmmn.sed.</span></span><span class="sig-name descname"><span class="pre">powerlaw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Lx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nurange</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npoints</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/sed.html#powerlaw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.sed.powerlaw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the X-ray powerlaw variables.</p>
 <p>Arguments:
 - alpha: spectral power-law index
@@ -2569,9 +2587,9 @@ the best-fit photon index and the error in this index.</p>
 </section>
 </section>
 <section id="module-nmmn.stats">
-<span id="nmmn-stats-module"></span><h2>nmmn.stats module<a class="headerlink" href="#module-nmmn.stats" title="Permalink to this headline">¶</a></h2>
+<span id="nmmn-stats-module"></span><h2>nmmn.stats module<a class="headerlink" href="#module-nmmn.stats" title="Permalink to this heading">¶</a></h2>
 <section id="statistical-methods">
-<h3>Statistical methods<a class="headerlink" href="#statistical-methods" title="Permalink to this headline">¶</a></h3>
+<h3>Statistical methods<a class="headerlink" href="#statistical-methods" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>fit residuals</p></li>
 <li><p>Computing prediction and confidence bands</p></li>
@@ -2593,14 +2611,14 @@ the chi-squared values instead of RSS.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rss</strong> – residual sum of squares for the model in case errors=False, otherwise assumes you are giving the chi-square values</p></li>
 <li><p><strong>n</strong> – sample size, i.e. number of data points</p></li>
 <li><p><strong>k</strong> – number of free parameters in the model</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>AIC statistic</p>
 </dd>
 </dl>
@@ -2650,10 +2668,10 @@ will give you an idea of how much outliers affect your correlation.</p>
 </div>
 <p>performs 100000 bootstrapping realizations on the arrays x and y.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p><em>r</em> - array with bootstrapped Pearson statistics</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>rho</em> - bootstrapped array with Spearman statistics</p>
 </dd>
 </dl>
@@ -2810,7 +2828,7 @@ by default generate 100 points in the original x-range of the data.</p></li>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Sequence (lcb,ucb,x) with the arrays holding the lower and upper confidence bands</p>
 </dd>
 </dl>
@@ -2867,13 +2885,13 @@ linear fit with slope ‘a’ and intercept ‘b’.</p>
 </div>
 <blockquote>
 <div><dl class="field-list simple">
-<dt class="field-odd">param xdata,ydata</dt>
+<dt class="field-odd">param xdata,ydata<span class="colon">:</span></dt>
 <dd class="field-odd"><p>data</p>
 </dd>
-<dt class="field-even">param errx,erry</dt>
+<dt class="field-even">param errx,erry<span class="colon">:</span></dt>
 <dd class="field-even"><p>measurement uncertainties in the data</p>
 </dd>
-<dt class="field-odd">param a,b</dt>
+<dt class="field-odd">param a,b<span class="colon">:</span></dt>
 <dd class="field-odd"><p>slope and intercept of the best-fit linear regression model</p>
 </dd>
 </dl>
@@ -2950,7 +2968,7 @@ parameters</p></li>
 m{size}(t)}\)</span> array. Each row of this
 array contains a simulated TS.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>y</strong> – array of y-values for time series (do not need to be in order)</p></li>
 <li><p><strong>erry</strong> – array of 1-sigma errors on y-values</p></li>
@@ -2958,7 +2976,7 @@ array contains a simulated TS.</p>
 <li><p><strong>zeropad</strong> – are y-values&lt;0 not allowed? <cite>True</cite> will make any values&lt;0 into 0</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><cite>n x size(t)</cite> array. Each row of this array contains a simulated TS</p>
 </dd>
 </dl>
@@ -2985,6 +3003,36 @@ A&amp;A, 498, 361.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="nmmn.stats.linboot">
+<span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">linboot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#linboot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.linboot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the usual linear regression <em>with bootstrapping</em>.</p>
+<p>Usage:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="n">lincorr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>performs 10000 bootstrapped fits on the arrays x and y.</p>
+<p>Plot the best-fit with</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">amed</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bmed</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">amed</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="n">bmed</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – array of x data values</p></li>
+<li><p><strong>y</strong> – array of y data values</p></li>
+<li><p><strong>n</strong> – number of bootstrapping resamples that will be generated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>arrays <cite>a</cite> and <cite>b</cite>, each element is a different bootstrapped fit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="nmmn.stats.linregress_error">
 <span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">linregress_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#linregress_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.linregress_error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the uncertainties in the parameters A,B of the least-squares
@@ -2998,7 +3046,7 @@ Returns the sequence sigma_a, sigma_b with the standard deviations in A and B.</
 <span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds the mode of a distribution, i.e. the value where the PDF peaks.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> – input list/array with the distribution</p>
 </dd>
 </dl>
@@ -3046,7 +3094,7 @@ by default generate 100 points in the original x-range of the data.</p></li>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands</p>
 </dd>
 </dl>
@@ -3054,6 +3102,38 @@ by default generate 100 points in the original x-range of the data.</p></li>
 <p>References:</p>
 <p>1. <a class="reference external" href="http://www.JerryDallal.com/LHSP/slr.htm">Introduction to Simple Linear Regression, Gerard 
 E. Dallal, Ph.D.</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nmmn.stats.predband_linboot">
+<span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">predband_linboot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#predband_linboot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.predband_linboot" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Computes information for plotting the prediction band (“bow tie” plot) around
+best-fit. Run this after running <cite>linboot</cite> below.</p>
+<p>Usage:</p>
+<p>Plots prediction band and best-fit given data x,y</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span><span class="o">=</span><span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linboot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xMock</span><span class="p">,</span><span class="n">yBest</span><span class="p">,</span><span class="n">yStd</span><span class="o">=</span><span class="n">nmmn</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">confband_linboot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xMock</span><span class="p">,</span><span class="n">amed</span><span class="o">*</span><span class="n">xMock</span><span class="o">+</span><span class="n">bmed</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">xMock</span><span class="p">,</span><span class="n">yBest</span><span class="o">-</span><span class="n">yStd</span><span class="p">,</span><span class="n">yBest</span><span class="o">+</span><span class="n">yStd</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>           
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – array of x data values</p></li>
+<li><p><strong>a</strong> – array of slopes from bootstrapped fits</p></li>
+<li><p><strong>b</strong> – array of intercepts from bootstrapped fits</p></li>
+<li><p><strong>n</strong> – number of bootstrapping resamples that will be generated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>arrays x (mock x-values with same interval as data), corresponding best-fit values, yStd (prediction band)</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -3084,7 +3164,7 @@ by default generate 100 points in the original x-range of the data.</p></li>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Sequence (lpb,upb,x) with the arrays holding the lower and upper confidence bands</p>
 </dd>
 </dl>
@@ -3122,7 +3202,7 @@ corresponding p-value of the null hypothesis (i.e. no correlation).</p>
 <p>where ‘r’ is the Pearson coefficient and n is the number of data
 points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>p-value of the null hypothesis.</p>
 </dd>
 </dl>
@@ -3135,17 +3215,6 @@ points.</p>
 interval <em>[x0,x1)</em>.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">random</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="nmmn.stats.random_normal">
-<span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">random_normal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#random_normal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.random_normal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an array of n elements of random variables, following a normal 
-distribution with the supplied mean and standard deviation.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>this is superseded. Use <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.normal.html">numpy.random.normal</a> instead.</p>
 </div>
 </dd></dl>
 
@@ -3164,14 +3233,14 @@ rejection*.py.</p>
 <div><p>where</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>P</strong> – probability distribution function from which you want to generate random numbers</p></li>
 <li><p><strong>N</strong> – desired number of random values</p></li>
 <li><p><strong>xmin</strong><strong>,</strong><strong>xmax</strong> – range of random numbers desired</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the sequence (ran,ntrials) where
 ran : array of shape N with the random variates that follow the input P
 ntrials : number of trials the code needed to achieve N</p>
@@ -3281,14 +3350,14 @@ Pratt et al. 2009).</em></p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">sd=scatpratt(x,y,errx,erry,a,b)</span></span></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong><strong>,</strong><strong>y</strong> – X and Y data arrays</p></li>
 <li><p><strong>erry</strong> (<em>errx</em><em>,</em>) – standard deviations in X and Y</p></li>
 <li><p><strong>a</strong><strong>,</strong><strong>b</strong> – slope and intercept of best-fit linear relation</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>float sd with the scatter about the best-fit.</p>
 </dd>
 </dl>
@@ -3304,13 +3373,13 @@ Pratt et al. 2009).</em></p>
 (<em>y=ax+b</em>) provided as arguments. Otherwise, compute the mean deviation about 
 the best-fit line.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong><strong>,</strong><strong>y</strong> – assumed to be Numpy arrays.</p></li>
 <li><p><strong>a</strong><strong>,</strong><strong>b</strong> – scalars.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>float sd with the mean deviation.</p>
 </dd>
 </dl>
@@ -3326,14 +3395,14 @@ the array ymod, tabulated exactly like ydata.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ydata</strong> – data</p></li>
 <li><p><strong>ymod</strong> – model evaluated at xdata</p></li>
 <li><p><strong>n</strong> – number of free parameters in the model</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>float sd with the mean deviation.</p>
 </dd>
 </dl>
@@ -3358,7 +3427,7 @@ E.g., 1sigma -&gt; p=0.683, 2sigma -&gt; p=0.954, etc.</p>
 with asymmetric error bars.</p>
 <p>See <a class="reference external" href="http://en.wikipedia.org/wiki/Split_normal_distribution">http://en.wikipedia.org/wiki/Split_normal_distribution</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – input array where the PDF will be computed</p></li>
 <li><p><strong>sig1</strong> – left standard deviation</p></li>
@@ -3366,7 +3435,7 @@ with asymmetric error bars.</p>
 <li><p><strong>mu</strong> – mode</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>probability distribution function for the array x</p>
 </dd>
 </dl>
@@ -3374,14 +3443,14 @@ with asymmetric error bars.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="nmmn.stats.splitnorm_gen">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">splitnorm_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">momtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">badvalue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extradoc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#splitnorm_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.splitnorm_gen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">scipy.stats._distn_infrastructure.rv_continuous</span></code></p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nmmn.stats.</span></span><span class="sig-name descname"><span class="pre">splitnorm_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">momtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-14</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">badvalue</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extradoc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/stats.html#splitnorm_gen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.stats.splitnorm_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rv_continuous</span></code></p>
 <p>Split normal distribution defined using scipy.stats. Can be called as 
 any scipy.stats distribution. I took the effort of defining the extra
 CDF and PPF methods below in order to speedup calls to this class 
 (I have particularly in mind the package <em>mcerp</em>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – input array where the PDF will be computed</p></li>
 <li><p><strong>sig1</strong> – left standard deviation</p></li>
@@ -3394,7 +3463,7 @@ CDF and PPF methods below in order to speedup calls to this class
 <p>Defines distribution with sig1=1, sig2=3, mu=0:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split</span> <span class="o">=</span> <span class="n">splitnorm_gen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;splitnorm&#39;</span><span class="p">,</span> <span class="n">shapes</span><span class="o">=</span><span class="s1">&#39;sig1, sig2, mu&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">split</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.0001</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Computes PDF:</p>
@@ -3431,10 +3500,10 @@ intensive minimization involved when fitting a function.</p>
 <li><p>compute the standard deviations for the new mirror distributions</p></li>
 </ul>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>x</strong> – array or list containing the distribution</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>left.stddev, right.stddev</p>
 </dd>
 </dl>
@@ -3447,110 +3516,10 @@ intensive minimization involved when fitting a function.</p>
 </section>
 </section>
 <section id="nmmn-finance-module">
-<h2>nmmn.finance module<a class="headerlink" href="#nmmn-finance-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-nmmn.finance"></span><section id="financial-market-methods">
-<h3>Financial market methods<a class="headerlink" href="#financial-market-methods" title="Permalink to this headline">¶</a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="nmmn.finance.candle">
-<span class="sig-prename descclassname"><span class="pre">nmmn.finance.</span></span><span class="sig-name descname"><span class="pre">candle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/finance.html#candle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.finance.candle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenient function to plot candle sticks.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>fig</strong> – figure object created with plotly (cf. example below)</p></li>
-<li><p><strong>data</strong> – stock time series imported with yfinance (Pandas)</p></li>
-<li><p><strong>legend</strong> – plot title</p></li>
-</ul>
-</dd>
-</dl>
-<p>Example: Candle stick plot for Microsoft stocks</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">yfinance</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">=</span><span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">msft</span><span class="o">=</span><span class="n">yfinance</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">tickers</span><span class="o">=</span><span class="s1">&#39;MSFT&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s1">&#39;1y&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s1">&#39;1d&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">candle</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span><span class="n">msft</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="nmmn.finance.normalize">
-<span class="sig-prename descclassname"><span class="pre">nmmn.finance.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/finance.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.finance.normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given two tickers, this method normalizes them such that you can 
-plot them together. One possible usage of this method is to compare
-the stock price of the same company in different exchanges—e.g. NASDAQ
-and B3—and see how they compare.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x1</strong> – yfinance stock time series #1</p></li>
-<li><p><strong>x2</strong> – yfinance stock time series #2</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>x2 stock data normalized to the same scale as x1</p>
-</dd>
-</dl>
-<p>Example:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">adbe</span><span class="o">=</span><span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">tickers</span><span class="o">=</span><span class="s1">&#39;ADBE&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s1">&#39;3mo&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s1">&#39;1d&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adbeBR</span><span class="o">=</span><span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">tickers</span><span class="o">=</span><span class="s1">&#39;ADBE34.SA&#39;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s1">&#39;3mo&#39;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="s1">&#39;1d&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">adbe</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;US&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">=</span><span class="n">normalize</span><span class="p">(</span><span class="n">adbe</span><span class="p">,</span><span class="n">adbeBR</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;BR&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">legend</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Adobe&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">grid</span><span class="p">()</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="nmmn.finance.returns">
-<span class="sig-prename descclassname"><span class="pre">nmmn.finance.</span></span><span class="sig-name descname"><span class="pre">returns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ticker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ytd'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/finance.html#returns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.finance.returns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convenient method for retrieving the returns of a stock over a given
-time period.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ticker</strong> – the stock ticker</p></li>
-<li><p><strong>dt</strong> – the period covered ending at “now”. Possible options: 11d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max. OPTIONAL, default is year to date.</p></li>
-<li><p><strong>t0</strong> – the initial date in the format ‘2021-03-17’. If t0 is specified, then dt should not be.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the percentage return of the stock in the specified period</p>
-</dd>
-</dl>
-<p># Examples:</p>
-<p>Returns from Small Cap BR ETF since July 11th 2014:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">returns</span><span class="p">(</span><span class="s1">&#39;SMAL11.SA&#39;</span><span class="p">,</span><span class="n">t0</span><span class="o">=</span><span class="s1">&#39;2014-07-11&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Returns from VALE3 in the last two years:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">returns</span><span class="p">(</span><span class="s1">&#39;VALE3.SA&#39;</span><span class="p">,</span><span class="s1">&#39;2y&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="nmmn.finance.returnsTS">
-<span class="sig-prename descclassname"><span class="pre">nmmn.finance.</span></span><span class="sig-name descname"><span class="pre">returnsTS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nmmn/finance.html#returnsTS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nmmn.finance.returnsTS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a stock, this method returns the stock percentage returns as a time series.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> – yfinance stock time series</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>stock time series of percentage returns</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
+<h2>nmmn.finance module<a class="headerlink" href="#nmmn-finance-module" title="Permalink to this heading">¶</a></h2>
 </section>
 <section id="module-nmmn">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nmmn" title="Permalink to this headline">¶</a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nmmn" title="Permalink to this heading">¶</a></h2>
 <p>Miscellaneous modules for:</p>
 <ul class="simple">
 <li><p><cite>astro</cite>: astronomy</p></li>
@@ -3627,10 +3596,7 @@ time period.</p>
 <li class="toctree-l3"><a class="reference internal" href="#statistical-methods">Statistical methods</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#nmmn-finance-module">nmmn.finance module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#financial-market-methods">Financial market methods</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#nmmn-finance-module">nmmn.finance module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-nmmn">Module contents</a></li>
 </ul>
 </li>
@@ -3648,12 +3614,12 @@ time period.</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -3670,7 +3636,7 @@ time period.</p>
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

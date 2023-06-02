@@ -11,6 +11,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -66,10 +67,12 @@
 </li>
       <li><a href="nmmn.html#nmmn.stats.aic">aic() (in module nmmn.stats)</a>
 </li>
-      <li><a href="nmmn.html#nmmn.bayes.allplot">allplot() (in module nmmn.bayes)</a>
+      <li><a href="nmmn.html#nmmn.lsd.allEqual">allEqual() (in module nmmn.lsd)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nmmn.html#nmmn.bayes.allplot">allplot() (in module nmmn.bayes)</a>
+</li>
       <li><a href="nmmn.html#nmmn.sed.SED.alphaox">alphaox() (nmmn.sed.SED method)</a>
 </li>
       <li><a href="nmmn.html#nmmn.astro.arcsec2pc">arcsec2pc() (in module nmmn.astro)</a>
@@ -98,8 +101,6 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="nmmn.html#nmmn.finance.candle">candle() (in module nmmn.finance)</a>
-</li>
       <li><a href="nmmn.html#nmmn.misc.cart2pol">cart2pol() (in module nmmn.misc)</a>
 </li>
       <li><a href="nmmn.html#nmmn.misc.cart2sph">cart2sph() (in module nmmn.misc)</a>
@@ -124,10 +125,10 @@
 </li>
       <li><a href="nmmn.html#nmmn.lsd.cmset_not">cmset_not() (in module nmmn.lsd)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nmmn.html#nmmn.lsd.cmsetsort_and">cmsetsort_and() (in module nmmn.lsd)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nmmn.html#nmmn.stats.conf2sig">conf2sig() (in module nmmn.stats)</a>
 </li>
       <li><a href="nmmn.html#nmmn.stats.confband">confband() (in module nmmn.stats)</a>
@@ -312,12 +313,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="nmmn.html#nmmn.misc.lin2log">lin2log() (in module nmmn.misc)</a>
 </li>
-      <li><a href="nmmn.html#nmmn.plots.lineWidth">lineWidth() (in module nmmn.plots)</a>
+      <li><a href="nmmn.html#nmmn.stats.linboot">linboot() (in module nmmn.stats)</a>
 </li>
-      <li><a href="nmmn.html#nmmn.stats.linregress_error">linregress_error() (in module nmmn.stats)</a>
+      <li><a href="nmmn.html#nmmn.misc.linefrompoints">linefrompoints() (in module nmmn.misc)</a>
+</li>
+      <li><a href="nmmn.html#nmmn.plots.lineWidth">lineWidth() (in module nmmn.plots)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nmmn.html#nmmn.stats.linregress_error">linregress_error() (in module nmmn.stats)</a>
+</li>
       <li><a href="nmmn.html#nmmn.misc.log2lin">log2lin() (in module nmmn.misc)</a>
 </li>
       <li><a href="nmmn.html#nmmn.dsp.ls">ls() (in module nmmn.dsp)</a>
@@ -365,8 +370,6 @@
         <li><a href="nmmn.html#module-nmmn.dsp">nmmn.dsp</a>
 </li>
         <li><a href="nmmn.html#module-nmmn.fermi">nmmn.fermi</a>
-</li>
-        <li><a href="nmmn.html#module-nmmn.finance">nmmn.finance</a>
 </li>
         <li><a href="nmmn.html#module-nmmn.grmhd">nmmn.grmhd</a>
 </li>
@@ -429,13 +432,6 @@
 </li>
       </ul></li>
       <li>
-    nmmn.finance
-
-      <ul>
-        <li><a href="nmmn.html#module-nmmn.finance">module</a>
-</li>
-      </ul></li>
-      <li>
     nmmn.grmhd
 
       <ul>
@@ -481,12 +477,8 @@
       </ul></li>
       <li><a href="nmmn.html#nmmn.lsd.norm">norm() (in module nmmn.lsd)</a>
 </li>
-      <li><a href="nmmn.html#nmmn.finance.normalize">normalize() (in module nmmn.finance)</a>
-
-      <ul>
-        <li><a href="nmmn.html#nmmn.sed.SED.normalize">(nmmn.sed.SED method)</a>
+      <li><a href="nmmn.html#nmmn.sed.SED.normalize">normalize() (nmmn.sed.SED method)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -547,6 +539,8 @@
 </li>
       <li><a href="nmmn.html#nmmn.stats.predband">predband() (in module nmmn.stats)</a>
 </li>
+      <li><a href="nmmn.html#nmmn.stats.predband_linboot">predband_linboot() (in module nmmn.stats)</a>
+</li>
       <li><a href="nmmn.html#nmmn.stats.predbandnl">predbandnl() (in module nmmn.stats)</a>
 </li>
       <li><a href="nmmn.html#nmmn.sed.SED.prieto">prieto() (nmmn.sed.SED method)</a>
@@ -567,8 +561,6 @@
 </li>
       <li><a href="nmmn.html#nmmn.stats.random">random() (in module nmmn.stats)</a>
 </li>
-      <li><a href="nmmn.html#nmmn.stats.random_normal">random_normal() (in module nmmn.stats)</a>
-</li>
       <li><a href="nmmn.html#nmmn.stats.randomvariate">randomvariate() (in module nmmn.stats)</a>
 </li>
       <li><a href="nmmn.html#nmmn.sed.SED.raniere">raniere() (nmmn.sed.SED method)</a>
@@ -583,10 +575,10 @@
 </li>
       <li><a href="nmmn.html#nmmn.misc.readmodel">readmodel() (in module nmmn.misc)</a>
 </li>
-      <li><a href="nmmn.html#nmmn.dsp.reconstruct">reconstruct() (in module nmmn.dsp)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="nmmn.html#nmmn.dsp.reconstruct">reconstruct() (in module nmmn.dsp)</a>
+</li>
       <li><a href="nmmn.html#nmmn.dsp.reconstruct_period">reconstruct_period() (in module nmmn.dsp)</a>
 </li>
       <li><a href="nmmn.html#nmmn.stats.redchisq">redchisq() (in module nmmn.stats)</a>
@@ -610,10 +602,6 @@
       <li><a href="nmmn.html#nmmn.lsd.replacevals">replacevals() (in module nmmn.lsd)</a>
 </li>
       <li><a href="nmmn.html#nmmn.stats.residual">residual() (in module nmmn.stats)</a>
-</li>
-      <li><a href="nmmn.html#nmmn.finance.returns">returns() (in module nmmn.finance)</a>
-</li>
-      <li><a href="nmmn.html#nmmn.finance.returnsTS">returnsTS() (in module nmmn.finance)</a>
 </li>
       <li><a href="nmmn.html#nmmn.misc.runsave">runsave() (in module nmmn.misc)</a>
 </li>
@@ -799,12 +787,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -821,7 +809,7 @@
       &copy;2016, Author.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
