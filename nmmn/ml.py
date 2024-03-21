@@ -11,37 +11,33 @@ import numpy as np
 
 
 
-def scatterfit(x,y,a=None,b=None):
-	"""
-Compute the mean deviation of the data about the linear model given if A,B
-(*y=ax+b*) provided as arguments. Otherwise, compute the mean deviation about 
-the best-fit line.
-
-:param x,y: assumed to be Numpy arrays. 
-:param a,b: scalars.
-:rtype: float sd with the mean deviation.
-	"""
-
-	if a==None:	
-		# Performs linear regression
-		a, b, r, p, err = scipy.stats.linregress(x,y)
-	
-	# Std. deviation of an individual measurement (Bevington, eq. 6.15)
-	N=np.size(x)
-	sd=1./(N-2.)* np.sum((y-a*x-b)**2)
-	sd=np.sqrt(sd)
-	
-	return sd
-	
-
-
 def AUCmulti(y_true, y_score):
     """
-Computes the area under the ROC curve
-   Assume y_true contains the true labels and y_score contains predicted probabilities for each class
+Computes the area under the ROC curve for multiclass classification models. 
+Useful for evaluating the performance of such a model.
 
-    y_true: 1D array listing the labels
-    y_score: multidimensional array of probabilities
+Assume `y_true` contains the true labels and `y_score` contains predicted probabilities 
+for each class.
+
+:param y_true: 1D array listing the labels
+:param y_score: multidimensional array of predicted probabilities
+
+Example: AUC for a classification involving 7 labels and 10 instances.
+
+    # Mock data
+    ytrue=np.array([6, 2, 6, 6, 6, 6, 5, 1, 5, 0])
+    y_score=np.array([[0.11, 0.04, 0.  , 0.  , 0.03, 0.12, 0.69],
+       [0.  , 0.03, 0.76, 0.  , 0.  , 0.01, 0.13],
+       [0.05, 0.01, 0.  , 0.  , 0.  , 0.27, 0.63],
+       [0.09, 0.01, 0.  , 0.  , 0.  , 0.47, 0.43],
+       [0.09, 0.  , 0.01, 0.  , 0.08, 0.51, 0.31],
+       [0.03, 0.53, 0.  , 0.  , 0.03, 0.17, 0.21],
+       [0.17, 0.07, 0.01, 0.  , 0.03, 0.36, 0.32],
+       [0.08, 0.3 , 0.09, 0.  , 0.05, 0.16, 0.26],
+       [0.01, 0.01, 0.  , 0.  , 0.01, 0.6 , 0.33],
+       [0.  , 0.04, 0.08, 0.01, 0.  , 0.37, 0.41]])
+
+    AUCmulti(ytrue, yscore)
     """
     from sklearn.metrics import roc_auc_score
     from sklearn.preprocessing import label_binarize
