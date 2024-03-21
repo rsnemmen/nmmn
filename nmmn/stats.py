@@ -674,14 +674,14 @@ v1 Jun. 2012: inspired by private communication with B. Kelly.
 	
 	
 
-def confband_linboot(x,a,b,n):
+def predband_linboot(x,a,b,n):
 	"""
-	Computes information for plotting confidence band ("bow tie" plot) around
+	Computes information for plotting the prediction band ("bow tie" plot) around
 	best-fit. Run this after running `linboot` below.
 
 	Usage:
 
-	Plot confidence band and best-fit given data x,y
+	Plots prediction band and best-fit given data x,y
 
 	>>> n=1000
 	>>> a,b=nmmn.stats.linboot(x,y,n)
@@ -694,7 +694,7 @@ def confband_linboot(x,a,b,n):
 :param a: array of slopes from bootstrapped fits
 :param b: array of intercepts from bootstrapped fits
 :param n: number of bootstrapping resamples that will be generated
-:returns: arrays x (mock x-values with same interval as data),yStd (confidence band)
+:returns: arrays x (mock x-values with same interval as data), corresponding best-fit values, yStd (prediction band)
 	"""
 	xsim=np.linspace(x.min(),x.max(),50)
 
@@ -709,10 +709,9 @@ def confband_linboot(x,a,b,n):
 	amed=np.median(a)
 	bmed=np.median(b)
 	yBest=amed*xsim+bmed
-	# confidence band
+	# prediction band
 	yStd=np.std(yarr,axis=0)
 
-	# confidence band
 	return xsim,yBest,yStd
 
 
@@ -792,9 +791,11 @@ performs 100000 bootstrapping realizations on the arrays x and y.
 :returns: *rho* - bootstrapped array with Spearman statistics
 
 	"""
+	from . import lsd
+
 	r,rho=[],[]
 	for i in range(nboot):
-		[xsim,ysim]=bootstrap([x,y])
+		[xsim,ysim]=lsd.bootstrap([x,y])
 		
 		# Pearson r
 		rsim=scipy.stats.pearsonr(xsim,ysim)	
@@ -811,10 +812,10 @@ performs 100000 bootstrapping realizations on the arrays x and y.
 	print(np.round(results, 2))
 
 	results=np.array([ r2p(np.median(r)-np.abs(r.std()),x.size), r2p(np.median(r),x.size), r2p(np.median(r)+np.abs(r.std()),x.size) ])
-	print("Prob. <- <r>-std,  <r>,    <r>+std")
+	print("H0 probability = <r>-std,  <r>,    <r>+std")
 	print(results)
 
-	print("Rejection of H0 respectively at")
+	print("H0 rejected at (sigma)")
 	for p in results:
 		print(round(p2sig(p),2)	)
 		
@@ -888,12 +889,19 @@ Plot the best-fit with
 	a, b=[],[]
 
 	for i in range(n):
-	    [xsim,ysim]=lsd.bootstrap([x,y])
-	    
-	    # Linear fit
-	    asim, bsim, rsim, p, err = scipy.stats.linregress(xsim,ysim)
-	    a.append(asim)
-	    b.append(bsim)
+			# This is needed for small datasets. With datasets of 4 points or less,
+			# bootstrapping can generate a mock array with 4 repeated points. This
+			# will cause an error in the linear regression.
+			allEquals=True
+			while allEquals:
+				[xsim,ysim]=lsd.bootstrap([x,y])
+
+				allEquals=lsd.allEqual(xsim)
+
+			# Linear fit
+			asim, bsim, rsim, p, err = scipy.stats.linregress(xsim,ysim)
+			a.append(asim)
+			b.append(bsim)
 
 	a,b=np.array(a),np.array(b)
 

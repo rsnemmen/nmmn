@@ -526,3 +526,16 @@ Analogous to \mario in LaTeX.
 	from IPython.display import Image
 	from IPython.core.display import HTML 
 	Image(url= "https://banner2.kisspng.com/20180410/kye/kisspng-new-super-mario-bros-u-super-mario-64-8-bit-5acd5c8ba05651.6908995015234080116568.jpg")
+
+
+
+def linefrompoints(x1,y1,x2,y2):
+	"""
+Given the values of two points, outputs the regression line.
+
+:returns: values of A,B such that y=A*x+B
+	"""
+	A=(y2-y1)/(x2-x1)
+	B=y1-A*x1
+
+	return A, B

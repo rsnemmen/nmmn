@@ -405,3 +405,15 @@ returns 28122014.0.
 
 	return out
 
+
+
+
+def allEqual(x):
+	"""
+Check if all elements in an array are equal.
+	"""
+	from itertools import groupby
+
+	g = groupby(x)
+
+	return next(g, True) and not next(g, False)
