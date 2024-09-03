@@ -360,7 +360,15 @@ Inspired on http://stackoverflow.com/a/6451892/793218.
 	return numpy.array(year)
 
 
-
+def timeIndex(obj,datefield='date'):
+	"""
+Given a pandas dataframe with a 'date' column as strings, this 
+converts them to the datetime format and makes it the df index.
+	"""
+	import pandas as pd
+	
+	obj[datefield]=pd.to_datetime(obj[datefield])
+	obj.set_index(datefield, inplace=True)
 
 
 

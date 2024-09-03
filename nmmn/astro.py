@@ -116,8 +116,14 @@ Defines a set of useful constants in CGS.
     """
 
     def __init__(self):
+        # Fundamental constants
         self.G = 6.673E-8
         self.c = 29979245800
+        self.kb = 1.380649e-16 # Boltzmann constant
+        h = 6.6261e-27 # Planck constant
+        sigma = 0.56704e-4 # Stefan-Boltzmann constant        
+
+        # Time
         self.solarmass = 1.99e33
         self.year = 31556926
         
