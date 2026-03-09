@@ -81,7 +81,8 @@ For more examples, please refer to the [examples doc](examples.md).
 
 # TODO
 
-* [x] need more examples of how to use the modules
-* [x] add IFU data cubes method (refer to [ifscube](https://ifscube.readthedocs.io/en/latest/))
+See [`TODO.md`](TODO.md).
+
+---
 
 The MIT License (MIT). Copyright (c) 2026 [Rodrigo Nemmen](http://rodrigonemmen.com).
