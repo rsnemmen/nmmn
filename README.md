@@ -14,6 +14,8 @@ List of modules available ([more info here](http://rsnemmen.github.io/nmmn/)):
 * `fermi`: Fermi LAT analysis methods
 * `bayes`: Bayesian tools for dealing with posterior distributions
 * `grmhd`: tools for dealing with GRMHD numerical simulations
+* `ml`: machine learning utilities
+* `finance`: financial data tools
 
 Very basic [documentation](http://rsnemmen.github.io/nmmn/) for the package. Generated with Sphinx.
 
@@ -28,23 +30,23 @@ pip install nmmn
 ```
 
 
-### 2. Install the module on the system’s python library path: 
+### 2. Install from source:
 
 ```
 git clone https://github.com/rsnemmen/nmmn.git
 cd nmmn
-python setup.py install
+pip install .
 ```
 
-### 3. Install the package with a symlink, so that changes to the source files will be immediately available:
+### 3. Install with a symlink (edits take effect immediately):
 
 ```
 git clone https://github.com/rsnemmen/nmmn.git
 cd nmmn
-python setup.py develop
+pip install -e .
 ```
 
-This last method is preferred if you want the latest, bleeding-edge updates in the repo. You may need to run the last command with `sudo`.
+This last method is preferred if you want the latest, bleeding-edge updates in the repo.
 
 ## Updating
 
