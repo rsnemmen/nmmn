@@ -713,7 +713,7 @@ def make_cmap(colors, position=None, bit=False):
     import matplotlib as mpl
     import numpy as np
     bit_rgb = np.linspace(0,1,256)
-    if position == None:
+    if position is None:
         position = np.linspace(0,1,len(colors))
     else:
         if len(position) != len(colors):

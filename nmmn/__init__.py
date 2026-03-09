@@ -10,6 +10,7 @@ Miscellaneous modules for:
 * `bayes`: Bayesian tools for dealing with posterior distributions
 * `grmhd`: tools for dealing with GRMHD numerical simulations
 * `finance`: financial market
+* `ml`: machine learning utilities
 
 These are modules I wrote which I find useful -- for whatever reason -- in my research.
 

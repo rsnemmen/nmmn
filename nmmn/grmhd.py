@@ -992,7 +992,7 @@ choice can affect some specific transformations.
 	# r, theta
 	r=self.x1
 	th=-(self.x2-numpy.pi/2.) # spherical angle => polar angle
-	if(xlim == None):
+	if xlim is None:
 			xlim = self.x1.max()
 	gmtry = self.pp.geometry
 

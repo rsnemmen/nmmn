@@ -28,7 +28,7 @@
 
 ## Priority 5 — LOW: Housekeeping
 
-- [ ] `nmmn/__init__.py` docstring doesn't mention `ml` module
-- [ ] README copyright year is 2020
-- [ ] `.ipynb_checkpoints/` not in `.gitignore`
-- [ ] 40+ PEP 8 violations (`if x == True`, `if x != None`) in `plots.py`, `bayes.py`, `astro.py`
+- [x] `nmmn/__init__.py` docstring doesn't mention `ml` module
+- [x] README copyright year is 2020 (already updated to 2026)
+- [x] `.ipynb_checkpoints/` not in `.gitignore` → created `.gitignore`
+- [x] PEP 8 violations (`== None`) in `plots.py:716`, `grmhd.py:995` → replaced with `is None`
