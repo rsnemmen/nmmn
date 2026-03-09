@@ -49,3 +49,52 @@ Example: AUC for a classification involving 7 labels and 10 instances.
     auc = roc_auc_score(y_true, y_score, multi_class='ovr')
 
     return auc
+
+
+
+def show_token_pos_ids(model, text: str):
+    """
+    Displays a formatted table showing token positions, IDs, and string representations.
+    Useful for debugging and understanding how a model tokenizes input text.
+
+    Assumes `model` has methods `to_tokens()`, `to_str_tokens()` for tokenization.
+    Model example: `model = HookedTransformer.from_pretrained(model_name, device=device)` from
+    `transformer_lens`.
+
+    :param model: A tokenizer model with `to_tokens()` and `to_str_tokens()` methods
+    :param text: The input string to tokenize and display
+
+    :return: A tuple containing (tokens, token_ids, str_tokens, positions)
+             - tokens: 2D tensor of shape [1, seq_len]
+             - token_ids: List of integer token IDs
+             - str_tokens: List of string representations of tokens
+             - positions: List of positional indices (0 to seq_len-1)
+
+    Example: Visualizing tokenization for a simple sentence.
+
+    >>> text = "The quick brown fox jumps over the lazy dog."
+    >>> tokens_cpu, token_ids, str_tokens, positions = show_token_pos_ids(model, text)
+      0        1    2      3      4     5      6    7     8    9   10
+    50256     464  2068   7586  21831 18045   625  262  16931 3290 13
+<|endoftext|> The  quick  brown  fox   jumps  over  the  lazy  dog . 
+    """
+    tokens = model.to_tokens(text)               # [1, seq_len]
+    token_ids = tokens[0].tolist()               # list[int]
+    str_tokens = model.to_str_tokens(tokens[0])  # list[str]
+    positions = list(range(len(token_ids)))      # 0..seq_len-1
+
+    # Column width: big enough for position, id, or token string
+    widths = [
+        max(len(str(p)), len(str(tid)), len(tok))
+        for p, tid, tok in zip(positions, token_ids, str_tokens)
+    ]
+
+    pos_line = " ".join(f"{p:^{w}}" for p, w in zip(positions, widths))
+    id_line  = " ".join(f"{tid:^{w}}" for tid, w in zip(token_ids, widths))
+    tok_line = " ".join(f"{tok:^{w}}" for tok, w in zip(str_tokens, widths))
+
+    print(pos_line)
+    print(id_line)
+    print(tok_line)
+
+    return tokens, token_ids, str_tokens, positions
