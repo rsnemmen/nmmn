@@ -84,12 +84,4 @@ For more examples, please refer to the [examples doc](examples.md).
 * [x] need more examples of how to use the modules
 * [x] add IFU data cubes method (refer to [ifscube](https://ifscube.readthedocs.io/en/latest/))
 
-# License
-
-See `LICENSE` file.
-
-If you have suggestions of improvements, by all means please contribute with a pull request!  :)
-
-The MIT License (MIT). Copyright (c) 2026 [Rodrigo Nemmen](http://rodrigonemmen.com)
-
-[Visit the author's web page](https://rodrigonemmen.com/) and/or follow him on twitter ([@nemmen](https://twitter.com/nemmen)).
+The MIT License (MIT). Copyright (c) 2026 [Rodrigo Nemmen](http://rodrigonemmen.com).
