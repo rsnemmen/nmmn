@@ -9,18 +9,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Setup
 
 ```bash
-# Development install (symlink, edits take effect immediately)
-python setup.py develop
+# Development install (edits take effect immediately)
+pip install -e .
 
 # Regular install
-python setup.py install
+pip install .
 ```
 
 ## Building and Publishing
 
 ```bash
 # Build distribution
-python setup.py sdist bdist_wheel
+python -m build
 
 # Upload to PyPI
 twine upload dist/*
@@ -55,7 +55,11 @@ All modules live in `nmmn/`:
 ## Key Dependencies
 
 Core: `numpy`, `scipy`, `matplotlib`, `astropy`, `uncertainties`
-Optional (per module): `aplpy`, `cosmolopy`, `emcee`, `PyMC`, `peakutils`, `wavelets`, `yfinance`, `scikit-learn`, `plotly`, `transformer_lens`
+Optional (install via `pip install nmmn[group]`):
+- `finance`: `yfinance`, `plotly`
+- `fermi`: `aplpy`, `configobj`
+- `dsp`: `peakutils`, `wavelets`
+- Other: `cosmolopy`, `emcee`, `PyMC`, `scikit-learn`, `transformer_lens`
 
 ## Conventions
 
