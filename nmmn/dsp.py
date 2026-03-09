@@ -80,7 +80,13 @@ def smooth(x,window_len=11,window='hanning'):
 	if window == 'flat': #moving average
 	    w=numpy.ones(window_len,'d')
 	else:
-	    w=eval('numpy.'+window+'(window_len)')
+	    _window_funcs = {
+	        'hanning': numpy.hanning,
+	        'hamming': numpy.hamming,
+	        'bartlett': numpy.bartlett,
+	        'blackman': numpy.blackman,
+	    }
+	    w=_window_funcs[window](window_len)
 	
 	y=numpy.convolve(w/w.sum(),s,mode='valid')
 	return y    

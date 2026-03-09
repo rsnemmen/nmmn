@@ -332,15 +332,15 @@ where X,Y are 1D or 2D arrays, and Z is a 2D array.
 		xnew,ynew=x[i],y[j]
 		
 		i,j=i[0],j[0]	# tuples -> arrays (for matrix slicing below)
-		znew=z[j[0]:j[-1],i[0]:i[-1]]	# CAREFUL with the ordering of the indexes!
+		znew=z[j[0]:j[-1]+1,i[0]:i[-1]+1]	# CAREFUL with the ordering of the indexes!
 	elif x.ndim==2: # if x,y are 2D
 		i=numpy.where((x[0,:]>=xmin) & (x[0,:]<=xmax))
 		j=numpy.where((y[:,0]>=ymin) & (y[:,0]<=ymax))
 		i,j=i[0],j[0]
 
-		xnew=x[j[0]:j[-1],i[0]:i[-1]]
-		ynew=y[j[0]:j[-1],i[0]:i[-1]]
-		znew=z[j[0]:j[-1],i[0]:i[-1]]
+		xnew=x[j[0]:j[-1]+1,i[0]:i[-1]+1]
+		ynew=y[j[0]:j[-1]+1,i[0]:i[-1]+1]
+		znew=z[j[0]:j[-1]+1,i[0]:i[-1]+1]
 	else: 
 		print("Dimensions of the input arrays are inconsistent")
 		return

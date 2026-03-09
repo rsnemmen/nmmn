@@ -388,9 +388,8 @@ Executes command cmd and saves its standard output as log
 	out,err=p.communicate()
 
 	# saves output in a diagnostic file
-	text=open(log,"w")
-	text.write(str(out))
-	text.close()
+	with open(log,"w") as text:
+		text.write(str(out))
 
 
 

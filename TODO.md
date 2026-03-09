@@ -15,9 +15,9 @@
 
 ## Priority 3 — MEDIUM: Correctness & Safety
 
-- [ ] `eval()` on user-supplied string → `nmmn/dsp.py:83` → Replace with dict mapping window names → numpy functions
-- [ ] Off-by-one in `lsd.crop()` → `nmmn/lsd.py:335` → Change `j[-1]` → `j[-1]+1`, same for `i`
-- [ ] File open without context manager → `nmmn/misc.py:391–393` → Use `with open(...)`
+- [x] `eval()` on user-supplied string → `nmmn/dsp.py:83` → Replace with dict mapping window names → numpy functions
+- [x] Off-by-one in `lsd.crop()` → `nmmn/lsd.py:335` → Change `j[-1]` → `j[-1]+1`, same for `i`
+- [x] File open without context manager → `nmmn/misc.py:391–393` → Use `with open(...)`
 
 ## Priority 4 — MEDIUM: Missing Infrastructure
 
