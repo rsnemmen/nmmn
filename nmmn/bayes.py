@@ -148,7 +148,7 @@ Usage:
 	# Vertical lines with median and 1sigma confidence
 	yax=histx.set_ylim()
 	histx.plot([numpy.median(X),numpy.median(X)],[yax[0],yax[1]],'k-',linewidth=2) # median
-	xsd=scipy.stats.scoreatpercentile(X, [15.87,84.13])
+	xsd=numpy.percentile(X, [15.87,84.13])
 	histx.plot([xsd[0],xsd[0]],[yax[0],yax[1]],'k--') # -1sd
 	histx.plot([xsd[-1],xsd[-1]],[yax[0],yax[1]],'k--') # +1sd
 
@@ -159,7 +159,7 @@ Usage:
 	# Vertical lines with median and 1sigma confidence
 	xax=histy.set_xlim()
 	histy.plot([xax[0],xax[1]],[numpy.median(Y),numpy.median(Y)],'k-',linewidth=2) # median
-	ysd=scipy.stats.scoreatpercentile(Y, [15.87,84.13])
+	ysd=numpy.percentile(Y, [15.87,84.13])
 	histy.plot([xax[0],xax[1]],[ysd[0],ysd[0]],'k--') # -1sd
 	histy.plot([xax[0],xax[1]],[ysd[-1],ysd[-1]],'k--') # +1sd
 

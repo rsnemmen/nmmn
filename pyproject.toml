@@ -24,6 +24,8 @@ finance = ["yfinance", "plotly"]
 grmhd = ["tqdm"]
 fermi = ["aplpy", "configobj"]
 dsp = ["peakutils", "wavelets"]
+bayes = ["emcee", "pymc"]
+ml = ["scikit-learn", "transformer_lens"]
 
 [project.urls]
 Homepage = "https://github.com/rsnemmen/nmmn"

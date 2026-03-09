@@ -274,11 +274,11 @@ Rodrigo Nemmen, http://goo.gl/8S1Oo
 	if type(v)==list:
 		vboot=[]	# list of boostrapped arrays
 		n=v[0].size
-		iran=scipy.stats.randint.rvs(0,n,size=n)	# Array of random indexes		
+		iran=numpy.random.randint(0,n,size=n)	# Array of random indexes
 		for x in v:	vboot.append(x[iran])
 	else:	# if v is an array, not a list of arrays
 		n=v.size
-		iran=scipy.stats.randint.rvs(0,n,size=n)	# Array of random indexes		
+		iran=numpy.random.randint(0,n,size=n)	# Array of random indexes
 		vboot=v[iran]
 	
 	return vboot
@@ -394,12 +394,12 @@ returns 28122014.0.
 :returns: a numpy array of floats
 	"""
 	if numpy.size(s)==1:	# if input is a single string
-		out=numpy.float(s)
+		out=float(s)
 	else:	# if input is list/array
 		out=[]
 
-		for i, si in enumerate(s): 
-			out.append(numpy.float(si))
+		for i, si in enumerate(s):
+			out.append(float(si))
 
 		out=numpy.array(out)
 

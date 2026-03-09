@@ -26,9 +26,9 @@ Detects the peaks in the time series given by Y (and X if provided).
 	peaks=peakdetect.peakdetect(y,x,**args)
 
 	if what==0 or what=="max":
-		return zip(*peaks[0])
+		return tuple(zip(*peaks[0]))
 	else:
-		return zip(*peaks[1])
+		return tuple(zip(*peaks[1]))
 
 
 
