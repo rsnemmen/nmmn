@@ -90,6 +90,6 @@ See `LICENSE` file.
 
 If you have suggestions of improvements, by all means please contribute with a pull request!  :)
 
-The MIT License (MIT). Copyright (c) 2020 [Rodrigo Nemmen](http://rodrigonemmen.com)
+The MIT License (MIT). Copyright (c) 2026 [Rodrigo Nemmen](http://rodrigonemmen.com)
 
 [Visit the author's web page](https://rodrigonemmen.com/) and/or follow him on twitter ([@nemmen](https://twitter.com/nemmen)).
