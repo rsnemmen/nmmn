@@ -4,7 +4,11 @@ Financial market methods
 """
 
 import numpy as np
-import yfinance as yf
+
+try:
+    import yfinance as yf
+except ImportError:
+    yf = None
 
 
 
@@ -75,6 +79,8 @@ def returns(ticker,dt='ytd',t0=None):
 
     >>> returns('VALE3.SA','2y')
     """
+    if yf is None:
+        raise ImportError("yfinance is required. Install with: pip install yfinance")
     from datetime import date
 
     if t0 is None:

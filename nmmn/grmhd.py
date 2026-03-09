@@ -16,7 +16,6 @@ TODO:
 """
 
 import numpy, scipy
-import tqdm
 import numpy as np
 
 

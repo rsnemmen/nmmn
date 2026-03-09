@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nmmn"
+version = "1.3.6"
+description = "Miscellaneous methods for data science and astronomy"
+readme = "README.md"
+license = { text = "MIT License" }
+authors = [{ name = "Rodrigo Nemmen", email = "rodrigo.nemmen@iag.usp.br" }]
+keywords = ["science", "statistics", "signal-processing", "numerical-methods", "astronomy", "numerical-simulations", "astrophysics", "mhd", "grmhd"]
+requires-python = ">=3.7"
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib>=2.0.2",
+    "uncertainties",
+    "astropy",
+]
+
+[project.optional-dependencies]
+finance = ["yfinance", "plotly"]
+grmhd = ["tqdm"]
+fermi = ["aplpy", "configobj"]
+dsp = ["peakutils", "wavelets"]
+
+[project.urls]
+Homepage = "https://github.com/rsnemmen/nmmn"
+Repository = "https://github.com/rsnemmen/nmmn"
+
+[tool.setuptools.packages.find]
+exclude = ["tests*", "docs*"]
