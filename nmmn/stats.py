@@ -856,7 +856,7 @@ interval *[x0,x1)*.
 
 >>> random(0.3,0.4,1000)
 	"""
-	return (b - a) * scipy.random.random_sample(n) + a
+	return (b - a) * np.random.random_sample(n) + a
 
 
 
@@ -957,7 +957,7 @@ References:
 v1 Dec. 2011
 v2 Jan 16 2012: added comment regarding y-errors
 """
-	fstat=scipy.stats.f_value(rss1,rss2,n-p1,n-p2)
+	fstat=((rss1-rss2)/(p2-p1))/(rss2/(n-p2))
 	pvalue=1.-scipy.stats.f.cdf(fstat,p2-p1,n-p2)
 	conf=np.sqrt(2.)*scipy.special.erfinv(1.-pvalue)
 	
@@ -1275,7 +1275,7 @@ Finds the mode of a distribution, i.e. the value where the PDF peaks.
 	"""
 	from . import lsd
 
-	yh,xh=np.histogram(x,50,normed=True,**kwargs)
+	yh,xh=np.histogram(x,50,density=True,**kwargs)
 	dxh=(xh[1]-xh[0])/2.
 	xh=xh+dxh
 

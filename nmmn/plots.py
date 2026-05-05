@@ -265,17 +265,17 @@ v1 Jun. 2012: inherited from fourhists.
 		c=fig.add_subplot(4,1,3, sharex=a)		
 		d=fig.add_subplot(4,1,4, sharex=a)
 	
-	a.hist(x1,bins1,label=x1leg,color='b',cumulative=-True,normed=True,histtype='stepfilled')
+	a.hist(x1,bins1,label=x1leg,color='b',cumulative=-True,density=True,histtype='stepfilled')
 	a.legend(loc='best',frameon=False)
 	a.set_xlim(xmin,xmax)
 	
-	b.hist(x2,bins2,label=x2leg,color='r',cumulative=-True,normed=True,histtype='stepfilled')
+	b.hist(x2,bins2,label=x2leg,color='r',cumulative=-True,density=True,histtype='stepfilled')
 	b.legend(loc='best',frameon=False)
 
-	c.hist(x3,bins3,label=x3leg,color='y',cumulative=-True,normed=True,histtype='stepfilled')
+	c.hist(x3,bins3,label=x3leg,color='y',cumulative=-True,density=True,histtype='stepfilled')
 	c.legend(loc='best',frameon=False)
 
-	d.hist(x4,bins4,label=x4leg,color='g',cumulative=-True,normed=True,histtype='stepfilled')
+	d.hist(x4,bins4,label=x4leg,color='g',cumulative=-True,density=True,histtype='stepfilled')
 	d.legend(loc='best',frameon=False)
 	
 	pylab.setp(a.get_xticklabels(), visible=False)
@@ -897,7 +897,7 @@ gives the following plot.
 	import scipy.stats
 
 	# Generates 2D histogram for image
-	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], normed=False)
+	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], density=False)
 	histt = numpy.transpose(histt)  # Beware: numpy switches axes, so switch back.
 
 	# assigns correct proportions to subplots
@@ -917,8 +917,8 @@ gives the following plot.
 		z = numpy.array(pdf.evaluate([x.flatten(),y.flatten()])).reshape(x.shape)
 		# the [61,15] values were obtained by trial and error until the joint confidence 
 		# contours matched the confidence intervals from the individual X,Y
-		s=scipy.stats.scoreatpercentile(pdf(pdf.resample(1000)), [61,15])
-		cs=con.contour(x,y,z, levels=s, extent=[x[0],x[-1], y[0],y[-1]], linestyles=['-','-','-'], colors=['black','blue'])
+		s=scipy.stats.scoreatpercentile(pdf(pdf.resample(1000)), [15,61])
+		cs=con.contour(x,y,z, levels=s, extent=[x[0],x[-1], y[0],y[-1]], linestyles=['-','-','-'], colors=['blue','black'])
 		# use dictionary in order to assign your own labels to the contours.
 		#fmtdict = {s[0]:r'$1\sigma$',s[1]:r'$2\sigma$'}
 		#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)

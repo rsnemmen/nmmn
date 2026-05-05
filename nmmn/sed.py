@@ -707,13 +707,13 @@ class SED:
 		
 		# If no arguments are given to the method, integrates the entire SED
 		if lognu0==None and lognu1==None:
-			lumbol=scipy.integrate.trapz(self.nlnui/self.nui, self.nui)
+			lumbol=scipy.integrate.trapezoid(self.nlnui/self.nui, self.nui)
 		else:
 			# Gets only the elements in the given range
 			i=numpy.where((self.lognui>=lognu0) & (self.lognui<=lognu1))
 			
 			# Integration
-			lumbol=scipy.integrate.trapz(self.nlnui[i]/self.nui[i], self.nui[i])
+			lumbol=scipy.integrate.trapezoid(self.nlnui[i]/self.nui[i], self.nui[i])
 
 		self.lumbol=lumbol
 
@@ -772,7 +772,7 @@ class SED:
 		x,y = self.lognui[i],self.lli[i]	# easier notation
 		
 		# Calculates Lx using integration (trapezoidal rule)
-		self.lumx=scipy.integrate.trapz(self.nlnui[i]/self.nui[i], self.nui[i])
+		self.lumx=scipy.integrate.trapezoid(self.nlnui[i]/self.nui[i], self.nui[i])
 
 		# Linear fit to the SED in the interval 2-10 keV, y=ax+b
 		a, b, r, p, err = scipy.stats.linregress(x,y)
@@ -872,7 +872,7 @@ class SED:
 		x,y = self.lognui[i],self.lli[i]	# easier notation
 		
 		# Calculates ionizing rate using integration (trapezoidal rule)
-		q=scipy.integrate.trapz(self.nlnui[i]/self.nui[i]/(h*self.nui[i]), self.nui[i])
+		q=scipy.integrate.trapezoid(self.nlnui[i]/self.nui[i]/(h*self.nui[i]), self.nui[i])
 
 		return q
 
@@ -1920,6 +1920,5 @@ naima model:
 
 	# returns SED object 
 	return SED(lognu=numpy.log10(nu), ll=numpy.log10(nuLnu), logfmt=1)
-
 
 

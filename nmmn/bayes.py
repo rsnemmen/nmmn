@@ -116,7 +116,7 @@ Usage:
 >>> jointplot(M.rtr.trace(),M.mdot.trace(),xlabel='$\log \ r_{\\rm tr}$', ylabel='$\log \ \dot{m}$')
 	"""
 	# Generates 2D histogram for image
-	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], normed=False)
+	histt, xt, yt = numpy.histogram2d(X, Y, bins=[binsim,binsim], density=False)
 	histt = numpy.transpose(histt)  # Beware: numpy switches axes, so switch back.
 
 	# assigns correct proportions to subplots
@@ -131,10 +131,10 @@ Usage:
 
 	# Overplot with error contours 1,2 sigma
 	# Contour plot
-	histdata, x, y = numpy.histogram2d(X, Y, bins=[binscon,binscon], normed=False)
+	histdata, x, y = numpy.histogram2d(X, Y, bins=[binscon,binscon], density=False)
 	histdata = numpy.transpose(histdata)  # Beware: numpy switches axes, so switch back.
 	pmax  = histdata.max()
-	cs=con.contour(histdata, levels=[0.68*pmax,0.05*pmax], extent=[x[0],x[-1], y[0],y[-1]], colors=['black','blue'])
+	cs=con.contour(histdata, levels=[0.05*pmax,0.68*pmax], extent=[x[0],x[-1], y[0],y[-1]], colors=['blue','black'])
 	# use dictionary in order to assign your own labels to the contours.
 	#fmtdict = {s[0]:r'$1\sigma$',s[1]:r'$2\sigma$'}
 	#con.clabel(cs, fmt=fmtdict, inline=True, fontsize=20)
@@ -162,4 +162,3 @@ Usage:
 	ysd=numpy.percentile(Y, [15.87,84.13])
 	histy.plot([xax[0],xax[1]],[ysd[0],ysd[0]],'k--') # -1sd
 	histy.plot([xax[0],xax[1]],[ysd[-1],ysd[-1]],'k--') # +1sd
-
